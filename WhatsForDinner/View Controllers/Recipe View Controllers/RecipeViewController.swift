@@ -43,6 +43,8 @@ class RecipeViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         showCookDatePicker()
         
         setupView()
+        self.name.attributedPlaceholder = NSAttributedString(string: "Enter Meal Name",attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        //self.name.textColor = UIColor(named: "white")
     }
     
     override func didReceiveMemoryWarning() {
