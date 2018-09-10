@@ -93,7 +93,6 @@ class RecipeViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         meal.mealDesc = recipeDescriptionViewController.recipeDescription.text
         //meal.ingredients
      
-        print("saved7")
         //_ = navigationController?.popToRootViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
     }
@@ -107,6 +106,7 @@ class RecipeViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         self.showActionSheet(vc: self)
     }
  
+    @IBOutlet weak var imageButton: UIButton!
     
     /////////////////////////////
     //Image Functions
@@ -127,8 +127,11 @@ class RecipeViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         }
         
         // do something interesting here!
-        thumbnail.contentMode = .scaleAspectFit
-        thumbnail.image = newImage
+        //thumbnail.contentMode = .scaleAspectFit
+        //thumbnail.image = newImage
+        imageButton.setBackgroundImage(newImage, for: .normal)
+        //imageButton.imageView?.contentMode = .scaleAspectFit
+        //rimageButton.imageView?.image = newImage
         dismiss(animated:true, completion: nil) //5
 
     }
@@ -280,7 +283,7 @@ class RecipeViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         segmentedControl.addTarget(self, action: #selector(selectionDidChange(_:)), for: .valueChanged)
         
         // Select First Segment
-        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.selectedSegmentIndex = 1
     }
     
     @objc func selectionDidChange(_ sender: UISegmentedControl) {
