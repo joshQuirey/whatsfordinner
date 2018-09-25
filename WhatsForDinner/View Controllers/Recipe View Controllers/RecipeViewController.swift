@@ -9,21 +9,41 @@
 import UIKit
 import CoreData
 
-class RecipeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     /////////////////////////////
     //Properties
     /////////////////////////////
-    let categoryData = [String](arrayLiteral: "Italian", "Mexican", "Greek")
+    let categoryData = [String](arrayLiteral: "", "Italian", "Mexican", "Greek")
+    let frequencyData = [String](arrayLiteral: "", "Weekly", "Every Other Week", "Monthly", "Every Other Month")
+    enum Frequency: String {
+        case weekly
+        case biweekly
+        case monthly
+        case bimonthly
+        case nopreference
+        
+        var days: Int {
+            switch self {
+            case .weekly: return 7
+            case .biweekly: return 14
+            case .monthly: return 30
+            case .bimonthly: return 60
+            case .nopreference: return 0
+            }
+        }
+    }
     
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var thumbnail: UIImageView!
     @IBOutlet weak var category: UITextField!
+    @IBOutlet weak var frequency: UITextField!
     @IBOutlet weak var serves: UITextField!
     @IBOutlet weak var prepTime: UITextField!
     @IBOutlet weak var cookTime: UITextField!
     
-    //let picker = UIImagePickerController()
+    let picker = UIImagePickerController()
     let pickCategory = UIPickerView()
+    let pickFrequency = UIPickerView()
     let pickTime = UIDatePicker()
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -31,14 +51,22 @@ class RecipeViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     var managedObjectContext: NSManagedObjectContext?
   
+    /////////////////////////////
+    //Segues
+    ////////////////////////////
+    private enum Segue {
+        static let Categories = "Categories"
+    }
     
     /////////////////////////////
     //View Life Cycle
     /////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
-        //picker.delegate = self
-        showCategoryPicker()
+        picker.delegate = self
+        showPicker(self.category, self.pickCategory)
+        showPicker(self.frequency, self.pickFrequency)
+        //showFrequencyPicker()
         showPrepDatePicker()
         showCookDatePicker()
         
@@ -61,15 +89,23 @@ class RecipeViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         updateView()
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
+        guard let identifier = segue.identifier else { return }
+        
+        switch identifier {
+        case Segue.Categories:
+            guard let destination = segue.destination as? CategoriesViewController else {
+                return
+            }
+            
+            // Configure Destination
+            destination.managedObjectContext = self.managedObjectContext
+        default:
+            break
+        }
+        
      }
-     */
+ 
 
     
     /////////////////////////////
@@ -175,31 +211,45 @@ class RecipeViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        
-        return categoryData.count
+        if pickerView == pickCategory {
+            return categoryData.count
+        }
+        else {
+            return frequencyData.count
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return categoryData[row]
+        if pickerView == pickCategory {
+            return categoryData[row]
+        }
+        else {
+            return frequencyData[row]
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        category.text? = categoryData[row]
+        if pickerView == pickCategory {
+            category.text? = categoryData[row]
+        }
+        else {
+            frequency.text? = frequencyData[row]
+        }
     }
     
-    func showCategoryPicker() {
-        category.inputView = pickCategory
-        pickCategory.delegate = self
+    func showPicker(_ textField: UITextField, _ pickerView: UIPickerView) {
+        textField.inputView = pickerView
+        pickerView.delegate = self
         
         //Toolbar
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTextPicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelTextPicker))
-        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTextPicker))
+        //let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelTextPicker))
+        toolbar.setItems([spaceButton,doneButton], animated: false)
         
-        category.inputAccessoryView = toolbar
+        textField.inputAccessoryView = toolbar
     }
     
     @objc func cancelTextPicker() {
@@ -219,10 +269,10 @@ class RecipeViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         //Toolbar
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donePrepDatePicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPicker))
-        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donePrepDatePicker))
+        //let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPicker))
+        toolbar.setItems([spaceButton,doneButton], animated: false)
         
         prepTime.inputAccessoryView = toolbar
     }
@@ -240,10 +290,10 @@ class RecipeViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         //Toolbar
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneCookDatePicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPicker))
-        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneCookDatePicker))
+        //let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPicker))
+        toolbar.setItems([spaceButton,doneButton], animated: false)
         
         cookTime.inputAccessoryView = toolbar
     }
@@ -298,6 +348,10 @@ class RecipeViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         
         // Instantiate View Controller
         var viewController = storyboard.instantiateViewController(withIdentifier: "RecipeDescriptionViewController") as! RecipeDescriptionViewController
+        //let contentSize = viewController.recipeDescription.sizeThatFits(segmentedParentView.bounds.size)
+        //var frame = viewController.recipeDescription.frame
+        //height = segmentedParentView.frame.height //contentSize.height
+        //viewController.recipeDescription.frame = frame
         
         // Add View Controller as Child View Controller
         self.add(asChildViewController: viewController)

@@ -10,10 +10,15 @@ import UIKit
 import CoreData
 
 class PlanViewController: UIViewController {
+    
     /////////////////////////////
     //Properties
     /////////////////////////////
     //private var coreDataManager = CoreDataManager(modelName: "MealModel")
+    @IBOutlet weak var tableView: UITableView!
+    let SectionHeaderHeight: CGFloat = 60
+
+
     
     /////////////////////////////
     //Segues
@@ -61,3 +66,40 @@ class PlanViewController: UIViewController {
     }
     
 }
+
+extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 7
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return SectionHeaderHeight
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "Today"
+        case 1:
+            return "Tomorrow"
+        default:
+            return "Day \(section+1)"
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "planCell", for: indexPath)
+        
+        cell.textLabel?.text = "Section \(indexPath.section)"
+        cell.detailTextLabel?.text = "Row \(indexPath.row)"
+        
+        return cell
+    }
+    
+}
+

@@ -14,7 +14,7 @@ class RecipeDescriptionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //recipeDescription.frame = view.bounds
         // Do any additional setup after loading the view.
     }
 
