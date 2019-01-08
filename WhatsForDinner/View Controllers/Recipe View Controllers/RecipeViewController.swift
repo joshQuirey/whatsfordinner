@@ -13,7 +13,8 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     /////////////////////////////
     //Properties
     /////////////////////////////
-    let categoryData = [String](arrayLiteral: "", "Italian", "Mexican", "Greek")
+    //let categoryData = [String](arrayLiteral: "", "Italian", "Mexican", "Greek")
+    
     let frequencyData = [String](arrayLiteral: "", "Weekly", "Every Other Week", "Monthly", "Every Other Month")
     enum Frequency: String {
         case weekly
@@ -36,13 +37,14 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var thumbnail: UIImageView!
     @IBOutlet weak var category: UITextField!
+    @IBOutlet weak var mealDescription: UITextField!
     @IBOutlet weak var frequency: UITextField!
     @IBOutlet weak var serves: UITextField!
     @IBOutlet weak var prepTime: UITextField!
     @IBOutlet weak var cookTime: UITextField!
     
     let picker = UIImagePickerController()
-    let pickCategory = UIPickerView()
+//    let pickCategory = UIPickerView()
     let pickFrequency = UIPickerView()
     let pickTime = UIDatePicker()
     
@@ -64,7 +66,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         picker.delegate = self
-        showPicker(self.category, self.pickCategory)
+//        showPicker(self.category, self.pickCategory)
         showPicker(self.frequency, self.pickFrequency)
         //showFrequencyPicker()
         showPrepDatePicker()
@@ -123,12 +125,14 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         meal.mealName = name.text // mealName
         //thumbnai
         meal.category = category.text
+        meal.mealDesc = mealDescription.text
+        
         if (serves.text != "") {
             meal.serves = Int16(serves.text!)!
         }
         meal.prepTime = prepTime.text
         meal.cookTime = cookTime.text
-        meal.mealDesc = recipeDescriptionViewController.recipeDescription.text
+        
         //meal.ingredients
      
         //_ = navigationController?.popToRootViewController(animated: true)
@@ -211,30 +215,30 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == pickCategory {
-            return categoryData.count
-        }
-        else {
+//        if pickerView == pickCategory {
+//            return categoryData.count
+//        }
+//        else {
             return frequencyData.count
-        }
+//        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == pickCategory {
-            return categoryData[row]
-        }
-        else {
+//        if pickerView == pickCategory {
+//            return categoryData[row]
+//        }
+//        else {
             return frequencyData[row]
-        }
+//        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == pickCategory {
-            category.text? = categoryData[row]
-        }
-        else {
+//        if pickerView == pickCategory {
+//            category.text? = categoryData[row]
+//        }
+//        else {
             frequency.text? = frequencyData[row]
-        }
+//        }
     }
     
     func showPicker(_ textField: UITextField, _ pickerView: UIPickerView) {
@@ -329,9 +333,9 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     func setupSegmentedControl() {
         // Configure Segmented Control
         segmentedControl.removeAllSegments()
-        segmentedControl.insertSegment(withTitle: "Description", at: 0, animated: false)
+        segmentedControl.insertSegment(withTitle: "Directions", at: 0, animated: false)
         segmentedControl.insertSegment(withTitle: "Ingredients", at: 1, animated: false)
-        segmentedControl.insertSegment(withTitle: "Directions", at: 2, animated: false)
+//        segmentedControl.insertSegment(withTitle: "Directions", at: 2, animated: false)
         segmentedControl.addTarget(self, action: #selector(selectionDidChange(_:)), for: .valueChanged)
         
         // Select First Segment
@@ -342,22 +346,22 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         updateView()
     }
     
-    private lazy var recipeDescriptionViewController: RecipeDescriptionViewController = {
-        // Load Storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        
-        // Instantiate View Controller
-        var viewController = storyboard.instantiateViewController(withIdentifier: "RecipeDescriptionViewController") as! RecipeDescriptionViewController
-        //let contentSize = viewController.recipeDescription.sizeThatFits(segmentedParentView.bounds.size)
-        //var frame = viewController.recipeDescription.frame
-        //height = segmentedParentView.frame.height //contentSize.height
-        //viewController.recipeDescription.frame = frame
-        
-        // Add View Controller as Child View Controller
-        self.add(asChildViewController: viewController)
-        
-        return viewController
-    }()
+//    private lazy var recipeDescriptionViewController: RecipeDescriptionViewController = {
+//        // Load Storyboard
+//        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+//
+//        // Instantiate View Controller
+//        var viewController = storyboard.instantiateViewController(withIdentifier: "RecipeDescriptionViewController") as! RecipeDescriptionViewController
+//        //let contentSize = viewController.recipeDescription.sizeThatFits(segmentedParentView.bounds.size)
+//        //var frame = viewController.recipeDescription.frame
+//        //height = segmentedParentView.frame.height //contentSize.height
+//        //viewController.recipeDescription.frame = frame
+//
+//        // Add View Controller as Child View Controller
+//        self.add(asChildViewController: viewController)
+//
+//        return viewController
+//    }()
     
     private lazy var recipeIngredientViewController: RecipeIngredientViewController = {
         // Load Storyboard
@@ -387,20 +391,20 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     private func updateView() {
         if segmentedControl.selectedSegmentIndex == 0 {
-            add(asChildViewController: recipeDescriptionViewController)
-            remove(asChildViewController: recipeIngredientViewController)
-            remove(asChildViewController: recipeDirectionsViewController)
-        }
-        else if segmentedControl.selectedSegmentIndex == 1 {
-            remove(asChildViewController: recipeDescriptionViewController)
-            add(asChildViewController: recipeIngredientViewController)
-            remove(asChildViewController: recipeDirectionsViewController)
-        }
-        else {
-            remove(asChildViewController: recipeDescriptionViewController)
-            remove(asChildViewController: recipeIngredientViewController)
             add(asChildViewController: recipeDirectionsViewController)
+            remove(asChildViewController: recipeIngredientViewController)
+            //remove(asChildViewController: recipeDirectionsViewController)
         }
+        else { //if segmentedControl.selectedSegmentIndex == 1 {
+            remove(asChildViewController: recipeDirectionsViewController)
+            add(asChildViewController: recipeIngredientViewController)
+            //remove(asChildViewController: recipeDirectionsViewController)
+        }
+//        else {
+//            remove(asChildViewController: recipeDescriptionViewController)
+//            remove(asChildViewController: recipeIngredientViewController)
+//            add(asChildViewController: recipeDirectionsViewController)
+//        }
     }
     
     private func add(asChildViewController viewController: UIViewController) {

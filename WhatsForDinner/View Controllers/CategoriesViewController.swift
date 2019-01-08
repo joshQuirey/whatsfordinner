@@ -9,23 +9,12 @@
 import UIKit
 import CoreData
 
-class CategoriesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CategoriesViewController: UIViewController  {
     
-    let categoryData = [String](arrayLiteral: "Italian", "Mexican", "Greek")
+    @IBOutlet weak var tableView: UITableView!
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categoryData.count
-    }
+    let categoryData = [String](arrayLiteral: "Asian Cuisine 🥡", "Breakfast for Dinner 🥓", "Barbecue 🐷", "Casserole 🥘", "Comfort Food 🛌", "Chicken 🐓", "Mexican  🌮", "Pasta 🍝", "Pizza 🍕", "Pork 🐖", "On The Grill 🥩", "Other", "Salad 🥗", "Sandwich 🥪", "Seafood 🍤", "Slow Cooker ⏲", "Soups Up 🍜", "Vegetarian 🥕")
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currentCategory = categoryData[indexPath.item]
-        let currentCell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
-        
-        currentCell.textLabel?.text = currentCategory
-        return currentCell
-    }
-
-    @IBOutlet weak var categoriesTableView: UITableView!
     
     @IBAction func Cancel(_ sender: Any) {
         
@@ -41,7 +30,7 @@ class CategoriesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tableView.dataSource = self
         // Do any additional setup after loading the view.
     }
 
@@ -64,4 +53,23 @@ class CategoriesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     */
 
+}
+
+extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return categoryData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let currentCategory = categoryData[indexPath.item]
+        let currentCell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
+        
+        currentCell.textLabel?.text = currentCategory
+        return currentCell
+    }
 }
