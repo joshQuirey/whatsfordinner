@@ -16,6 +16,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     //let categoryData = [String](arrayLiteral: "", "Italian", "Mexican", "Greek")
     
     let frequencyData = [String](arrayLiteral: "", "Weekly", "Every Other Week", "Monthly", "Every Other Month")
+    
     enum Frequency: String {
         case weekly
         case biweekly
@@ -52,7 +53,8 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var segmentedParentView: UIView!
     
     var managedObjectContext: NSManagedObjectContext?
-  
+    var meal: Meal?
+    
     /////////////////////////////
     //Segues
     ////////////////////////////
@@ -65,6 +67,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     /////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewMeal()
         picker.delegate = self
 //        showPicker(self.category, self.pickCategory)
         showPicker(self.frequency, self.pickFrequency)
@@ -433,5 +436,28 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         viewController.removeFromParentViewController()
     }
     
+    
+    
+    func viewMeal() {
+        //print("Ticket has changes - \(ticket!.hasChanges) at viewDidLoad")
+        //Ticket includes status, statusID, customerID, manualFlag and DispatchDate; but these aren't updated
+        mealDescription.text = meal!.mealDesc
+        name.text = meal!.mealName
+        
+        //print("Ticket has changes - \(ticket!.hasChanges) at end of viewdidload")
+        //summary of findings
+    }
+    
+//    func populateTicket(_ ticket: Ticket) {
+//        ticket.sroNumber = sroNumber.text
+//        ticket.sroDescription = sroDescription.text
+//        ticket.customerName = customerName.text
+//        ticket.unitID = unitID.text
+//        ticket.supervisor = supervisor.text
+//        ticket.technicians = technician.text
+//        ticket.materials = materials.text
+//        ticket.status = HomeController.ticketStatus.InProgress.rawValue
+//        ticket.updateDate = String(describing: Date())
+//    }
 
 }

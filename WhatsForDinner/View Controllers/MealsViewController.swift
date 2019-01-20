@@ -16,38 +16,40 @@ class MealsViewController: UIViewController {
     private var coreDataManager = CoreDataManager(modelName: "MealModel")
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyTableLabel: UILabel!
+    private var selectedObjectID = NSManagedObjectID()
     
-    //private var meals: [Meal]? {
-    //    didSet {
-    //        updateView()
-    //    }
-    //}
     
-    private var hasMeals: Bool {
-        //guard let meals = meals else { return false }
-        //return meals.count > 0
-        
-        guard let fetchedObjects = fetchedResultsController.fetchedObjects else { return false }
-        return fetchedObjects.count > 0
+    private var meals: [Meal]? {
+        didSet {
+            //updateView()
+        }
     }
     
-    private lazy var fetchedResultsController: NSFetchedResultsController<Meal> = {
-        let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
-        
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.mealName), ascending: true)]
-        
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.coreDataManager.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-        
-        fetchedResultsController.delegate = self
-        
-        return fetchedResultsController
-    }()
+    private var hasMeals: Bool {
+        guard let meals = meals else { return false }
+        return meals.count > 0
+    }
+    
+//    private lazy var fetchedResultsController: NSFetchedResultsController<Meal> = {
+//        let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
+//
+//        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.mealName), ascending: true)]
+//
+//        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.coreDataManager.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+//
+//        fetchedResultsController.delegate = self
+//
+//        return fetchedResultsController
+//    }()
+    
+
     
     /////////////////////////////
     //Segues
     /////////////////////////////
     private enum Segue {
         static let AddMeal = "AddMeal"
+        static let ViewMeal = "ViewMeal"
     }
     
     
@@ -91,8 +93,26 @@ class MealsViewController: UIViewController {
             guard let destination = segue.destination as? RecipeViewController else {
                 return
             }
-            //print("destination")
+            
             destination.managedObjectContext = coreDataManager.managedObjectContext
+            destination.meal = Meal(context: coreDataManager.managedObjectContext)
+//            destination.ticket?.status = ticketStatus.DispatchQueue.rawValue
+//            destination.ticket?.startDate = ISO8601DateFormatter.init().string(from: Date())
+//            destination.ticket?.sroNumber = "UNPLANNED"
+//            destination.ticket?.customerID = "UNPLANNED"
+//            destination.ticket?.dispatchDate = String().minimumDateValue
+//            destination.ticket?.completeDate = String().minimumDateValue
+//            destination.ticket?.submittedDate = String().minimumDateValue
+//            destination.ticket?.updateDate = String().minimumDateValue
+//            destination.ticket?.manualFlag = true
+//            destination.manualFlag = true
+        case Segue.ViewMeal:
+            guard let destination = segue.destination as? RecipeViewController else {
+                return
+            }
+            //print("destination")
+//            destination.managedObjectContext = coreDataManager.managedObjectContext
+            destination.meal = (coreDataManager.managedObjectContext.object(with: selectedObjectID) as? Meal)!
         default:
             break
         }
@@ -150,12 +170,41 @@ class MealsViewController: UIViewController {
        // }
     //}
 
+//    private func fetchMeals() {
+//        do {
+//            try fetchedResultsController.performFetch()
+//        } catch {
+//            print("Unable to Perform Fetch Request")
+//            print("\(error), \(error.localizedDescription)")
+//        }
+//    }
+
     private func fetchMeals() {
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            print("Unable to Perform Fetch Request")
-            print("\(error), \(error.localizedDescription)")
+        // Create Fetch Request
+        let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
+        
+        // Configure Fetch Request
+        //let predicate: NSPredicate = NSPredicate(format: "deletedFlag == 0")
+        //fetchRequest.predicate = predicate
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.mealName), ascending: true)]
+        
+        // Perform Fetch Request
+        coreDataManager.managedObjectContext.performAndWait {
+            do {
+                // Execute Fetch Request
+                let meals = try fetchRequest.execute()
+                //                print("Tickets Count Total: \(tickets.count)")
+                
+                // Update Tickets
+                self.meals = meals
+                
+                //Reload Table View
+                tableView.reloadData()
+            } catch {
+                let fetchError = error as NSError
+                print("Unable to Execute Fetch Request")
+                print("\(fetchError), \(fetchError.localizedDescription)")
+            }
         }
     }
     
@@ -167,13 +216,17 @@ class MealsViewController: UIViewController {
 extension MealsViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let sections = fetchedResultsController.sections else { return 0 }
-        return sections.count
+//        guard let sections = fetchedResultsController.sections else { return 0 }
+//        return sections.count
+//
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let section = fetchedResultsController.sections?[section] else { return 0 }
-        return section.numberOfObjects
+//        guard let section = fetchedResultsController.sections?[section] else { return 0 }
+//        return section.numberOfObjects
+        
+        return (meals?.count)!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -191,22 +244,29 @@ extension MealsViewController: UITableViewDataSource {
     }
     
     private func configure(_ cell: UITableViewCell, at indexPath: IndexPath) {
-        // Fetch Note
-        let meal = fetchedResultsController.object(at: indexPath)
+        // Fetch Meal
+        guard let _meal = meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
         
         // Configure Cell
-        cell.textLabel?.text = meal.mealName
-        cell.detailTextLabel?.text = meal.mealDesc
+        cell.textLabel?.text = _meal.mealName
+        cell.detailTextLabel?.text = _meal.mealDesc
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         
         // Fetch Note
-        let meal = fetchedResultsController.object(at: indexPath)
+        guard let _meal = meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
         
         // Delete Note
-        meal.managedObjectContext?.delete(meal)
+        _meal.managedObjectContext?.delete(_meal)
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        guard let _meal = meals?[(indexPath.row)] else { fatalError("Unexpected Index Path")}
+        selectedObjectID = _meal.objectID
+        
+        return indexPath
     }
     
 }
