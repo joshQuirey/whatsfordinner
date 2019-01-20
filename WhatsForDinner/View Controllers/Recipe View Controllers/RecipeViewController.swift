@@ -59,7 +59,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     //Segues
     ////////////////////////////
     private enum Segue {
-        static let Categories = "Categories"
+        static let SelectCategories = "Categories"
     }
     
     /////////////////////////////
@@ -98,13 +98,14 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         guard let identifier = segue.identifier else { return }
         
         switch identifier {
-        case Segue.Categories:
+        case Segue.SelectCategories:
             guard let destination = segue.destination as? CategoriesViewController else {
                 return
             }
             
             // Configure Destination
             destination.managedObjectContext = self.managedObjectContext
+            destination.selectedTags = (meal?.tags)!
         default:
             break
         }

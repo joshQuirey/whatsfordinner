@@ -12,6 +12,9 @@ import CoreData
 class CategoriesViewController: UIViewController  {
     
     @IBOutlet weak var tableView: UITableView!
+    //var selectedCategories: [String]
+    var meal: Meal?
+    var selectedTags = NSSet()
     
     let categoryData = [String](arrayLiteral: "Asian Cuisine 🥡", "Breakfast for Dinner 🥓", "Barbecue 🐷", "Casserole 🥘", "Comfort Food 🛌", "Chicken 🐓", "Mexican  🌮", "Pasta 🍝", "Pizza 🍕", "Pork 🐖", "On The Grill 🥩", "Other", "Salad 🥗", "Sandwich 🥪", "Seafood 🍤", "Slow Cooker ⏲", "Soups Up 🍜", "Vegetarian 🥕")
     
@@ -40,9 +43,10 @@ class CategoriesViewController: UIViewController  {
     }
     
     
-    @IBAction func addCategory(_ sender: Any) {
-        
-    }
+//    @IBAction func addCategory(_ sender: Any) {
+//        print("selected")
+//    }
+    
     /*
     // MARK: - Navigation
 
@@ -71,5 +75,23 @@ extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
         
         currentCell.textLabel?.text = currentCategory
         return currentCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("selected tag")
+        let tag = Tag()
+        tag.name = categoryData[indexPath.row]
+        meal?.addToTags(tag)
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let tag = Tag()
+        tag.name = categoryData[indexPath.row]
+        meal?.removeFromTags(tag)
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        print("now")
+        return indexPath
     }
 }
