@@ -60,22 +60,22 @@ class MealsViewController: UIViewController {
         super.viewDidLoad()
         title = "Meals"
         fetchMeals()
-        //setupNotificationHandling()
         updateView()
+        setupNotificationHandling()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    //private func setupNotificationHandling() {
-    //    let notificationCenter = NotificationCenter.default
-    //    notificationCenter.addObserver(self,
-    //                                   selector: #selector(managedObjectContextObjectsDidChange(_:)),
-    //                                   name: Notification.Name.NSManagedObjectContextObjectsDidChange,
-    //                                   object: coreDataManager.managedObjectContext)
-   // }
+    
+    private func setupNotificationHandling() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self,
+                                       selector: #selector(managedObjectContextObjectsDidChange(_:)),
+                                       name: Notification.Name.NSManagedObjectContextObjectsDidChange,
+                                       object: coreDataManager.managedObjectContext)
+    }
 
     private func updateView() {
         tableView.isHidden = !hasMeals
@@ -106,6 +106,7 @@ class MealsViewController: UIViewController {
 //            destination.ticket?.updateDate = String().minimumDateValue
 //            destination.ticket?.manualFlag = true
 //            destination.manualFlag = true
+            print(destination.meal)
         case Segue.ViewMeal:
             guard let destination = segue.destination as? RecipeViewController else {
                 return
@@ -124,60 +125,56 @@ class MealsViewController: UIViewController {
     /////////////////////////////
     //Core Data Functions
     /////////////////////////////
-    //@objc private func managedObjectContextObjectsDidChange(_ notification: Notification) {
-    //    guard let userInfo = notification.userInfo else { return }
+    @objc private func managedObjectContextObjectsDidChange(_ notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
         
-        // Helpers
-    //    var mealsDidChange = false
+        var mealsDidChange = false
         
-     //   if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject> {
-    //        for insert in inserts {
-    //            if let meal = insert as? Meal {
-    //                meals?.append(meal)
-    //                mealsDidChange = true
-    //            }
-     //       }
-     //   }
+        if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject> {
+            //print("Context Inserts Exist")
+            for insert in inserts {
+                if let meal = insert as? Meal {
+                    meals?.append(meal)
+                    mealsDidChange = true
+                }
+            }
+        }
         
-     //   if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> {
-     //       for update in updates {
-    //            if let _ = update as? Meal {
-     //               mealsDidChange = true
-     //           }
-     //       }
-     //   }
+        if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> {
+            //print("Context Updates Exist")
+            for update in updates {
+                if update is Meal {
+                    mealsDidChange = true
+                }
+            }
+        }
         
-     //   if let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject> {
-      //      for delete in deletes {
-       //         if let meal = delete as? Meal {
-        //            if let index = meals?.index(of: meal) {
-         //               meals?.remove(at: index)
-          //              mealsDidChange = true
-           //         }
-            //    }
-        //    }
-      //  }
+        if let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject> {
+            //print("Context Deletes Exist")
+            for delete in deletes {
+                if let meal = delete as? Meal {
+                    if let index = meals?.index(of: meal) {
+                        meals?.remove(at: index)
+                        mealsDidChange = true
+                    }
+                }
+            }
+        }
         
-        //if mealsDidChange {
-            // Sort Meals
+        if mealsDidChange {
+            //Update Section Ticket Lists
+            
+            //Sort
             //meals?.sorted { $0 > $1 }
             
-            // Update Table View
-          //  tableView.reloadData()
+            //Update Table View
+            tableView.reloadData()
             
-            // Update View
-          //  updateView()
-       // }
-    //}
-
-//    private func fetchMeals() {
-//        do {
-//            try fetchedResultsController.performFetch()
-//        } catch {
-//            print("Unable to Perform Fetch Request")
-//            print("\(error), \(error.localizedDescription)")
-//        }
-//    }
+            //Update View
+            updateView()
+            mealsDidChange = false
+        }
+    }
 
     private func fetchMeals() {
         // Create Fetch Request

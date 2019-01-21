@@ -102,9 +102,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
             guard let destination = segue.destination as? CategoriesViewController else {
                 return
             }
-            
+            print(meal!)
             // Configure Destination
-            destination.managedObjectContext = self.managedObjectContext
+            destination.meal = meal
+//            destination.managedObjectContext = self.managedObjectContext
             destination.selectedTags = (meal?.tags)!
         default:
             break
@@ -442,11 +443,12 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     func viewMeal() {
         //print("Ticket has changes - \(ticket!.hasChanges) at viewDidLoad")
         //Ticket includes status, statusID, customerID, manualFlag and DispatchDate; but these aren't updated
-        mealDescription.text = meal!.mealDesc
-        name.text = meal!.mealName
+        mealDescription.text = "describe meal" //meal!.mealDesc
+        name.text = "Bob Burger" //meal!.mealName
         
         //print("Ticket has changes - \(ticket!.hasChanges) at end of viewdidload")
         //summary of findings
+        
     }
     
 //    func populateTicket(_ ticket: Ticket) {

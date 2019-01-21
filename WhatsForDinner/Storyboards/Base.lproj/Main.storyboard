@@ -195,7 +195,7 @@
                                                         </constraints>
                                                         <color key="tintColor" red="0.29411764709999999" green="0.66666666669999997" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <connections>
-                                                            <segue destination="hwq-sG-Eis" kind="show" id="ghz-hZ-Gv4"/>
+                                                            <segue destination="hwq-sG-Eis" kind="show" identifier="SelectCategories" id="ghz-hZ-Gv4"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -353,6 +353,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="hwq-sG-Eis" id="cLr-WY-U8S"/>
+                                    <outlet property="delegate" destination="hwq-sG-Eis" id="VEb-fo-nR2"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
