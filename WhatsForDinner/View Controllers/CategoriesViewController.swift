@@ -41,6 +41,12 @@ class CategoriesViewController: UIViewController  {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        print(meal!)
+        
+        
+        
+    }
     
 //    @IBAction func addCategory(_ sender: Any) {
 //        print("selected")
@@ -73,12 +79,21 @@ extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
         let currentCell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
         
         currentCell.textLabel?.text = currentCategory
+        for tag in (meal?.tags)! {
+            let _tag = tag as! Tag
+            print("Tag \(_tag.name!)")
+            print("Category \(currentCategory)")
+            if _tag.name! == currentCategory {
+                currentCell.isSelected = true
+                currentCell.backgroundColor = UIColor.red
+            }
+        }
         
         //if meal.tags equals currentCategory
-        if currentCategory.contains("Pizza") {
-            currentCell.isSelected = true
-            currentCell.backgroundColor = UIColor.red
-        }
+//        if currentCategory.contains("Pizza") {
+//            currentCell.isSelected = true
+//            currentCell.backgroundColor = UIColor.red
+//        }
         
         return currentCell
     }

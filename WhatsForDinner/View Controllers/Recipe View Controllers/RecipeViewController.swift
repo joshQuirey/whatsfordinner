@@ -59,10 +59,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     //Segues
     ////////////////////////////
     private enum Segue {
-        static let SelectCategories = "Categories"
+        static let SelectCategories = "SelectCategories"
     }
     
-    /////////////////////////////
+    /////////////////////////////s
     //View Life Cycle
     /////////////////////////////
     override func viewDidLoad() {
@@ -96,6 +96,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let identifier = segue.identifier else { return }
+        populateMeal(meal!)
         
         switch identifier {
         case Segue.SelectCategories:
@@ -451,8 +452,9 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
     }
     
-//    func populateTicket(_ ticket: Ticket) {
-//        ticket.sroNumber = sroNumber.text
+    func populateMeal(_ meal: Meal) {
+        meal.mealDesc = mealDescription.text
+        meal.mealName = name.text
 //        ticket.sroDescription = sroDescription.text
 //        ticket.customerName = customerName.text
 //        ticket.unitID = unitID.text
@@ -461,6 +463,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
 //        ticket.materials = materials.text
 //        ticket.status = HomeController.ticketStatus.InProgress.rawValue
 //        ticket.updateDate = String(describing: Date())
-//    }
+    }
 
 }
