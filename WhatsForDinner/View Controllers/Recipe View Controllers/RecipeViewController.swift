@@ -13,26 +13,24 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     /////////////////////////////
     //Properties
     /////////////////////////////
-    //let categoryData = [String](arrayLiteral: "", "Italian", "Mexican", "Greek")
-    
     let frequencyData = [String](arrayLiteral: "", "Weekly", "Every Other Week", "Monthly", "Every Other Month")
     
-    enum Frequency: String {
-        case weekly
-        case biweekly
-        case monthly
-        case bimonthly
-        case nopreference
-        
-        var days: Int {
-            switch self {
-            case .weekly: return 7
-            case .biweekly: return 14
-            case .monthly: return 30
-            case .bimonthly: return 60
-            case .nopreference: return 0
-            }
-        }
+    enum Frequency: Int {
+        case weekly = 7
+        case everyOtherWeek = 14
+        case monthly = 30
+        case everyOtherMonth = 60
+        case nopreference = 0
+
+//        var days: Int {
+//            switch self {
+//            case .weekly: return 7
+//            case .biweekly: return 14
+//            case .monthly: return 30
+//            case .bimonthly: return 60
+//            case .nopreference: return 0
+//            }
+//        }
     }
     
     @IBOutlet weak var name: UITextField!
@@ -45,7 +43,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var cookTime: UITextField!
     
     let picker = UIImagePickerController()
-//    let pickCategory = UIPickerView()
     let pickFrequency = UIPickerView()
     let pickTime = UIDatePicker()
     
@@ -67,17 +64,16 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     /////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewMeal()
         picker.delegate = self
-//        showPicker(self.category, self.pickCategory)
         showPicker(self.frequency, self.pickFrequency)
-        //showFrequencyPicker()
         showPrepDatePicker()
         showCookDatePicker()
-        
         setupView()
-        self.name.attributedPlaceholder = NSAttributedString(string: "Enter Meal Name",attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
-        //self.name.textColor = UIColor(named: "white")
+        self.name.attributedPlaceholder = NSAttributedString(string: "Enter Meal Name",attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewMeal()
     }
     
     override func didReceiveMemoryWarning() {
@@ -103,19 +99,86 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
             guard let destination = segue.destination as? CategoriesViewController else {
                 return
             }
-            print(meal!)
-            // Configure Destination
+        
             destination.meal = meal
-//            destination.managedObjectContext = self.managedObjectContext
             destination.selectedTags = (meal?.tags)!
         default:
             break
         }
-        
      }
  
-
+    func viewMeal() {
+        name.text = meal!.mealName
+        //photo
+        
+        category.text = nil
+        for _tag in (meal!.tags?.allObjects)! {
+            let tag = _tag as! Tag
+            category.text?.append(tag.name!)
+        }
+        
+        mealDescription.text = meal!.mealDesc
+        
+        print("View Meal")
+        switch meal?.frequency {
+        case 7:
+            frequency.text = "Weekly"
+        case 14:
+            frequency.text = "Every Other Week"
+        case 30:
+            frequency.text = "Monthly"
+        case 60:
+            frequency.text = "Every Other Month"
+        default:
+            frequency.text = nil
+        }
+        
+        prepTime.text = meal!.prepTime
+        cookTime.text = meal!.cookTime
+        serves.text = meal!.serves
+        
+        //directions
+        recipeDirectionsViewController.recipeDirections.text = meal!.directions
+        //ingredients
+    }
     
+    func populateMeal(_ meal: Meal) {
+        meal.mealName = name.text
+        //photo
+        //category
+        meal.mealDesc = mealDescription.text
+        print("populate meal")
+        var _frequency = 0
+        
+        switch frequency.text {
+        case "Weekly":
+            _frequency = 7
+        case "Every Other Week":
+            _frequency = 14
+        case "Monthly":
+            _frequency = 30
+        case "Every Other Month":
+            _frequency = 60
+        default:
+            _frequency = 0
+        }
+        meal.frequency = Int16(_frequency)
+        print(meal.frequency)
+        print(frequency.text!)
+//        meal.frequency = Frequency.init(frequency.text)
+//        if (meal!.frequency == 0) {
+//            frequency.text = nil
+//        } else {
+//            frequency.text = String(meal!.frequency)
+//        }
+        meal.prepTime = prepTime.text
+        meal.cookTime = cookTime.text
+        meal.serves = serves.text
+        //directions
+        meal.directions = recipeDirectionsViewController.recipeDirections.text
+        //ingredientss
+    }
+
     /////////////////////////////
     //Actions
     /////////////////////////////
@@ -128,37 +191,37 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
        // }
 
         let meal = Meal(context: managedObjectContext)
-        meal.mealName = name.text // mealName
-        //thumbnai
-        meal.category = category.text
+        meal.mealName = name.text
+        //photo
+//        meal.category = category.text
+        //tags
         meal.mealDesc = mealDescription.text
         
         if (serves.text != "") {
-            meal.serves = Int16(serves.text!)!
+            meal.serves = serves.text!
         }
         meal.prepTime = prepTime.text
         meal.cookTime = cookTime.text
-        
+     
+        //directions
         //meal.ingredients
      
-        //_ = navigationController?.popToRootViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func cancel(_ sender: Any) {
-        //clear out each box
         self.dismiss(animated: true, completion: nil)
     }
-    
-    @IBAction func addImage(_ sender: Any) {
-        self.showActionSheet(vc: self)
-    }
- 
-    @IBOutlet weak var imageButton: UIButton!
     
     /////////////////////////////
     //Image Functions
     /////////////////////////////
+    @IBAction func addImage(_ sender: Any) {
+        self.showActionSheet(vc: self)
+    }
+    
+    @IBOutlet weak var imageButton: UIButton!
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true)
     }
@@ -221,30 +284,16 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        if pickerView == pickCategory {
-//            return categoryData.count
-//        }
-//        else {
             return frequencyData.count
-//        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        if pickerView == pickCategory {
-//            return categoryData[row]
-//        }
-//        else {
             return frequencyData[row]
-//        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        if pickerView == pickCategory {
-//            category.text? = categoryData[row]
-//        }
-//        else {
+            print(frequencyData[row])
             frequency.text? = frequencyData[row]
-//        }
     }
     
     func showPicker(_ textField: UITextField, _ pickerView: UIPickerView) {
@@ -332,7 +381,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         return "\(hours) hour(s) \(minutes) minute(s)"
     }
 
-    
     /////////////////////////////
     //Segmented Control Functions
     /////////////////////////////
@@ -351,23 +399,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     @objc func selectionDidChange(_ sender: UISegmentedControl) {
         updateView()
     }
-    
-//    private lazy var recipeDescriptionViewController: RecipeDescriptionViewController = {
-//        // Load Storyboard
-//        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-//
-//        // Instantiate View Controller
-//        var viewController = storyboard.instantiateViewController(withIdentifier: "RecipeDescriptionViewController") as! RecipeDescriptionViewController
-//        //let contentSize = viewController.recipeDescription.sizeThatFits(segmentedParentView.bounds.size)
-//        //var frame = viewController.recipeDescription.frame
-//        //height = segmentedParentView.frame.height //contentSize.height
-//        //viewController.recipeDescription.frame = frame
-//
-//        // Add View Controller as Child View Controller
-//        self.add(asChildViewController: viewController)
-//
-//        return viewController
-//    }()
     
     private lazy var recipeIngredientViewController: RecipeIngredientViewController = {
         // Load Storyboard
@@ -439,30 +470,20 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         viewController.removeFromParentViewController()
     }
     
-    
-    
-    func viewMeal() {
-        //print("Ticket has changes - \(ticket!.hasChanges) at viewDidLoad")
-        //Ticket includes status, statusID, customerID, manualFlag and DispatchDate; but these aren't updated
-        mealDescription.text = "describe meal" //meal!.mealDesc
-        name.text = "Bob Burger" //meal!.mealName
-        
-        //print("Ticket has changes - \(ticket!.hasChanges) at end of viewdidload")
-        //summary of findings
-        
-    }
-    
-    func populateMeal(_ meal: Meal) {
-        meal.mealDesc = mealDescription.text
-        meal.mealName = name.text
-//        ticket.sroDescription = sroDescription.text
-//        ticket.customerName = customerName.text
-//        ticket.unitID = unitID.text
-//        ticket.supervisor = supervisor.text
-//        ticket.technicians = technician.text
-//        ticket.materials = materials.text
-//        ticket.status = HomeController.ticketStatus.InProgress.rawValue
-//        ticket.updateDate = String(describing: Date())
-    }
-
+    //    private lazy var recipeDescriptionViewController: RecipeDescriptionViewController = {
+    //        // Load Storyboard
+    //        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+    //
+    //        // Instantiate View Controller
+    //        var viewController = storyboard.instantiateViewController(withIdentifier: "RecipeDescriptionViewController") as! RecipeDescriptionViewController
+    //        //let contentSize = viewController.recipeDescription.sizeThatFits(segmentedParentView.bounds.size)
+    //        //var frame = viewController.recipeDescription.frame
+    //        //height = segmentedParentView.frame.height //contentSize.height
+    //        //viewController.recipeDescription.frame = frame
+    //
+    //        // Add View Controller as Child View Controller
+    //        self.add(asChildViewController: viewController)
+    //
+    //        return viewController
+    //    }()
 }

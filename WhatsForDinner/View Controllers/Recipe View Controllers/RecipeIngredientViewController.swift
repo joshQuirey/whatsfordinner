@@ -13,8 +13,16 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
     //Properties
     /////////////////////////////
     @IBOutlet weak var ingredientTableView: UITableView!
-    @IBOutlet weak var ingredient: UITextField!
-    var ingredients: [String] = ["test1","test2","test3"]
+    @IBOutlet weak var _ingredient: UITextField!
+    
+    var meal: Meal?
+    var ingredient: Ingredient?
+
+    private var ingredients: [Ingredient]? {
+        didSet {
+            //self.updateView()
+        }
+    }
     
     /////////////////////////////
     //View Life Cycle
@@ -32,6 +40,29 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if meal!.ingredients!.count > 0 {
+            ingredients = meal?.ingredients?.allObjects as? [Ingredient]
+            ingredientTableView.reloadData()
+        } else {
+            ingredientTableView.isHidden = true
+        }
+    }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        if (ticket != nil) {
+//            activityTableView.tableFooterView = UIView(frame: .zero)
+//
+//            if ticket!.activities!.count > 0 {
+//                activities = ticket?.activities?.allObjects as? [Activity]
+//                activityTableView.reloadData()
+//            } else {
+//                activityTableView.isHidden = true
+//            }
+//        }
+//    }
+//
+    
     override func viewDidAppear(_ animated: Bool) {
         ingredientTableView.reloadData()
     }
@@ -44,30 +75,55 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func addNewIngredient() {
-        ingredients.append(ingredient.text!)
+        let ing = ingredient
+        ing!.item = _ingredient.text
+        meal?.addToIngredients(ing!)
+//        ingredients.append(ingredient.text!)
         //let lastRow = ingredients.count == 0 ? ingredients.1 : ingredients.count-1
-        let indexPath = IndexPath(row: 0, section: 0)
-        ingredientTableView.beginUpdates()
-        ingredientTableView.insertRows(at: [indexPath], with: .automatic)
-        ingredientTableView.endUpdates()
-        
-        ingredient.text = ""
-        view.endEditing(true)
+//        let indexPath = IndexPath(row: 0, section: 0)
+//        ingredientTableView.beginUpdates()
+//        ingredientTableView.insertRows(at: [indexPath], with: .automatic)
+//        ingredientTableView.endUpdates()
+//
+//        ingredient.text = ""
+//        view.endEditing(true)
     }
     
     /////////////////////////////
     //Table Functions
     /////////////////////////////
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ingredients.count
+        if ingredients != nil {
+            return ingredients!.count;
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currentIngredient = ingredients[indexPath.item]
-        let currentCell = tableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath)
+        //Dequeue Reusable Cell
+        let cell = ingredientTableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath)
+        //activities?.sort(by: { $0.stepNumber < $1.stepNumber })
+        let selectedIngredient = ingredients![indexPath.row]
+//        if ingredients!.count == 0{
+            cell.textLabel?.text = selectedIngredient.item
+//        }
+//        else{
+//            let myInt =  UInt(selectedActivity.stepNumber)
+//            let i = Int(myInt)
+//
+//            cell.textLabel?.text = "\(String(i)) - \(selectedActivity.condition ?? "") - Item: \(selectedActivity.item ?? "")"
+//            cell.detailTextLabel?.text = selectedActivity.descriptionInfo
+//            cell.accessoryType = .disclosureIndicator
+//        }
+        return cell
         
-        currentCell.textLabel?.text = currentIngredient
-        return currentCell
+        
+        
+//        let currentIngredient = ingredients[indexPath.item]
+//        let currentCell = tableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath)
+//
+//        currentCell.textLabel?.text = currentIngredient
+//        return currentCell
     }
     
     /*

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="18A391" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Ingredient" representedClassName="Ingredient" syncable="YES" codeGenerationType="class">
         <attribute name="item" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="meal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Meal" inverseName="ingredients" inverseEntity="Meal" syncable="YES"/>
     </entity>
     <entity name="Meal" representedClassName="Meal" syncable="YES" codeGenerationType="class">
-        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cookTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="directions" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="frequency" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="mealDesc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mealImage" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="mealName" attributeType="String" syncable="YES"/>
-        <attribute name="nextScheduledDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="nextDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="prepTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="previousDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="serves" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="serves" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="meal" inverseEntity="Ingredient" syncable="YES"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="meals" inverseEntity="Tag" syncable="YES"/>
     </entity>
