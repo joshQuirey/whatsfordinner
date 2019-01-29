@@ -20,7 +20,7 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
 
     private var ingredients: [Ingredient]? {
         didSet {
-            //self.updateView()
+            //updateView()
         }
     }
     
@@ -41,14 +41,21 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if meal!.ingredients!.count > 0 {
+        print(meal)
+        updateView()
+    }
+    
+    func updateView() {
+        if meal?.ingredients == nil {
+            ingredientTableView.isHidden = true
+        } else if meal!.ingredients!.count > 0 {
+            ingredientTableView.isHidden = false
             ingredients = meal?.ingredients?.allObjects as? [Ingredient]
             ingredientTableView.reloadData()
         } else {
             ingredientTableView.isHidden = true
         }
     }
-    
 //    override func viewWillAppear(_ animated: Bool) {
 //        if (ticket != nil) {
 //            activityTableView.tableFooterView = UIView(frame: .zero)
@@ -72,12 +79,18 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
     /////////////////////////////
     @IBAction func addIngredient(_ sender: Any) {
         addNewIngredient()
+        ingredientTableView.isHidden = false
+        ingredients = meal?.ingredients?.allObjects as? [Ingredient]
+        ingredientTableView.reloadData()
+        _ingredient.text = nil
     }
     
     func addNewIngredient() {
-        let ing = ingredient
-        ing!.item = _ingredient.text
-        meal?.addToIngredients(ing!)
+        guard let managedObjectContext = meal?.managedObjectContext else { return }
+        
+        ingredient = Ingredient(context: managedObjectContext)
+        ingredient!.item = _ingredient.text
+        meal?.addToIngredients(ingredient!)
 //        ingredients.append(ingredient.text!)
         //let lastRow = ingredients.count == 0 ? ingredients.1 : ingredients.count-1
 //        let indexPath = IndexPath(row: 0, section: 0)

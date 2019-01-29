@@ -640,7 +640,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
-                        <outlet property="ingredient" destination="M2L-Xi-BAh" id="LMr-pu-C2j"/>
+                        <outlet property="_ingredient" destination="M2L-Xi-BAh" id="x2i-kI-1RY"/>
                         <outlet property="ingredientTableView" destination="yOv-FG-zLe" id="bRF-UD-Oxl"/>
                     </connections>
                 </viewController>

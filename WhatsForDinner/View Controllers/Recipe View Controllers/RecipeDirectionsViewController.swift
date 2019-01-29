@@ -10,6 +10,8 @@ import UIKit
 
 class RecipeDirectionsViewController: UIViewController {
 
+    var meal: Meal?
+    
     @IBOutlet weak var recipeDirections: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()

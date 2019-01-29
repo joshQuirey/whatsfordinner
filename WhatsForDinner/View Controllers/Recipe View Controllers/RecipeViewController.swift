@@ -393,7 +393,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         segmentedControl.addTarget(self, action: #selector(selectionDidChange(_:)), for: .valueChanged)
         
         // Select First Segment
-        segmentedControl.selectedSegmentIndex = 1
+        segmentedControl.selectedSegmentIndex = 0
     }
     
     @objc func selectionDidChange(_ sender: UISegmentedControl) {
@@ -406,6 +406,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         // Instantiate View Controller
         var viewController = storyboard.instantiateViewController(withIdentifier: "RecipeIngredientViewController") as! RecipeIngredientViewController
+        viewController.meal = meal
         
         // Add View Controller as Child View Controller
         self.add(asChildViewController: viewController)
@@ -419,7 +420,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         // Instantiate View Controller
         var viewController = storyboard.instantiateViewController(withIdentifier: "RecipeDirectionsViewController") as! RecipeDirectionsViewController
-        
+        viewController.meal = meal
         // Add View Controller as Child View Controller
         self.add(asChildViewController: viewController)
         
