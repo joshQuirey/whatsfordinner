@@ -16,7 +16,7 @@ class PlanViewController: UIViewController {
     /////////////////////////////
     //private var coreDataManager = CoreDataManager(modelName: "MealModel")
     @IBOutlet weak var tableView: UITableView!
-    let SectionHeaderHeight: CGFloat = 60
+//    let SectionHeaderHeight: CGFloat = 60
 
 
     
@@ -77,9 +77,9 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return SectionHeaderHeight
-    }
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return SectionHeaderHeight
+//    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
