@@ -241,6 +241,8 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         //thumbnail.contentMode = .scaleAspectFit
         //thumbnail.image = newImage
         imageButton.setBackgroundImage(newImage, for: .normal)
+        imageButton.setTitle(nil, for: .normal)
+        
         //imageButton.imageView?.contentMode = .scaleAspectFit
         //rimageButton.imageView?.image = newImage
         dismiss(animated:true, completion: nil) //5
