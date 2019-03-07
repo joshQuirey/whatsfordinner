@@ -183,25 +183,22 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     //Actions
     /////////////////////////////
     @IBAction func save(_ sender: UIBarButtonItem) {
-        guard let managedObjectContext = managedObjectContext else {
-                return }
-        //guard let mealName = name.text, !mealName.isEmpty else {
-            //showAlert(with: "Name Missing", and: "Your meal needs a name.")
-         //   return
-       // }
-
-        let meal = Meal(context: managedObjectContext)
-        meal.mealName = name.text
+        //guard let managedObjectContext = managedObjectContext else {
+        //        return }
+        //meal = Meal(context: managedObjectContext)
+        populateMeal(meal!)
+        
+//        meal!.mealName = name.text
         //photo
 //        meal.category = category.text
         //tags
-        meal.mealDesc = mealDescription.text
+//        meal!.mealDesc = mealDescription.text
         
-        if (serves.text != "") {
-            meal.serves = serves.text!
-        }
-        meal.prepTime = prepTime.text
-        meal.cookTime = cookTime.text
+//        if (serves.text != "") {
+//            meal!.serves = serves.text!
+//        }
+//        meal!.prepTime = prepTime.text
+//        meal!.cookTime = cookTime.text
      
         //directions
         //meal.ingredients

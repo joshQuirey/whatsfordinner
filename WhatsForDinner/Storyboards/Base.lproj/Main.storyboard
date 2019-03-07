@@ -52,6 +52,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="ZHR-gx-uw6" kind="presentation" identifier="ViewMeal" id="qnc-uL-VBf"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -710,4 +713,7 @@
     <resources>
         <image name="first" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="qnc-uL-VBf"/>
+    </inferredMetricsTieBreakers>
 </document>

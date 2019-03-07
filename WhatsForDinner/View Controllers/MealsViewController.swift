@@ -18,7 +18,6 @@ class MealsViewController: UIViewController {
     @IBOutlet weak var emptyTableLabel: UILabel!
     private var selectedObjectID = NSManagedObjectID()
     
-    
     private var meals: [Meal]? {
         didSet {
             //updateView()
@@ -111,16 +110,22 @@ class MealsViewController: UIViewController {
             guard let destination = segue.destination as? RecipeViewController else {
                 return
             }
-            //print("destination")
-//            destination.managedObjectContext = coreDataManager.managedObjectContext
-            destination.meal = (coreDataManager.managedObjectContext.object(with: selectedObjectID) as? Meal)!
+            print("destination")
+            destination.managedObjectContext = coreDataManager.managedObjectContext
+            print("got context")
+            let _indexpath = tableView.indexPathForSelectedRow
+            let _meal = meals![(_indexpath?.row)!]
+            print(_meal)
+            destination.meal = _meal
+            //destination.meal = fetchRecordsForEntity("Meal", inManagedObjectContext: coreDataManager.managedObjectContext)
+            //destination.meal = (coreDataManager.managedObjectContext.object(with: selectedObjectID) as? Meal)!
+            print("got object id")
         default:
             break
         }
         
         //look at cocoacasts fetchedResultsController introduction when creating view of meal segue
     }
-    
     
     /////////////////////////////
     //Core Data Functions
@@ -131,7 +136,7 @@ class MealsViewController: UIViewController {
         var mealsDidChange = false
         
         if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject> {
-            //print("Context Inserts Exist")
+            print("Context Inserts Exist")
             for insert in inserts {
                 if let meal = insert as? Meal {
                     meals?.append(meal)
@@ -141,7 +146,8 @@ class MealsViewController: UIViewController {
         }
         
         if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> {
-            //print("Context Updates Exist")
+            print("Context Updates Exist")
+            print(meals)
             for update in updates {
                 if update is Meal {
                     mealsDidChange = true
@@ -150,7 +156,7 @@ class MealsViewController: UIViewController {
         }
         
         if let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject> {
-            //print("Context Deletes Exist")
+            print("Context Deletes Exist")
             for delete in deletes {
                 if let meal = delete as? Meal {
                     if let index = meals?.index(of: meal) {
@@ -233,7 +239,6 @@ extension MealsViewController: UITableViewDataSource {
         //}
         let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
         
-        
         // Configure Cell
         configure(cell, at: indexPath)
         
@@ -260,12 +265,13 @@ extension MealsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        print("will select row")
         guard let _meal = meals?[(indexPath.row)] else { fatalError("Unexpected Index Path")}
+        print(_meal)
         selectedObjectID = _meal.objectID
         
         return indexPath
     }
-    
 }
 
 extension MealsViewController: NSFetchedResultsControllerDelegate {
