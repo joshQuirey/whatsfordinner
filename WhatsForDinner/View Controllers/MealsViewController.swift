@@ -252,6 +252,9 @@ extension MealsViewController: UITableViewDataSource {
         // Configure Cell
         cell.textLabel?.text = _meal.mealName
         cell.detailTextLabel?.text = _meal.mealDesc
+        if (_meal.mealImage != nil) {
+            cell.imageView?.image = UIImage(data: _meal.mealImage!)
+        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {

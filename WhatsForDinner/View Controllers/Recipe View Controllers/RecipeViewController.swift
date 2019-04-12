@@ -73,6 +73,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        if (meal?.mealImage != nil) {
+            imageButton.setTitle(nil, for: .normal)
+        }
+        
         viewMeal()
     }
     
@@ -109,7 +113,11 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
  
     func viewMeal() {
         name.text = meal!.mealName
+        
         //photo
+        if (meal!.mealImage != nil) {
+            imageButton.setBackgroundImage(UIImage(data: meal!.mealImage!), for: .normal)
+        }
         
         category.text = nil
         for _tag in (meal!.tags?.allObjects)! {
@@ -144,9 +152,20 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     func populateMeal(_ meal: Meal) {
         meal.mealName = name.text
+    
         //photo
+        if (imageButton.currentBackgroundImage != nil) {
+            guard let imageData = UIImageJPEGRepresentation(imageButton.backgroundImage(for: .normal)!, 1) else {
+                print("image error")
+                return
+            }
+        
+            meal.mealImage = imageData
+        }
+        
         //category
         meal.mealDesc = mealDescription.text
+        
         print("populate meal")
         var _frequency = 0
         
@@ -207,6 +226,16 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     @IBAction func cancel(_ sender: Any) {
+        
+        if (meal!.mealName == nil) {
+            managedObjectContext?.delete(meal!)
+        } else {
+            print(meal!.mealName!)
+        }
+        //if meal!. {
+       //     print("had changes")
+       // }
+       // managedObjectContext?.refresh(meal!, mergeChanges: false)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -228,18 +257,23 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         if let possibleImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
             newImage = possibleImage
+            print("11111")
         } else if let possibleImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
             newImage = possibleImage
+            print("222222")
         } else {
+            print("33333")
             return
         }
         
         // do something interesting here!
         //thumbnail.contentMode = .scaleAspectFit
         //thumbnail.image = newImage
+        imageButton.setBackgroundImage(nil, for: .normal)
+        //imageButton.setBackgroundImage(newImage, for: .selected)
         imageButton.setBackgroundImage(newImage, for: .normal)
         imageButton.setTitle(nil, for: .normal)
-        
+    
         //imageButton.imageView?.contentMode = .scaleAspectFit
         //rimageButton.imageView?.image = newImage
         dismiss(animated:true, completion: nil) //5
@@ -249,7 +283,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     func showActionSheet(vc: UIViewController) {
         //currentVC = vc
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
+    
         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (alert:UIAlertAction!) -> Void in
             //self.cameera
             
