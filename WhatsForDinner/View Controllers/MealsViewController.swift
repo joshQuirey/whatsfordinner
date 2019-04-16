@@ -74,6 +74,11 @@ class MealsViewController: UIViewController {
                                        selector: #selector(managedObjectContextObjectsDidChange(_:)),
                                        name: Notification.Name.NSManagedObjectContextObjectsDidChange,
                                        object: coreDataManager.managedObjectContext)
+        
+        notificationCenter.addObserver(self,
+                                       selector: #selector(saveMeals(_:)),
+                                       name: Notification.Name.UIApplicationDidEnterBackground,
+                                       object: nil)
     }
 
     private func updateView() {
@@ -181,6 +186,17 @@ class MealsViewController: UIViewController {
             mealsDidChange = false
         }
     }
+//    @objc private func syncTickets(_ notification: Notification) {
+//        syncTickets()
+//    }
+
+    @objc private func saveMeals(_ notification: Notification) {
+        do {
+            try coreDataManager.managedObjectContext.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
+    }
 
     private func fetchMeals() {
         // Create Fetch Request
@@ -216,7 +232,7 @@ class MealsViewController: UIViewController {
     /////////////////////////////
 }
 
-extension MealsViewController: UITableViewDataSource {
+extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
 //        guard let sections = fetchedResultsController.sections else { return 0 }
@@ -237,7 +253,7 @@ extension MealsViewController: UITableViewDataSource {
         //guard let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath) else {
         //    fatalError("Unexpected Index Path")
         //}
-        let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath) as! MealTableViewCell
         
         // Configure Cell
         configure(cell, at: indexPath)
@@ -245,15 +261,15 @@ extension MealsViewController: UITableViewDataSource {
         return cell
     }
     
-    private func configure(_ cell: UITableViewCell, at indexPath: IndexPath) {
+    private func configure(_ cell: MealTableViewCell, at indexPath: IndexPath) {
         // Fetch Meal
         guard let _meal = meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
         
         // Configure Cell
-        cell.textLabel?.text = _meal.mealName
-        cell.detailTextLabel?.text = _meal.mealDesc
+        cell.mealName?.text = _meal.mealName
+        cell.mealDescription?.text = _meal.mealDesc
         if (_meal.mealImage != nil) {
-            cell.imageView?.image = UIImage(data: _meal.mealImage!)
+            cell.mealImage?.image = UIImage(data: _meal.mealImage!)
         }
     }
     
@@ -275,6 +291,10 @@ extension MealsViewController: UITableViewDataSource {
         
         return indexPath
     }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 100
+//    }
 }
 
 extension MealsViewController: NSFetchedResultsControllerDelegate {
@@ -299,7 +319,7 @@ extension MealsViewController: NSFetchedResultsControllerDelegate {
             }
         case .update:
             if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) {
-                configure(cell, at: indexPath)
+                configure(cell as! MealTableViewCell, at: indexPath)
             }
         case .move:
             if let indexPath = indexPath {

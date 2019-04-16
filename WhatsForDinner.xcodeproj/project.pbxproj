@@ -22,6 +22,7 @@
 		747E3558211CE7380065799E /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747E3557211CE7380065799E /* CoreDataManager.swift */; };
 		748947CA211A0D73000859F1 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748947C9211A0D73000859F1 /* PlanViewController.swift */; };
 		748947CC211A0DF2000859F1 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748947CB211A0DF2000859F1 /* RecipeViewController.swift */; };
+		A7D07DEB2266835F0017B047 /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D07DEA2266835F0017B047 /* MealTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		747E3557211CE7380065799E /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		748947C9211A0D73000859F1 /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
 		748947CB211A0DF2000859F1 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
+		A7D07DEA2266835F0017B047 /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 			children = (
 				40929389214868EA00B16004 /* Storyboards */,
 				4029E317213209AD003D3071 /* View Controllers */,
+				A7D07DEA2266835F0017B047 /* MealTableViewCell.swift */,
 				747BF01D2118B6D1006EACA0 /* AppDelegate.swift */,
 				747E3557211CE7380065799E /* CoreDataManager.swift */,
 				747BF0262118B6D4006EACA0 /* Assets.xcassets */,
@@ -198,6 +201,7 @@
 				4029E31321320954003D3071 /* RecipeDescriptionViewController.swift in Sources */,
 				747BF01E2118B6D1006EACA0 /* AppDelegate.swift in Sources */,
 				4029E31921320B08003D3071 /* RecipeDirectionsViewController.swift in Sources */,
+				A7D07DEB2266835F0017B047 /* MealTableViewCell.swift in Sources */,
 				747BF0202118B6D1006EACA0 /* MealsViewController.swift in Sources */,
 				747E3558211CE7380065799E /* CoreDataManager.swift in Sources */,
 				748947CC211A0DF2000859F1 /* RecipeViewController.swift in Sources */,
