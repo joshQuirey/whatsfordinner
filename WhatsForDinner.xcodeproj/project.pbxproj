@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		400C0F32226A5D010039625E /* CreatePlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C0F31226A5D010039625E /* CreatePlanViewController.swift */; };
 		4029E31321320954003D3071 /* RecipeDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4029E31221320954003D3071 /* RecipeDescriptionViewController.swift */; };
 		4029E3152132096F003D3071 /* RecipeIngredientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4029E3142132096F003D3071 /* RecipeIngredientViewController.swift */; };
 		4029E31921320B08003D3071 /* RecipeDirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4029E31821320B08003D3071 /* RecipeDirectionsViewController.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		400C0F31226A5D010039625E /* CreatePlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlanViewController.swift; sourceTree = "<group>"; };
 		4029E31221320954003D3071 /* RecipeDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDescriptionViewController.swift; sourceTree = "<group>"; };
 		4029E3142132096F003D3071 /* RecipeIngredientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeIngredientViewController.swift; sourceTree = "<group>"; };
 		4029E31821320B08003D3071 /* RecipeDirectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDirectionsViewController.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				747BF0212118B6D1006EACA0 /* ListViewController.swift */,
 				4029E3162132097E003D3071 /* Recipe View Controllers */,
 				4092938E21486A5600B16004 /* CategoriesViewController.swift */,
+				400C0F31226A5D010039625E /* CreatePlanViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 				747BF0222118B6D1006EACA0 /* ListViewController.swift in Sources */,
 				748947CA211A0D73000859F1 /* PlanViewController.swift in Sources */,
 				4029E31321320954003D3071 /* RecipeDescriptionViewController.swift in Sources */,
+				400C0F32226A5D010039625E /* CreatePlanViewController.swift in Sources */,
 				747BF01E2118B6D1006EACA0 /* AppDelegate.swift in Sources */,
 				4029E31921320B08003D3071 /* RecipeDirectionsViewController.swift in Sources */,
 				A7D07DEB2266835F0017B047 /* MealTableViewCell.swift in Sources */,
