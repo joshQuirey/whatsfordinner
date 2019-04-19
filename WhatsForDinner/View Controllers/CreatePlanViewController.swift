@@ -10,26 +10,64 @@ import UIKit
 
 class CreatePlanViewController: UIViewController, UIPickerViewDelegate {
     
-           let categoryData = [String](arrayLiteral: "Asian Cuisine 🥡", "Breakfast for Dinner 🥓", "Barbecue 🐷", "Casserole 🥘", "Comfort Food 🛌", "Chicken 🐓", "Mexican  🌮", "Pasta 🍝", "Pizza 🍕", "Pork 🐖", "On The Grill 🥩", "Other", "Salad 🥗", "Sandwich 🥪", "Seafood 🍤", "Slow Cooker ⏲", "Soups Up 🍜", "Vegetarian 🥕")
     
-    @IBOutlet weak var category: UITextField!
-    let pickCategory = UIPickerView()
+    @IBOutlet weak var parentView: UIView!
+    @IBOutlet weak var childView1: UIView!
+    @IBOutlet weak var childView2: UIView!
+    @IBOutlet weak var childView3: UIView!
+    @IBOutlet weak var childView4: UIView!
+    @IBOutlet weak var childView5: UIView!
+    @IBOutlet weak var childView6: UIView!
+    @IBOutlet weak var childView7: UIView!
+    
+    @IBOutlet weak var category1: UITextField!
+    @IBOutlet weak var category2: UITextField!
+    @IBOutlet weak var category3: UITextField!
+    @IBOutlet weak var category4: UITextField!
+    @IBOutlet weak var category5: UITextField!
+    @IBOutlet weak var category6: UITextField!
+    @IBOutlet weak var category7: UITextField!
+    
+    let picker1 = UIPickerView()
+    let picker2 = UIPickerView()
+    let picker3 = UIPickerView()
+    let picker4 = UIPickerView()
+    let picker5 = UIPickerView()
+    let picker6 = UIPickerView()
+    let picker7 = UIPickerView()
+    
+    let categoryData = [String](arrayLiteral: "Asian Cuisine 🥡", "Breakfast for Dinner 🥓", "Barbecue 🐷", "Casserole 🥘", "Comfort Food 🛌", "Chicken 🐓", "Mexican  🌮", "Pasta 🍝", "Pizza 🍕", "Pork 🐖", "On The Grill 🥩", "Other", "Salad 🥗", "Sandwich 🥪", "Seafood 🍤", "Slow Cooker ⏲", "Soups Up 🍜", "Vegetarian 🥕")
 
     
     @IBAction func cancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    
-
-    
-    @IBOutlet weak var tableView: UITableView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        showPicker(self.category, self.pickCategory)
+        //setViewHeights()
+        showPicker(self.category1, self.picker1)
+        showPicker(self.category2, self.picker2)
+        showPicker(self.category3, self.picker3)
+        showPicker(self.category4, self.picker4)
+        showPicker(self.category5, self.picker5)
+        showPicker(self.category6, self.picker6)
+        showPicker(self.category7, self.picker7)
+        
         // Do any additional setup after loading the view.
     }
+//
+//    func setViewHeights() {
+//        let _height = (parentView.frame.height - 60) / 7
+//        print(_height)
+//        childView1.frame = CGRect(x: 0, y: 0, width: parentView.frame.width, height: _height)
+//        childView2.frame = CGRect(x: 0, y: 0, width: parentView.frame.width, height: _height)
+//        childView3.frame = CGRect(x: 0, y: 0, width: parentView.frame.width, height: _height)
+//        childView4.frame = CGRect(x: 0, y: 0, width: parentView.frame.width, height: _height)
+//        childView5.frame = CGRect(x: 0, y: 0, width: parentView.frame.width, height: _height)
+//        childView6.frame = CGRect(x: 0, y: 0, width: parentView.frame.width, height: _height)
+//        childView7.frame = CGRect(x: 0, y: 0, width: parentView.frame.width, height: _height)
+//    }
     
 
     
@@ -58,10 +96,11 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate {
         return categoryData[row]
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print(categoryData[row])
-        category.text? = categoryData[row]
-    }
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        print(categoryData[row])
+//        print(pickerView)
+//        category1.text? = categoryData[row]
+//    }
     
     func showPicker(_ textField: UITextField, _ pickerView: UIPickerView) {
         textField.inputView = pickerView
@@ -79,48 +118,47 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate {
     }
     
     @objc func cancelTextPicker() {
-        category.text = nil
+        category1.text = nil
         self.view.endEditing(true)
     }
     
     @objc func doneTextPicker() {
         self.view.endEditing(true)
     }
-
 }
 
-extension CreatePlanViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "planCategoryCell", for: indexPath)
-        
-        cell.textLabel?.text = "Section \(indexPath.section)"
-        cell.detailTextLabel?.text = "Row \(indexPath.row)"
-        
-        return cell
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 7
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return (tableView.frame.height - 210) / 7
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return "Today"
-        case 1:
-            return "Tomorrow"
-        default:
-            return "Day \(section+1)"
-        }
-    }
-}
+//extension CreatePlanViewController: UITableViewDelegate, UITableViewDataSource {
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 1
+//    }
+//
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "planCategoryCell", for: indexPath)
+//
+//        cell.textLabel?.text = "Section \(indexPath.section)"
+//        cell.detailTextLabel?.text = "Row \(indexPath.row)"
+//
+//        return cell
+//    }
+//
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 7
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return (tableView.frame.height - 210) / 7
+//    }
+//
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        switch section {
+//        case 0:
+//            return "Today"
+//        case 1:
+//            return "Tomorrow"
+//        default:
+//            return "Day \(section+1)"
+//        }
+//    }
+//}
