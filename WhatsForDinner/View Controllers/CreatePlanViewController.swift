@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreatePlanViewController: UIViewController, UIPickerViewDelegate {
+class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     
     @IBOutlet weak var parentView: UIView!
@@ -38,7 +38,6 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate {
     
     let categoryData = [String](arrayLiteral: "Asian Cuisine 🥡", "Breakfast for Dinner 🥓", "Barbecue 🐷", "Casserole 🥘", "Comfort Food 🛌", "Chicken 🐓", "Mexican  🌮", "Pasta 🍝", "Pizza 🍕", "Pork 🐖", "On The Grill 🥩", "Other", "Salad 🥗", "Sandwich 🥪", "Seafood 🍤", "Slow Cooker ⏲", "Soups Up 🍜", "Vegetarian 🥕")
 
-    
     @IBAction func cancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -46,6 +45,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         //setViewHeights()
+        //picker1.delegate = self
         showPicker(self.category1, self.picker1)
         showPicker(self.category2, self.picker2)
         showPicker(self.category3, self.picker3)
@@ -86,7 +86,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate {
     /////////////////////////////
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
-    }
+   }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return categoryData.count
@@ -96,16 +96,38 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate {
         return categoryData[row]
     }
     
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        print(categoryData[row])
-//        print(pickerView)
-//        category1.text? = categoryData[row]
-//    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch (pickerView) {
+        case picker1:
+            category1.text? = categoryData[row]
+            break
+        case picker2:
+            category2.text? = categoryData[row]
+            break
+        case picker3:
+            category3.text? = categoryData[row]
+            break
+        case picker4:
+            category4.text? = categoryData[row]
+            break
+        case picker5:
+            category5.text? = categoryData[row]
+            break
+        case picker6:
+            category6.text? = categoryData[row]
+            break
+        case picker7:
+            category7.text? = categoryData[row]
+            break
+        default:
+            break
+        }
+    }
     
     func showPicker(_ textField: UITextField, _ pickerView: UIPickerView) {
         textField.inputView = pickerView
         pickerView.delegate = self
-        
+
         //Toolbar
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
@@ -118,7 +140,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate {
     }
     
     @objc func cancelTextPicker() {
-        category1.text = nil
+        //category1.text = nil
         self.view.endEditing(true)
     }
     
