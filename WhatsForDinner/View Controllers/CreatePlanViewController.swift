@@ -36,6 +36,9 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     let picker6 = UIPickerView()
     let picker7 = UIPickerView()
     
+    @IBOutlet weak var startingDate: UITextField!
+    let startingDatePicker = UIDatePicker()
+    
     let categoryData = [String](arrayLiteral: "Asian Cuisine 🥡", "Breakfast for Dinner 🥓", "Barbecue 🐷", "Casserole 🥘", "Comfort Food 🛌", "Chicken 🐓", "Mexican  🌮", "Pasta 🍝", "Pizza 🍕", "Pork 🐖", "On The Grill 🥩", "Other", "Salad 🥗", "Sandwich 🥪", "Seafood 🍤", "Slow Cooker ⏲", "Soups Up 🍜", "Vegetarian 🥕")
 
     @IBAction func cancel(_ sender: Any) {
@@ -44,7 +47,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //setViewHeights()
+        showStartingDatePicker()
         //picker1.delegate = self
         showPicker(self.category1, self.picker1)
         showPicker(self.category2, self.picker2)
@@ -56,20 +59,6 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         // Do any additional setup after loading the view.
     }
-//
-//    func setViewHeights() {
-//        let _height = (parentView.frame.height - 60) / 7
-//        print(_height)
-//        childView1.frame = CGRect(x: 0, y: 0, width: parentView.frame.width, height: _height)
-//        childView2.frame = CGRect(x: 0, y: 0, width: parentView.frame.width, height: _height)
-//        childView3.frame = CGRect(x: 0, y: 0, width: parentView.frame.width, height: _height)
-//        childView4.frame = CGRect(x: 0, y: 0, width: parentView.frame.width, height: _height)
-//        childView5.frame = CGRect(x: 0, y: 0, width: parentView.frame.width, height: _height)
-//        childView6.frame = CGRect(x: 0, y: 0, width: parentView.frame.width, height: _height)
-//        childView7.frame = CGRect(x: 0, y: 0, width: parentView.frame.width, height: _height)
-//    }
-    
-
     
     /*
     // MARK: - Navigation
@@ -80,6 +69,32 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         // Pass the selected object to the new view controller.
     }
     */
+    
+    /////////////////////////////
+    //Date Picker Functions
+    /////////////////////////////
+    func showStartingDatePicker() {
+        //Setup
+        startingDate.inputView = startingDatePicker
+        startingDatePicker.datePickerMode = .date
+        
+        //Toolbar
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donePrepDatePicker))
+        //let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPicker))
+        toolbar.setItems([spaceButton,doneButton], animated: false)
+        
+        startingDate.inputAccessoryView = toolbar
+    }
+    
+    @objc func donePrepDatePicker() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM dd"
+        startingDate.text = formatter.string(from: startingDatePicker.date)
+        self.view.endEditing(true)
+    }
     
     /////////////////////////////
     //Picker Functions
