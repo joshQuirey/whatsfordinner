@@ -8,8 +8,7 @@
 
 import UIKit
 
-class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    
+class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     @IBOutlet weak var parentView: UIView!
     @IBOutlet weak var childView1: UIView!
@@ -20,12 +19,22 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var childView6: UIView!
     @IBOutlet weak var childView7: UIView!
     
+    @IBOutlet weak var startingDate: UITextField!
+    let startingDatePicker = UIDatePicker()
+    
+    @IBOutlet weak var labelDay1: UILabel!
     @IBOutlet weak var category1: UITextField!
+    @IBOutlet weak var labelDay2: UILabel!
     @IBOutlet weak var category2: UITextField!
+    @IBOutlet weak var labelDay3: UILabel!
     @IBOutlet weak var category3: UITextField!
+    @IBOutlet weak var labelDay4: UILabel!
     @IBOutlet weak var category4: UITextField!
+    @IBOutlet weak var labelDay5: UILabel!
     @IBOutlet weak var category5: UITextField!
+    @IBOutlet weak var labelDay6: UILabel!
     @IBOutlet weak var category6: UITextField!
+    @IBOutlet weak var labelDay7: UILabel!
     @IBOutlet weak var category7: UITextField!
     
     let picker1 = UIPickerView()
@@ -36,9 +45,6 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     let picker6 = UIPickerView()
     let picker7 = UIPickerView()
     
-    @IBOutlet weak var startingDate: UITextField!
-    let startingDatePicker = UIDatePicker()
-    
     let categoryData = [String](arrayLiteral: "Asian Cuisine 🥡", "Breakfast for Dinner 🥓", "Barbecue 🐷", "Casserole 🥘", "Comfort Food 🛌", "Chicken 🐓", "Mexican  🌮", "Pasta 🍝", "Pizza 🍕", "Pork 🐖", "On The Grill 🥩", "Other", "Salad 🥗", "Sandwich 🥪", "Seafood 🍤", "Slow Cooker ⏲", "Soups Up 🍜", "Vegetarian 🥕")
 
     @IBAction func cancel(_ sender: Any) {
@@ -48,7 +54,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     override func viewDidLoad() {
         super.viewDidLoad()
         showStartingDatePicker()
-        //picker1.delegate = self
+        startingDate.delegate = self
         showPicker(self.category1, self.picker1)
         showPicker(self.category2, self.picker2)
         showPicker(self.category3, self.picker3)
@@ -71,6 +77,47 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     */
     
     /////////////////////////////
+    //Text Field Functions
+    ////////////////////////////
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print(textField)
+        //update each of the day labels
+        print(startingDatePicker.date)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE, MMMM d, yyyy"
+        
+        //Day One
+        labelDay1.text = formatter.string(from: startingDatePicker.date)
+        
+        //Day Two
+        let day2 = Calendar.current.date(byAdding: .day, value: 1, to: startingDatePicker.date)
+        labelDay2.text = formatter.string(from: day2!)
+        
+        //Day Three
+        let day3 = Calendar.current.date(byAdding: .day, value: 2, to: startingDatePicker.date)
+        labelDay3.text = formatter.string(from: day3!)
+        
+        //Day Four
+        let day4 = Calendar.current.date(byAdding: .day, value: 3, to: startingDatePicker.date)
+        labelDay4.text = formatter.string(from: day4!)
+    
+        //Day Five
+        let day5 = Calendar.current.date(byAdding: .day, value: 4, to: startingDatePicker.date)
+        labelDay5.text = formatter.string(from: day5!)
+        
+        //Day Six
+        let day6 = Calendar.current.date(byAdding: .day, value: 5, to: startingDatePicker.date)
+        labelDay6.text = formatter.string(from: day6!)
+        
+        //Day Seven
+        let day7 = Calendar.current.date(byAdding: .day, value: 6, to: startingDatePicker.date)
+        labelDay7.text = formatter.string(from: day7!)
+        
+        
+        
+    }
+    
+    /////////////////////////////
     //Date Picker Functions
     /////////////////////////////
     func showStartingDatePicker() {
@@ -91,7 +138,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     @objc func donePrepDatePicker() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM dd"
+        formatter.dateFormat = "MMMM d, yyyy"
         startingDate.text = formatter.string(from: startingDatePicker.date)
         self.view.endEditing(true)
     }
@@ -163,39 +210,3 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.view.endEditing(true)
     }
 }
-
-//extension CreatePlanViewController: UITableViewDelegate, UITableViewDataSource {
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 1
-//    }
-//
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "planCategoryCell", for: indexPath)
-//
-//        cell.textLabel?.text = "Section \(indexPath.section)"
-//        cell.detailTextLabel?.text = "Row \(indexPath.row)"
-//
-//        return cell
-//    }
-//
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 7
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return (tableView.frame.height - 210) / 7
-//    }
-//
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        switch section {
-//        case 0:
-//            return "Today"
-//        case 1:
-//            return "Tomorrow"
-//        default:
-//            return "Day \(section+1)"
-//        }
-//    }
-//}

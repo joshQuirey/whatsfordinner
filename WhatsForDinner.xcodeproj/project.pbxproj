@@ -11,6 +11,7 @@
 		4029E31321320954003D3071 /* RecipeDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4029E31221320954003D3071 /* RecipeDescriptionViewController.swift */; };
 		4029E3152132096F003D3071 /* RecipeIngredientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4029E3142132096F003D3071 /* RecipeIngredientViewController.swift */; };
 		4029E31921320B08003D3071 /* RecipeDirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4029E31821320B08003D3071 /* RecipeDirectionsViewController.swift */; };
+		40597E4C22717265003C21E8 /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40597E4B22717265003C21E8 /* Plan.swift */; };
 		4092938D2148692200B16004 /* Categories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4092938C2148692200B16004 /* Categories.storyboard */; };
 		4092938F21486A5600B16004 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4092938E21486A5600B16004 /* CategoriesViewController.swift */; };
 		747BF01E2118B6D1006EACA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747BF01D2118B6D1006EACA0 /* AppDelegate.swift */; };
@@ -31,6 +32,7 @@
 		4029E31221320954003D3071 /* RecipeDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDescriptionViewController.swift; sourceTree = "<group>"; };
 		4029E3142132096F003D3071 /* RecipeIngredientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeIngredientViewController.swift; sourceTree = "<group>"; };
 		4029E31821320B08003D3071 /* RecipeDirectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDirectionsViewController.swift; sourceTree = "<group>"; };
+		40597E4B22717265003C21E8 /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 		4092938C2148692200B16004 /* Categories.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Categories.storyboard; sourceTree = "<group>"; };
 		4092938E21486A5600B16004 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		747BF01A2118B6D1006EACA0 /* WhatsForDinner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatsForDinner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +119,7 @@
 				A7D07DEA2266835F0017B047 /* MealTableViewCell.swift */,
 				747E3557211CE7380065799E /* CoreDataManager.swift */,
 				747BF01D2118B6D1006EACA0 /* AppDelegate.swift */,
+				40597E4B22717265003C21E8 /* Plan.swift */,
 				747BF0262118B6D4006EACA0 /* Assets.xcassets */,
 				747BF02B2118B6D4006EACA0 /* Info.plist */,
 				747E3533211CDD1B0065799E /* MealModel.xcdatamodeld */,
@@ -198,6 +201,7 @@
 			files = (
 				747E3535211CDD1B0065799E /* MealModel.xcdatamodeld in Sources */,
 				4092938F21486A5600B16004 /* CategoriesViewController.swift in Sources */,
+				40597E4C22717265003C21E8 /* Plan.swift in Sources */,
 				4029E3152132096F003D3071 /* RecipeIngredientViewController.swift in Sources */,
 				747BF0222118B6D1006EACA0 /* ListViewController.swift in Sources */,
 				748947CA211A0D73000859F1 /* PlanViewController.swift in Sources */,
