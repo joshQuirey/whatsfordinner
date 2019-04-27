@@ -826,13 +826,11 @@
                                                 <action selector="cancel:" destination="Ljq-Fm-kEf" id="PM9-T0-rUm"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Go" style="plain" id="p06-Ho-9LD">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="z3F-ZG-LDa">
-                                                <rect key="frame" x="302" y="7" width="92" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                            </button>
+                                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="play" id="p06-Ho-9LD">
                                             <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <action selector="create:" destination="Ljq-Fm-kEf" id="xMd-us-SuC"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>

@@ -16,7 +16,16 @@
         <attribute name="previousDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="serves" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="meal" inverseEntity="Ingredient" syncable="YES"/>
+        <relationship name="plannedDays" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PlannedDay" inverseName="meal" inverseEntity="PlannedDay" syncable="YES"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="meals" inverseEntity="Tag" syncable="YES"/>
+    </entity>
+    <entity name="PlannedDay" representedClassName="PlannedDay" syncable="YES" codeGenerationType="class">
+        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="planEndDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="planStartDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="meal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Meal" inverseName="plannedDays" inverseEntity="Meal" syncable="YES"/>
     </entity>
     <entity name="Tag" representedClassName="Tag" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -24,7 +33,8 @@
     </entity>
     <elements>
         <element name="Ingredient" positionX="169" positionY="117" width="128" height="73"/>
-        <element name="Meal" positionX="-63" positionY="-18" width="128" height="225"/>
+        <element name="Meal" positionX="-63" positionY="-18" width="128" height="240"/>
         <element name="Tag" positionX="-90" positionY="305" width="128" height="73"/>
+        <element name="PlannedDay" positionX="36" positionY="135" width="128" height="135"/>
     </elements>
 </model>

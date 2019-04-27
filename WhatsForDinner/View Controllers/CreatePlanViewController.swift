@@ -22,18 +22,25 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var startingDate: UITextField!
     let startingDatePicker = UIDatePicker()
     
+    var dateDay1: Date?
     @IBOutlet weak var labelDay1: UILabel!
     @IBOutlet weak var category1: UITextField!
+    var dateDay2: Date?
     @IBOutlet weak var labelDay2: UILabel!
     @IBOutlet weak var category2: UITextField!
+    var dateDay3: Date?
     @IBOutlet weak var labelDay3: UILabel!
     @IBOutlet weak var category3: UITextField!
+    var dateDay4: Date?
     @IBOutlet weak var labelDay4: UILabel!
     @IBOutlet weak var category4: UITextField!
+    var dateDay5: Date?
     @IBOutlet weak var labelDay5: UILabel!
     @IBOutlet weak var category5: UITextField!
+    var dateDay6: Date?
     @IBOutlet weak var labelDay6: UILabel!
     @IBOutlet weak var category6: UITextField!
+    var dateDay7: Date?
     @IBOutlet weak var labelDay7: UILabel!
     @IBOutlet weak var category7: UITextField!
     
@@ -49,6 +56,83 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     @IBAction func cancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func create(_ sender: Any) {
+        var weekPlan = [Plan?]()
+        
+        //Day7
+        let day7Plan = Plan(
+            _start: dateDay1!,
+            _planned: dateDay7!,
+            _end: dateDay7!,
+            _category: category7.text!
+        )
+        
+        weekPlan.append(day7Plan)
+        
+        //Day6
+        let day6Plan = Plan(
+            _start: dateDay1!,
+            _planned: dateDay6!,
+            _end: dateDay7!,
+            _category: category6.text!
+        )
+        
+        weekPlan.append(day6Plan)
+        
+        //Day5
+        let day5Plan = Plan(
+            _start: dateDay1!,
+            _planned: dateDay5!,
+            _end: dateDay7!,
+            _category: category5.text!
+        )
+        
+        weekPlan.append(day5Plan)
+        
+        //Day4
+        let day4Plan = Plan(
+            _start: dateDay1!,
+            _planned: dateDay4!,
+            _end: dateDay7!,
+            _category: category4.text!
+        )
+        
+        weekPlan.append(day4Plan)
+        
+        //Day3
+        let day3Plan = Plan(
+            _start: dateDay1!,
+            _planned: dateDay3!,
+            _end: dateDay7!,
+            _category: category3.text!
+        )
+        
+        weekPlan.append(day3Plan)
+        
+        //Day2
+        let day2Plan = Plan(
+            _start: dateDay1!,
+            _planned: dateDay2!,
+            _end: dateDay7!,
+            _category: category2.text!
+        )
+        
+        weekPlan.append(day2Plan)
+        
+        //Day1
+        let day1Plan = Plan(
+            _start: dateDay1!,
+            _planned: dateDay1!,
+            _end: dateDay7!,
+            _category: category1.text!
+        )
+
+        weekPlan.append(day1Plan)
+        
+        print(weekPlan)
+        
     }
     
     override func viewDidLoad() {
@@ -87,31 +171,32 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         formatter.dateFormat = "EEEE, MMMM d, yyyy"
         
         //Day One
+        dateDay1 = startingDatePicker.date
         labelDay1.text = formatter.string(from: startingDatePicker.date)
         
         //Day Two
-        let day2 = Calendar.current.date(byAdding: .day, value: 1, to: startingDatePicker.date)
-        labelDay2.text = formatter.string(from: day2!)
+        dateDay2 = Calendar.current.date(byAdding: .day, value: 1, to: startingDatePicker.date)
+        labelDay2.text = formatter.string(from: dateDay2!)
         
         //Day Three
-        let day3 = Calendar.current.date(byAdding: .day, value: 2, to: startingDatePicker.date)
-        labelDay3.text = formatter.string(from: day3!)
+        dateDay3 = Calendar.current.date(byAdding: .day, value: 2, to: startingDatePicker.date)
+        labelDay3.text = formatter.string(from: dateDay3!)
         
         //Day Four
-        let day4 = Calendar.current.date(byAdding: .day, value: 3, to: startingDatePicker.date)
-        labelDay4.text = formatter.string(from: day4!)
+        dateDay4 = Calendar.current.date(byAdding: .day, value: 3, to: startingDatePicker.date)
+        labelDay4.text = formatter.string(from: dateDay4!)
     
         //Day Five
-        let day5 = Calendar.current.date(byAdding: .day, value: 4, to: startingDatePicker.date)
-        labelDay5.text = formatter.string(from: day5!)
+        dateDay5 = Calendar.current.date(byAdding: .day, value: 4, to: startingDatePicker.date)
+        labelDay5.text = formatter.string(from: dateDay5!)
         
         //Day Six
-        let day6 = Calendar.current.date(byAdding: .day, value: 5, to: startingDatePicker.date)
-        labelDay6.text = formatter.string(from: day6!)
+        dateDay6 = Calendar.current.date(byAdding: .day, value: 5, to: startingDatePicker.date)
+        labelDay6.text = formatter.string(from: dateDay6!)
         
         //Day Seven
-        let day7 = Calendar.current.date(byAdding: .day, value: 6, to: startingDatePicker.date)
-        labelDay7.text = formatter.string(from: day7!)
+        dateDay7 = Calendar.current.date(byAdding: .day, value: 6, to: startingDatePicker.date)
+        labelDay7.text = formatter.string(from: dateDay7!)
         
         
         
