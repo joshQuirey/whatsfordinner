@@ -14,10 +14,19 @@ class PlanViewController: UIViewController {
     /////////////////////////////
     //Properties
     /////////////////////////////
-    //private var coreDataManager = CoreDataManager(modelName: "MealModel")
+    private var coreDataManager = CoreDataManager(modelName: "MealModel")
     @IBOutlet weak var tableView: UITableView!
-//    let SectionHeaderHeight: CGFloat = 60
 
+    private var plannedDays: [PlannedDay]? {
+        didSet {
+            //updateView()
+        }
+    }
+    
+    private var hasPlans: Bool {
+        guard let plannedDays = plannedDays else { return false }
+        return plannedDays.count > 0
+    }
 
     
     /////////////////////////////

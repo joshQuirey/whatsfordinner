@@ -13,7 +13,9 @@ class MealsViewController: UIViewController {
     /////////////////////////////
     //Properties
     /////////////////////////////
-    private var coreDataManager = CoreDataManager(modelName: "MealModel")
+    //private var coreDataManager = CoreDataManager(modelName: "MealModel")
+    var managedObjectContext: NSManagedObjectContext?
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyTableLabel: UILabel!
     private var selectedObjectID = NSManagedObjectID()
@@ -28,21 +30,7 @@ class MealsViewController: UIViewController {
         guard let meals = meals else { return false }
         return meals.count > 0
     }
-    
-//    private lazy var fetchedResultsController: NSFetchedResultsController<Meal> = {
-//        let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
-//
-//        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.mealName), ascending: true)]
-//
-//        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.coreDataManager.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-//
-//        fetchedResultsController.delegate = self
-//
-//        return fetchedResultsController
-//    }()
-    
 
-    
     /////////////////////////////
     //Segues
     /////////////////////////////
@@ -50,7 +38,6 @@ class MealsViewController: UIViewController {
         static let AddMeal = "AddMeal"
         static let ViewMeal = "ViewMeal"
     }
-    
     
     /////////////////////////////
     //View Life Cycle
@@ -73,7 +60,7 @@ class MealsViewController: UIViewController {
         notificationCenter.addObserver(self,
                                        selector: #selector(managedObjectContextObjectsDidChange(_:)),
                                        name: Notification.Name.NSManagedObjectContextObjectsDidChange,
-                                       object: coreDataManager.managedObjectContext)
+                                       object: self.managedObjectContext)
         
         notificationCenter.addObserver(self,
                                        selector: #selector(saveMeals(_:)),
@@ -98,8 +85,8 @@ class MealsViewController: UIViewController {
                 return
             }
             
-            destination.managedObjectContext = coreDataManager.managedObjectContext
-            destination.meal = Meal(context: coreDataManager.managedObjectContext)
+            destination.managedObjectContext = self.managedObjectContext
+            destination.meal = Meal(context: self.managedObjectContext!)
 //            destination.ticket?.status = ticketStatus.DispatchQueue.rawValue
 //            destination.ticket?.startDate = ISO8601DateFormatter.init().string(from: Date())
 //            destination.ticket?.sroNumber = "UNPLANNED"
@@ -116,7 +103,7 @@ class MealsViewController: UIViewController {
                 return
             }
             print("destination")
-            destination.managedObjectContext = coreDataManager.managedObjectContext
+            destination.managedObjectContext = self.managedObjectContext
             print("got context")
             let _indexpath = tableView.indexPathForSelectedRow
             let _meal = meals![(_indexpath?.row)!]
@@ -152,7 +139,7 @@ class MealsViewController: UIViewController {
         
         if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> {
             print("Context Updates Exist")
-            print(meals)
+            //print(meals)
             for update in updates {
                 if update is Meal {
                     mealsDidChange = true
@@ -192,7 +179,7 @@ class MealsViewController: UIViewController {
 
     @objc private func saveMeals(_ notification: Notification) {
         do {
-            try coreDataManager.managedObjectContext.save()
+            try self.managedObjectContext!.save()
         } catch {
             fatalError("Failure to save context: \(error)")
         }
@@ -208,7 +195,7 @@ class MealsViewController: UIViewController {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.mealName), ascending: true)]
         
         // Perform Fetch Request
-        coreDataManager.managedObjectContext.performAndWait {
+        self.managedObjectContext!.performAndWait {
             do {
                 // Execute Fetch Request
                 let meals = try fetchRequest.execute()
