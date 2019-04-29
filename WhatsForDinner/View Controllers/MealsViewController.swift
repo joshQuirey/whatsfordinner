@@ -13,8 +13,8 @@ class MealsViewController: UIViewController {
     /////////////////////////////
     //Properties
     /////////////////////////////
-    //private var coreDataManager = CoreDataManager(modelName: "MealModel")
-    var managedObjectContext: NSManagedObjectContext?
+    private var coreDataManager = CoreDataManager(modelName: "MealModel")
+    //var managedObjectContext: NSManagedObjectContext?
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyTableLabel: UILabel!
@@ -60,7 +60,7 @@ class MealsViewController: UIViewController {
         notificationCenter.addObserver(self,
                                        selector: #selector(managedObjectContextObjectsDidChange(_:)),
                                        name: Notification.Name.NSManagedObjectContextObjectsDidChange,
-                                       object: self.managedObjectContext)
+                                       object: coreDataManager.managedObjectContext)
         
         notificationCenter.addObserver(self,
                                        selector: #selector(saveMeals(_:)),
@@ -71,6 +71,12 @@ class MealsViewController: UIViewController {
     private func updateView() {
         tableView.isHidden = !hasMeals
         emptyTableLabel.isHidden = hasMeals
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("before")
+        print(coreDataManager.managedObjectContext)
+        print("after")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -85,8 +91,8 @@ class MealsViewController: UIViewController {
                 return
             }
             
-            destination.managedObjectContext = self.managedObjectContext
-            destination.meal = Meal(context: self.managedObjectContext!)
+            destination.managedObjectContext = coreDataManager.managedObjectContext
+            destination.meal = Meal(context: coreDataManager.managedObjectContext)
 //            destination.ticket?.status = ticketStatus.DispatchQueue.rawValue
 //            destination.ticket?.startDate = ISO8601DateFormatter.init().string(from: Date())
 //            destination.ticket?.sroNumber = "UNPLANNED"
@@ -103,7 +109,7 @@ class MealsViewController: UIViewController {
                 return
             }
             print("destination")
-            destination.managedObjectContext = self.managedObjectContext
+            destination.managedObjectContext = coreDataManager.managedObjectContext
             print("got context")
             let _indexpath = tableView.indexPathForSelectedRow
             let _meal = meals![(_indexpath?.row)!]
@@ -179,7 +185,7 @@ class MealsViewController: UIViewController {
 
     @objc private func saveMeals(_ notification: Notification) {
         do {
-            try self.managedObjectContext!.save()
+            try coreDataManager.managedObjectContext.save()
         } catch {
             fatalError("Failure to save context: \(error)")
         }
@@ -195,7 +201,7 @@ class MealsViewController: UIViewController {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.mealName), ascending: true)]
         
         // Perform Fetch Request
-        self.managedObjectContext!.performAndWait {
+        coreDataManager.managedObjectContext.performAndWait {
             do {
                 // Execute Fetch Request
                 let meals = try fetchRequest.execute()

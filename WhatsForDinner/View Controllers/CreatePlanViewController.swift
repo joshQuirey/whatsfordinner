@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+    
+    var managedObjectContext: NSManagedObjectContext?
+    var day7Plan: PlannedDay?
     
     @IBOutlet weak var parentView: UIView!
     @IBOutlet weak var childView1: UIView!
@@ -59,78 +63,64 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     @IBAction func create(_ sender: Any) {
-        var weekPlan = [Plan?]()
+        var weekPlan = [PlannedDay?]()
         
         //Day7
-        let day7Plan = Plan(
-            _start: dateDay1!,
-            _planned: dateDay7!,
-            _end: dateDay7!,
-            _category: category7.text!
-        )
-        
+//        let day7Plan = PlannedDay()
+        day7Plan!.planStartDate = dateDay1
+        day7Plan!.date = dateDay7
+        day7Plan!.planEndDate = dateDay7
+        day7Plan!.category = category7.text
         weekPlan.append(day7Plan)
         
         //Day6
-        let day6Plan = Plan(
-            _start: dateDay1!,
-            _planned: dateDay6!,
-            _end: dateDay7!,
-            _category: category6.text!
-        )
-        
-        weekPlan.append(day6Plan)
-        
-        //Day5
-        let day5Plan = Plan(
-            _start: dateDay1!,
-            _planned: dateDay5!,
-            _end: dateDay7!,
-            _category: category5.text!
-        )
-        
-        weekPlan.append(day5Plan)
-        
-        //Day4
-        let day4Plan = Plan(
-            _start: dateDay1!,
-            _planned: dateDay4!,
-            _end: dateDay7!,
-            _category: category4.text!
-        )
-        
-        weekPlan.append(day4Plan)
-        
-        //Day3
-        let day3Plan = Plan(
-            _start: dateDay1!,
-            _planned: dateDay3!,
-            _end: dateDay7!,
-            _category: category3.text!
-        )
-        
-        weekPlan.append(day3Plan)
-        
-        //Day2
-        let day2Plan = Plan(
-            _start: dateDay1!,
-            _planned: dateDay2!,
-            _end: dateDay7!,
-            _category: category2.text!
-        )
-        
-        weekPlan.append(day2Plan)
-        
-        //Day1
-        let day1Plan = Plan(
-            _start: dateDay1!,
-            _planned: dateDay1!,
-            _end: dateDay7!,
-            _category: category1.text!
-        )
-
-        weekPlan.append(day1Plan)
-        
+//        let day6Plan = PlannedDay()
+//        day6Plan.planStartDate = dateDay1
+//        day6Plan.date = dateDay6
+//        day6Plan.planEndDate = dateDay7
+//        day6Plan.category = category6.text
+//        weekPlan.append(day6Plan)
+//
+//        //Day5
+//        let day5Plan = PlannedDay()
+//        day5Plan.planStartDate = dateDay1
+//        day5Plan.date = dateDay5
+//        day5Plan.planEndDate = dateDay7
+//        day5Plan.category = category5.text
+//        weekPlan.append(day5Plan)
+//
+//        //Day4
+//        let day4Plan = PlannedDay()
+//        day4Plan.planStartDate = dateDay1
+//        day4Plan.date = dateDay4
+//        day4Plan.planEndDate = dateDay7
+//        day4Plan.category = category4.text
+//        weekPlan.append(day4Plan)
+//
+//        //Day3
+//        let day3Plan = PlannedDay()
+//        day3Plan.planStartDate = dateDay1
+//        day3Plan.date = dateDay3
+//        day3Plan.planEndDate = dateDay7
+//        day3Plan.category = category3.text
+//        weekPlan.append(day3Plan)
+//
+//        //Day2
+//        let day2Plan = PlannedDay()
+//        day2Plan.planStartDate = dateDay1
+//        day2Plan.date = dateDay2
+//        day2Plan.planEndDate = dateDay7
+//        day2Plan.category = category2.text
+//        weekPlan.append(day2Plan)
+//
+//        //Day1
+//        let day1Plan = PlannedDay()
+//        day1Plan.planStartDate = dateDay1
+//        day1Plan.date = dateDay1
+//        day1Plan.planEndDate = dateDay7
+//        day1Plan.category = category1.text
+//        weekPlan.append(day1Plan)
+//
         print(weekPlan)
         
     }

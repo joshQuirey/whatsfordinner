@@ -72,6 +72,12 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         self.name.attributedPlaceholder = NSAttributedString(string: "Enter Meal Name",attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        print("before")
+        print(self.managedObjectContext!)
+        print("after")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         if (meal?.mealImage != nil) {
             imageButton.setTitle(nil, for: .normal)
@@ -257,12 +263,9 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         if let possibleImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
             newImage = possibleImage
-            print("11111")
         } else if let possibleImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
             newImage = possibleImage
-            print("222222")
         } else {
-            print("33333")
             return
         }
         

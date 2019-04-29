@@ -481,7 +481,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="Njr-3d-Hv3">
                             <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <segue destination="Ljq-Fm-kEf" kind="showDetail" id="TTl-ru-SlJ"/>
+                                <segue destination="Ljq-Fm-kEf" kind="showDetail" identifier="CreatePlan" id="TTl-ru-SlJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

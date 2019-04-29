@@ -15,6 +15,7 @@ class PlanViewController: UIViewController {
     //Properties
     /////////////////////////////
     private var coreDataManager = CoreDataManager(modelName: "MealModel")
+    
     @IBOutlet weak var tableView: UITableView!
 
     private var plannedDays: [PlannedDay]? {
@@ -33,7 +34,7 @@ class PlanViewController: UIViewController {
     //Segues
     /////////////////////////////
     private enum Segue {
-            static let ViewMeals = "ViewMeals"
+            static let CreatePlan = "CreatePlan"
     }
     
     
@@ -42,6 +43,7 @@ class PlanViewController: UIViewController {
     /////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
         //let meal = Meal(context: coreDataManager.managedObjectContext)
         //meal.category
@@ -53,6 +55,12 @@ class PlanViewController: UIViewController {
         //    print("\(error), \(error.localizedDescription)")
         //}
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("before")
+        print(coreDataManager.managedObjectContext)
+        print("after")
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -60,18 +68,18 @@ class PlanViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //guard let identifier = segue.identifier else { return }
+        guard let identifier = segue.identifier else { return }
         
-        //switch identifier {
-        //case Segue.ViewMeals:
-        //    guard let destination = segue.destination as? MealsViewController else {
-            //    return
-            //}
+        switch identifier {
+        case Segue.CreatePlan:
+            guard let destination = segue.destination as? CreatePlanViewController else {
+                return
+            }
             
-          //  destination.managedObjectContext = coreDataManager.managedObjectContext
-        //default:
-          //  break
-        //}
+            destination.managedObjectContext = coreDataManager.managedObjectContext
+        default:
+            break
+        }
     }
     
 }
