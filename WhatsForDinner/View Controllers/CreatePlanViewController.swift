@@ -12,7 +12,7 @@ import CoreData
 class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     var managedObjectContext: NSManagedObjectContext?
-    var day7Plan: PlannedDay?
+    //var day7Plan: PlannedDay?
     
     @IBOutlet weak var parentView: UIView!
     @IBOutlet weak var childView1: UIView!
@@ -66,62 +66,89 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         var weekPlan = [PlannedDay?]()
         
         //Day7
-//        let day7Plan = PlannedDay()
-        day7Plan!.planStartDate = dateDay1
-        day7Plan!.date = dateDay7
-        day7Plan!.planEndDate = dateDay7
-        day7Plan!.category = category7.text
+        let day7Plan = PlannedDay(context: self.managedObjectContext!)
+        day7Plan.planStartDate = dateDay1
+        day7Plan.date = dateDay7
+        day7Plan.planEndDate = dateDay7
+        day7Plan.category = category7.text
+        //Get Meal
+        let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
+        //Configure Fetch Request
+        //Sort Descriptor
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.previousDate), ascending:false)]
+        //Perform Fetch Request
+        self.managedObjectContext?.performAndWait {
+            do {
+                //Execute Fetch Request
+                let meals = try fetchRequest.execute()
+                for record in meals {
+                    print("Name \(record.value(forKey: "mealName") ?? "no name") -- PrevDate \(record.value(forKey: "previousDate") ?? "no prev") -- Frequency \(record.value(forKey: "frequency") ?? "no frequency")")
+                }
+                //Category \(record.value(forKey: "tag") ?? "no tag")) --
+                //Update Meals
+                //self.meals
+                //self.tableView.reloadData()
+            } catch {
+                let fetchError = error as NSError
+                print("Unable to Execute Fetch Request")
+                print("\(fetchError), \(fetchError.localizedDescription)")
+            }
+        }
+        
         weekPlan.append(day7Plan)
         
         //Day6
-//        let day6Plan = PlannedDay()
-//        day6Plan.planStartDate = dateDay1
-//        day6Plan.date = dateDay6
-//        day6Plan.planEndDate = dateDay7
-//        day6Plan.category = category6.text
-//        weekPlan.append(day6Plan)
-//
-//        //Day5
-//        let day5Plan = PlannedDay()
-//        day5Plan.planStartDate = dateDay1
-//        day5Plan.date = dateDay5
-//        day5Plan.planEndDate = dateDay7
-//        day5Plan.category = category5.text
-//        weekPlan.append(day5Plan)
-//
-//        //Day4
-//        let day4Plan = PlannedDay()
-//        day4Plan.planStartDate = dateDay1
-//        day4Plan.date = dateDay4
-//        day4Plan.planEndDate = dateDay7
-//        day4Plan.category = category4.text
-//        weekPlan.append(day4Plan)
-//
-//        //Day3
-//        let day3Plan = PlannedDay()
-//        day3Plan.planStartDate = dateDay1
-//        day3Plan.date = dateDay3
-//        day3Plan.planEndDate = dateDay7
-//        day3Plan.category = category3.text
-//        weekPlan.append(day3Plan)
-//
-//        //Day2
-//        let day2Plan = PlannedDay()
-//        day2Plan.planStartDate = dateDay1
-//        day2Plan.date = dateDay2
-//        day2Plan.planEndDate = dateDay7
-//        day2Plan.category = category2.text
-//        weekPlan.append(day2Plan)
-//
-//        //Day1
-//        let day1Plan = PlannedDay()
-//        day1Plan.planStartDate = dateDay1
-//        day1Plan.date = dateDay1
-//        day1Plan.planEndDate = dateDay7
-//        day1Plan.category = category1.text
-//        weekPlan.append(day1Plan)
-//
-        print(weekPlan)
+        let day6Plan = PlannedDay(context: self.managedObjectContext!)
+        day6Plan.planStartDate = dateDay1
+        day6Plan.date = dateDay6
+        day6Plan.planEndDate = dateDay7
+        day6Plan.category = category6.text
+        //Get Meal
+        
+        weekPlan.append(day6Plan)
+
+        //Day5
+        let day5Plan = PlannedDay(context: self.managedObjectContext!)
+        day5Plan.planStartDate = dateDay1
+        day5Plan.date = dateDay5
+        day5Plan.planEndDate = dateDay7
+        day5Plan.category = category5.text
+        
+        weekPlan.append(day5Plan)
+
+        //Day4
+        let day4Plan = PlannedDay(context: self.managedObjectContext!)
+        day4Plan.planStartDate = dateDay1
+        day4Plan.date = dateDay4
+        day4Plan.planEndDate = dateDay7
+        day4Plan.category = category4.text
+        weekPlan.append(day4Plan)
+
+        //Day3
+        let day3Plan = PlannedDay(context: self.managedObjectContext!)
+        day3Plan.planStartDate = dateDay1
+        day3Plan.date = dateDay3
+        day3Plan.planEndDate = dateDay7
+        day3Plan.category = category3.text
+        weekPlan.append(day3Plan)
+
+        //Day2
+        let day2Plan = PlannedDay(context: self.managedObjectContext!)
+        day2Plan.planStartDate = dateDay1
+        day2Plan.date = dateDay2
+        day2Plan.planEndDate = dateDay7
+        day2Plan.category = category2.text
+        weekPlan.append(day2Plan)
+
+        //Day1
+        let day1Plan = PlannedDay(context: self.managedObjectContext!)
+        day1Plan.planStartDate = dateDay1
+        day1Plan.date = dateDay1
+        day1Plan.planEndDate = dateDay7
+        day1Plan.category = category1.text
+        weekPlan.append(day1Plan)
+
+       // print(weekPlan)
         
     }
     
