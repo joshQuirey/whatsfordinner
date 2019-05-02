@@ -13,6 +13,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     var managedObjectContext: NSManagedObjectContext?
     //var day7Plan: PlannedDay?
+      var weekPlan = [PlannedDay?]()
     
     @IBOutlet weak var parentView: UIView!
     @IBOutlet weak var childView1: UIView!
@@ -63,8 +64,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     @IBAction func create(_ sender: Any) {
-        var weekPlan = [PlannedDay?]()
-        
+      
         //Day7
         let day7Plan = PlannedDay(context: self.managedObjectContext!)
         day7Plan.planStartDate = dateDay1
@@ -72,18 +72,113 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         day7Plan.planEndDate = dateDay7
         day7Plan.category = category7.text
         //Get Meal
+        day7Plan.meal = self.getMealforPlannedDay(_category: day7Plan.category!, _plannedDate: day7Plan.date!)
+        print("Selected Meal: \(day7Plan.meal!.mealName!)")
+        weekPlan.append(day7Plan)
+        
+        //Day6
+        let day6Plan = PlannedDay(context: self.managedObjectContext!)
+        day6Plan.planStartDate = dateDay1
+        day6Plan.date = dateDay6
+        day6Plan.planEndDate = dateDay7
+        day6Plan.category = category6.text
+        //Get Meal
+        day6Plan.meal = self.getMealforPlannedDay(_category: day6Plan.category!, _plannedDate: day6Plan.date!)
+        print("Selected Meal: \(day6Plan.meal!.mealName!)")
+        weekPlan.append(day6Plan)
+
+        //Day5
+        let day5Plan = PlannedDay(context: self.managedObjectContext!)
+        day5Plan.planStartDate = dateDay1
+        day5Plan.date = dateDay5
+        day5Plan.planEndDate = dateDay7
+        //Get Meal
+        day5Plan.meal = self.getMealforPlannedDay(_category: day5Plan.category!, _plannedDate: day5Plan.date!)
+        //if meal is null???
+        print("Selected Meal: \(day5Plan.meal!.mealName!)")
+        day5Plan.category = category5.text
+        
+        weekPlan.append(day5Plan)
+
+        //Day4
+        let day4Plan = PlannedDay(context: self.managedObjectContext!)
+        day4Plan.planStartDate = dateDay1
+        day4Plan.date = dateDay4
+        day4Plan.planEndDate = dateDay7
+        //Get Meal
+        day4Plan.meal = self.getMealforPlannedDay(_category: day4Plan.category!, _plannedDate: day4Plan.date!)
+        print("Selected Meal: \(day4Plan.meal!.mealName!)")
+        day4Plan.category = category4.text
+        weekPlan.append(day4Plan)
+
+        //Day3
+        let day3Plan = PlannedDay(context: self.managedObjectContext!)
+        day3Plan.planStartDate = dateDay1
+        day3Plan.date = dateDay3
+        day3Plan.planEndDate = dateDay7
+        //Get Meal
+        day3Plan.meal = self.getMealforPlannedDay(_category: day3Plan.category!, _plannedDate: day3Plan.date!)
+        print("Selected Meal: \(day3Plan.meal!.mealName!)")
+        day3Plan.category = category3.text
+        weekPlan.append(day3Plan)
+
+        //Day2
+        let day2Plan = PlannedDay(context: self.managedObjectContext!)
+        day2Plan.planStartDate = dateDay1
+        day2Plan.date = dateDay2
+        day2Plan.planEndDate = dateDay7
+        //Get Meal
+        day2Plan.meal = self.getMealforPlannedDay(_category: day2Plan.category!, _plannedDate: day2Plan.date!)
+        print("Selected Meal: \(day2Plan.meal!.mealName!)")
+        day2Plan.category = category2.text
+        weekPlan.append(day2Plan)
+
+        //Day1
+        let day1Plan = PlannedDay(context: self.managedObjectContext!)
+        day1Plan.planStartDate = dateDay1
+        day1Plan.date = dateDay1
+        day1Plan.planEndDate = dateDay7
+        //Get Meal
+        day1Plan.meal = self.getMealforPlannedDay(_category: day1Plan.category!, _plannedDate: day1Plan.date!)
+        print("Selected Meal: \(day1Plan.meal!.mealName!)")
+        day1Plan.category = category1.text
+        weekPlan.append(day1Plan)
+
+       //print(weekPlan)
+        
+    }
+    
+    func getMealforPlannedDay(_category: String, _plannedDate: Date) -> Meal {
+        var _meal = Meal.init()
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
-        //Configure Fetch Request
-        //Sort Descriptor
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.previousDate), ascending:false)]
+        
+        //Fetch Meals using Category
+        fetchRequest.predicate = NSPredicate(format: "ANY tags.name == %@ AND estimatedNextDate != nil", _category)
+        
+        //Sort by estimated next date
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending:true)]
+        
         //Perform Fetch Request
         self.managedObjectContext?.performAndWait {
             do {
                 //Execute Fetch Request
                 let meals = try fetchRequest.execute()
-                for record in meals {
-                    print("Name \(record.value(forKey: "mealName") ?? "no name") -- PrevDate \(record.value(forKey: "previousDate") ?? "no prev") -- Frequency \(record.value(forKey: "frequency") ?? "no frequency")")
-                }
+                
+                //Print meals for testing
+//                for meal in meals {
+//                    print("Name \(meal.value(forKey: "mealName") ?? "no name") -- Estimated Next Date \(meal.value(forKey: "estimatedNextDate") ?? "no est") -- Frequency \(meal.value(forKey: "frequency") ?? "no frequency")")
+//
+//                    for category in meal.tags?.allObjects as! [Tag] {
+//                        print(category.name!)
+//                    }
+//                }
+                
+                //check to see if meal is in current plan
+                _meal = meals[0]
+                _meal.nextDate = _plannedDate
+                _meal.estimatedNextDate = nil
+                //when you mark complete prevdate becomes nextdate, nextdate becomes null, estimated gets calculated
+                //}
                 //Category \(record.value(forKey: "tag") ?? "no tag")) --
                 //Update Meals
                 //self.meals
@@ -95,61 +190,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
             }
         }
         
-        weekPlan.append(day7Plan)
-        
-        //Day6
-        let day6Plan = PlannedDay(context: self.managedObjectContext!)
-        day6Plan.planStartDate = dateDay1
-        day6Plan.date = dateDay6
-        day6Plan.planEndDate = dateDay7
-        day6Plan.category = category6.text
-        //Get Meal
-        
-        weekPlan.append(day6Plan)
-
-        //Day5
-        let day5Plan = PlannedDay(context: self.managedObjectContext!)
-        day5Plan.planStartDate = dateDay1
-        day5Plan.date = dateDay5
-        day5Plan.planEndDate = dateDay7
-        day5Plan.category = category5.text
-        
-        weekPlan.append(day5Plan)
-
-        //Day4
-        let day4Plan = PlannedDay(context: self.managedObjectContext!)
-        day4Plan.planStartDate = dateDay1
-        day4Plan.date = dateDay4
-        day4Plan.planEndDate = dateDay7
-        day4Plan.category = category4.text
-        weekPlan.append(day4Plan)
-
-        //Day3
-        let day3Plan = PlannedDay(context: self.managedObjectContext!)
-        day3Plan.planStartDate = dateDay1
-        day3Plan.date = dateDay3
-        day3Plan.planEndDate = dateDay7
-        day3Plan.category = category3.text
-        weekPlan.append(day3Plan)
-
-        //Day2
-        let day2Plan = PlannedDay(context: self.managedObjectContext!)
-        day2Plan.planStartDate = dateDay1
-        day2Plan.date = dateDay2
-        day2Plan.planEndDate = dateDay7
-        day2Plan.category = category2.text
-        weekPlan.append(day2Plan)
-
-        //Day1
-        let day1Plan = PlannedDay(context: self.managedObjectContext!)
-        day1Plan.planStartDate = dateDay1
-        day1Plan.date = dateDay1
-        day1Plan.planEndDate = dateDay7
-        day1Plan.category = category1.text
-        weekPlan.append(day1Plan)
-
-       // print(weekPlan)
-        
+        return _meal
     }
     
     override func viewDidLoad() {

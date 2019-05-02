@@ -13,14 +13,15 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     /////////////////////////////
     //Properties
     /////////////////////////////
-    let frequencyData = [String](arrayLiteral: "", "Weekly", "Every Other Week", "Monthly", "Every Other Month")
+    let frequencyData = [String](arrayLiteral: "Weekly", "Every Other Week", "Monthly", "Every Other Month", "Every Few Months")
     
     enum Frequency: Int {
         case weekly = 7
         case everyOtherWeek = 14
         case monthly = 30
         case everyOtherMonth = 60
-        case nopreference = 0
+        case everyFewMonths = 90
+        case nopreference = 180
 
 //        var days: Int {
 //            switch self {
@@ -184,8 +185,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
             _frequency = 30
         case "Every Other Month":
             _frequency = 60
+        case "Every Few Months":
+            _frequency = 90
         default:
-            _frequency = 0
+            _frequency = 180
         }
         meal.frequency = Int16(_frequency)
         print(meal.frequency)
@@ -202,6 +205,8 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         //directions
         meal.directions = recipeDirectionsViewController.recipeDirections.text
         //ingredientss
+        
+        meal.estimatedNextDate =  Calendar.current.date(byAdding: .day, value: Int(meal.frequency), to: Date())
     }
 
     /////////////////////////////

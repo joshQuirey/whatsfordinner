@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="18A391" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18D109" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Ingredient" representedClassName="Ingredient" syncable="YES" codeGenerationType="class">
         <attribute name="item" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="meal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Meal" inverseName="ingredients" inverseEntity="Meal" syncable="YES"/>
@@ -7,6 +7,7 @@
     <entity name="Meal" representedClassName="Meal" syncable="YES" codeGenerationType="class">
         <attribute name="cookTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="directions" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="estimatedNextDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="frequency" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="mealDesc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mealImage" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -33,8 +34,8 @@
     </entity>
     <elements>
         <element name="Ingredient" positionX="169" positionY="117" width="128" height="73"/>
-        <element name="Meal" positionX="-63" positionY="-18" width="128" height="240"/>
-        <element name="Tag" positionX="-90" positionY="305" width="128" height="73"/>
+        <element name="Meal" positionX="-63" positionY="-18" width="128" height="255"/>
         <element name="PlannedDay" positionX="36" positionY="135" width="128" height="135"/>
+        <element name="Tag" positionX="-90" positionY="305" width="128" height="73"/>
     </elements>
 </model>

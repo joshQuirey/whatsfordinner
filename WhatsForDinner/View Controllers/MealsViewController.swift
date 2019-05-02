@@ -103,7 +103,7 @@ class MealsViewController: UIViewController {
 //            destination.ticket?.updateDate = String().minimumDateValue
 //            destination.ticket?.manualFlag = true
 //            destination.manualFlag = true
-            print(destination.meal)
+            //print(destination.meal)
         case Segue.ViewMeal:
             guard let destination = segue.destination as? RecipeViewController else {
                 return
