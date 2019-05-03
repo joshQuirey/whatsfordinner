@@ -11,6 +11,8 @@ import CoreData
 
 class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
+    @IBOutlet weak var bottomStackViewConstraint: NSLayoutConstraint!
+    
     var managedObjectContext: NSManagedObjectContext?
     //var day7Plan: PlannedDay?
       var weekPlan = [PlannedDay?]()
@@ -57,7 +59,8 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     let picker6 = UIPickerView()
     let picker7 = UIPickerView()
     
-    let categoryData = [String](arrayLiteral: "Asian Cuisine 🥡", "Breakfast for Dinner 🥓", "Barbecue 🐷", "Casserole 🥘", "Comfort Food 🛌", "Chicken 🐓", "Mexican  🌮", "Pasta 🍝", "Pizza 🍕", "Pork 🐖", "On The Grill 🥩", "Other", "Salad 🥗", "Sandwich 🥪", "Seafood 🍤", "Slow Cooker ⏲", "Soups Up 🍜", "Vegetarian 🥕")
+    var categoryData = [String](arrayLiteral: "Chef's Choice 🎲")
+        //"Asian Cuisine 🥡", "Breakfast for Dinner 🥓", "Barbecue 🐷", "Casserole 🥘", "Comfort Food 🛌", "Chicken 🐓", "Mexican  🌮", "Pasta 🍝", "Pizza 🍕", "Pork 🐖", "On The Grill 🥩", "Other", "Salad 🥗", "Sandwich 🥪", "Seafood 🍤", "Slow Cooker ⏲", "Soups Up 🍜", "Vegetarian 🥕")
 
     
     override func viewDidLoad() {
@@ -71,40 +74,34 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         showPicker(self.category5, self.picker5)
         showPicker(self.category6, self.picker6)
         showPicker(self.category7, self.picker7)
-        
-        //getCategories()
-        
     }
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
-        getCategories()
+        loadCategories()
     }
-    /*
-    // MARK: - Navigation
-
-     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
-    func getCategories() { //-> [String] {
-        let fetchRequest: NSFetchRequest<Tag> = Tag.fetchRequest()
+    func loadCategories() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Tag")
         fetchRequest.propertiesToFetch = ["name"]
+        fetchRequest.resultType = .dictionaryResultType
         fetchRequest.returnsDistinctResults = true
-        fetchRequest.resultType = NSFetchRequestResultType.dictionaryResultType
         
         self.managedObjectContext?.performAndWait {
             do {
                 let tags = try fetchRequest.execute()
-                print(tags)
-                //for tag in tags {
-                //    print("Name \(tag.value(forKey: "name") ?? "no name")")
-                //}
-                
+    
+                for tag in tags {
+                    if let dic = (tag as? [String : String]){
+                        if let nameString = dic["name"]{
+                            categoryData.append(nameString)
+                        }
+                    }
+                }
             } catch {
                 let fetchError = error as NSError
                 print("Unable to Execute Fetch Request")
@@ -253,6 +250,10 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func textFieldDidEndEditing(_ textField: UITextField) {
         print(textField)
         //update each of the day labels
+        updateDayDates()
+    }
+    
+    func updateDayDates() {
         print(startingDatePicker.date)
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE, MMMM d, yyyy"
@@ -272,7 +273,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         //Day Four
         dateDay4 = Calendar.current.date(byAdding: .day, value: 3, to: startingDatePicker.date)
         labelDay4.text = formatter.string(from: dateDay4!)
-    
+        
         //Day Five
         dateDay5 = Calendar.current.date(byAdding: .day, value: 4, to: startingDatePicker.date)
         labelDay5.text = formatter.string(from: dateDay5!)
@@ -284,9 +285,6 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         //Day Seven
         dateDay7 = Calendar.current.date(byAdding: .day, value: 6, to: startingDatePicker.date)
         labelDay7.text = formatter.string(from: dateDay7!)
-        
-        
-        
     }
     
     /////////////////////////////
@@ -306,6 +304,11 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         toolbar.setItems([spaceButton,doneButton], animated: false)
         
         startingDate.inputAccessoryView = toolbar
+        startingDatePicker.date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM d, yyyy"
+        startingDate.text = formatter.string(from: startingDatePicker.date)
+        updateDayDates()
     }
     
     @objc func donePrepDatePicker() {
@@ -371,6 +374,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         toolbar.setItems([spaceButton,doneButton], animated: false)
         
         textField.inputAccessoryView = toolbar
+        textField.text = categoryData[0]
     }
     
     @objc func cancelTextPicker() {
