@@ -281,7 +281,7 @@
                                         <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="06e-GZ-GwI" secondAttribute="trailing" constant="20" id="Jw5-yP-cXn"/>
@@ -837,20 +837,25 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wd6-MN-A3m">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wd6-MN-A3m">
                                 <rect key="frame" x="0.0" y="861" width="414" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="IDH-mL-ezl"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.29387852549999999" green="0.66520476340000001" blue="0.11676054449999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.29387852549999999" green="0.66520476340000001" blue="0.11676054449999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="e3t-i0-BL2" firstAttribute="top" secondItem="8ED-qz-Uqh" secondAttribute="top" id="3JH-P3-Qlb"/>
+                            <constraint firstItem="wd6-MN-A3m" firstAttribute="leading" secondItem="QsK-8v-bjb" secondAttribute="leading" id="G5w-5c-oxo"/>
+                            <constraint firstAttribute="bottom" secondItem="wd6-MN-A3m" secondAttribute="bottom" id="Ijz-OT-da2"/>
                             <constraint firstItem="8ED-qz-Uqh" firstAttribute="bottom" secondItem="QsK-8v-bjb" secondAttribute="bottom" id="LZc-04-L67"/>
                             <constraint firstItem="QsK-8v-bjb" firstAttribute="trailing" secondItem="8ED-qz-Uqh" secondAttribute="trailing" id="ZqT-Rw-uNr"/>
                             <constraint firstItem="QsK-8v-bjb" firstAttribute="leading" secondItem="8ED-qz-Uqh" secondAttribute="leading" id="bhx-W5-At0"/>
+                            <constraint firstItem="wd6-MN-A3m" firstAttribute="trailing" secondItem="QsK-8v-bjb" secondAttribute="trailing" id="eaY-fw-jXz"/>
                             <constraint firstItem="e3t-i0-BL2" firstAttribute="leading" secondItem="8ED-qz-Uqh" secondAttribute="leading" id="p6e-aJ-Kr0"/>
                             <constraint firstItem="e3t-i0-BL2" firstAttribute="trailing" secondItem="8ED-qz-Uqh" secondAttribute="trailing" id="qFF-ck-vfv"/>
                             <constraint firstItem="QsK-8v-bjb" firstAttribute="top" secondItem="e3t-i0-BL2" secondAttribute="bottom" id="rtN-sz-mPN"/>
