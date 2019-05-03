@@ -59,12 +59,66 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     let categoryData = [String](arrayLiteral: "Asian Cuisine 🥡", "Breakfast for Dinner 🥓", "Barbecue 🐷", "Casserole 🥘", "Comfort Food 🛌", "Chicken 🐓", "Mexican  🌮", "Pasta 🍝", "Pizza 🍕", "Pork 🐖", "On The Grill 🥩", "Other", "Salad 🥗", "Sandwich 🥪", "Seafood 🍤", "Slow Cooker ⏲", "Soups Up 🍜", "Vegetarian 🥕")
 
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        showStartingDatePicker()
+        startingDate.delegate = self
+        showPicker(self.category1, self.picker1)
+        showPicker(self.category2, self.picker2)
+        showPicker(self.category3, self.picker3)
+        showPicker(self.category4, self.picker4)
+        showPicker(self.category5, self.picker5)
+        showPicker(self.category6, self.picker6)
+        showPicker(self.category7, self.picker7)
+        
+        //getCategories()
+        
+    }
+    
+
+    override func viewDidAppear(_ animated: Bool) {
+        getCategories()
+    }
+    /*
+    // MARK: - Navigation
+
+     
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
+    */
+    
+    func getCategories() { //-> [String] {
+        let fetchRequest: NSFetchRequest<Tag> = Tag.fetchRequest()
+        fetchRequest.propertiesToFetch = ["name"]
+        fetchRequest.returnsDistinctResults = true
+        fetchRequest.resultType = NSFetchRequestResultType.dictionaryResultType
+        
+        self.managedObjectContext?.performAndWait {
+            do {
+                let tags = try fetchRequest.execute()
+                print(tags)
+                //for tag in tags {
+                //    print("Name \(tag.value(forKey: "name") ?? "no name")")
+                //}
+                
+            } catch {
+                let fetchError = error as NSError
+                print("Unable to Execute Fetch Request")
+                print("\(fetchError), \(fetchError.localizedDescription)")
+            }
+        }
+    }
+    
     @IBAction func cancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func create(_ sender: Any) {
-      
+        
         //Day7
         let day7Plan = PlannedDay(context: self.managedObjectContext!)
         day7Plan.planStartDate = dateDay1
@@ -86,7 +140,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         day6Plan.meal = self.getMealforPlannedDay(_category: day6Plan.category!, _plannedDate: day6Plan.date!)
         print("Selected Meal: \(day6Plan.meal!.mealName!)")
         weekPlan.append(day6Plan)
-
+        
         //Day5
         let day5Plan = PlannedDay(context: self.managedObjectContext!)
         day5Plan.planStartDate = dateDay1
@@ -99,7 +153,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         day5Plan.category = category5.text
         
         weekPlan.append(day5Plan)
-
+        
         //Day4
         let day4Plan = PlannedDay(context: self.managedObjectContext!)
         day4Plan.planStartDate = dateDay1
@@ -110,7 +164,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         print("Selected Meal: \(day4Plan.meal!.mealName!)")
         day4Plan.category = category4.text
         weekPlan.append(day4Plan)
-
+        
         //Day3
         let day3Plan = PlannedDay(context: self.managedObjectContext!)
         day3Plan.planStartDate = dateDay1
@@ -121,7 +175,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         print("Selected Meal: \(day3Plan.meal!.mealName!)")
         day3Plan.category = category3.text
         weekPlan.append(day3Plan)
-
+        
         //Day2
         let day2Plan = PlannedDay(context: self.managedObjectContext!)
         day2Plan.planStartDate = dateDay1
@@ -132,7 +186,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         print("Selected Meal: \(day2Plan.meal!.mealName!)")
         day2Plan.category = category2.text
         weekPlan.append(day2Plan)
-
+        
         //Day1
         let day1Plan = PlannedDay(context: self.managedObjectContext!)
         day1Plan.planStartDate = dateDay1
@@ -143,8 +197,8 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         print("Selected Meal: \(day1Plan.meal!.mealName!)")
         day1Plan.category = category1.text
         weekPlan.append(day1Plan)
-
-       //print(weekPlan)
+        
+        //print(weekPlan)
         
     }
     
@@ -165,13 +219,13 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 let meals = try fetchRequest.execute()
                 
                 //Print meals for testing
-//                for meal in meals {
-//                    print("Name \(meal.value(forKey: "mealName") ?? "no name") -- Estimated Next Date \(meal.value(forKey: "estimatedNextDate") ?? "no est") -- Frequency \(meal.value(forKey: "frequency") ?? "no frequency")")
-//
-//                    for category in meal.tags?.allObjects as! [Tag] {
-//                        print(category.name!)
-//                    }
-//                }
+                //                for meal in meals {
+                //                    print("Name \(meal.value(forKey: "mealName") ?? "no name") -- Estimated Next Date \(meal.value(forKey: "estimatedNextDate") ?? "no est") -- Frequency \(meal.value(forKey: "frequency") ?? "no frequency")")
+                //
+                //                    for category in meal.tags?.allObjects as! [Tag] {
+                //                        print(category.name!)
+                //                    }
+                //                }
                 
                 //check to see if meal is in current plan
                 _meal = meals[0]
@@ -192,31 +246,6 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         return _meal
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        showStartingDatePicker()
-        startingDate.delegate = self
-        showPicker(self.category1, self.picker1)
-        showPicker(self.category2, self.picker2)
-        showPicker(self.category3, self.picker3)
-        showPicker(self.category4, self.picker4)
-        showPicker(self.category5, self.picker5)
-        showPicker(self.category6, self.picker6)
-        showPicker(self.category7, self.picker7)
-        
-        // Do any additional setup after loading the view.
-    }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     /////////////////////////////
     //Text Field Functions
