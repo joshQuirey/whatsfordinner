@@ -200,6 +200,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         print("done done done")
         print(weekPlan)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func getMealforPlannedDay(_category: String, _plannedDate: Date) -> Meal {
