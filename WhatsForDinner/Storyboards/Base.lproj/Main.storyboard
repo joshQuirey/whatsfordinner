@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -124,8 +123,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t8i-p7-NQg">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                            <navigationBar contentMode="scaleToFill" ambiguous="YES" translucent="NO" largeTitles="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t8i-p7-NQg">
+                                <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                                 <color key="backgroundColor" red="0.50588235294117645" green="0.53333333333333333" blue="0.62352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="barTintColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -136,7 +135,7 @@
                                     <color key="textColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </textAttributes>
                                 <items>
-                                    <navigationItem id="b8q-6f-eFW">
+                                    <navigationItem title="Create Meal" id="b8q-6f-eFW">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="DJx-kS-qSe">
                                             <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
@@ -152,28 +151,105 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8o1-cq-NeW">
-                                <rect key="frame" x="0.0" y="84" width="414" height="60"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="heV-je-CGH">
+                                <rect key="frame" x="0.0" y="518" width="414" height="378"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.93140786919999996" green="0.93140786919999996" blue="0.93140786919999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </containerView>
+                            <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7YL-gZ-gT2">
+                                <rect key="frame" x="0.0" y="140" width="414" height="364"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="7KU-nH-XK4">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="06e-GZ-GwI">
+                                        <rect key="frame" x="37" y="60" width="340" height="152"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="dNt-Nm-cjT">
-                                                <rect key="frame" x="16" y="0.0" width="326" height="60"/>
-                                                <color key="backgroundColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZXi-kZ-TbA">
+                                                <rect key="frame" x="0.0" y="0.0" width="340" height="30"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Category" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EJ9-2z-102">
+                                                        <rect key="frame" x="0.0" y="0.0" width="308" height="30"/>
+                                                        <color key="textColor" red="0.50588235290000005" green="0.53333333329999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mys-TZ-Byg">
+                                                        <rect key="frame" x="318" y="0.0" width="22" height="30"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="22" id="msE-yi-mHg"/>
+                                                            <constraint firstAttribute="height" constant="30" id="yxz-Bi-PKx"/>
+                                                        </constraints>
+                                                        <color key="tintColor" red="0.29411764709999999" green="0.66666666669999997" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <connections>
+                                                            <segue destination="hwq-sG-Eis" kind="show" identifier="SelectCategories" id="ghz-hZ-Gv4"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Frequency" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fd6-kH-NNS">
+                                                <rect key="frame" x="0.0" y="31" width="340" height="30"/>
+                                                <color key="textColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="CIx-c2-g2v">
+                                                <rect key="frame" x="0.0" y="62" width="340" height="30"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Prep Time" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="BVY-4i-ExH">
+                                                        <rect key="frame" x="0.0" y="0.0" width="108" height="30"/>
+                                                        <color key="textColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Cook Time" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xlW-UM-qng">
+                                                        <rect key="frame" x="116" y="0.0" width="108" height="30"/>
+                                                        <color key="textColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Serves" textAlignment="natural" minimumFontSize="18" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="VCL-9S-KPQ">
+                                                        <rect key="frame" x="232" y="0.0" width="108" height="30"/>
+                                                        <color key="tintColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="textColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Quick Description" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="9tc-I9-7Qf">
+                                                <rect key="frame" x="0.0" y="93" width="340" height="30"/>
+                                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="6oK-MY-SiO">
+                                                <rect key="frame" x="0.0" y="124" width="340" height="29"/>
+                                                <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <segments>
+                                                    <segment title="Directions"/>
+                                                    <segment title="Ingredients"/>
+                                                </segments>
+                                                <color key="tintColor" red="0.29411764709999999" green="0.66666666669999997" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </segmentedControl>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="190" translatesAutoresizingMaskIntoConstraints="NO" id="7KU-nH-XK4">
+                                        <rect key="frame" x="20" y="0.0" width="366" height="60"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="dNt-Nm-cjT">
+                                                <rect key="frame" x="16" y="0.0" width="84" height="60"/>
                                                 <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="326" id="8sr-Ir-Rdj"/>
-                                                </constraints>
-                                                <color key="textColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
+                                                <color key="textColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="yes"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f13-aY-71V">
-                                                <rect key="frame" x="350" y="0.0" width="48" height="60"/>
+                                                <rect key="frame" x="290" y="0.0" width="60" height="60"/>
                                                 <color key="backgroundColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="7lP-ho-Ei0"/>
+                                                    <constraint firstAttribute="width" constant="60" id="blQ-oX-7GI"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <state key="normal" title="Photo">
@@ -187,138 +263,26 @@
                                         <color key="backgroundColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="X3E-Z2-m5x"/>
+                                            <constraint firstAttribute="height" constant="60" id="wU2-90-Avf"/>
                                         </constraints>
                                         <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="0.0" right="16"/>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="tintColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstItem="7KU-nH-XK4" firstAttribute="top" secondItem="8o1-cq-NeW" secondAttribute="top" id="8Hh-Zn-kOV"/>
-                                    <constraint firstAttribute="trailing" secondItem="7KU-nH-XK4" secondAttribute="trailing" id="cWv-r8-dm9"/>
-                                    <constraint firstItem="7KU-nH-XK4" firstAttribute="leading" secondItem="8o1-cq-NeW" secondAttribute="leading" id="nj5-oj-jdl"/>
-                                    <constraint firstAttribute="height" constant="60" id="o3c-VR-HLt"/>
-                                </constraints>
-                            </view>
-                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7YL-gZ-gT2">
-                                <rect key="frame" x="0.0" y="132" width="414" height="200"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="06e-GZ-GwI">
-                                        <rect key="frame" x="20" y="20" width="374" height="172"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZXi-kZ-TbA">
-                                                <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
-                                                <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Category" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EJ9-2z-102">
-                                                        <rect key="frame" x="0.0" y="0.0" width="342" height="30"/>
-                                                        <color key="textColor" red="0.50588235290000005" green="0.53333333329999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mys-TZ-Byg">
-                                                        <rect key="frame" x="352" y="0.0" width="22" height="30"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="22" id="msE-yi-mHg"/>
-                                                            <constraint firstAttribute="height" constant="30" id="yxz-Bi-PKx"/>
-                                                        </constraints>
-                                                        <color key="tintColor" red="0.29411764709999999" green="0.66666666669999997" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <connections>
-                                                            <segue destination="hwq-sG-Eis" kind="show" identifier="SelectCategories" id="ghz-hZ-Gv4"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Quick Description" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="9tc-I9-7Qf">
-                                                <rect key="frame" x="0.0" y="36" width="374" height="30"/>
-                                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <color key="textColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="z58-Tj-Sde">
-                                                <rect key="frame" x="0.0" y="72" width="374" height="30"/>
-                                                <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Frequency" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fd6-kH-NNS">
-                                                        <rect key="frame" x="0.0" y="0.0" width="183" height="30"/>
-                                                        <color key="textColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Serves" textAlignment="natural" minimumFontSize="18" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="VCL-9S-KPQ">
-                                                        <rect key="frame" x="191" y="0.0" width="183" height="30"/>
-                                                        <color key="tintColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <color key="textColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                                    </textField>
-                                                </subviews>
-                                            </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="CIx-c2-g2v">
-                                                <rect key="frame" x="0.0" y="108" width="374" height="30"/>
-                                                <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Prep Time" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="BVY-4i-ExH">
-                                                        <rect key="frame" x="0.0" y="0.0" width="183" height="30"/>
-                                                        <color key="textColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Cook Time" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xlW-UM-qng">
-                                                        <rect key="frame" x="191" y="0.0" width="183" height="30"/>
-                                                        <color key="textColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
-                                                </subviews>
-                                            </stackView>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="6oK-MY-SiO">
-                                                <rect key="frame" x="0.0" y="144" width="374" height="29"/>
-                                                <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <segments>
-                                                    <segment title="Directions"/>
-                                                    <segment title="Ingredients"/>
-                                                </segments>
-                                                <color key="tintColor" red="0.29411764709999999" green="0.66666666669999997" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </segmentedControl>
-                                        </subviews>
-                                        <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="06e-GZ-GwI" secondAttribute="trailing" constant="20" id="Jw5-yP-cXn"/>
-                                    <constraint firstItem="06e-GZ-GwI" firstAttribute="top" secondItem="7YL-gZ-gT2" secondAttribute="top" constant="20" id="UST-eR-iEJ"/>
-                                    <constraint firstItem="06e-GZ-GwI" firstAttribute="leading" secondItem="7YL-gZ-gT2" secondAttribute="leading" constant="20" id="YMB-y0-LDH"/>
-                                    <constraint firstAttribute="bottom" secondItem="06e-GZ-GwI" secondAttribute="bottom" constant="8" id="xT8-5l-0RZ"/>
+                                    <constraint firstItem="06e-GZ-GwI" firstAttribute="top" secondItem="7KU-nH-XK4" secondAttribute="bottom" id="TTg-cT-KKk"/>
+                                    <constraint firstAttribute="trailing" secondItem="7KU-nH-XK4" secondAttribute="trailing" constant="20" id="VkA-Rh-BY3"/>
+                                    <constraint firstItem="7KU-nH-XK4" firstAttribute="leading" secondItem="7YL-gZ-gT2" secondAttribute="leading" constant="20" id="fa7-w0-Vuo"/>
+                                    <constraint firstItem="7KU-nH-XK4" firstAttribute="top" secondItem="7YL-gZ-gT2" secondAttribute="top" id="jF2-bq-3qK"/>
+                                    <constraint firstItem="7KU-nH-XK4" firstAttribute="top" secondItem="7YL-gZ-gT2" secondAttribute="top" id="szN-nY-rV1"/>
                                 </constraints>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="heV-je-CGH">
-                                <rect key="frame" x="0.0" y="332" width="414" height="564"/>
-                                <color key="backgroundColor" red="0.93140786919999996" green="0.93140786919999996" blue="0.93140786919999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="7YL-gZ-gT2" firstAttribute="centerX" secondItem="8o1-cq-NeW" secondAttribute="centerX" id="6YE-2h-Qn6"/>
-                            <constraint firstItem="heV-je-CGH" firstAttribute="leading" secondItem="t8i-p7-NQg" secondAttribute="leading" id="DW8-GE-AiI"/>
-                            <constraint firstItem="lxj-BE-an0" firstAttribute="trailing" secondItem="7YL-gZ-gT2" secondAttribute="trailing" id="FOD-vu-Qvp"/>
-                            <constraint firstItem="heV-je-CGH" firstAttribute="leading" secondItem="lxj-BE-an0" secondAttribute="leading" id="GlS-sP-PMJ"/>
-                            <constraint firstItem="7YL-gZ-gT2" firstAttribute="leading" secondItem="lxj-BE-an0" secondAttribute="leading" id="LtD-hD-JFj"/>
-                            <constraint firstItem="8o1-cq-NeW" firstAttribute="leading" secondItem="t8i-p7-NQg" secondAttribute="leading" id="MfA-ER-Hk4"/>
-                            <constraint firstItem="7YL-gZ-gT2" firstAttribute="top" secondItem="t8i-p7-NQg" secondAttribute="bottom" constant="44" id="S22-1L-Xqi"/>
-                            <constraint firstItem="8o1-cq-NeW" firstAttribute="top" secondItem="lxj-BE-an0" secondAttribute="top" constant="40" id="cei-8C-72z"/>
-                            <constraint firstItem="heV-je-CGH" firstAttribute="trailing" secondItem="t8i-p7-NQg" secondAttribute="trailing" id="eNt-Xv-OLy"/>
-                            <constraint firstItem="heV-je-CGH" firstAttribute="trailing" secondItem="lxj-BE-an0" secondAttribute="trailing" id="h3H-Rm-SSo"/>
-                            <constraint firstItem="heV-je-CGH" firstAttribute="leading" secondItem="3mT-TX-2gl" secondAttribute="leading" id="lda-FO-Iu5"/>
-                            <constraint firstItem="t8i-p7-NQg" firstAttribute="top" secondItem="lxj-BE-an0" secondAttribute="top" id="nMb-yP-pod"/>
-                            <constraint firstItem="8o1-cq-NeW" firstAttribute="trailing" secondItem="t8i-p7-NQg" secondAttribute="trailing" id="tMy-Dc-Bal"/>
-                            <constraint firstItem="heV-je-CGH" firstAttribute="top" secondItem="7YL-gZ-gT2" secondAttribute="bottom" id="tVX-mW-6SN"/>
-                            <constraint firstAttribute="bottom" secondItem="heV-je-CGH" secondAttribute="bottom" id="vNe-A0-7zc"/>
-                            <constraint firstItem="heV-je-CGH" firstAttribute="trailing" secondItem="lxj-BE-an0" secondAttribute="trailing" id="yRV-lp-qqo"/>
-                            <constraint firstItem="heV-je-CGH" firstAttribute="leading" secondItem="lxj-BE-an0" secondAttribute="leading" id="yzS-zZ-L50"/>
+                            <constraint firstItem="t8i-p7-NQg" firstAttribute="top" secondItem="lxj-BE-an0" secondAttribute="top" id="vpG-yw-Nbb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lxj-BE-an0"/>
                     </view>
@@ -338,7 +302,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IaI-lJ-u9M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2412" y="-321.58920539730138"/>
+            <point key="canvasLocation" x="2411.594202898551" y="-322.09821428571428"/>
         </scene>
         <!--Categories View Controller-->
         <scene sceneID="tXC-eW-SCQ">
