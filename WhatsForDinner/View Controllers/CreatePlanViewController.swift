@@ -15,7 +15,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     var managedObjectContext: NSManagedObjectContext?
     //var day7Plan: PlannedDay?
-      var weekPlan = [PlannedDay?]()
+    var weekPlan = [PlannedDay?]()
     
     @IBOutlet weak var parentView: UIView!
     @IBOutlet weak var childView1: UIView!
@@ -198,8 +198,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         print("Selected Meal 7: \(day7Plan.meal!.mealName!)")
         weekPlan.append(day7Plan)
         
-        print("done done done")
-        print(weekPlan)
+//        print(weekPlan)
         self.dismiss(animated: true, completion: nil)
     }
     

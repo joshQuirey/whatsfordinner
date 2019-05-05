@@ -185,6 +185,7 @@ class MealsViewController: UIViewController {
 
     @objc private func saveMeals(_ notification: Notification) {
         do {
+            print("save meals")
             try coreDataManager.managedObjectContext.save()
         } catch {
             fatalError("Failure to save context: \(error)")

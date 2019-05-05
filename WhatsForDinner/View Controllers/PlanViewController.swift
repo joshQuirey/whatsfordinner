@@ -150,7 +150,7 @@ class PlanViewController: UIViewController {
             tableView.reloadData()
             
             //Update View
-            //updateView()
+            updateView()
             planDidChange = false
         }
     }
@@ -160,6 +160,7 @@ class PlanViewController: UIViewController {
     
     @objc private func savePlans(_ notification: Notification) {
         do {
+            print("save Plans")
             try coreDataManager.managedObjectContext.save()
         } catch {
             fatalError("Failure to save context: \(error)")
@@ -219,7 +220,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         let date = plannedDays![section].date
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE, MMMM d, yyyy"
-        
+
         return formatter.string(from: date!)
         } else {
             return "No Planned Days"
