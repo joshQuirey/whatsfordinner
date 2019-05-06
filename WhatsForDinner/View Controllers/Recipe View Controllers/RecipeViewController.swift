@@ -36,7 +36,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var thumbnail: UIImageView!
-    @IBOutlet weak var category: UITextField!
+    @IBOutlet weak var categories: UITextView!
     @IBOutlet weak var mealDescription: UITextField!
     @IBOutlet weak var frequency: UITextField!
     @IBOutlet weak var serves: UITextField!
@@ -126,10 +126,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
             imageButton.setBackgroundImage(UIImage(data: meal!.mealImage!), for: .normal)
         }
         
-        category.text = nil
+        categories.text = nil
         for _tag in (meal!.tags?.allObjects)! {
             let tag = _tag as! Tag
-            category.text?.append(tag.name!)
+            categories.text?.append(tag.name!)
         }
         
         mealDescription.text = meal!.mealDesc
@@ -353,7 +353,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     @objc func cancelTextPicker() {
-        category.text = nil
+        categories.text = nil
         self.view.endEditing(true)
     }
     

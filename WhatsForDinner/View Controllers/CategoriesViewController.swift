@@ -79,38 +79,21 @@ extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
         let currentCell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
         
         currentCell.textLabel?.text = currentCategory
-        
-        
-        //if meal.tags equals currentCategory
-//        if currentCategory.contains("Pizza") {
-//            currentCell.isSelected = true
-//            currentCell.backgroundColor = UIColor.red
-//        }
-        
         return currentCell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
         let currentCategory = categoryData[indexPath.item]
-//        let currentCell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
         
         for tag in (meal?.tags)! {
             let _tag = tag as! Tag
-            //            print("Tag \(_tag.name!)")
-            //            print("Category \(currentCategory)")
+            
             if _tag.name! == currentCategory {
-//                cell.isSelected = true
-                
-                cell.setSelected(true, animated: false)
-                print(cell.isSelected)
-                
-//                cell.backgroundColor = UIColor.lightGray
+                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
             }
         }
     }
     
-    ///TODO: Cannot deselect a category
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(meal!)
         guard let managedObjectContext = meal?.managedObjectContext else { return }
@@ -133,9 +116,5 @@ extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
                 meal?.removeFromTags(_tag)
             }
         }
-        
-        print(meal!)
     }
-    
-    
 }
