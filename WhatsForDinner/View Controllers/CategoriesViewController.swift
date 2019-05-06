@@ -101,7 +101,9 @@ extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
             //            print("Category \(currentCategory)")
             if _tag.name! == currentCategory {
 //                cell.isSelected = true
+                
                 cell.setSelected(true, animated: false)
+                print(cell.isSelected)
                 
 //                cell.backgroundColor = UIColor.lightGray
             }
@@ -134,4 +136,6 @@ extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
         
         print(meal!)
     }
+    
+    
 }
