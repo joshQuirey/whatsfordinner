@@ -261,7 +261,13 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         
         // Configure Cell
         cell.mealName?.text = _meal.mealName
-        cell.mealDescription?.text = _meal.mealDesc
+        
+        for _tag in (_meal.tags?.allObjects)! {
+            let tag = _tag as! Tag
+            cell.mealDescription?.text.append(tag.name!)
+        }
+        
+        
         if (_meal.mealImage != nil) {
             cell.mealImage?.image = UIImage(data: _meal.mealImage!)
         }

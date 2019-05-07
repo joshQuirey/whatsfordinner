@@ -33,7 +33,7 @@
         <relationship name="meals" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Meal" inverseName="tags" inverseEntity="Meal" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Ingredient" positionX="169" positionY="117" width="128" height="73"/>
+        <element name="Ingredient" positionX="169" positionY="117" width="128" height="75"/>
         <element name="Meal" positionX="-63" positionY="-18" width="128" height="255"/>
         <element name="PlannedDay" positionX="36" positionY="135" width="128" height="135"/>
         <element name="Tag" positionX="-90" positionY="305" width="128" height="73"/>

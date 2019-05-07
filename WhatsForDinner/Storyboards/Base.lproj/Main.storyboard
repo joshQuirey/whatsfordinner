@@ -28,35 +28,35 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="673"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="defaultCell" rowHeight="60" id="lDh-ds-mCw" customClass="MealTableViewCell" customModule="WhatsForDinner" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="60"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="defaultCell" rowHeight="80" id="lDh-ds-mCw" customClass="MealTableViewCell" customModule="WhatsForDinner" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lDh-ds-mCw" id="oa0-tq-KwL">
-                                            <rect key="frame" x="0.0" y="0.0" width="376" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="376" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x0X-CC-xbu" userLabel="Image">
-                                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="60" id="B1t-fx-z4K"/>
-                                                        <constraint firstAttribute="height" constant="60" id="kFi-BQ-EYN"/>
+                                                        <constraint firstAttribute="width" constant="80" id="B1t-fx-z4K"/>
+                                                        <constraint firstAttribute="height" constant="80" id="kFi-BQ-EYN"/>
                                                     </constraints>
                                                 </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="07G-BL-aKE">
-                                                    <rect key="frame" x="68" y="0.0" width="308" height="59.5"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="07G-BL-aKE">
+                                                    <rect key="frame" x="88" y="8" width="288" height="63.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oDh-k1-Rk6" userLabel="Name">
-                                                            <rect key="frame" x="0.0" y="0.0" width="308" height="27.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="288" height="30"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oX2-Vn-m7u">
-                                                            <rect key="frame" x="0.0" y="32.5" width="308" height="27"/>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Category" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Weh-th-4G9" userLabel="Category">
+                                                            <rect key="frame" x="0.0" y="34" width="288" height="29.5"/>
+                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                        </textField>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
@@ -64,13 +64,12 @@
                                                 <constraint firstItem="07G-BL-aKE" firstAttribute="leading" secondItem="x0X-CC-xbu" secondAttribute="trailing" constant="8" id="Jey-ji-0wD"/>
                                                 <constraint firstItem="x0X-CC-xbu" firstAttribute="top" secondItem="oa0-tq-KwL" secondAttribute="top" id="NeY-t5-YTC"/>
                                                 <constraint firstItem="x0X-CC-xbu" firstAttribute="leading" secondItem="oa0-tq-KwL" secondAttribute="leading" id="S3p-8d-Ard"/>
-                                                <constraint firstItem="07G-BL-aKE" firstAttribute="top" secondItem="oa0-tq-KwL" secondAttribute="top" id="vFu-zB-awR"/>
+                                                <constraint firstItem="07G-BL-aKE" firstAttribute="top" secondItem="oa0-tq-KwL" secondAttribute="top" constant="8" id="vFu-zB-awR"/>
                                                 <constraint firstAttribute="trailing" secondItem="07G-BL-aKE" secondAttribute="trailing" id="xnb-zo-43o"/>
-                                                <constraint firstAttribute="bottom" secondItem="07G-BL-aKE" secondAttribute="bottom" id="yjK-jY-nTV"/>
+                                                <constraint firstAttribute="bottom" secondItem="07G-BL-aKE" secondAttribute="bottom" constant="8" id="yjK-jY-nTV"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="mealDescription" destination="oX2-Vn-m7u" id="NcD-3j-IVY"/>
                                             <outlet property="mealImage" destination="x0X-CC-xbu" id="l2s-RE-dj9"/>
                                             <outlet property="mealName" destination="oDh-k1-Rk6" id="MvJ-ZW-hVZ"/>
                                             <segue destination="ZHR-gx-uw6" kind="presentation" identifier="ViewMeal" id="qnc-uL-VBf"/>
@@ -96,7 +95,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Meals" id="TX0-UD-7jE">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="li1-VQ-buB">
-                            <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <segue destination="ZHR-gx-uw6" kind="presentation" identifier="AddMeal" id="Y4X-TR-EdA"/>
                             </connections>
@@ -134,13 +133,13 @@
                                 <items>
                                     <navigationItem title="Create Meal" id="b8q-6f-eFW">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="DJx-kS-qSe">
-                                            <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
                                                 <action selector="cancel:" destination="ZHR-gx-uw6" id="8t8-M7-pKC"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="3nZ-MG-qow">
-                                            <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
                                                 <action selector="save:" destination="ZHR-gx-uw6" id="DwW-wa-6qm"/>
                                             </connections>
@@ -406,8 +405,14 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="Categories" id="Lrd-LM-DJ1">
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="P00-cx-d35">
-                                            <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="lyX-lJ-J1e">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="Cancel:" destination="hwq-sG-Eis" id="2Q4-tf-xVH"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Choose" id="P00-cx-d35">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
                                                 <action selector="Save:" destination="hwq-sG-Eis" id="JfY-Ih-MAV"/>
                                             </connections>
@@ -548,11 +553,8 @@
                         <viewLayoutGuide key="safeArea" id="kOs-uJ-OSa"/>
                     </view>
                     <navigationItem key="navigationItem" title="What's For Dinner" id="y6O-4l-wd0">
-                        <barButtonItem key="leftBarButtonItem" systemItem="organize" id="sXQ-4e-zS7">
-                            <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="Njr-3d-Hv3">
-                            <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <segue destination="Ljq-Fm-kEf" kind="showDetail" identifier="CreatePlan" id="TTl-ru-SlJ"/>
                             </connections>
@@ -895,13 +897,13 @@
                                 <items>
                                     <navigationItem title="Create Plan" id="FNf-8L-cMs">
                                         <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="5OH-RT-eQr">
-                                            <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
                                                 <action selector="cancel:" destination="Ljq-Fm-kEf" id="PM9-T0-rUm"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="play" id="p06-Ho-9LD">
-                                            <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
                                                 <action selector="create:" destination="Ljq-Fm-kEf" id="xMd-us-SuC"/>
                                             </connections>
