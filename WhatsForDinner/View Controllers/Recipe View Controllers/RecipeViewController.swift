@@ -134,8 +134,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
             frequency.text = "Monthly"
         case 60:
             frequency.text = "Every Other Month"
+        case 90:
+            frequency.text = "Every Few Months"
         default:
-            frequency.text = nil
+            frequency.text = "No Preference"
         }
         
         prepTime.text = meal!.prepTime

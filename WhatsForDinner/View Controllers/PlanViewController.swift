@@ -249,7 +249,8 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         
         // Configure Cell
         cell.mealName?.text = _plannedDay.meal!.mealName
-        cell.mealDescription?.text = _plannedDay.meal!.mealDesc
+        cell.mealFrequency?.text = ""
+        cell.mealCategories?.text = _plannedDay.meal!.mealDesc
         if (_plannedDay.meal!.mealImage != nil) {
             cell.mealImage?.image = UIImage(data: _plannedDay.meal!.mealImage!)
         }

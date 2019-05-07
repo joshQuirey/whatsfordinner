@@ -48,6 +48,7 @@ class MealsViewController: UIViewController {
         fetchMeals()
         updateView()
         setupNotificationHandling()
+        tableView.tableFooterView = UIView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -220,18 +221,14 @@ class MealsViewController: UIViewController {
             }
         }
     }
-    
-    /////////////////////////////
-    //Table Functions
-    /////////////////////////////
 }
 
+/////////////////////////////
+//Table Functions
+/////////////////////////////
 extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-//        guard let sections = fetchedResultsController.sections else { return 0 }
-//        return sections.count
-//
         return 1
     }
     
@@ -262,14 +259,33 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         // Configure Cell
         cell.mealName?.text = _meal.mealName
         
-        for _tag in (_meal.tags?.allObjects)! {
-            let tag = _tag as! Tag
-            cell.mealDescription?.text.append(tag.name!)
+        var frequency = ""
+        switch _meal.frequency {
+        case 7:
+            frequency = "Weekly"
+        case 14:
+            frequency = "Every Other Week"
+        case 30:
+            frequency = "Monthly"
+        case 60:
+            frequency = "Every Other Month"
+        case 90:
+            frequency = "Every Few Months"
+        default:
+            frequency = "No Preference"
         }
         
+        cell.mealFrequency?.text = frequency
+        cell.mealCategories?.text = ""
+        for _tag in (_meal.tags?.allObjects)! {
+            let tag = _tag as! Tag
+            cell.mealCategories?.text?.append("\(tag.name!) ")
+        }
         
         if (_meal.mealImage != nil) {
             cell.mealImage?.image = UIImage(data: _meal.mealImage!)
+        } else {
+            cell.mealImage.isHidden = true
         }
     }
     
@@ -284,17 +300,12 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        print("will select row")
         guard let _meal = meals?[(indexPath.row)] else { fatalError("Unexpected Index Path")}
         print(_meal)
         selectedObjectID = _meal.objectID
         
         return indexPath
     }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 100
-//    }
 }
 
 extension MealsViewController: NSFetchedResultsControllerDelegate {

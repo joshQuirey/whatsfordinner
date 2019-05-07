@@ -11,7 +11,8 @@ import UIKit
 class MealTableViewCell: UITableViewCell {
 
     @IBOutlet weak var mealName: UILabel!
-    @IBOutlet weak var mealDescription: UILabel!
+    @IBOutlet weak var mealFrequency: UILabel!
+    @IBOutlet weak var mealCategories: UITextField!
     @IBOutlet weak var mealImage: UIImageView!
     
     override func awakeFromNib() {
