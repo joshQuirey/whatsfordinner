@@ -221,7 +221,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE, MMMM d, yyyy"
 
-        return formatter.string(from: date!)
+        return "" //formatter.string(from: date!)
         } else {
             return "No Planned Days"
         }

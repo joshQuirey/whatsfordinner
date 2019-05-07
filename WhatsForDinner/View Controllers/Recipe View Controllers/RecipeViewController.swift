@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import AVFoundation
 
 class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     /////////////////////////////
@@ -261,12 +262,29 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         //currentVC = vc
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (alert:UIAlertAction!) -> Void in
-            //self.cameera
+//        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (alert:UIAlertAction!) -> Void in
+//            //self.cameera
+//
+//        }))
+        
+//        if (UIImagePickerController.isSourceTypeAvailable(.camera)) {
+//            let cameraAction = UIAlertAction(title:"Use Camera", style: .default) { (action) in
+//                AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (granted) in
+//                    if(granted) {
+//                        self.DisplayPicker(type: .camera)
+//                    }
+//                })
+//            }
+//
+//            actionSheet.addAction(cameraAction)
+//        }
+        
+        actionSheet.addAction(UIAlertAction(title: "Use Camera", style: .default, handler: { (alert:UIAlertAction!) -> Void in
+            self.DisplayPicker(type: .camera)
             
         }))
         
-        actionSheet.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { (alert:UIAlertAction!) -> Void in
+        actionSheet.addAction(UIAlertAction(title: "Use Photo Library", style: .default, handler: { (alert:UIAlertAction!) -> Void in
             self.photoFromLibrary()
             
         }))
@@ -285,6 +303,16 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         present(picker, animated: true, completion: nil)
     }
 
+    func DisplayPicker(type: UIImagePickerControllerSourceType){
+        let picker = UIImagePickerController()
+        picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: type)!
+        picker.sourceType = type
+        picker.allowsEditing = false
+        
+        DispatchQueue.main.async {
+            self.present(picker, animated: true, completion: nil)
+        }
+    }
     
     /////////////////////////////
     //Picker Functions
@@ -405,6 +433,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         // Select First Segment
         segmentedControl.selectedSegmentIndex = 0
+    
     }
     
     @objc func selectionDidChange(_ sender: UISegmentedControl) {

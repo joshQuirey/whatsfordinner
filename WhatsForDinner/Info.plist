@@ -44,6 +44,10 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>SporkFed would like to use your camera</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>SporkFed would like access to your photo library</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
