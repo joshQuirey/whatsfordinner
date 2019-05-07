@@ -41,7 +41,6 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print(meal)
         updateView()
     }
     
@@ -78,28 +77,21 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
     //Actions
     /////////////////////////////
     @IBAction func addIngredient(_ sender: Any) {
-        addNewIngredient()
-        ingredientTableView.isHidden = false
-        ingredients = meal?.ingredients?.allObjects as? [Ingredient]
-        ingredientTableView.reloadData()
-        _ingredient.text = nil
+        if (_ingredient.text != nil && _ingredient.text != "") {
+            addNewIngredient()
+            ingredientTableView.isHidden = false
+            ingredients = meal?.ingredients?.allObjects as? [Ingredient]
+            ingredientTableView.reloadData()
+            _ingredient.text = nil
+        }
     }
     
     func addNewIngredient() {
         guard let managedObjectContext = meal?.managedObjectContext else { return }
-        
+    
         ingredient = Ingredient(context: managedObjectContext)
         ingredient!.item = _ingredient.text
         meal?.addToIngredients(ingredient!)
-//        ingredients.append(ingredient.text!)
-        //let lastRow = ingredients.count == 0 ? ingredients.1 : ingredients.count-1
-//        let indexPath = IndexPath(row: 0, section: 0)
-//        ingredientTableView.beginUpdates()
-//        ingredientTableView.insertRows(at: [indexPath], with: .automatic)
-//        ingredientTableView.endUpdates()
-//
-//        ingredient.text = ""
-//        view.endEditing(true)
     }
     
     /////////////////////////////
@@ -117,26 +109,18 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
         let cell = ingredientTableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath)
         //activities?.sort(by: { $0.stepNumber < $1.stepNumber })
         let selectedIngredient = ingredients![indexPath.row]
-//        if ingredients!.count == 0{
-            cell.textLabel?.text = selectedIngredient.item
-//        }
-//        else{
-//            let myInt =  UInt(selectedActivity.stepNumber)
-//            let i = Int(myInt)
-//
-//            cell.textLabel?.text = "\(String(i)) - \(selectedActivity.condition ?? "") - Item: \(selectedActivity.item ?? "")"
-//            cell.detailTextLabel?.text = selectedActivity.descriptionInfo
-//            cell.accessoryType = .disclosureIndicator
-//        }
+        cell.textLabel?.text = selectedIngredient.item
+
         return cell
-        
-        
-        
-//        let currentIngredient = ingredients[indexPath.item]
-//        let currentCell = tableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath)
-//
-//        currentCell.textLabel?.text = currentIngredient
-//        return currentCell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete else { return }
+        let deletedIngredient = ingredients![indexPath.row]
+        meal?.removeFromIngredients(deletedIngredient)
+        ingredients?.remove(at: indexPath.row)
+        ingredientTableView.reloadData()
+        updateView()    
     }
     
     /*

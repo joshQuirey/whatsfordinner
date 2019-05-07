@@ -13,7 +13,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     /////////////////////////////
     //Properties
     /////////////////////////////
-    let frequencyData = [String](arrayLiteral: "Weekly", "Every Other Week", "Monthly", "Every Other Month", "Every Few Months")
+    let frequencyData = [String](arrayLiteral: "", "Weekly", "Every Other Week", "Monthly", "Every Other Month", "Every Few Months")
     
     enum Frequency: Int {
         case weekly = 7
@@ -22,20 +22,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         case everyOtherMonth = 60
         case everyFewMonths = 90
         case nopreference = 180
-
-//        var days: Int {
-//            switch self {
-//            case .weekly: return 7
-//            case .biweekly: return 14
-//            case .monthly: return 30
-//            case .bimonthly: return 60
-//            case .nopreference: return 0
-//            }
-//        }
     }
     
     @IBOutlet weak var name: UITextField!
-    @IBOutlet weak var thumbnail: UIImageView!
+//    @IBOutlet weak var thumbnail: UIImageView!
     @IBOutlet weak var categories: UITextView!
     @IBOutlet weak var mealDescription: UITextField!
     @IBOutlet weak var frequency: UITextField!
@@ -46,6 +36,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     let picker = UIImagePickerController()
     let pickFrequency = UIPickerView()
     let pickTime = UIDatePicker()
+    let pickServing = UIPickerView()
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var segmentedParentView: UIView!
@@ -134,7 +125,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         mealDescription.text = meal!.mealDesc
         
-        print("View Meal")
         switch meal?.frequency {
         case 7:
             frequency.text = "Weekly"
@@ -151,10 +141,12 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         prepTime.text = meal!.prepTime
         cookTime.text = meal!.cookTime
         serves.text = meal!.serves
-        
-        //directions
         recipeDirectionsViewController.recipeDirections.text = meal!.directions
         //ingredients
+//        for _tag in (meal!.tags?.allObjects)! {
+//            let tag = _tag as! Tag
+//            categories.text?.append(tag.name!)
+//        }
     }
     
     func populateMeal(_ meal: Meal) {
@@ -170,7 +162,8 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
             meal.mealImage = imageData
         }
         
-        //category
+        //category?
+        
         meal.mealDesc = mealDescription.text
         
         print("populate meal")
@@ -191,18 +184,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
             _frequency = 180
         }
         meal.frequency = Int16(_frequency)
-        print(meal.frequency)
-        print(frequency.text!)
-//        meal.frequency = Frequency.init(frequency.text)
-//        if (meal!.frequency == 0) {
-//            frequency.text = nil
-//        } else {
-//            frequency.text = String(meal!.frequency)
-//        }
+
         meal.prepTime = prepTime.text
         meal.cookTime = cookTime.text
         meal.serves = serves.text
-        //directions
         meal.directions = recipeDirectionsViewController.recipeDirections.text
         //ingredientss
         
@@ -213,26 +198,8 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     //Actions
     /////////////////////////////
     @IBAction func save(_ sender: UIBarButtonItem) {
-        //guard let managedObjectContext = managedObjectContext else {
-        //        return }
-        //meal = Meal(context: managedObjectContext)
         populateMeal(meal!)
         
-//        meal!.mealName = name.text
-        //photo
-//        meal.category = category.text
-        //tags
-//        meal!.mealDesc = mealDescription.text
-        
-//        if (serves.text != "") {
-//            meal!.serves = serves.text!
-//        }
-//        meal!.prepTime = prepTime.text
-//        meal!.cookTime = cookTime.text
-     
-        //directions
-        //meal.ingredients
-     
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -333,7 +300,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            print(frequencyData[row])
             frequency.text? = frequencyData[row]
     }
     
@@ -344,16 +310,16 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         //Toolbar
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelTextPicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTextPicker))
-        //let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelTextPicker))
-        toolbar.setItems([spaceButton,doneButton], animated: false)
+        let doneButton = UIBarButtonItem(title: "Choose", style: .plain, target: self, action: #selector(doneTextPicker))
+        toolbar.setItems([cancelButton,spaceButton,doneButton], animated: false)
         
         textField.inputAccessoryView = toolbar
     }
     
     @objc func cancelTextPicker() {
-        categories.text = nil
+//        categories.text = nil
         self.view.endEditing(true)
     }
     
@@ -362,48 +328,48 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func showPrepDatePicker() {
-        //Setup
         prepTime.inputView = pickTime
         pickTime.datePickerMode = .countDownTimer
-        
-        //Toolbar
+       
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPrepPicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donePrepDatePicker))
-        //let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPicker))
-        toolbar.setItems([spaceButton,doneButton], animated: false)
+        let doneButton = UIBarButtonItem(title: "Choose", style: .plain, target: self, action: #selector(donePrepPicker))
+        toolbar.setItems([cancelButton,spaceButton,doneButton], animated: false)
         
         prepTime.inputAccessoryView = toolbar
     }
 
-    @objc func donePrepDatePicker() {
+    @objc func donePrepPicker() {
         prepTime.text = calculateTime()
         self.view.endEditing(true)
     }
     
+    @objc func cancelPrepPicker() {
+        self.view.endEditing(true)
+    }
+    
     func showCookDatePicker() {
-        //Setup
         cookTime.inputView = pickTime
         pickTime.datePickerMode = .countDownTimer
         
-        //Toolbar
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelCookPicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneCookDatePicker))
-        //let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPicker))
-        toolbar.setItems([spaceButton,doneButton], animated: false)
+        let doneButton = UIBarButtonItem(title: "Choose", style: .plain, target: self, action: #selector(doneCookPicker))
+        toolbar.setItems([cancelButton,spaceButton,doneButton], animated: false)
         
         cookTime.inputAccessoryView = toolbar
     }
 
-    @objc func doneCookDatePicker() {
+    @objc func doneCookPicker() {
         cookTime.text = calculateTime()
         self.view.endEditing(true)
     }
     
-    @objc func cancelPicker() {
+    @objc func cancelCookPicker() {
         self.view.endEditing(true)
     }
     
@@ -411,16 +377,18 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         //Gets total number of minutes
         print(self.pickTime.countDownDuration)
         let minutesTotal = self.pickTime.countDownDuration / 60
-        print(minutesTotal)
         //Get Hours
         let hours = Int(minutesTotal / 60)
-        print(hours)
         //Get Remainder of Minutes
         let minutes = Int(minutesTotal) - Int(hours * 60)
-        print(minutes)
         
-        return "\(hours) hour(s) \(minutes) minute(s)"
+        if (hours > 0) {
+            return "\(hours) hours \(minutes) mins"
+        } else {
+            return "\(minutes) mins"
+        }
     }
+
 
     /////////////////////////////
     //Segmented Control Functions
