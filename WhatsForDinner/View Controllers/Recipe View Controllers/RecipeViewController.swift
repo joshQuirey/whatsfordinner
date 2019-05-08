@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import AVFoundation
+import Photos
 
 class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     /////////////////////////////
@@ -26,15 +27,15 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     @IBOutlet weak var name: UITextField!
-//    @IBOutlet weak var thumbnail: UIImageView!
     @IBOutlet weak var categories: UITextView!
     @IBOutlet weak var mealDescription: UITextField!
     @IBOutlet weak var frequency: UITextField!
     @IBOutlet weak var serves: UITextField!
     @IBOutlet weak var prepTime: UITextField!
     @IBOutlet weak var cookTime: UITextField!
+    @IBOutlet weak var imageButton: UIButton!
     
-    let picker = UIImagePickerController()
+    let pickImage = UIImagePickerController()
     let pickFrequency = UIPickerView()
     let pickTime = UIDatePicker()
     let pickServing = UIPickerView()
@@ -57,7 +58,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     /////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
-        picker.delegate = self
+        pickImage.delegate = self
         showPicker(self.frequency, self.pickFrequency)
         showPrepDatePicker()
         showCookDatePicker()
@@ -66,9 +67,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("before")
         print(self.managedObjectContext!)
-        print("after")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,8 +114,12 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         //photo
         if (meal!.mealImage != nil) {
-            imageButton.setBackgroundImage(UIImage(data: meal!.mealImage!), for: .normal)
+            imageButton.setImage(UIImage(data: meal!.mealImage!), for: .normal)
+            //imageButton.imageView?.image = UIImage(data: meal!.mealImage!)
+            //imageButton.setBackgroundImage(UIImage(data: meal!.mealImage!), for: .normal)
         }
+        
+
         
         categories.text = nil
         for _tag in (meal!.tags?.allObjects)! {
@@ -227,34 +230,37 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         self.showActionSheet(vc: self)
     }
     
-    @IBOutlet weak var imageButton: UIButton!
-    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        var newImage: UIImage
+        picker.dismiss(animated:true, completion: nil)
+        let newImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         
-        if let possibleImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
-            newImage = possibleImage
-        } else if let possibleImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
-            newImage = possibleImage
-        } else {
-            return
-        }
-        
+//        if let possibleImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+//            newImage = possibleImage
+//        } else if let possibleImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+//            newImage = possibleImage
+//        } else {
+//            return
+//        }
+        print("image state")
+        print(imageButton.state)
         // do something interesting here!
         //thumbnail.contentMode = .scaleAspectFit
         //thumbnail.image = newImage
-        imageButton.setBackgroundImage(nil, for: .normal)
+        //imageButton.setTitle("my title", for: [])
+        //imageButton.imageView?.image = newImage
+        //imageButton.setBackgroundImage(nil, for: .normal)
         //imageButton.setBackgroundImage(newImage, for: .selected)
+        //imageButton.imageView?.image = newImage
         imageButton.setBackgroundImage(newImage, for: .normal)
-        imageButton.setTitle(nil, for: .normal)
+        
     
         //imageButton.imageView?.contentMode = .scaleAspectFit
         //rimageButton.imageView?.image = newImage
-        dismiss(animated:true, completion: nil) //5
+        //picker.dismiss(animated:true, completion: nil) //5
 
     }
     
@@ -285,8 +291,8 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Use Photo Library", style: .default, handler: { (alert:UIAlertAction!) -> Void in
-            self.photoFromLibrary()
-            
+            //self.photoFromLibrary()
+            self.DisplayPicker(type: .photoLibrary)
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -295,23 +301,23 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func photoFromLibrary() {
-        let picker = UIImagePickerController()
-        picker.allowsEditing = true
-        picker.delegate = self
+        //let picker = UIImagePickerController()
+        pickImage.allowsEditing = true
+        pickImage.delegate = self
         //picker.sourceType = .photoLibrary
         //picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
-        present(picker, animated: true, completion: nil)
+        self.present(pickImage, animated: true, completion: nil)
     }
 
     func DisplayPicker(type: UIImagePickerControllerSourceType){
-        let picker = UIImagePickerController()
-        picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: type)!
-        picker.sourceType = type
-        picker.allowsEditing = false
+        //let picker = UIImagePickerController()
+        pickImage.mediaTypes = UIImagePickerController.availableMediaTypes(for: type)!
+        pickImage.sourceType = type
+        pickImage.allowsEditing = false
         
-        DispatchQueue.main.async {
-            self.present(picker, animated: true, completion: nil)
-        }
+        //DispatchQueue.main.async {
+        self.present(pickImage, animated: true, completion: nil)
+        //}
     }
     
     /////////////////////////////
