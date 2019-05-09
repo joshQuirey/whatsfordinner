@@ -48,7 +48,8 @@ class PlanViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchPlans()
-        updateView()
+        
+        //updateView()
         setupNotificationHandling()
         //let meal = Meal(context: coreDataManager.managedObjectContext)
         //meal.category
@@ -150,7 +151,7 @@ class PlanViewController: UIViewController {
             tableView.reloadData()
             
             //Update View
-            updateView()
+            //updateView()
             planDidChange = false
         }
     }
@@ -217,11 +218,11 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if ((plannedDays?.count)! > 0) {
-        let date = plannedDays![section].date
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE, MMMM d, yyyy"
+            let date = plannedDays![section].date
+            let formatter = DateFormatter()
+            formatter.dateFormat = "EEEE, MMMM d, yyyy"
 
-        return "" //formatter.string(from: date!)
+            return "" //formatter.string(from: date!)
         } else {
             return "No Planned Days"
         }
@@ -232,28 +233,31 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "planCell", for: indexPath) as! MealTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "planCell", for: indexPath) as! PlanTableViewCell
         
 //        cell.textLabel?.text = "Section \(indexPath.section)"
 //        cell.detailTextLabel?.text = "Row \(indexPath.row)"
         
         // Configure Cell
-        configure(cell, at: indexPath)
+        if (plannedDays!.count > 0) {
+            print(plannedDays!.count)
+            configure(cell, at: indexPath)
+        }
         
         return cell
     }
     
-    private func configure(_ cell: MealTableViewCell, at indexPath: IndexPath) {
+    private func configure(_ cell: PlanTableViewCell, at indexPath: IndexPath) {
         // Fetch Meal
         guard let _plannedDay = plannedDays?[indexPath.row] else { fatalError("Unexpected Index Path")}
         
-        // Configure Cell
-        cell.mealName?.text = _plannedDay.meal!.mealName
-        cell.mealFrequency?.text = ""
-        cell.mealCategories?.text = _plannedDay.meal!.mealDesc
-        if (_plannedDay.meal!.mealImage != nil) {
-            cell.mealImage?.image = UIImage(data: _plannedDay.meal!.mealImage!)
+            // Configure Cell
+            cell.mealName?.text = _plannedDay.meal!.mealName
+            //cell.mealFrequency?.text = ""
+            //cell.mealCategories?.text = _plannedDay.meal!.mealDesc
+            if (_plannedDay.meal!.mealImage != nil) {
+                cell.mealImage?.image = UIImage(data: _plannedDay.meal!.mealImage!)
+            }
         }
-    }
 }
 

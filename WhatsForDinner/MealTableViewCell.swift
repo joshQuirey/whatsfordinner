@@ -30,7 +30,6 @@ class MealTableViewCell: UITableViewCell {
 class PlanTableViewCell: UITableViewCell {
     
     @IBOutlet weak var mealName: UILabel!
-    @IBOutlet weak var mealDescription: UILabel!
     @IBOutlet weak var mealImage: UIImageView!
     
     override func awakeFromNib() {

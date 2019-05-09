@@ -119,7 +119,7 @@
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
                     <navigationItem key="navigationItem" title="Meals" id="TX0-UD-7jE">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="li1-VQ-buB">
+                        <barButtonItem key="rightBarButtonItem" title="Add" style="plain" id="li1-VQ-buB">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <segue destination="ZHR-gx-uw6" kind="presentation" identifier="AddMeal" id="Y4X-TR-EdA"/>
@@ -511,7 +511,7 @@
                                 <color key="sectionIndexBackgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexTrackingBackgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="planCell" rowHeight="60" id="8qA-uY-t8x" customClass="MealTableViewCell" customModule="WhatsForDinner" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="planCell" rowHeight="60" id="8qA-uY-t8x" customClass="PlanTableViewCell" customModule="WhatsForDinner" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="30" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8qA-uY-t8x" id="zlg-Nz-M8u">
@@ -529,14 +529,8 @@
                                                     <rect key="frame" x="68" y="0.0" width="240" height="60"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PxN-up-zYw" userLabel="Name">
-                                                            <rect key="frame" x="0.0" y="0.0" width="240" height="27.666666666666668"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="240" height="60"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zmh-Sd-Ggo" userLabel="Meal Description">
-                                                            <rect key="frame" x="0.0" y="32.666666666666664" width="240" height="27.333333333333336"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -554,7 +548,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="mealDescription" destination="Zmh-Sd-Ggo" id="9xz-hA-8D1"/>
                                             <outlet property="mealImage" destination="Dqc-vf-bAx" id="0c1-hn-7oU"/>
                                             <outlet property="mealName" destination="PxN-up-zYw" id="eMX-Tj-zxc"/>
                                         </connections>
@@ -578,7 +571,7 @@
                         <viewLayoutGuide key="safeArea" id="kOs-uJ-OSa"/>
                     </view>
                     <navigationItem key="navigationItem" title="What's For Dinner" id="y6O-4l-wd0">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="Njr-3d-Hv3">
+                        <barButtonItem key="rightBarButtonItem" title="Create" id="Njr-3d-Hv3">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <segue destination="Ljq-Fm-kEf" kind="showDetail" identifier="CreatePlan" id="TTl-ru-SlJ"/>
@@ -927,7 +920,7 @@
                                                 <action selector="cancel:" destination="Ljq-Fm-kEf" id="PM9-T0-rUm"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="play" id="p06-Ho-9LD">
+                                        <barButtonItem key="rightBarButtonItem" title="Go" style="plain" id="p06-Ho-9LD">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
                                                 <action selector="create:" destination="Ljq-Fm-kEf" id="xMd-us-SuC"/>
