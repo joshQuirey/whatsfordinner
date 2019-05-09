@@ -122,14 +122,15 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         day1Plan.planEndDate = dateDay7
         day1Plan.category = category1.text
         //Get Meal
-        var meal = self.getNextMealforCategory(_category: day1Plan.category!, _plannedDate: day1Plan.date!)
-        if (meal.mealName == nil) {
-            meal = self.getNextMeal(_category: day1Plan.category!, _plannedDate: day1Plan.date!)
+        //day1Plan.meal = Meal(context: self.managedObjectContext!)
+        let meal = self.getNextMealforCategory(_category: day1Plan.category!, _plannedDate: day1Plan.date!)
+        
+        if (meal!.mealName == nil) {
+            self.managedObjectContext?.delete(meal!)
+            day1Plan.meal = self.getNextMeal(_plannedDate: day1Plan.date!)
         } else {
             //Alert User that no meal could be found
         }
-        
-        day1Plan.meal = meal
         print("Selected Meal 1: \(day1Plan.meal!.mealName!)")
         
         weekPlan.append(day1Plan)
@@ -151,7 +152,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         day3Plan.planStartDate = dateDay1
         day3Plan.date = dateDay3
         day3Plan.planEndDate = dateDay7
-               day3Plan.category = category3.text
+        day3Plan.category = category3.text
         //Get Meal
         day3Plan.meal = self.getNextMealforCategory(_category: day3Plan.category!, _plannedDate: day3Plan.date!)
         print("Selected Meal 3: \(day3Plan.meal!.mealName!)")
@@ -163,7 +164,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         day4Plan.planStartDate = dateDay1
         day4Plan.date = dateDay4
         day4Plan.planEndDate = dateDay7
-                day4Plan.category = category4.text
+        day4Plan.category = category4.text
         //Get Meal
         day4Plan.meal = self.getNextMealforCategory(_category: day4Plan.category!, _plannedDate: day4Plan.date!)
         print("Selected Meal 4: \(day4Plan.meal!.mealName!)")
@@ -209,9 +210,8 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.dismiss(animated: true, completion: nil)
     }
     
-    func getNextMealforCategory(_category: String, _plannedDate: Date) -> Meal {
-        var meal = Meal()
-        meal.mealName = nil
+    func getNextMealforCategory(_category: String, _plannedDate: Date) -> Meal? {
+        var meal = Meal(context: self.managedObjectContext!)
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
         
         //Fetch Meals using Category
@@ -226,7 +226,9 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 //Execute Fetch Request
                 let meals = try fetchRequest.execute()
                 //Search for Meal
-                meal = FindMeal(_meals: meals, _plannedDate: _plannedDate)
+                if (meals.count > 0) {
+                    meal = FindMeal(_meals: meals, _plannedDate: _plannedDate)
+                }
             } catch {
                 let fetchError = error as NSError
                 print("Unable to Execute Fetch Request")
@@ -237,12 +239,12 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         return meal
     }
     
-    func getNextMeal(_category: String, _plannedDate: Date) -> Meal {
-        var meal = Meal()
+    func getNextMeal(_plannedDate: Date) -> Meal {
+        var meal = Meal(context: self.managedObjectContext!)
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
         
         //Fetch Meals using Category
-        fetchRequest.predicate = NSPredicate(format: "ANY estimatedNextDate != nil", _category)
+        fetchRequest.predicate = NSPredicate(format: "ANY estimatedNextDate != nil")
         
         //Sort by estimated next date
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending:true)]
