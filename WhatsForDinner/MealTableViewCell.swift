@@ -25,6 +25,18 @@ class MealTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    override var frame: CGRect {
+        get {
+            return super.frame
+        }
+        set (newFrame) {
+            var frame = newFrame
+            frame.origin.y += 8
+            frame.size.height -= 2 * 5
+            super.frame = frame
+        }
+    }
 }
 
 class PlanTableViewCell: UITableViewCell {
@@ -42,4 +54,16 @@ class PlanTableViewCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
+    
+//    override var frame: CGRect {
+//        get {
+//            return super.frame
+//        }
+//        set (newFrame) {
+//            var frame = newFrame
+//            frame.origin.y += 8
+//            frame.size.height -= 2 * 5
+//            super.frame = frame
+//        }
+//    }
 }

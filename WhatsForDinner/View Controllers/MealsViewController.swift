@@ -229,14 +229,15 @@ class MealsViewController: UIViewController {
 extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        //return meals!.count
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        guard let section = fetchedResultsController.sections?[section] else { return 0 }
 //        return section.numberOfObjects
-        
-        return (meals?.count)!
+        //return 1
+        return meals!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -249,6 +250,11 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         // Configure Cell
         configure(cell, at: indexPath)
         
+        //configure look of cell
+        //cell.layer.borderColor = UIColor.black.cgColor
+        cell.layer.borderWidth = 0
+        cell.layer.cornerRadius = 8
+        cell.clipsToBounds = true
         return cell
     }
     
@@ -306,6 +312,37 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         
         return indexPath
     }
+    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 0
+//    }
+//
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//
+//        return "test"
+//    }
+    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let myLabel = UILabel()
+//        myLabel.font = UIFont.boldSystemFont(ofSize: 4)
+//        myLabel.text = "testing"
+//
+//        let header = UIView()
+//        //header?.textLabel!.font = UIFont(name: "Futura", size: 4)
+//        header.addSubview(myLabel)
+//
+//        return header
+//    }
+
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 250.0
+//    }
+//
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = UIView()
+//        headerView.backgroundColor = UIColor.clear
+//        return headerView
+//    }
 }
 
 extension MealsViewController: NSFetchedResultsControllerDelegate {

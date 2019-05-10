@@ -94,8 +94,12 @@ class PlanViewController: UIViewController {
             guard let destination = segue.destination as? CreatePlanViewController else {
                 return
             }
+//            let formatter = DateFormatter()
+//            formatter.dateFormat = "EEEE, MMMM d, yyyy"
             
             destination.managedObjectContext = coreDataManager.managedObjectContext
+            destination.startingDatePicker.date = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+            
         default:
             break
         }
@@ -113,6 +117,7 @@ class PlanViewController: UIViewController {
             print("Context Inserts Exist")
             for insert in inserts {
                 if let plannedDay = insert as? PlannedDay {
+                    print(plannedDay)
                     plannedDays?.append(plannedDay)
                     planDidChange = true
                 }
@@ -145,7 +150,15 @@ class PlanViewController: UIViewController {
             //Update Section Ticket Lists
             
             //Sort
-            //meals?.sorted { $0 > $1 }
+//            for plan in plannedDays! {
+//                print("\(plan.date) - Meal - \(plan.meal!.mealName)")
+//            }
+            
+            plannedDays = plannedDays?.sorted(by: { $0.date!.compare($1.date!) == .orderedAscending })
+            
+//            for plan in plannedDays! {
+//                print("\(plan.date) - Meal - \(plan.meal!.mealName)")
+//            }
             
             //Update Table View
             tableView.reloadData()
@@ -205,11 +218,12 @@ class PlanViewController: UIViewController {
 extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1 // (plannedDays?.count)!
+        return (plannedDays?.count)!
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (plannedDays?.count)!
+//        return (plannedDays?.count)!
+        return 1
     }
     
 //    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -222,15 +236,15 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             let formatter = DateFormatter()
             formatter.dateFormat = "EEEE, MMMM d, yyyy"
 
-            return "" //formatter.string(from: date!)
+            return formatter.string(from: date!)
         } else {
             return "No Planned Days"
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return (tableView.frame.height - 210) / 7
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return (tableView.frame.height - 210) / 7
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "planCell", for: indexPath) as! PlanTableViewCell
@@ -249,7 +263,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
     
     private func configure(_ cell: PlanTableViewCell, at indexPath: IndexPath) {
         // Fetch Meal
-        guard let _plannedDay = plannedDays?[indexPath.row] else { fatalError("Unexpected Index Path")}
+        guard let _plannedDay = plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
         
             // Configure Cell
             cell.mealName?.text = _plannedDay.meal!.mealName
