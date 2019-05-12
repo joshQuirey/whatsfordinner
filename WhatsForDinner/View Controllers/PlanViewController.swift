@@ -121,7 +121,13 @@ class PlanViewController: UIViewController {
                     plannedDays?.append(plannedDay)
                     planDidChange = true
                 }
+                
+                if let plannedMeal = insert as? Meal {
+                    print(plannedMeal)
+                    coreDataManager.managedObjectContext.delete(plannedMeal)
+                }
             }
+            
         }
         
         if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> {
@@ -254,7 +260,6 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         
         // Configure Cell
         if (plannedDays!.count > 0) {
-            print(plannedDays!.count)
             configure(cell, at: indexPath)
         }
         

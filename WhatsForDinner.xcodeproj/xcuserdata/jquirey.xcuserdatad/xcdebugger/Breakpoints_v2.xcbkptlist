@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/CategoriesViewController.swift"
-            timestampString = "578895737.476058"
+            timestampString = "579309607.190439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "88"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/CategoriesViewController.swift"
-            timestampString = "578895737.476146"
+            timestampString = "579309607.191252"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "118"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/CategoriesViewController.swift"
-            timestampString = "578895737.476212"
+            timestampString = "579309607.19172"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "113"
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/CategoriesViewController.swift"
-            timestampString = "578895737.476271"
+            timestampString = "579309607.1923389"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "120"
@@ -72,13 +72,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/Recipe View Controllers/RecipeViewController.swift"
-            timestampString = "578895212.4150389"
+            timestampString = "579314307.51694"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "58"
             endingLineNumber = "58"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
+            landmarkName = "RecipeViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -104,7 +104,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/Recipe View Controllers/RecipeViewController.swift"
-            timestampString = "578895212.416366"
+            timestampString = "579314307.51761"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "100"
@@ -120,7 +120,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/CategoriesViewController.swift"
-            timestampString = "578895737.4768831"
+            timestampString = "579309607.1946959"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "34"
@@ -136,7 +136,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/CategoriesViewController.swift"
-            timestampString = "578895737.4769469"
+            timestampString = "579309607.195076"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "44"
@@ -152,7 +152,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/Recipe View Controllers/RecipeViewController.swift"
-            timestampString = "578895212.416657"
+            timestampString = "579314307.518133"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "96"
@@ -168,7 +168,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/CategoriesViewController.swift"
-            timestampString = "578895737.477026"
+            timestampString = "579309607.195805"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "103"
@@ -184,7 +184,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/CategoriesViewController.swift"
-            timestampString = "578895737.477083"
+            timestampString = "579309607.196151"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "120"
@@ -230,7 +230,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/Recipe View Controllers/RecipeViewController.swift"
-            timestampString = "578895212.416927"
+            timestampString = "579314307.5186599"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "181"
@@ -246,7 +246,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/Recipe View Controllers/RecipeViewController.swift"
-            timestampString = "578895212.417174"
+            timestampString = "579314307.51915"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "73"
@@ -262,7 +262,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/Recipe View Controllers/RecipeViewController.swift"
-            timestampString = "578895212.417432"
+            timestampString = "579314307.519653"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "86"
@@ -278,12 +278,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/Recipe View Controllers/RecipeViewController.swift"
-            timestampString = "578895212.417675"
+            timestampString = "579314307.520157"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "401"
             endingLineNumber = "401"
-            landmarkName = "setupSegmentedControl()"
+            landmarkName = "showCookDatePicker()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -342,12 +342,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/Recipe View Controllers/RecipeViewController.swift"
-            timestampString = "578895212.418098"
+            timestampString = "579314307.52089"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "408"
             endingLineNumber = "408"
-            landmarkName = "selectionDidChange(_:)"
+            landmarkName = "cancelCookPicker()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -454,7 +454,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/CreatePlanViewController.swift"
-            timestampString = "578725869.888171"
+            timestampString = "579314307.521594"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "95"
@@ -470,13 +470,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/PlanViewController.swift"
-            timestampString = "578725869.888711"
+            timestampString = "579314307.52231"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "178"
+            endingLineNumber = "178"
+            landmarkName = "PlanViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -486,13 +486,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/PlanViewController.swift"
-            timestampString = "578725869.8892"
+            timestampString = "579314307.522931"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "217"
+            endingLineNumber = "217"
+            landmarkName = "fetchPlans()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -502,13 +502,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/PlanViewController.swift"
-            timestampString = "578725869.889603"
+            timestampString = "579314307.523506"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "213"
+            endingLineNumber = "213"
+            landmarkName = "fetchPlans()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -518,13 +518,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/PlanViewController.swift"
-            timestampString = "578725869.889976"
+            timestampString = "579314307.524083"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "237"
+            endingLineNumber = "237"
+            landmarkName = "PlanViewController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -534,13 +534,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/PlanViewController.swift"
-            timestampString = "578725869.890469"
+            timestampString = "579314307.524672"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "tableView(_:titleForHeaderInSection:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -550,13 +550,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/PlanViewController.swift"
-            timestampString = "578725869.890927"
+            timestampString = "579314307.525255"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "236"
+            endingLineNumber = "236"
+            landmarkName = "PlanViewController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -566,12 +566,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/CreatePlanViewController.swift"
-            timestampString = "578725869.891415"
+            timestampString = "579314307.5259759"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
-            landmarkName = "getMealforPlannedDay(_category:_plannedDate:)"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
+            landmarkName = "getNextMealforCategory(_plannedCategory:_plannedDate:_plannedMeal:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WhatsForDinner/View Controllers/PlanViewController.swift"
+            timestampString = "579314307.528224"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "managedObjectContextObjectsDidChange(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WhatsForDinner/View Controllers/PlanViewController.swift"
+            timestampString = "579314307.528964"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "managedObjectContextObjectsDidChange(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -582,29 +614,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/PlanViewController.swift"
-            timestampString = "578725869.891941"
+            timestampString = "579314307.5295759"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WhatsForDinner/View Controllers/PlanViewController.swift"
-            timestampString = "578725869.892383"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "managedObjectContextObjectsDidChange(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -614,13 +630,77 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatsForDinner/View Controllers/PlanViewController.swift"
-            timestampString = "578725869.892791"
+            timestampString = "579314307.530046"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "managedObjectContextObjectsDidChange(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WhatsForDinner/View Controllers/PlanViewController.swift"
+            timestampString = "579314307.530552"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "savePlans(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WhatsForDinner/View Controllers/CreatePlanViewController.swift"
+            timestampString = "579314307.530996"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "create(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WhatsForDinner/View Controllers/PlanViewController.swift"
+            timestampString = "579314307.531504"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "managedObjectContextObjectsDidChange(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WhatsForDinner/View Controllers/CreatePlanViewController.swift"
+            timestampString = "579314307.531985"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "create(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

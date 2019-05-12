@@ -122,18 +122,18 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         day1Plan.date = dateDay1
         day1Plan.planEndDate = dateDay7
         day1Plan.category = category1.text
-        //Get Meal
+        //Get Meal by Category
         day1Plan.meal = self.getNextMealforCategory(_plannedCategory: day1Plan.category!, _plannedDate: day1Plan.date!, _plannedMeal: &plannedMeal)
-        
+        //Get Next Meal
         if (day1Plan.meal!.mealName == nil) {
             day1Plan.meal = self.getNextMeal(_plannedDate: day1Plan.date!, _plannedMeal: &plannedMeal)
-        } else {
+        }
+        //Order Pizza
+        if (day1Plan.meal!.mealName == nil) {
             day1Plan.meal?.mealName = "Order Pizza"
             //Alert User that no meal could be found
         }
-        
         print("Selected Meal 1: \(day1Plan.meal!.mealName!)")
-        //weekPlan.append(day1Plan)
         
         //Day2
         var plannedMeal2 = Meal(context: self.managedObjectContext!)
@@ -142,18 +142,19 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         day2Plan.date = dateDay2
         day2Plan.planEndDate = dateDay7
         day2Plan.category = category2.text
-        //Get Meal
+        //Get Meal by Category
         day2Plan.meal = self.getNextMealforCategory(_plannedCategory: day2Plan.category!, _plannedDate: day2Plan.date!, _plannedMeal: &plannedMeal2)
-        
+        //Get Next Meal
         if (day2Plan.meal!.mealName == nil) {
             day2Plan.meal = self.getNextMeal(_plannedDate: day2Plan.date!, _plannedMeal: &plannedMeal2)
-        } else {
+        }
+        //Order Pizza
+        if (day2Plan.meal!.mealName == nil) {
             day2Plan.meal?.mealName = "Order Pizza 2"
             //Alert User that no meal could be found
         }
-        
         print("Selected Meal 2: \(day2Plan.meal!.mealName!)")
-       // weekPlan.append(day2Plan)
+       
         
         //Day3
         var plannedMeal3 = Meal(context: self.managedObjectContext!)
@@ -162,18 +163,19 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         day3Plan.date = dateDay3
         day3Plan.planEndDate = dateDay7
         day3Plan.category = category3.text
-        //Get Meal
+        //Get Meal by Category
         day3Plan.meal = self.getNextMealforCategory(_plannedCategory: day3Plan.category!, _plannedDate: day3Plan.date!, _plannedMeal: &plannedMeal3)
-        
+        //Get Next Meal
         if (day3Plan.meal!.mealName == nil) {
             day3Plan.meal = self.getNextMeal(_plannedDate: day3Plan.date!, _plannedMeal: &plannedMeal3)
-        } else {
+        }
+        //Order Pizza
+        if (day3Plan.meal!.mealName == nil) {
             day3Plan.meal?.mealName = "Order Pizza 3"
             //Alert User that no meal could be found
         }
-        
         print("Selected Meal 3: \(day3Plan.meal!.mealName!)")
-       // weekPlan.append(day3Plan)
+       
         
         //Day4
         var plannedMeal4 = Meal(context: self.managedObjectContext!)
@@ -182,18 +184,20 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         day4Plan.date = dateDay4
         day4Plan.planEndDate = dateDay7
         day4Plan.category = category4.text
-        //Get Meal
+        //Get Meal by Category
         day4Plan.meal = self.getNextMealforCategory(_plannedCategory: day4Plan.category!, _plannedDate: day4Plan.date!, _plannedMeal: &plannedMeal4)
-        
+        //Get Next Meal
         if (day4Plan.meal!.mealName == nil) {
             day4Plan.meal = self.getNextMeal(_plannedDate: day4Plan.date!, _plannedMeal: &plannedMeal4)
-        } else {
+        }
+        //Order Pizza
+        if (day4Plan.meal!.mealName == nil) {
             day4Plan.meal?.mealName = "Order Pizza 4"
             //Alert User that no meal could be found
         }
-        
+        //Cleanup
         print("Selected Meal 4: \(day4Plan.meal!.mealName!)")
-       // weekPlan.append(day4Plan)
+    
 
         //Day5
         var plannedMeal5 = Meal(context: self.managedObjectContext!)
@@ -202,18 +206,19 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         day5Plan.date = dateDay5
         day5Plan.planEndDate = dateDay7
         day5Plan.category = category5.text
-        //Get Meal
+        //Get Meal by Category
         day5Plan.meal = self.getNextMealforCategory(_plannedCategory: day5Plan.category!, _plannedDate: day5Plan.date!, _plannedMeal: &plannedMeal5)
-        
+        //Get Next Meal
         if (day5Plan.meal!.mealName == nil) {
             day5Plan.meal = self.getNextMeal(_plannedDate: day5Plan.date!, _plannedMeal: &plannedMeal5)
-        } else {
+        }
+        //Order Pizza
+        if (day5Plan.meal!.mealName == nil) {
             day5Plan.meal?.mealName = "Order Pizza 5"
             //Alert User that no meal could be found
         }
-        
         print("Selected Meal 5: \(day5Plan.meal!.mealName!)")
-       // weekPlan.append(day5Plan)
+        
         
         //Day6
         var plannedMeal6 = Meal(context: self.managedObjectContext!)
@@ -222,18 +227,19 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         day6Plan.date = dateDay6
         day6Plan.planEndDate = dateDay7
         day6Plan.category = category6.text
-        //Get Meal
+        //Get Meal by Category
         day6Plan.meal = self.getNextMealforCategory(_plannedCategory: day6Plan.category!, _plannedDate: day6Plan.date!, _plannedMeal: &plannedMeal6)
-        
+        //Get Next Meal
         if (day6Plan.meal!.mealName == nil) {
             day6Plan.meal = self.getNextMeal(_plannedDate: day6Plan.date!, _plannedMeal: &plannedMeal6)
-        } else {
-            day6Plan.meal?.mealName = "Order Pizza 6"
+        }
+        //Order Pizza
+        if (day6Plan.meal!.mealName == nil) {
+            day6Plan.meal?.mealName = "Order Pizza 3"
             //Alert User that no meal could be found
         }
-        
         print("Selected Meal 6: \(day6Plan.meal!.mealName!)")
-       // weekPlan.append(day6Plan)
+
         
         //Day7
         var plannedMeal7 = Meal(context: self.managedObjectContext!)
@@ -242,20 +248,28 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         day7Plan.date = dateDay7
         day7Plan.planEndDate = dateDay7
         day7Plan.category = category7.text
-        //Get Meal
+        //Get Meal by Category
         day7Plan.meal = self.getNextMealforCategory(_plannedCategory: day7Plan.category!, _plannedDate: day7Plan.date!, _plannedMeal: &plannedMeal7)
-        
+        //Get Next Meal
         if (day7Plan.meal!.mealName == nil) {
             day7Plan.meal = self.getNextMeal(_plannedDate: day7Plan.date!, _plannedMeal: &plannedMeal7)
-        } else {
+        }
+        //Order Pizza
+        if (day7Plan.meal!.mealName == nil) {
             day7Plan.meal?.mealName = "Order Pizza 7"
             //Alert User that no meal could be found
         }
-        
         print("Selected Meal 7: \(day7Plan.meal!.mealName!)")
-       // weekPlan.append(day7Plan)
+    
+        //Cleanup
+//        self.managedObjectContext?.delete(plannedMeal)
+//        self.managedObjectContext?.delete(plannedMeal2)
+//        self.managedObjectContext?.delete(plannedMeal3)
+//        self.managedObjectContext?.delete(plannedMeal4)
+//        self.managedObjectContext?.delete(plannedMeal5)
+//        self.managedObjectContext?.delete(plannedMeal6)
+//        self.managedObjectContext?.delete(plannedMeal7)
         
-       // print(weekPlan)
         self.dismiss(animated: true, completion: nil)
     }
     
