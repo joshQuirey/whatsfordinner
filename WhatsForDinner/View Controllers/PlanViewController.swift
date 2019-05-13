@@ -240,7 +240,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         if ((plannedDays?.count)! > 0) {
             let date = plannedDays![section].date
             let formatter = DateFormatter()
-            formatter.dateFormat = "EEEE, MMMM d, yyyy"
+            formatter.dateFormat = "EEEE, MMMM d"
 
             return formatter.string(from: date!)
         } else {
@@ -277,6 +277,10 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             if (_plannedDay.meal!.mealImage != nil) {
                 cell.mealImage?.image = UIImage(data: _plannedDay.meal!.mealImage!)
             }
+        
+        cell.prepTime?.text?.append(_plannedDay.meal!.prepTime!)  //.remove(at: (_plannedDay.meal?.prepTime?.index(of: " "))!))
+            cell.cookTime?.text?.append(_plannedDay.meal!.cookTime!)
+            cell.serves?.text?.append(_plannedDay.meal!.serves!)
         }
 }
 
