@@ -228,40 +228,55 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return (plannedDays?.count)!
         return 1
     }
     
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return SectionHeaderHeight
-//    }
-    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if ((plannedDays?.count)! > 0) {
-            let date = plannedDays![section].date
-            let formatter = DateFormatter()
-            formatter.dateFormat = "EEEE, MMMM d"
+            if (section == 0) {
+                return "Today"
+            } else if (section == 1) {
+                return "Tomorrow"
+            } else {
+                let date = plannedDays![section].date
+                let formatter = DateFormatter()
+                formatter.dateFormat = "EEEE" //, MMMM d"
 
-            return formatter.string(from: date!)
+                return formatter.string(from: date!)
+            }
         } else {
             return "No Planned Days"
         }
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return (tableView.frame.height - 210) / 7
-//    }
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor(displayP3Red: 244/255, green: 247/255, blue: 245/255, alpha: 1.0)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let myLabel = UILabel()
+        myLabel.frame = CGRect(x: 0, y: 8, width: 320, height: 20)
+        myLabel.font = UIFont(name: "SF Pro", size: 8)
+        //myLabel.backgroundColor = UIColor.red
+        myLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
+        
+        let headerView = UIView()
+        headerView.addSubview(myLabel)
+        
+        return headerView
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "planCell", for: indexPath) as! PlanTableViewCell
-        
-//        cell.textLabel?.text = "Section \(indexPath.section)"
-//        cell.detailTextLabel?.text = "Row \(indexPath.row)"
-        
+
         // Configure Cell
         if (plannedDays!.count > 0) {
             configure(cell, at: indexPath)
         }
+        
+        cell.layer.borderWidth = 0
+        cell.layer.cornerRadius = 8
+        cell.clipsToBounds = true
         
         return cell
     }
