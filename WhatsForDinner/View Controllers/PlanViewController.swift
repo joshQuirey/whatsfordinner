@@ -281,6 +281,18 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete else { return }
+        
+        // Fetch Day
+        guard let _plannedDay = plannedDays?[indexPath.row] else { fatalError("Unexpected Index Path")}
+        
+        // Delete Day
+        guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
+        _meal.removeFromPlannedDays(_plannedDay)
+        //coreDataManager.managedObjectContext.delete(_plannedDay)
+    }
+    
     private func configure(_ cell: PlanTableViewCell, at indexPath: IndexPath) {
         // Fetch Meal
         guard let _plannedDay = plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
