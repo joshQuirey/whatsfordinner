@@ -287,24 +287,26 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         // Fetch Meal
         guard let _plannedDay = plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
         
-        // Configure Cell
-        let date = plannedDays![indexPath.section].date
-        let formatter = DateFormatter()
-        formatter.dateFormat = "d"
-        cell.planDate.text = formatter.string(from: date!)
+            // Configure Cell
+            let date = plannedDays![indexPath.section].date
+            let formatter = DateFormatter()
+            formatter.dateFormat = "d"
+            cell.planDate.text = formatter.string(from: date!)
         
-        formatter.dateFormat = "MMM"
-        cell.planMonth.text = formatter.string(from: date!)
+            formatter.dateFormat = "MMM"
+            cell.planMonth.text = formatter.string(from: date!)
         
-        formatter.dateFormat = "EEE"
-        cell.planDay.text = formatter.string(from: date!)
+            formatter.dateFormat = "EEE"
+            cell.planDay.text = formatter.string(from: date!)
         
-        if (_plannedDay.meal!.mealImage != nil) {
-            cell.mealImage?.image = UIImage(data: _plannedDay.meal!.mealImage!)
-        }
-        cell.mealName?.text = _plannedDay.meal!.mealName
+            if (_plannedDay.meal!.mealImage != nil) {
+                cell.mealImage?.image = UIImage(data: _plannedDay.meal!.mealImage!)
+            }
         
-        cell.prepTime?.text?.append(_plannedDay.meal!.prepTime!)  //.remove(at: (_plannedDay.meal?.prepTime?.index(of: " "))!))
+        formatter.dateFormat = "EEE MMM d"
+            cell.mealName?.text = _plannedDay.date // _plannedDay.meal!.mealName
+        
+            cell.prepTime?.text?.append(_plannedDay.meal!.prepTime!)  //.remove(at: (_plannedDay.meal?.prepTime?.index(of: " "))!))
             cell.cookTime?.text?.append(_plannedDay.meal!.cookTime!)
             cell.serves?.text?.append(_plannedDay.meal!.serves!)
         }
@@ -313,7 +315,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         guard editingStyle == .delete else { return }
         
         // Fetch Day
-        guard let _plannedDay = plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
+        guard let _plannedDay = plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path") }
         //print(_plannedDay)
         //print(_plannedDay.meal?.mealName)
         // Delete Day
@@ -323,6 +325,20 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         _meal.previousDate = nil
         //Need to roll back the planned date for each of the meals coming up after the meal deleted
         coreDataManager.managedObjectContext.delete(_plannedDay)
+        
+        //Update the dates for remaining planned days to be a day earlier
+        print(indexPath.section)
+        var i = indexPath.section + 1
+        print(i)
+        print(plannedDays!.count)
+        while (i < plannedDays!.count) {
+            print(plannedDays?[i].date)
+            guard let _nextMeal = plannedDays?[i].meal else { fatalError("Unexpected Index Path") }
+            print(_nextMeal.nextDate)
+            _nextMeal.nextDate = Calendar.current.date(byAdding: .day, value: -1, to: _nextMeal.nextDate!)
+            print(_nextMeal.nextDate)
+            i += 1
+        }
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
