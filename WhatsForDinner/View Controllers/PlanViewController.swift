@@ -281,22 +281,6 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        guard editingStyle == .delete else { return }
-        
-        // Fetch Day
-        guard let _plannedDay = plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
-        print(_plannedDay)
-        print(_plannedDay.meal?.mealName)
-        // Delete Day
-        guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
-        _meal.estimatedNextDate = _meal.previousDate
-        _meal.nextDate = nil
-        _meal.previousDate = nil
-        //Need to roll back the planned date for each of the meals coming up after the meal deleted
-        coreDataManager.managedObjectContext.delete(_plannedDay)
-    }
-    
     private func configure(_ cell: PlanTableViewCell, at indexPath: IndexPath) {
         // Fetch Meal
         guard let _plannedDay = plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
@@ -313,5 +297,48 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             cell.cookTime?.text?.append(_plannedDay.meal!.cookTime!)
             cell.serves?.text?.append(_plannedDay.meal!.serves!)
         }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete else { return }
+        
+        // Fetch Day
+        guard let _plannedDay = plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
+        //print(_plannedDay)
+        //print(_plannedDay.meal?.mealName)
+        // Delete Day
+        guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
+        _meal.estimatedNextDate = _meal.previousDate
+        _meal.nextDate = nil
+        _meal.previousDate = nil
+        //Need to roll back the planned date for each of the meals coming up after the meal deleted
+        coreDataManager.managedObjectContext.delete(_plannedDay)
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let completeAction = UIContextualAction(style: .normal, title:  "Complete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            print("OK, marked as Completed")
+            
+            // Fetch Day
+            guard let _plannedDay = self.plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
+        
+            // Delete Day
+            guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
+            //TODO
+            _meal.estimatedNextDate = Calendar.current.date(byAdding: .day, value: Int(_meal.frequency), to: _meal.nextDate!)
+            _meal.nextDate = nil
+            _meal.previousDate = Date()
+            
+            //Need to roll back the planned date for each of the meals coming up after the meal deleted
+            self.coreDataManager.managedObjectContext.delete(_plannedDay)
+            
+            success(true)
+        })
+        completeAction.image = UIImage(named: "tick")
+        completeAction.backgroundColor = .purple
+        
+        return UISwipeActionsConfiguration(actions: [completeAction])
+        
+
+    }
 }
 
