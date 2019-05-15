@@ -231,44 +231,46 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if ((plannedDays?.count)! > 0) {
-            if (section == 0) {
-                return "Today"
-            } else if (section == 1) {
-                return "Tomorrow"
-            } else {
-                let date = plannedDays![section].date
-                let formatter = DateFormatter()
-                formatter.dateFormat = "EEEE" //, MMMM d"
-
-                return formatter.string(from: date!)
-            }
-        } else {
-            return "No Planned Days"
-        }
-    }
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        if ((plannedDays?.count)! > 0) {
+//            return ""
+////            if (section == 0) {
+////                return "Today"
+////            } else if (section == 1) {
+////                return "Tomorrow"
+////            } else {
+////                let date = plannedDays![section].date
+////                let formatter = DateFormatter()
+////                formatter.dateFormat = "EEEE" //, MMMM d"
+////
+////                return formatter.string(from: date!)
+////            }
+//        } else {
+//            return "No Planned Days"
+//        }
+//    }
     
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        view.tintColor = UIColor(displayP3Red: 244/255, green: 247/255, blue: 245/255, alpha: 1.0)
-    }
+//    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+//        view.tintColor = UIColor(displayP3Red: 244/255, green: 247/255, blue: 245/255, alpha: 1.0)
+//    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let myLabel = UILabel()
-        myLabel.frame = CGRect(x: 0, y: 8, width: 320, height: 20)
-        myLabel.font = UIFont(name: "SF Pro", size: 8)
+        //let myLabel = UILabel()
+        //myLabel.frame = CGRect(x: 0, y: 0, width: 320, height: 10)
+        //myLabel.font = UIFont(name: "SF Pro", size: 8)
         //myLabel.backgroundColor = UIColor.red
-        myLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
-        
-        let headerView = UIView()
-        headerView.addSubview(myLabel)
-        
+        //myLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
+
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 10))
+
+        //headerView.addSubview(myLabel)
+
         return headerView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "planCell", for: indexPath) as! PlanTableViewCell
-
+        
         // Configure Cell
         if (plannedDays!.count > 0) {
             configure(cell, at: indexPath)
@@ -285,13 +287,22 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         // Fetch Meal
         guard let _plannedDay = plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
         
-            // Configure Cell
-            cell.mealName?.text = _plannedDay.meal!.mealName
-            //cell.mealFrequency?.text = ""
-            //cell.mealCategories?.text = _plannedDay.meal!.mealDesc
-            if (_plannedDay.meal!.mealImage != nil) {
-                cell.mealImage?.image = UIImage(data: _plannedDay.meal!.mealImage!)
-            }
+        // Configure Cell
+        let date = plannedDays![indexPath.section].date
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d"
+        cell.planDate.text = formatter.string(from: date!)
+        
+        formatter.dateFormat = "MMM"
+        cell.planMonth.text = formatter.string(from: date!)
+        
+        formatter.dateFormat = "EEE"
+        cell.planDay.text = formatter.string(from: date!)
+        
+        if (_plannedDay.meal!.mealImage != nil) {
+            cell.mealImage?.image = UIImage(data: _plannedDay.meal!.mealImage!)
+        }
+        cell.mealName?.text = _plannedDay.meal!.mealName
         
         cell.prepTime?.text?.append(_plannedDay.meal!.prepTime!)  //.remove(at: (_plannedDay.meal?.prepTime?.index(of: " "))!))
             cell.cookTime?.text?.append(_plannedDay.meal!.cookTime!)
@@ -315,30 +326,50 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let completeAction = UIContextualAction(style: .normal, title:  "Complete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            print("OK, marked as Completed")
-            
-            // Fetch Day
-            guard let _plannedDay = self.plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
+        print(indexPath.section)
         
-            // Delete Day
-            guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
-            //TODO
-            _meal.estimatedNextDate = Calendar.current.date(byAdding: .day, value: Int(_meal.frequency), to: _meal.nextDate!)
-            _meal.nextDate = nil
-            _meal.previousDate = Date()
+        if (indexPath.section == 0) {
+            let completeAction = UIContextualAction(style: .normal, title:  "Complete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+                print("OK, marked as Completed")
+                
+                // Fetch Day
+//                guard let _plannedDay = self.plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
+//
+//                // Delete Day
+//                guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
+//                //TODO
+//                _meal.estimatedNextDate = Calendar.current.date(byAdding: .day, value: Int(_meal.frequency), to: _meal.nextDate!)
+//                _meal.nextDate = nil
+//                _meal.previousDate = Date()
+//
+//                //Need to roll back the planned date for each of the meals coming up after the meal deleted
+//                self.coreDataManager.managedObjectContext.delete(_plannedDay)
+//
+                success(true)
+            })
+            completeAction.image = UIImage(named: "tick")
+            completeAction.backgroundColor = .purple
             
-            //Need to roll back the planned date for each of the meals coming up after the meal deleted
-            self.coreDataManager.managedObjectContext.delete(_plannedDay)
+            return UISwipeActionsConfiguration(actions: [completeAction])
+        } else {
+            let replaceAction = UIContextualAction(style: .normal, title:  "Replace", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+                print("OK, marked as Replace")
+                //Implement
+                success(true)
+            })
+            replaceAction.image = UIImage(named: "tick")
+            replaceAction.backgroundColor = .blue
             
-            success(true)
-        })
-        completeAction.image = UIImage(named: "tick")
-        completeAction.backgroundColor = .purple
-        
-        return UISwipeActionsConfiguration(actions: [completeAction])
-        
-
+            let shuffleAction = UIContextualAction(style: .normal, title:  "Shuffle", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+                print("OK, marked as Shuffle")
+                //Implement
+                success(true)
+            })
+            shuffleAction.image = UIImage(named: "tick")
+            shuffleAction.backgroundColor = .green
+            
+            return UISwipeActionsConfiguration(actions: [replaceAction,shuffleAction])
+        }
     }
 }
 

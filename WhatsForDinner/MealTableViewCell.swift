@@ -41,6 +41,11 @@ class MealTableViewCell: UITableViewCell {
 
 class PlanTableViewCell: UITableViewCell {
     
+    
+    
+    @IBOutlet weak var planDate: UILabel!
+    @IBOutlet weak var planMonth: UILabel!
+    @IBOutlet weak var planDay: UILabel!
     @IBOutlet weak var mealName: UILabel!
     @IBOutlet weak var mealImage: UIImageView!
     @IBOutlet weak var prepTime: UILabel!
