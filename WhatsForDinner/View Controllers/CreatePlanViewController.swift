@@ -347,8 +347,10 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
             
             if (!mealExists) {
                 _plannedMeal = _meal
-                _plannedMeal.nextDate = _plannedDate
+                _plannedMeal.previousDate = _plannedMeal.estimatedNextDate
                 _plannedMeal.estimatedNextDate = nil
+                _plannedMeal.nextDate = _plannedDate
+                
                 break
             }
         }

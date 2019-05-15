@@ -289,8 +289,11 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         print(_plannedDay)
         print(_plannedDay.meal?.mealName)
         // Delete Day
-        //guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
-        //_meal.removeFromPlannedDays(_plannedDay)
+        guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
+        _meal.estimatedNextDate = _meal.previousDate
+        _meal.nextDate = nil
+        _meal.previousDate = nil
+        //Need to roll back the planned date for each of the meals coming up after the meal deleted
         coreDataManager.managedObjectContext.delete(_plannedDay)
     }
     
