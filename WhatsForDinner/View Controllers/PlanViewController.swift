@@ -192,7 +192,7 @@ class PlanViewController: UIViewController {
         let fetchRequest: NSFetchRequest<PlannedDay> = PlannedDay.fetchRequest()
         
         // Configure Fetch Request
-       // fetchRequest.predicate = NSPredicate(format: "isCompleted == false")
+        fetchRequest.predicate = NSPredicate(format: "isCompleted == nil")
         
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(PlannedDay.date), ascending: true)]
         
@@ -304,7 +304,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             }
         
         formatter.dateFormat = "EEE MMM d"
-            cell.mealName?.text = _plannedDay.date // _plannedDay.meal!.mealName
+        cell.mealName?.text = "\(formatter.string(from: _plannedDay.meal!.nextDate!))  \(_plannedDay.meal!.mealName)"
         
             cell.prepTime?.text?.append(_plannedDay.meal!.prepTime!)  //.remove(at: (_plannedDay.meal?.prepTime?.index(of: " "))!))
             cell.cookTime?.text?.append(_plannedDay.meal!.cookTime!)
@@ -332,11 +332,19 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         print(i)
         print(plannedDays!.count)
         while (i < plannedDays!.count) {
-            print(plannedDays?[i].date)
+//            print("Planned Date \(plannedDays?[i].date)")
+            plannedDays?[i].date = Calendar.current.date(byAdding: .day, value: -1, to: (plannedDays?[i].date)!)
+//            print("Planned Date \(plannedDays?[i].date)")
+            
+//            print("Planned End Date \(plannedDays?[i].planEndDate)")
+            plannedDays?[i].planEndDate = Calendar.current.date(byAdding: .day, value: -1, to: (plannedDays?[i].planEndDate)!)
+//            print("Planned End Date \(plannedDays?[i].planEndDate)")
+            
             guard let _nextMeal = plannedDays?[i].meal else { fatalError("Unexpected Index Path") }
-            print(_nextMeal.nextDate)
+//            print("Next Date \(_nextMeal.nextDate)")
             _nextMeal.nextDate = Calendar.current.date(byAdding: .day, value: -1, to: _nextMeal.nextDate!)
-            print(_nextMeal.nextDate)
+//            print("Next Date \(_nextMeal.nextDate)")
+            
             i += 1
         }
     }
@@ -349,18 +357,17 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
                 print("OK, marked as Completed")
                 
                 // Fetch Day
-//                guard let _plannedDay = self.plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
-//
-//                // Delete Day
-//                guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
-//                //TODO
-//                _meal.estimatedNextDate = Calendar.current.date(byAdding: .day, value: Int(_meal.frequency), to: _meal.nextDate!)
-//                _meal.nextDate = nil
-//                _meal.previousDate = Date()
-//
-//                //Need to roll back the planned date for each of the meals coming up after the meal deleted
-//                self.coreDataManager.managedObjectContext.delete(_plannedDay)
-//
+                guard let _plannedDay = self.plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
+                guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
+        
+                _meal.estimatedNextDate = Calendar.current.date(byAdding: .day, value: Int(_meal.frequency), to: _meal.nextDate!)
+                print(_meal.frequency)
+                print(_meal.estimatedNextDate)
+                _meal.nextDate = nil
+                _meal.previousDate = nil
+                _plannedDay.isCompleted = true
+
+                self.coreDataManager.managedObjectContext.delete(_plannedDay)
                 success(true)
             })
             completeAction.image = UIImage(named: "tick")
