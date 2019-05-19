@@ -50,6 +50,10 @@ class MealsViewController: UIViewController {
         setupNotificationHandling()
         tableView.tableFooterView = UIView()
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -74,11 +78,11 @@ class MealsViewController: UIViewController {
         emptyTableLabel.isHidden = hasMeals
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        print("before")
-        print(coreDataManager.managedObjectContext)
-        print("after")
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        print("before")
+//        print(coreDataManager.managedObjectContext)
+//        print("after")
+//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //print("tony")
@@ -94,36 +98,21 @@ class MealsViewController: UIViewController {
             
             destination.managedObjectContext = coreDataManager.managedObjectContext
             destination.meal = Meal(context: coreDataManager.managedObjectContext)
-//            destination.ticket?.status = ticketStatus.DispatchQueue.rawValue
-//            destination.ticket?.startDate = ISO8601DateFormatter.init().string(from: Date())
-//            destination.ticket?.sroNumber = "UNPLANNED"
-//            destination.ticket?.customerID = "UNPLANNED"
-//            destination.ticket?.dispatchDate = String().minimumDateValue
-//            destination.ticket?.completeDate = String().minimumDateValue
-//            destination.ticket?.submittedDate = String().minimumDateValue
-//            destination.ticket?.updateDate = String().minimumDateValue
-//            destination.ticket?.manualFlag = true
-//            destination.manualFlag = true
-            //print(destination.meal)
+
         case Segue.ViewMeal:
             guard let destination = segue.destination as? RecipeViewController else {
                 return
             }
-            print("destination")
+            
             destination.managedObjectContext = coreDataManager.managedObjectContext
-            print("got context")
             let _indexpath = tableView.indexPathForSelectedRow
             let _meal = meals![(_indexpath?.row)!]
             print(_meal)
             destination.meal = _meal
-            //destination.meal = fetchRecordsForEntity("Meal", inManagedObjectContext: coreDataManager.managedObjectContext)
-            //destination.meal = (coreDataManager.managedObjectContext.object(with: selectedObjectID) as? Meal)!
-            print("got object id")
+        
         default:
             break
         }
-        
-        //look at cocoacasts fetchedResultsController introduction when creating view of meal segue
     }
     
     /////////////////////////////
@@ -146,7 +135,7 @@ class MealsViewController: UIViewController {
         
         if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> {
             print("Context Updates Exist")
-            //print(meals)
+            
             for update in updates {
                 if update is Meal {
                     mealsDidChange = true

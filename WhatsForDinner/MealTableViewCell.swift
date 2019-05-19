@@ -48,9 +48,9 @@ class PlanTableViewCell: UITableViewCell {
     @IBOutlet weak var planDay: UILabel!
     @IBOutlet weak var mealName: UILabel!
     @IBOutlet weak var mealImage: UIImageView!
-    @IBOutlet weak var prepTime: UILabel!
-    @IBOutlet weak var cookTime: UILabel!
-    @IBOutlet weak var serves: UILabel!
+    @IBOutlet weak var prep: UILabel!
+    @IBOutlet weak var cook: UILabel!
+    @IBOutlet weak var serve: UILabel!
     
     
     override func awakeFromNib() {

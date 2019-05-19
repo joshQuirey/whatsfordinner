@@ -34,7 +34,8 @@ class PlanViewController: UIViewController {
     //Segues
     /////////////////////////////
     private enum Segue {
-            static let CreatePlan = "CreatePlan"
+        static let CreatePlan = "CreatePlan"
+        static let ViewPlannedMeal = "ViewPlannedMeal"
     }
     
     private func updateView() {
@@ -60,6 +61,10 @@ class PlanViewController: UIViewController {
         //    print("Unable to Save Managed Object Context")
         //    print("\(error), \(error.localizedDescription)")
         //}
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
     }
     
     private func setupNotificationHandling() {
@@ -98,12 +103,31 @@ class PlanViewController: UIViewController {
 //            formatter.dateFormat = "EEEE, MMMM d, yyyy"
             
             destination.managedObjectContext = coreDataManager.managedObjectContext
-            destination.startingDatePicker.date = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+            
+            //Determine Plan Starting Date
+            var startDate = Date()
+            if (plannedDays!.count > 0) {
+                startDate = (plannedDays?.last?.date)!
+            }
+            
+            destination.startingDatePicker.date = Calendar.current.date(byAdding: .day, value: 1, to: startDate)!
+            
+        case Segue.ViewPlannedMeal:
+            guard let destination = segue.destination as? RecipeViewController else {
+                return
+            }
+            
+            destination.managedObjectContext = coreDataManager.managedObjectContext
+            let _indexpath = tableView.indexPathForSelectedRow
+            let _meal = plannedDays![(_indexpath!.section)].meal
+            destination.meal = _meal
             
         default:
             break
         }
     }
+    
+    
     
     /////////////////////////////
     //Core Data Functions
@@ -135,6 +159,10 @@ class PlanViewController: UIViewController {
             //print(meals)
             for update in updates {
                 if update is PlannedDay {
+                    planDidChange = true
+                }
+                
+                if update is Meal {
                     planDidChange = true
                 }
             }
@@ -231,39 +259,8 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         return 1
     }
     
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        if ((plannedDays?.count)! > 0) {
-//            return ""
-////            if (section == 0) {
-////                return "Today"
-////            } else if (section == 1) {
-////                return "Tomorrow"
-////            } else {
-////                let date = plannedDays![section].date
-////                let formatter = DateFormatter()
-////                formatter.dateFormat = "EEEE" //, MMMM d"
-////
-////                return formatter.string(from: date!)
-////            }
-//        } else {
-//            return "No Planned Days"
-//        }
-//    }
-    
-//    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-//        view.tintColor = UIColor(displayP3Red: 244/255, green: 247/255, blue: 245/255, alpha: 1.0)
-//    }
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        //let myLabel = UILabel()
-        //myLabel.frame = CGRect(x: 0, y: 0, width: 320, height: 10)
-        //myLabel.font = UIFont(name: "SF Pro", size: 8)
-        //myLabel.backgroundColor = UIColor.red
-        //myLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
-
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 10))
-
-        //headerView.addSubview(myLabel)
 
         return headerView
     }
@@ -303,12 +300,12 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.mealImage?.image = UIImage(data: _plannedDay.meal!.mealImage!)
             }
         
-        formatter.dateFormat = "EEE MMM d"
-        cell.mealName?.text = "\(formatter.string(from: _plannedDay.meal!.nextDate!))  \(_plannedDay.meal!.mealName)"
+//            formatter.dateFormat = "EEE MMM d"
+            cell.mealName?.text = _plannedDay.meal!.mealName //"\(formatter.string(from: _plannedDay.meal!.nextDate!))  \()"
         
-            cell.prepTime?.text?.append(_plannedDay.meal!.prepTime!)  //.remove(at: (_plannedDay.meal?.prepTime?.index(of: " "))!))
-            cell.cookTime?.text?.append(_plannedDay.meal!.cookTime!)
-            cell.serves?.text?.append(_plannedDay.meal!.serves!)
+            cell.prep?.text? = "Plan: \(_plannedDay.meal!.prepTime!)"
+            cell.cook?.text? = "Cook: \(_plannedDay.meal!.cookTime!)"
+            cell.serve?.text? = "Serves: \(_plannedDay.meal!.serves!)"
         }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -352,7 +349,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         print(indexPath.section)
         
-        if (indexPath.section == 0) {
+//        if (indexPath.section == 0) {
             let completeAction = UIContextualAction(style: .normal, title:  "Complete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
                 print("OK, marked as Completed")
                 
@@ -368,31 +365,54 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
                 _plannedDay.isCompleted = true
 
                 self.coreDataManager.managedObjectContext.delete(_plannedDay)
+                
+                //Update the dates for remaining planned days to be a day earlier
+//                print(indexPath.section)
+//                var i = indexPath.section + 1
+//                print(i)
+//                print(plannedDays!.count)
+//                while (i < plannedDays!.count) {
+//                    //            print("Planned Date \(plannedDays?[i].date)")
+//                    plannedDays?[i].date = Calendar.current.date(byAdding: .day, value: -1, to: (plannedDays?[i].date)!)
+//                    //            print("Planned Date \(plannedDays?[i].date)")
+//
+//                    //            print("Planned End Date \(plannedDays?[i].planEndDate)")
+//                    plannedDays?[i].planEndDate = Calendar.current.date(byAdding: .day, value: -1, to: (plannedDays?[i].planEndDate)!)
+//                    //            print("Planned End Date \(plannedDays?[i].planEndDate)")
+//
+//                    guard let _nextMeal = plannedDays?[i].meal else { fatalError("Unexpected Index Path") }
+//                    //            print("Next Date \(_nextMeal.nextDate)")
+//                    _nextMeal.nextDate = Calendar.current.date(byAdding: .day, value: -1, to: _nextMeal.nextDate!)
+//                    //            print("Next Date \(_nextMeal.nextDate)")
+//
+//                    i += 1
+//                }
+                
                 success(true)
             })
             completeAction.image = UIImage(named: "tick")
             completeAction.backgroundColor = .purple
             
             return UISwipeActionsConfiguration(actions: [completeAction])
-        } else {
-            let replaceAction = UIContextualAction(style: .normal, title:  "Replace", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-                print("OK, marked as Replace")
-                //Implement
-                success(true)
-            })
-            replaceAction.image = UIImage(named: "tick")
-            replaceAction.backgroundColor = .blue
-            
-            let shuffleAction = UIContextualAction(style: .normal, title:  "Shuffle", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-                print("OK, marked as Shuffle")
-                //Implement
-                success(true)
-            })
-            shuffleAction.image = UIImage(named: "tick")
-            shuffleAction.backgroundColor = .green
-            
-            return UISwipeActionsConfiguration(actions: [replaceAction,shuffleAction])
-        }
+//        } else {
+//            let replaceAction = UIContextualAction(style: .normal, title:  "Replace", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+//                print("OK, marked as Replace")
+//                //Implement
+//                success(true)
+//            })
+//            replaceAction.image = UIImage(named: "tick")
+//            replaceAction.backgroundColor = .blue
+//
+//            let shuffleAction = UIContextualAction(style: .normal, title:  "Shuffle", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+//                print("OK, marked as Shuffle")
+//                //Implement
+//                success(true)
+//            })
+//            shuffleAction.image = UIImage(named: "tick")
+//            shuffleAction.backgroundColor = .green
+//
+//            return UISwipeActionsConfiguration(actions: [replaceAction,shuffleAction])
+//        }
     }
 }
 

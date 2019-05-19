@@ -45,6 +45,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     var managedObjectContext: NSManagedObjectContext?
     var meal: Meal?
+    var imageChanged: Bool = false
     
     /////////////////////////////
     //Segues
@@ -76,6 +77,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         }
         
         viewMeal()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
     }
     
     override func didReceiveMemoryWarning() {
@@ -113,10 +118,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         name.text = meal!.mealName
         
         //photo
-        if (meal!.mealImage != nil) {
-            imageButton.setImage(UIImage(data: meal!.mealImage!), for: .normal)
+        if (meal!.mealImage != nil && !imageChanged) {
+            //imageButton.setImage(UIImage(data: meal!.mealImage!), for: .normal)
             //imageButton.imageView?.image = UIImage(data: meal!.mealImage!)
-            //imageButton.setBackgroundImage(UIImage(data: meal!.mealImage!), for: .normal)
+            imageButton.setBackgroundImage(UIImage(data: meal!.mealImage!), for: .normal)
         }
         
 
@@ -236,54 +241,15 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         picker.dismiss(animated:true, completion: nil)
+        imageChanged = true
         let newImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        
-//        if let possibleImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
-//            newImage = possibleImage
-//        } else if let possibleImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
-//            newImage = possibleImage
-//        } else {
-//            return
-//        }
-        print("image state")
-        print(imageButton.state)
-        // do something interesting here!
-        //thumbnail.contentMode = .scaleAspectFit
-        //thumbnail.image = newImage
-        //imageButton.setTitle("my title", for: [])
-        //imageButton.imageView?.image = newImage
-        //imageButton.setBackgroundImage(nil, for: .normal)
-        //imageButton.setBackgroundImage(newImage, for: .selected)
-        //imageButton.imageView?.image = newImage
+        imageButton.setTitle("", for: .normal)
         imageButton.setBackgroundImage(newImage, for: .normal)
-        
-    
-        //imageButton.imageView?.contentMode = .scaleAspectFit
-        //rimageButton.imageView?.image = newImage
-        //picker.dismiss(animated:true, completion: nil) //5
-
     }
     
     func showActionSheet(vc: UIViewController) {
         //currentVC = vc
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-    
-//        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (alert:UIAlertAction!) -> Void in
-//            //self.cameera
-//
-//        }))
-        
-//        if (UIImagePickerController.isSourceTypeAvailable(.camera)) {
-//            let cameraAction = UIAlertAction(title:"Use Camera", style: .default) { (action) in
-//                AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (granted) in
-//                    if(granted) {
-//                        self.DisplayPicker(type: .camera)
-//                    }
-//                })
-//            }
-//
-//            actionSheet.addAction(cameraAction)
-//        }
         
         actionSheet.addAction(UIAlertAction(title: "Use Camera", style: .default, handler: { (alert:UIAlertAction!) -> Void in
             self.DisplayPicker(type: .camera)
@@ -291,7 +257,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Use Photo Library", style: .default, handler: { (alert:UIAlertAction!) -> Void in
-            //self.photoFromLibrary()
             self.DisplayPicker(type: .photoLibrary)
         }))
         
@@ -301,7 +266,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func photoFromLibrary() {
-        //let picker = UIImagePickerController()
         pickImage.allowsEditing = true
         pickImage.delegate = self
         //picker.sourceType = .photoLibrary
@@ -310,7 +274,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
 
     func DisplayPicker(type: UIImagePickerControllerSourceType){
-        //let picker = UIImagePickerController()
         pickImage.mediaTypes = UIImagePickerController.availableMediaTypes(for: type)!
         pickImage.sourceType = type
         pickImage.allowsEditing = false
@@ -419,9 +382,9 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         let minutes = Int(minutesTotal) - Int(hours * 60)
         
         if (hours > 0) {
-            return "\(hours) hours \(minutes) mins"
+            return "\(hours)hrs \(minutes)min"
         } else {
-            return "\(minutes) mins"
+            return "\(minutes)min"
         }
     }
 

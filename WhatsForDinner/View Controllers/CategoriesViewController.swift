@@ -47,6 +47,10 @@ class CategoriesViewController: UIViewController  {
         
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
+    
 //    @IBAction func addCategory(_ sender: Any) {
 //        print("selected")
 //    }

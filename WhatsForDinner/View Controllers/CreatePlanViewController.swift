@@ -74,12 +74,27 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         showPicker(self.category5, self.picker5)
         showPicker(self.category6, self.picker6)
         showPicker(self.category7, self.picker7)
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+        //self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        //self.navigationController?.navigationBar.shadowImage = UIImage()
+//        guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
+//            return
+//        }
+//        statusBarView.backgroundColor = UIColor.clear
+        
+        self.navigationController?.navigationBar.layer.cornerRadius = 25
+        self.navigationController?.navigationBar.clipsToBounds = true
+//        self.navigationController?.navigationBar.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
     }
+    
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+       return UIStatusBarStyle.lightContent
+    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         loadCategories()
