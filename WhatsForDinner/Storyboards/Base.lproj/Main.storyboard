@@ -558,11 +558,24 @@
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </stackView>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q4h-o7-HgY">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="80"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <state key="normal" title="Button"/>
+                                                                    <connections>
+                                                                        <action selector="expandButton:" destination="8qA-uY-t8x" eventType="touchUpInside" id="FLh-AV-Fyg"/>
+                                                                    </connections>
+                                                                </button>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
+                                                                <constraint firstItem="q4h-o7-HgY" firstAttribute="leading" secondItem="vJl-TL-ffv" secondAttribute="leading" id="K4S-Ny-9a8"/>
                                                                 <constraint firstItem="bT6-Zs-l6F" firstAttribute="leading" secondItem="vJl-TL-ffv" secondAttribute="leading" id="PY6-HH-dFP"/>
+                                                                <constraint firstAttribute="bottom" secondItem="q4h-o7-HgY" secondAttribute="bottom" id="QNs-bf-b9U"/>
                                                                 <constraint firstAttribute="width" constant="40" id="SR1-yw-B2A"/>
+                                                                <constraint firstItem="q4h-o7-HgY" firstAttribute="top" secondItem="vJl-TL-ffv" secondAttribute="top" id="XPk-eW-34j"/>
+                                                                <constraint firstAttribute="trailing" secondItem="q4h-o7-HgY" secondAttribute="trailing" id="dLk-8d-OJc"/>
                                                                 <constraint firstItem="bT6-Zs-l6F" firstAttribute="top" secondItem="vJl-TL-ffv" secondAttribute="top" constant="10" id="fjt-vD-MVG"/>
                                                                 <constraint firstAttribute="trailing" secondItem="bT6-Zs-l6F" secondAttribute="trailing" id="hoT-V8-RlV"/>
                                                                 <constraint firstAttribute="bottom" secondItem="bT6-Zs-l6F" secondAttribute="bottom" constant="10" id="rG7-5P-waq"/>
@@ -671,6 +684,7 @@
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="cook" destination="hXw-dv-HFE" id="Eos-X4-UiX"/>
+                                            <outlet property="mainCellView" destination="Rxh-0O-Pc4" id="MXP-QZ-jVF"/>
                                             <outlet property="mealImage" destination="Dqc-vf-bAx" id="0c1-hn-7oU"/>
                                             <outlet property="mealName" destination="PxN-up-zYw" id="eMX-Tj-zxc"/>
                                             <outlet property="planDate" destination="Fav-g8-H0c" id="b1h-Yi-1R8"/>

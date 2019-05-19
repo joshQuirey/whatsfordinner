@@ -18,6 +18,8 @@ class PlanViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
 
+    
+    
     private var plannedDays: [PlannedDay]? {
         didSet {
             //updateView()

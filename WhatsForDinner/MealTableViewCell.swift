@@ -53,6 +53,38 @@ class PlanTableViewCell: UITableViewCell {
     @IBOutlet weak var serve: UILabel!
     
     
+    @IBOutlet weak var mainCellView: UIView!
+    
+    @IBAction func expandButton(_ sender: Any) {
+        let view: UIView = UIView()
+        mainCellView.addSubview(view)
+        view.frame = CGRect(x: 0, y: 0, width: mainCellView.frame.width, height: mainCellView.frame.height)
+        
+        view.backgroundColor = .red
+        
+        let stack: UIStackView = UIStackView()
+        view.addSubview(stack)
+        stack.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        stack.backgroundColor = .black
+        
+        let refreshButton: UIButton = UIButton()
+        refreshButton.setTitle("Refresh", for: .normal)
+        refreshButton.backgroundColor = .blue
+        stack.addSubview(refreshButton)
+        
+        let shuffleButton: UIButton = UIButton()
+        shuffleButton.titleLabel?.text = "Shuffle"
+        refreshButton.backgroundColor = .green
+        stack.addSubview(shuffleButton)
+        
+        let cancelButton: UIButton = UIButton()
+        cancelButton.titleLabel?.text = "Cancel"
+        refreshButton.backgroundColor = .purple
+        stack.addSubview(cancelButton)
+        
+    }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
