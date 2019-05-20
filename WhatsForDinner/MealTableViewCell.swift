@@ -41,8 +41,6 @@ class MealTableViewCell: UITableViewCell {
 
 class PlanTableViewCell: UITableViewCell {
     
-    
-    
     @IBOutlet weak var planDate: UILabel!
     @IBOutlet weak var planMonth: UILabel!
     @IBOutlet weak var planDay: UILabel!
@@ -51,39 +49,70 @@ class PlanTableViewCell: UITableViewCell {
     @IBOutlet weak var prep: UILabel!
     @IBOutlet weak var cook: UILabel!
     @IBOutlet weak var serve: UILabel!
-    
-    
+
     @IBOutlet weak var mainCellView: UIView!
+    var buttonView: UIView!
     
     @IBAction func expandButton(_ sender: Any) {
-        let view: UIView = UIView()
-        mainCellView.addSubview(view)
-        view.frame = CGRect(x: 0, y: 0, width: mainCellView.frame.width, height: mainCellView.frame.height)
-        
-        view.backgroundColor = .red
+        buttonView = UIView()
+        mainCellView.addSubview(buttonView)
+        buttonView.frame = CGRect(x: 0, y: 0, width: mainCellView.frame.width, height: mainCellView.frame.height)
+        buttonView.backgroundColor = .clear
+//        buttonView.backgroundColor = .red
         
         let stack: UIStackView = UIStackView()
-        view.addSubview(stack)
-        stack.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
-        stack.backgroundColor = .black
+        buttonView.addSubview(stack)
+        stack.frame = CGRect(x: 0, y: 0, width: buttonView.frame.width, height: buttonView.frame.height)
+        stack.alignment = UIStackViewAlignment.fill
+        stack.distribution = UIStackViewDistribution.fillEqually
+        stack.backgroundColor = .red
+
+        let replaceButton: UIButton = UIButton()
+        replaceButton.setTitle("Replace", for: .normal)
+        //replaceButton.backgroundColor = .clear
+        stack.addArrangedSubview(replaceButton)
         
-        let refreshButton: UIButton = UIButton()
-        refreshButton.setTitle("Refresh", for: .normal)
-        refreshButton.backgroundColor = .blue
-        stack.addSubview(refreshButton)
+        let blur = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffectView = UIVisualEffectView(effect: blur)
+        blurEffectView.alpha = 0.8
+        blurEffectView.frame = self.bounds
+        blurEffectView.frame = self.bounds
+        blurEffectView.isUserInteractionEnabled = false
+        replaceButton.insertSubview(blurEffectView, at: 0)
         
         let shuffleButton: UIButton = UIButton()
-        shuffleButton.titleLabel?.text = "Shuffle"
-        refreshButton.backgroundColor = .green
-        stack.addSubview(shuffleButton)
+        shuffleButton.setTitle("Shuffle", for: .normal)
+        //shuffleButton.backgroundColor = .clear
+        stack.addArrangedSubview(shuffleButton)
         
-        let cancelButton: UIButton = UIButton()
-        cancelButton.titleLabel?.text = "Cancel"
-        refreshButton.backgroundColor = .purple
-        stack.addSubview(cancelButton)
+//        let blur2 = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.dark))
+//        blur2.frame = self.bounds
+//        blur2.isUserInteractionEnabled = false
+//        shuffleButton.insertSubview(blur2, at: 0)
+        
+        let cancelButton: cellButton = cellButton()
+        cancelButton.setTitle("Cancel", for: .normal)
+        //cancelButton.backgroundColor = .clear
+        cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
+        stack.addArrangedSubview(cancelButton)
+        
+//        let blur3 = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.dark))
+//        blur3.frame = self.bounds
+//        blur3.isUserInteractionEnabled = false
+//        cancelButton.insertSubview(blur3, at: 0)
+    }
+    
+    @objc func replace (sender: UIButton!) {
         
     }
     
+    @objc func shuffle (sender: UIButton!) {
+        
+    }
+    
+    @objc func cancel (sender: UIButton!) {
+        buttonView.removeFromSuperview()
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -107,4 +136,8 @@ class PlanTableViewCell: UITableViewCell {
 //            super.frame = frame
 //        }
 //    }
+}
+
+class cellButton: UIButton {
+    var subView: UIView?
 }
