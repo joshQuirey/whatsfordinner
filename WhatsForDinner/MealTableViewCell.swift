@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class MealTableViewCell: UITableViewCell {
 
@@ -58,7 +59,6 @@ class PlanTableViewCell: UITableViewCell {
         mainCellView.addSubview(buttonView)
         buttonView.frame = CGRect(x: 0, y: 0, width: mainCellView.frame.width, height: mainCellView.frame.height)
         buttonView.backgroundColor = .clear
-//        buttonView.backgroundColor = .red
         
         let stack: UIStackView = UIStackView()
         buttonView.addSubview(stack)
@@ -67,9 +67,10 @@ class PlanTableViewCell: UITableViewCell {
         stack.distribution = UIStackViewDistribution.fillEqually
         stack.backgroundColor = .red
 
+        //Replace Button
         let replaceButton: UIButton = UIButton()
         replaceButton.setTitle("Replace", for: .normal)
-        //replaceButton.backgroundColor = .clear
+        replaceButton.addTarget(self, action: #selector(replace), for: .touchUpInside)
         stack.addArrangedSubview(replaceButton)
         
         let blur = UIBlurEffect(style: UIBlurEffectStyle.dark)
@@ -80,39 +81,130 @@ class PlanTableViewCell: UITableViewCell {
         blurEffectView.isUserInteractionEnabled = false
         replaceButton.insertSubview(blurEffectView, at: 0)
         
+        //Shuffle Button
         let shuffleButton: UIButton = UIButton()
         shuffleButton.setTitle("Shuffle", for: .normal)
-        //shuffleButton.backgroundColor = .clear
+        shuffleButton.addTarget(self, action: #selector(shuffle), for: .touchUpInside)
         stack.addArrangedSubview(shuffleButton)
-        
-//        let blur2 = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.dark))
-//        blur2.frame = self.bounds
-//        blur2.isUserInteractionEnabled = false
-//        shuffleButton.insertSubview(blur2, at: 0)
-        
+    
+        //Cancel Button
         let cancelButton: cellButton = cellButton()
         cancelButton.setTitle("Cancel", for: .normal)
-        //cancelButton.backgroundColor = .clear
         cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
         stack.addArrangedSubview(cancelButton)
-        
-//        let blur3 = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.dark))
-//        blur3.frame = self.bounds
-//        blur3.isUserInteractionEnabled = false
-//        cancelButton.insertSubview(blur3, at: 0)
     }
     
     @objc func replace (sender: UIButton!) {
+        print(Plan.plannedDays!)
+        print(planDay)
+        for plan in Plan.plannedDays! {
+            if (plan.meal?.mealName == mealName.text) {
+                //get index
+                let x = Plan.plannedDays?.index(of: plan)
+                print(x)
+            }
+        }
+        
+        //print(Plan.plannedDays![0].meal?.frequency)
         
     }
     
     @objc func shuffle (sender: UIButton!) {
-        
+        for plan in Plan.plannedDays! {
+            if (plan.meal?.mealName == mealName.text) {
+                //get index
+                //let x = Plan.plannedDays?.index(of: plan)
+                //print(x)
+                
+                //check if category is roll the dice or not
+                var next = getNextMealforCategory(_plannedCategory: plan.category!, _plannedDate: plan.date!, _plannedMeal: &plan.meal!)
+               
+                //Get Next Meal
+                if (plan.meal?.mealName == next?.mealName) {
+                    next = self.getNextMeal(_plannedDate: plan.date!, _plannedMeal: &plan.meal!)
+                }
+                
+                //delete previous meal
+                //guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
+                plan.meal!.estimatedNextDate = plan.meal!.previousDate
+                plan.meal!.nextDate = nil
+                plan.meal!.previousDate = nil
+                
+                //set next meal
+                plan.meal = next
+                plan.meal!.previousDate = plan.meal!.estimatedNextDate
+                plan.meal!.estimatedNextDate = nil
+                plan.meal!.nextDate = plan.date
+                
+                plan.meal?.removeFromPlannedDays(plan)
+                next?.addToPlannedDays(plan)
+                buttonView.removeFromSuperview()
+            }
+        }
     }
     
     @objc func cancel (sender: UIButton!) {
         buttonView.removeFromSuperview()
     }
+    
+    
+    func getNextMealforCategory(_plannedCategory: String, _plannedDate: Date, _plannedMeal: inout Meal) -> Meal? {
+        let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
+        
+        //Fetch Meals using Category
+        fetchRequest.predicate = NSPredicate(format: "ANY tags.name == %@ AND estimatedNextDate != nil", _plannedCategory)
+        
+        //Sort by estimated next date
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending:true)]
+        
+        let managedObjectContext = _plannedMeal.managedObjectContext
+        //Perform Fetch Request
+        managedObjectContext?.performAndWait {
+            do {
+                //Execute Fetch Request
+                let meals = try fetchRequest.execute()
+                //Search for Meal
+                if (meals.count > 0) {
+                    _plannedMeal = meals[0]
+                }
+            } catch {
+                let fetchError = error as NSError
+                print("Unable to Execute Fetch Request")
+                print("\(fetchError), \(fetchError.localizedDescription)")
+            }
+        }
+        
+        return _plannedMeal
+    }
+    
+    func getNextMeal(_plannedDate: Date, _plannedMeal: inout Meal) -> Meal {
+        let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
+        
+        //Fetch Meals using Category
+        fetchRequest.predicate = NSPredicate(format: "ANY estimatedNextDate != nil")
+        
+        //Sort by estimated next date
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending:true)]
+        
+        let managedObjectContext = _plannedMeal.managedObjectContext
+        //Perform Fetch Request
+        managedObjectContext?.performAndWait {
+            do {
+                //Execute Fetch Request
+                let meals = try fetchRequest.execute()
+                //Search for Meal
+                _plannedMeal = meals[0]
+                
+            } catch {
+                let fetchError = error as NSError
+                print("Unable to Execute Fetch Request")
+                print("\(fetchError), \(fetchError.localizedDescription)")
+            }
+        }
+        
+        return _plannedMeal
+    }
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -124,18 +216,6 @@ class PlanTableViewCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
-    
-//    override var frame: CGRect {
-//        get {
-//            return super.frame
-//        }
-//        set (newFrame) {
-//            var frame = newFrame
-//            frame.origin.y += 8
-//            frame.size.height -= 2 * 5
-//            super.frame = frame
-//        }
-//    }
 }
 
 class cellButton: UIButton {

@@ -9,23 +9,27 @@
 import Foundation
 import CoreData
 
-class Plan {
-    var startDate: Date
-    var plannedDate: Date
-    var endDate: Date
-    var category: String
-    var meal: Meal
-    var isCompleted: Bool
-    
+//class Plan {
+//    var startDate: Date
+//    var plannedDate: Date
+//    var endDate: Date
+//    var category: String
+//    var meal: Meal
+//    var isCompleted: Bool
+//
+//
+//    init(_start: Date, _planned: Date, _end: Date, _category: String) {
+//        startDate = _start
+//        plannedDate = _planned
+//        endDate = _start.addingTimeInterval(1)
+//        category = _category
+//        meal = Meal()
+//        isCompleted = false
+//    }
+//}
 
-    init(_start: Date, _planned: Date, _end: Date, _category: String) {
-        startDate = _start
-        plannedDate = _planned
-        endDate = _start.addingTimeInterval(1)
-        category = _category
-        meal = Meal()
-        isCompleted = false
-    }
+struct Plan {
+    static var plannedDays: [PlannedDay]?
 }
 
 //7 day array of date and category

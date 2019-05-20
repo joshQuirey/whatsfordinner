@@ -373,15 +373,6 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         return _plannedMeal
     }
     
-    //Print meals for testing
-    //                for meal in meals {
-    //                    print("Name \(meal.value(forKey: "mealName") ?? "no name") -- Estimated Next Date \(meal.value(forKey: "estimatedNextDate") ?? "no est") -- Frequency \(meal.value(forKey: "frequency") ?? "no frequency")")
-    //
-    //                    for category in meal.tags?.allObjects as! [Tag] {
-    //                        print(category.name!)
-    //                    }
-    //                }
-    
     /////////////////////////////
     //Text Field Functions
     ////////////////////////////

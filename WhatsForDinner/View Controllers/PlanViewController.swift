@@ -9,6 +9,10 @@
 import UIKit
 import CoreData
 
+struct MyVariables {
+    static var test = "strings"
+}
+
 class PlanViewController: UIViewController {
     
     /////////////////////////////
@@ -17,11 +21,10 @@ class PlanViewController: UIViewController {
     private var coreDataManager = CoreDataManager(modelName: "MealModel")
     
     @IBOutlet weak var tableView: UITableView!
-
     
-    
-    private var plannedDays: [PlannedDay]? {
+    var plannedDays: [PlannedDay]? {
         didSet {
+            Plan.plannedDays = plannedDays
             //updateView()
         }
     }
@@ -30,7 +33,6 @@ class PlanViewController: UIViewController {
         guard let plannedDays = plannedDays else { return false }
         return plannedDays.count > 0
     }
-
     
     /////////////////////////////
     //Segues
@@ -153,7 +155,6 @@ class PlanViewController: UIViewController {
                     coreDataManager.managedObjectContext.delete(plannedMeal)
                 }
             }
-            
         }
         
         if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> {
@@ -192,10 +193,6 @@ class PlanViewController: UIViewController {
             
             plannedDays = plannedDays?.sorted(by: { $0.date!.compare($1.date!) == .orderedAscending })
             
-//            for plan in plannedDays! {
-//                print("\(plan.date) - Meal - \(plan.meal!.mealName)")
-//            }
-            
             //Update Table View
             tableView.reloadData()
             
@@ -204,13 +201,9 @@ class PlanViewController: UIViewController {
             planDidChange = false
         }
     }
-    //    @objc private func syncTickets(_ notification: Notification) {
-    //        syncTickets()
-    //    }
     
     @objc private func savePlans(_ notification: Notification) {
         do {
-            print("save Plans")
             try coreDataManager.managedObjectContext.save()
         } catch {
             fatalError("Failure to save context: \(error)")
@@ -229,19 +222,17 @@ class PlanViewController: UIViewController {
         // Perform Fetch Request
         coreDataManager.managedObjectContext.performAndWait {
             do {
-                print("1")
                 // Execute Fetch Request
-                let plannedDays = try fetchRequest.execute()
-                //                print("Tickets Count Total: \(tickets.count)")
-                print("2")
+                plannedDays = try fetchRequest.execute()
+                
                 // Update Tickets
-                self.plannedDays = plannedDays
-                print("3")
+                //self.plannedDays = plannedDays
+                //Plan.plannedDays = plannedDays
+                
                 //Reload Table View
-                if (self.plannedDays!.count > 0) {
+                if (plannedDays!.count > 0) {
                     tableView.reloadData()
                 }
-                print("4")
             } catch {
                 let fetchError = error as NSError
                 print("Unable to Execute Fetch Request")
