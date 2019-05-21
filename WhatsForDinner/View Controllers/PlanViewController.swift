@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 
+
 struct MyVariables {
     static var test = "strings"
 }
@@ -24,7 +25,7 @@ class PlanViewController: UIViewController {
     
     var plannedDays: [PlannedDay]? {
         didSet {
-            Plan.plannedDays = plannedDays
+            //Plan.plannedDays = plannedDays
             //updateView()
         }
     }
@@ -341,25 +342,181 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         print(indexPath.section)
+  
+//COMPLETE
+        let completeAction = UIContextualAction(style: .normal, title:  "Complete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            print("OK, marked as Completed")
+            
+            // Fetch Day
+            guard let _plannedDay = self.plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
+            guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
+    
+            _meal.estimatedNextDate = Calendar.current.date(byAdding: .day, value: Int(_meal.frequency), to: _meal.nextDate!)
+
+            _meal.nextDate = nil
+            _meal.previousDate = nil
+            _plannedDay.isCompleted = true
+
+            self.coreDataManager.managedObjectContext.delete(_plannedDay)
+            
+            success(true)
+        })
+        completeAction.image = UIImage(named: "tick")
+        completeAction.backgroundColor = .purple
+    
+//REPLACE
+        let replaceAction = UIContextualAction(style: .normal, title:  "Replace", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            print("OK, marked as Replace")
+            //Implement
+            
+            
+            success(true)
+        })
+        replaceAction.image = UIImage(named: "tick")
+        replaceAction.backgroundColor = .blue
+
+//SHUFFLE
+        let shuffleAction = UIContextualAction(style: .normal, title:  "Shuffle", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            print("OK, marked as Shuffle")
+            //Implement
+            // Fetch Day
+            guard let _plannedDay = self.plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
+            //Fetch Meal
+            guard var _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
+            
+            //Get next meal for current planned category
+            var next = Meal(context: self.coreDataManager.managedObjectContext)
+            next = self.getNextMealforCategory(_category: _plannedDay.category!, _date: _plannedDay.date!, _meal: &_meal)!
         
-//        if (indexPath.section == 0) {
-            let completeAction = UIContextualAction(style: .normal, title:  "Complete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-                print("OK, marked as Completed")
-                
-                // Fetch Day
-                guard let _plannedDay = self.plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
-                guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
-        
-                _meal.estimatedNextDate = Calendar.current.date(byAdding: .day, value: Int(_meal.frequency), to: _meal.nextDate!)
-                print(_meal.frequency)
-                print(_meal.estimatedNextDate)
+            //If No Meal returned, just get the next meal regardless of category
+            if (_meal.mealName == next.mealName) {
+                next = self.getNextMeal(_date: _plannedDay.date!, _meal: &_meal)
+            }
+            
+            //If No Meal could be found then make no change
+            if (_meal.mealName != next.mealName) {
+                //delete previous meal
+                _meal.estimatedNextDate = _meal.previousDate
                 _meal.nextDate = nil
                 _meal.previousDate = nil
-                _plannedDay.isCompleted = true
-
-                self.coreDataManager.managedObjectContext.delete(_plannedDay)
+                _meal.removeFromPlannedDays(_plannedDay)
                 
-                //Update the dates for remaining planned days to be a day earlier
+                //add next meal
+                next.previousDate = next.estimatedNextDate
+                next.estimatedNextDate = nil
+                next.nextDate = _plannedDay.date
+                next.addToPlannedDays(_plannedDay)
+            }
+            
+            success(true)
+        })
+        shuffleAction.image = UIImage(named: "tick")
+        shuffleAction.backgroundColor = .green
+
+        return UISwipeActionsConfiguration(actions: [completeAction,replaceAction,shuffleAction])
+    }
+    
+    
+    func getNextMealforCategory(_category: String, _date: Date, _meal: inout Meal) -> Meal? {
+        let managedObjectContext = _meal.managedObjectContext
+        let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
+        
+        //Fetch Meals using Category
+        fetchRequest.predicate = NSPredicate(format: "ANY tags.name == %@ AND estimatedNextDate != nil", _category)
+        
+        //Sort by estimated next date
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending:true)]
+        
+        //Perform Fetch Request
+        managedObjectContext?.performAndWait {
+            do {
+                //Execute Fetch Request
+                let meals = try fetchRequest.execute()
+                //Search for Meal
+                if (meals.count > 0) {
+                    //Reset Previous Meal
+                    //                    _meal.estimatedNextDate = _meal.previousDate
+                    //                    _meal.nextDate = nil
+                    //                    _meal.previousDate = nil
+                    //
+                    //                    //Setup Next Meal
+                    //                    _meal = meals[0]
+                    //                    _meal.previousDate = _meal.estimatedNextDate
+                    //                    _meal.estimatedNextDate = nil
+                    //                    _meal.nextDate = _date
+                    _meal = meals[0]
+                }
+            } catch {
+                let fetchError = error as NSError
+                print("Unable to Execute Fetch Request")
+                print("\(fetchError), \(fetchError.localizedDescription)")
+            }
+        }
+        
+        return _meal
+    }
+    
+    func getNextMeal(_date: Date, _meal: inout Meal) -> Meal {
+        let managedObjectContext = _meal.managedObjectContext
+        let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
+        
+        //Fetch Meals using Category
+        fetchRequest.predicate = NSPredicate(format: "ANY estimatedNextDate != nil")
+        
+        //Sort by estimated next date
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending:true)]
+        
+        //Perform Fetch Request
+        managedObjectContext?.performAndWait {
+            do {
+                //Execute Fetch Request
+                let meals = try fetchRequest.execute()
+                //Search for Meal
+                if (meals.count > 0) {
+                    //Reset Previous Meal
+//                    _meal.estimatedNextDate = _meal.previousDate
+//                    _meal.nextDate = nil
+//                    _meal.previousDate = nil
+                    
+                    //Setup Next Meal
+                    _meal = meals[0]
+//                    _meal.previousDate = _meal.estimatedNextDate
+//                    _meal.estimatedNextDate = nil
+//                    _meal.nextDate = _date
+                }
+            } catch {
+                let fetchError = error as NSError
+                print("Unable to Execute Fetch Request")
+                print("\(fetchError), \(fetchError.localizedDescription)")
+            }
+        }
+        
+        return _meal
+    }
+    
+}
+
+
+
+
+
+//@objc func replace (sender: UIButton!) {
+//    print(Plan.plannedDays!)
+//    print(planDay)
+//    for plan in Plan.plannedDays! {
+//        if (plan.meal?.mealName == mealName.text) {
+//            //get index
+//            let x = Plan.plannedDays?.index(of: plan)
+//            print(x)
+//        }
+//    }
+//}
+
+
+
+
+
+//Update the dates for remaining planned days to be a day earlier
 //                print(indexPath.section)
 //                var i = indexPath.section + 1
 //                print(i)
@@ -380,32 +537,3 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
 //
 //                    i += 1
 //                }
-                
-                success(true)
-            })
-            completeAction.image = UIImage(named: "tick")
-            completeAction.backgroundColor = .purple
-            
-            return UISwipeActionsConfiguration(actions: [completeAction])
-//        } else {
-//            let replaceAction = UIContextualAction(style: .normal, title:  "Replace", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-//                print("OK, marked as Replace")
-//                //Implement
-//                success(true)
-//            })
-//            replaceAction.image = UIImage(named: "tick")
-//            replaceAction.backgroundColor = .blue
-//
-//            let shuffleAction = UIContextualAction(style: .normal, title:  "Shuffle", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-//                print("OK, marked as Shuffle")
-//                //Implement
-//                success(true)
-//            })
-//            shuffleAction.image = UIImage(named: "tick")
-//            shuffleAction.backgroundColor = .green
-//
-//            return UISwipeActionsConfiguration(actions: [replaceAction,shuffleAction])
-//        }
-    }
-}
-
