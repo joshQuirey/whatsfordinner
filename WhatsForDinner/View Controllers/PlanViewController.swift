@@ -323,7 +323,6 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         print(i)
         print(plannedDays!.count)
         while (i < plannedDays!.count) {
-//            print("Planned Date \(plannedDays?[i].date)")
             plannedDays?[i].date = Calendar.current.date(byAdding: .day, value: -1, to: (plannedDays?[i].date)!)
 //            print("Planned Date \(plannedDays?[i].date)")
             
@@ -382,17 +381,18 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             // Fetch Day
             guard let _plannedDay = self.plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
             //Fetch Meal
-            guard var _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
+            guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
             
             //Get next meal for current planned category
             var next = Meal(context: self.coreDataManager.managedObjectContext)
-            next = self.getNextMealforCategory(_category: _plannedDay.category!, _date: _plannedDay.date!, _meal: &_meal)!
-        
+            next = self.getNextMealforCategory(_category: _plannedDay.category!, _date: _plannedDay.date!, _nextMeal: &next)!
+            
             //If No Meal returned, just get the next meal regardless of category
-            if (_meal.mealName == next.mealName) {
-                next = self.getNextMeal(_date: _plannedDay.date!, _meal: &_meal)
+            if (next.mealName == nil) {
+                next = self.getNextMeal(_date: _plannedDay.date!, _nextMeal: &next)
             }
             
+            print(next.mealName)
             //If No Meal could be found then make no change
             if (_meal.mealName != next.mealName) {
                 //delete previous meal
@@ -417,8 +417,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     
-    func getNextMealforCategory(_category: String, _date: Date, _meal: inout Meal) -> Meal? {
-        let managedObjectContext = _meal.managedObjectContext
+    func getNextMealforCategory(_category: String, _date: Date, _nextMeal: inout Meal) -> Meal? {
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
         
         //Fetch Meals using Category
@@ -428,7 +427,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending:true)]
         
         //Perform Fetch Request
-        managedObjectContext?.performAndWait {
+        coreDataManager.managedObjectContext.performAndWait {
             do {
                 //Execute Fetch Request
                 let meals = try fetchRequest.execute()
@@ -444,7 +443,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
                     //                    _meal.previousDate = _meal.estimatedNextDate
                     //                    _meal.estimatedNextDate = nil
                     //                    _meal.nextDate = _date
-                    _meal = meals[0]
+                    _nextMeal = meals[0]
                 }
             } catch {
                 let fetchError = error as NSError
@@ -453,21 +452,20 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
         
-        return _meal
+        return _nextMeal
     }
     
-    func getNextMeal(_date: Date, _meal: inout Meal) -> Meal {
-        let managedObjectContext = _meal.managedObjectContext
+    func getNextMeal(_date: Date, _nextMeal: inout Meal) -> Meal {
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
         
         //Fetch Meals using Category
         fetchRequest.predicate = NSPredicate(format: "ANY estimatedNextDate != nil")
         
         //Sort by estimated next date
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending:true)]
+        //fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending:true)]
         
         //Perform Fetch Request
-        managedObjectContext?.performAndWait {
+        coreDataManager.managedObjectContext.performAndWait {
             do {
                 //Execute Fetch Request
                 let meals = try fetchRequest.execute()
@@ -479,7 +477,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
 //                    _meal.previousDate = nil
                     
                     //Setup Next Meal
-                    _meal = meals[0]
+                    _nextMeal = meals[0]
 //                    _meal.previousDate = _meal.estimatedNextDate
 //                    _meal.estimatedNextDate = nil
 //                    _meal.nextDate = _date
@@ -491,9 +489,8 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
         
-        return _meal
+        return _nextMeal
     }
-    
 }
 
 
