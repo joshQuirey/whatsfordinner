@@ -64,3 +64,20 @@ class PlanTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 }
+
+
+class ReplaceTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var mealName: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+}

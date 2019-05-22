@@ -9,13 +9,19 @@
 import UIKit
 import CoreData
 
-class ReplaceMealController: UITableViewController {
+class ReplaceMealController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //@IBOutlet weak var mealName: UILabel!
     var managedObjectContext: NSManagedObjectContext?
     private var nextMealsforCategory: [Meal]?
     private var nextMeals: [Meal]?
     var currentPlannedDay: PlannedDay?
+    
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBOutlet weak var tableView: UITableView!
     
     enum MealSections: Int {
         case NextCategory = 0, Next
@@ -26,7 +32,7 @@ class ReplaceMealController: UITableViewController {
         //title = "Meals"
         fetchNextMealsforCategory()
         fetchNextMeals()
-        
+        tableView.reloadData()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -36,7 +42,7 @@ class ReplaceMealController: UITableViewController {
 
     
 //    @IBAction func cancel(_ sender: Any) {
-//        self.dismiss(animated: true, completion: nil)
+//
 //    }
     
     // MARK: - Table view data source
@@ -68,6 +74,7 @@ class ReplaceMealController: UITableViewController {
                 print("\(fetchError), \(fetchError.localizedDescription)")
             }
         }
+        print(self.nextMealsforCategory)
     }
     
     private func fetchNextMeals() {
@@ -75,7 +82,7 @@ class ReplaceMealController: UITableViewController {
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
         
         // Configure Fetch Request
-        fetchRequest.predicate = NSPredicate(format: "ANY tags.name != %@ AND estimatedNextDate != nil")
+        fetchRequest.predicate = NSPredicate(format: "ANY tags.name != %@ AND estimatedNextDate != nil", currentPlannedDay!.category!)
         
         //fetchRequest.predicate = predicate
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.mealName), ascending: true)]
@@ -99,15 +106,15 @@ class ReplaceMealController: UITableViewController {
             }
         }
         
-        
+        print(self.nextMeals)
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 2
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
            //if (nextMealsforCategory!.count > 0) {
                 return nextMealsforCategory!.count
@@ -121,31 +128,32 @@ class ReplaceMealController: UITableViewController {
         }
     }
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 1 {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
             return "category"
         } else {
             return "next"
         }
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "replaceMealCell", for: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "replaceCell", for: indexPath) as! ReplaceTableViewCell
+        
         
         if indexPath.section == MealSections.NextCategory.rawValue {
             guard let _meal = nextMealsforCategory?[indexPath.row] else { fatalError("Unexpected Index Path")}
-            cell.textLabel?.text = _meal.mealName
-            
+            cell.mealName.text = _meal.mealName
+            //print(_meal.mealName)
         } else {
             guard let _meal = nextMeals?[indexPath.row] else { fatalError("Unexpected Index Path")}
-            cell.textLabel?.text = _meal.mealName
-            
+            cell.mealName.text = _meal.mealName
+            //p/rint(_meal.mealName)
         }
         
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //print(meal!)
         //guard let managedObjectContext = meal?.managedObjectContext else { return }
 
