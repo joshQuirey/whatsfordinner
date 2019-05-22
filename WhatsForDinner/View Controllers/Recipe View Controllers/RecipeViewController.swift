@@ -163,7 +163,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     func populateMeal(_ meal: Meal) {
         meal.mealName = name.text
     
-        //photo
+        //photo
         if (imageButton.currentBackgroundImage != nil) {
             guard let imageData = UIImageJPEGRepresentation(imageButton.backgroundImage(for: .normal)!, 1) else {
                 print("image error")
@@ -300,6 +300,23 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
             frequency.text? = frequencyData[row]
+            var _frequency = 0
+        
+            switch frequency.text {
+            case "Weekly":
+                _frequency = 7
+            case "Every Other Week":
+                _frequency = 14
+            case "Monthly":
+                _frequency = 30
+            case "Every Other Month":
+                _frequency = 60
+            case "Every Few Months":
+                _frequency = 90
+            default:
+                _frequency = 180
+            }
+            meal!.frequency = Int16(_frequency)
     }
     
     func showPicker(_ textField: UITextField, _ pickerView: UIPickerView) {

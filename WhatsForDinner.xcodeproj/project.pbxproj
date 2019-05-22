@@ -25,6 +25,7 @@
 		748947CA211A0D73000859F1 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748947C9211A0D73000859F1 /* PlanViewController.swift */; };
 		748947CC211A0DF2000859F1 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748947CB211A0DF2000859F1 /* RecipeViewController.swift */; };
 		A7D07DEB2266835F0017B047 /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D07DEA2266835F0017B047 /* MealTableViewCell.swift */; };
+		A7E1BEDB2295D174000F053E /* ReplaceMealController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E1BEDA2295D174000F053E /* ReplaceMealController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		748947C9211A0D73000859F1 /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
 		748947CB211A0DF2000859F1 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		A7D07DEA2266835F0017B047 /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
+		A7E1BEDA2295D174000F053E /* ReplaceMealController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceMealController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				4029E3162132097E003D3071 /* Recipe View Controllers */,
 				4092938E21486A5600B16004 /* CategoriesViewController.swift */,
 				400C0F31226A5D010039625E /* CreatePlanViewController.swift */,
+				A7E1BEDA2295D174000F053E /* ReplaceMealController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 				747BF01E2118B6D1006EACA0 /* AppDelegate.swift in Sources */,
 				4029E31921320B08003D3071 /* RecipeDirectionsViewController.swift in Sources */,
 				A7D07DEB2266835F0017B047 /* MealTableViewCell.swift in Sources */,
+				A7E1BEDB2295D174000F053E /* ReplaceMealController.swift in Sources */,
 				747BF0202118B6D1006EACA0 /* MealsViewController.swift in Sources */,
 				747E3558211CE7380065799E /* CoreDataManager.swift in Sources */,
 				748947CC211A0DF2000859F1 /* RecipeViewController.swift in Sources */,
@@ -365,7 +369,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = jquirey.Spoonfed;
+				PRODUCT_BUNDLE_IDENTIFIER = jquirey.Sporkfed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -386,7 +390,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = jquirey.Spoonfed;
+				PRODUCT_BUNDLE_IDENTIFIER = jquirey.Sporkfed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;

@@ -20,6 +20,7 @@ class PlanViewController: UIViewController {
     //Properties
     /////////////////////////////
     private var coreDataManager = CoreDataManager(modelName: "MealModel")
+    private var currentIndex: Int?
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -41,6 +42,7 @@ class PlanViewController: UIViewController {
     private enum Segue {
         static let CreatePlan = "CreatePlan"
         static let ViewPlannedMeal = "ViewPlannedMeal"
+        static let ReplacePlannedMeal = "ReplacePlannedMeal"
     }
     
     private func updateView() {
@@ -86,9 +88,9 @@ class PlanViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("before")
         print(coreDataManager.managedObjectContext)
-        print("after")
+        //refresh table?
+        //fetchplan again?
     }
 
     override func didReceiveMemoryWarning() {
@@ -126,12 +128,20 @@ class PlanViewController: UIViewController {
             let _indexpath = tableView.indexPathForSelectedRow
             let _meal = plannedDays![(_indexpath!.section)].meal
             destination.meal = _meal
+        
+        case Segue.ReplacePlannedMeal:
+            guard let destination = segue.destination as? ReplaceMealController else {
+                return
+            }
             
+            destination.managedObjectContext = coreDataManager.managedObjectContext
+            //let _indexpath = tableView.inde
+            destination.currentPlannedDay = plannedDays![(self.currentIndex!)]
+//            destination.meal = _meal
         default:
             break
         }
     }
-    
     
     
     /////////////////////////////
@@ -367,7 +377,8 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         let replaceAction = UIContextualAction(style: .normal, title:  "Replace", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             print("OK, marked as Replace")
             //Implement
-            
+            self.currentIndex = indexPath.section
+            self.performSegue(withIdentifier: "ReplacePlannedMeal", sender: tableView)
             
             success(true)
         })
@@ -392,7 +403,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
                 next = self.getNextMeal(_date: _plannedDay.date!, _nextMeal: &next)
             }
             
-            print(next.mealName)
+            //print(next.mealName)
             //If No Meal could be found then make no change
             if (_meal.mealName != next.mealName) {
                 //delete previous meal
@@ -433,21 +444,11 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
                 let meals = try fetchRequest.execute()
                 //Search for Meal
                 if (meals.count > 0) {
-                    //Reset Previous Meal
-                    //                    _meal.estimatedNextDate = _meal.previousDate
-                    //                    _meal.nextDate = nil
-                    //                    _meal.previousDate = nil
-                    //
-                    //                    //Setup Next Meal
-                    //                    _meal = meals[0]
-                    //                    _meal.previousDate = _meal.estimatedNextDate
-                    //                    _meal.estimatedNextDate = nil
-                    //                    _meal.nextDate = _date
                     _nextMeal = meals[0]
                 }
             } catch {
                 let fetchError = error as NSError
-                print("Unable to Execute Fetch Request")
+                print("Unable to Execute Fetch Request of Get Next Meal for Category")
                 print("\(fetchError), \(fetchError.localizedDescription)")
             }
         }
@@ -459,10 +460,10 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
         
         //Fetch Meals using Category
-        fetchRequest.predicate = NSPredicate(format: "ANY estimatedNextDate != nil")
+        fetchRequest.predicate = NSPredicate(format: "estimatedNextDate != nil")
         
         //Sort by estimated next date
-        //fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending:true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending:true)]
         
         //Perform Fetch Request
         coreDataManager.managedObjectContext.performAndWait {
@@ -471,20 +472,11 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
                 let meals = try fetchRequest.execute()
                 //Search for Meal
                 if (meals.count > 0) {
-                    //Reset Previous Meal
-//                    _meal.estimatedNextDate = _meal.previousDate
-//                    _meal.nextDate = nil
-//                    _meal.previousDate = nil
-                    
-                    //Setup Next Meal
                     _nextMeal = meals[0]
-//                    _meal.previousDate = _meal.estimatedNextDate
-//                    _meal.estimatedNextDate = nil
-//                    _meal.nextDate = _date
                 }
             } catch {
                 let fetchError = error as NSError
-                print("Unable to Execute Fetch Request")
+                print("Unable to Execute Fetch Request of Get Next Meal")
                 print("\(fetchError), \(fetchError.localizedDescription)")
             }
         }
