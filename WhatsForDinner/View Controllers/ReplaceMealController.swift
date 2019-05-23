@@ -95,7 +95,7 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
                 //                print("Tickets Count Total: \(tickets.count)")
                 
                 // Update Tickets
-                self.nextMeals = meals
+                self.nextMealsforCategory?.append(contentsOf: meals)
                 
                 //Reload Table View
                 //tableView.reloadData()
@@ -106,61 +106,106 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
         
-        print(self.nextMeals)
+        //print(self.nextMeals)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return nextMealsforCategory!.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-           //if (nextMealsforCategory!.count > 0) {
-                return nextMealsforCategory!.count
-            //}
-            //return 0
-        } else {
-            //if (nextMeals!.count > 0) {
-                return nextMeals!.count
-            //}
-           // return 0
-        }
+        //if section == 0 {
+        return 1
+            //return nextMealsforCategory!.count
+        //} else {
+        //    return nextMeals!.count
+        //}
     }
 
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "category"
-        } else {
-            return "next"
-        }
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        if section == 0 {
+//            return "Next Available \(currentPlannedDay!.category!)"
+//        } else {
+//            return "Next Available"
+//        }
+//    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 10))
+        
+        return headerView
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "replaceCell", for: indexPath) as! ReplaceTableViewCell
         
         
-        if indexPath.section == MealSections.NextCategory.rawValue {
-            guard let _meal = nextMealsforCategory?[indexPath.row] else { fatalError("Unexpected Index Path")}
+//        if indexPath.section == MealSections.NextCategory.rawValue {
+            guard let _meal = nextMealsforCategory?[indexPath.section] else { fatalError("Unexpected Index Path")}
+            
+            if (_meal.mealImage != nil) {
+                cell.mealImage?.image = UIImage(data: _meal.mealImage!)
+            }
+            
             cell.mealName.text = _meal.mealName
-            //print(_meal.mealName)
-        } else {
-            guard let _meal = nextMeals?[indexPath.row] else { fatalError("Unexpected Index Path")}
-            cell.mealName.text = _meal.mealName
-            //p/rint(_meal.mealName)
-        }
+        
+            cell.mealCategories?.text = ""
+            for _tag in (_meal.tags?.allObjects)! {
+                let tag = _tag as! Tag
+                cell.mealCategories?.text?.append("\(tag.name!) ")
+            }
+        
+            if (_meal.prepTime! != nil && _meal.prepTime! != "") {
+                cell.prep?.text? = "Plan: \(_meal.prepTime!)"
+            } else {
+                cell.prep?.text? = " "
+            }
+        
+            if (_meal.cookTime != nil && _meal.cookTime! != "") {
+                cell.cook?.text? = "Cook: \(_meal.cookTime!)"
+            } else {
+                cell.cook?.text? = " "
+            }
+        
+        cell.layer.borderWidth = 0
+        cell.layer.cornerRadius = 8
+        cell.clipsToBounds = true
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //print(meal!)
-        //guard let managedObjectContext = meal?.managedObjectContext else { return }
+        guard let _currentMeal = currentPlannedDay?.meal else { fatalError("Unexpected Index Path")}
 
-        //tag = Tag(context: managedObjectContext)
-       // tag?.name = categoryData[indexPath.row]
+//        if indexPath.section == MealSections.NextCategory.rawValue {
+            guard let _replaceMeal = nextMealsforCategory?[indexPath.row] else { fatalError("Unexpected Index Path")}
+            //delete previous meal
+            _currentMeal.estimatedNextDate = _currentMeal.previousDate
+            _currentMeal.nextDate = nil
+            _currentMeal.previousDate = nil
+            _currentMeal.removeFromPlannedDays(currentPlannedDay!)
+            
+            //add next meal
+            _replaceMeal.previousDate = _replaceMeal.estimatedNextDate
+            _replaceMeal.estimatedNextDate = nil
+            _replaceMeal.nextDate = currentPlannedDay!.date
+            _replaceMeal.addToPlannedDays(currentPlannedDay!)
+//        } else {
+//            guard let _replaceMeal = nextMeals?[indexPath.row] else { fatalError("Unexpected Index Path")}
+//            //delete previous meal
+//            _currentMeal.estimatedNextDate = _currentMeal.previousDate
+//            _currentMeal.nextDate = nil
+//            _currentMeal.previousDate = nil
+//            _currentMeal.removeFromPlannedDays(currentPlannedDay!)
+//
+//            //add next meal
+//            _replaceMeal.previousDate = _replaceMeal.estimatedNextDate
+//            _replaceMeal.estimatedNextDate = nil
+//            _replaceMeal.nextDate = currentPlannedDay!.date
+//            _replaceMeal.addToPlannedDays(currentPlannedDay!)
+//        }
 
-        //meal?.addToTags(tag!)
+        
         self.dismiss(animated: true, completion: nil)
     }
 }

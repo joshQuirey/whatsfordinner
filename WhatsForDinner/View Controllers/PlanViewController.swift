@@ -55,7 +55,7 @@ class PlanViewController: UIViewController {
     /////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchPlans()
+        //fetchPlans()
         
         //updateView()
         setupNotificationHandling()
@@ -87,10 +87,14 @@ class PlanViewController: UIViewController {
                                        object: nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        print(coreDataManager.managedObjectContext)
-        //refresh table?
-        //fetchplan again?
+//    override func viewDidAppear(_ animated: Bool) {
+//        print(coreDataManager.managedObjectContext)
+//        //refresh table?
+//        //fetchplan again?
+//    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fetchPlans()
     }
 
     override func didReceiveMemoryWarning() {
@@ -307,9 +311,24 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
 //            formatter.dateFormat = "EEE MMM d"
             cell.mealName?.text = _plannedDay.meal!.mealName //"\(formatter.string(from: _plannedDay.meal!.nextDate!))  \()"
         
-            cell.prep?.text? = "Plan: \(_plannedDay.meal!.prepTime!)"
-            cell.cook?.text? = "Cook: \(_plannedDay.meal!.cookTime!)"
-            cell.serve?.text? = "Serves: \(_plannedDay.meal!.serves!)"
+            cell.mealCategories?.text = ""
+            for _tag in (_plannedDay.meal!.tags?.allObjects)! {
+                let tag = _tag as! Tag
+                cell.mealCategories?.text?.append("\(tag.name!) ")
+            }
+        
+            if (_plannedDay.meal!.prepTime! != nil && _plannedDay.meal!.prepTime! != "") {
+                cell.prep?.text? = "Plan: \(_plannedDay.meal!.prepTime!)"
+            } else {
+                cell.prep?.text? = " "
+            }
+        
+            if (_plannedDay.meal!.cookTime != nil && _plannedDay.meal!.cookTime! != "") {
+                cell.cook?.text? = "Cook: \(_plannedDay.meal!.cookTime!)"
+            } else {
+                cell.cook?.text? = " "
+        }
+            //cell.serve?.text? = "Serves-\(_plannedDay.meal!.serves!)"
         }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {

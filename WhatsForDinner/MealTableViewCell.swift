@@ -50,7 +50,8 @@ class PlanTableViewCell: UITableViewCell {
     @IBOutlet weak var prep: UILabel!
     @IBOutlet weak var cook: UILabel!
     @IBOutlet weak var serve: UILabel!
-
+    @IBOutlet weak var mealCategories: UITextField!
+    
 //    @IBOutlet weak var mainCellView: UIView!
 
     override func awakeFromNib() {
@@ -68,7 +69,12 @@ class PlanTableViewCell: UITableViewCell {
 
 class ReplaceTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var mealImage: UIImageView!
     @IBOutlet weak var mealName: UILabel!
+    @IBOutlet weak var mealCategories: UITextField!
+    @IBOutlet weak var prep: UILabel!
+    @IBOutlet weak var cook: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
