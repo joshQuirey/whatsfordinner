@@ -40,10 +40,14 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
     
-//    @IBAction func cancel(_ sender: Any) {
-//
-//    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
+
     
     // MARK: - Table view data source
     private func fetchNextMealsforCategory() {
@@ -167,10 +171,11 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
                 cell.cook?.text? = " "
             }
         
-        cell.layer.borderWidth = 0
-        cell.layer.cornerRadius = 8
+        //cell.layer.borderWidth = 0
+        //cell.layer.cornerRadius = 8
         cell.clipsToBounds = true
-        
+        //cell.layer.frame = CGRect(x: 8, y: 8, width: 100, height: 80)
+        //cell.backgroundColor = .red
         return cell
     }
     
