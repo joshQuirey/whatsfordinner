@@ -19,7 +19,9 @@ class PlanViewController: UIViewController {
     /////////////////////////////
     //Properties
     /////////////////////////////
-    private var coreDataManager = CoreDataManager(modelName: "MealModel")
+    //private var coreDataManager = CoreDataManager(modelName: "MealModel")
+    //var coreDataManager = CoreDataManager?.self
+        var managedObjectContext: NSManagedObjectContext?
     private var currentIndex: Int?
     
     @IBOutlet weak var tableView: UITableView!
@@ -55,6 +57,8 @@ class PlanViewController: UIViewController {
     /////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
+        let tabBar = tabBarController as! BaseTabBarController
+        managedObjectContext = tabBar.coreDataManager.managedObjectContext
         //fetchPlans()
         
         //updateView()
@@ -70,6 +74,14 @@ class PlanViewController: UIViewController {
         //}
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        do {
+            try self.managedObjectContext!.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
@@ -79,19 +91,13 @@ class PlanViewController: UIViewController {
         notificationCenter.addObserver(self,
                                        selector: #selector(managedObjectContextObjectsDidChange(_:)),
                                        name: Notification.Name.NSManagedObjectContextObjectsDidChange,
-                                       object: coreDataManager.managedObjectContext)
+                                       object: self.managedObjectContext)
         
         notificationCenter.addObserver(self,
                                        selector: #selector(savePlans(_:)),
                                        name: Notification.Name.UIApplicationDidEnterBackground,
                                        object: nil)
     }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        print(coreDataManager.managedObjectContext)
-//        //refresh table?
-//        //fetchplan again?
-//    }
     
     override func viewWillAppear(_ animated: Bool) {
         fetchPlans()
@@ -113,7 +119,7 @@ class PlanViewController: UIViewController {
 //            let formatter = DateFormatter()
 //            formatter.dateFormat = "EEEE, MMMM d, yyyy"
             
-            destination.managedObjectContext = coreDataManager.managedObjectContext
+            destination.managedObjectContext = self.managedObjectContext
             
             //Determine Plan Starting Date
             var startDate = Date()
@@ -128,7 +134,7 @@ class PlanViewController: UIViewController {
                 return
             }
             
-            destination.managedObjectContext = coreDataManager.managedObjectContext
+            destination.managedObjectContext = self.managedObjectContext
             let _indexpath = tableView.indexPathForSelectedRow
             let _meal = plannedDays![(_indexpath!.section)].meal
             destination.meal = _meal
@@ -138,7 +144,7 @@ class PlanViewController: UIViewController {
                 return
             }
             
-            destination.managedObjectContext = coreDataManager.managedObjectContext
+            destination.managedObjectContext = self.managedObjectContext
             //let _indexpath = tableView.inde
             destination.currentPlannedDay = plannedDays![(self.currentIndex!)]
 //            destination.meal = _meal
@@ -167,7 +173,7 @@ class PlanViewController: UIViewController {
                 
                 if let plannedMeal = insert as? Meal {
                     print(plannedMeal)
-                    coreDataManager.managedObjectContext.delete(plannedMeal)
+                    self.managedObjectContext!.delete(plannedMeal)
                 }
             }
         }
@@ -219,7 +225,7 @@ class PlanViewController: UIViewController {
     
     @objc private func savePlans(_ notification: Notification) {
         do {
-            try coreDataManager.managedObjectContext.save()
+            try self.managedObjectContext!.save()
         } catch {
             fatalError("Failure to save context: \(error)")
         }
@@ -227,6 +233,7 @@ class PlanViewController: UIViewController {
     
     private func fetchPlans() {
         // Create Fetch Request
+        plannedDays = nil
         let fetchRequest: NSFetchRequest<PlannedDay> = PlannedDay.fetchRequest()
         
         // Configure Fetch Request
@@ -235,7 +242,7 @@ class PlanViewController: UIViewController {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(PlannedDay.date), ascending: true)]
         
         // Perform Fetch Request
-        coreDataManager.managedObjectContext.performAndWait {
+        self.managedObjectContext!.performAndWait {
             do {
                 // Execute Fetch Request
                 plannedDays = try fetchRequest.execute()
@@ -344,7 +351,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         _meal.nextDate = nil
         _meal.previousDate = nil
         //Need to roll back the planned date for each of the meals coming up after the meal deleted
-        coreDataManager.managedObjectContext.delete(_plannedDay)
+        self.managedObjectContext!.delete(_plannedDay)
         
         //Update the dates for remaining planned days to be a day earlier
         print(indexPath.section)
@@ -385,7 +392,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             _meal.previousDate = nil
             _plannedDay.isCompleted = true
 
-            self.coreDataManager.managedObjectContext.delete(_plannedDay)
+            self.managedObjectContext!.delete(_plannedDay)
             
             success(true)
         })
@@ -414,7 +421,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
             
             //Get next meal for current planned category
-            var next = Meal(context: self.coreDataManager.managedObjectContext)
+            var next = Meal(context: self.managedObjectContext!)
             next = self.getNextMealforCategory(_category: _plannedDay.category!, _date: _plannedDay.date!, _nextMeal: &next)!
             
             //If No Meal returned, just get the next meal regardless of category
@@ -457,7 +464,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending:true)]
         
         //Perform Fetch Request
-        coreDataManager.managedObjectContext.performAndWait {
+        self.managedObjectContext!.performAndWait {
             do {
                 //Execute Fetch Request
                 let meals = try fetchRequest.execute()
@@ -485,7 +492,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending:true)]
         
         //Perform Fetch Request
-        coreDataManager.managedObjectContext.performAndWait {
+        self.managedObjectContext!.performAndWait {
             do {
                 //Execute Fetch Request
                 let meals = try fetchRequest.execute()

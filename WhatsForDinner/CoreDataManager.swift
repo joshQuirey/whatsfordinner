@@ -31,7 +31,7 @@ class CoreDataManager {
                                        object: nil)
     }
     
-    @objc func saveChanges(_ notification: Notification) {
+    @objc func saveChanges(_ notification: Notification?) {
         saveChanges()
     }
     

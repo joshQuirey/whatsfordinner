@@ -13,8 +13,8 @@ class MealsViewController: UIViewController {
     /////////////////////////////
     //Properties
     /////////////////////////////
-    private var coreDataManager = CoreDataManager(modelName: "MealModel")
-    //var managedObjectContext: NSManagedObjectContext?
+    //private var coreDataManager = CoreDataManager(modelName: "MealModel")
+    var managedObjectContext: NSManagedObjectContext?
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyTableLabel: UILabel!
@@ -44,11 +44,23 @@ class MealsViewController: UIViewController {
     /////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         title = "Meals"
+        let tabBar = tabBarController as! BaseTabBarController
+        managedObjectContext = tabBar.coreDataManager.managedObjectContext
         fetchMeals()
         updateView()
         setupNotificationHandling()
         tableView.tableFooterView = UIView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        do {
+            print("save meals 2")
+            try self.managedObjectContext!.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -65,7 +77,7 @@ class MealsViewController: UIViewController {
         notificationCenter.addObserver(self,
                                        selector: #selector(managedObjectContextObjectsDidChange(_:)),
                                        name: Notification.Name.NSManagedObjectContextObjectsDidChange,
-                                       object: coreDataManager.managedObjectContext)
+                                       object: self.managedObjectContext)
         
         notificationCenter.addObserver(self,
                                        selector: #selector(saveMeals(_:)),
@@ -77,12 +89,6 @@ class MealsViewController: UIViewController {
         tableView.isHidden = !hasMeals
         emptyTableLabel.isHidden = hasMeals
     }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        print("before")
-//        print(coreDataManager.managedObjectContext)
-//        print("after")
-//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //print("tony")
@@ -96,15 +102,15 @@ class MealsViewController: UIViewController {
                 return
             }
             
-            destination.managedObjectContext = coreDataManager.managedObjectContext
-            destination.meal = Meal(context: coreDataManager.managedObjectContext)
+            destination.managedObjectContext = self.managedObjectContext
+            destination.meal = Meal(context: self.managedObjectContext!)
 
         case Segue.ViewMeal:
             guard let destination = segue.destination as? RecipeViewController else {
                 return
             }
             
-            destination.managedObjectContext = coreDataManager.managedObjectContext
+            destination.managedObjectContext = self.managedObjectContext
             let _indexpath = tableView.indexPathForSelectedRow
             let _meal = meals![(_indexpath?.row)!]
             print(_meal)
@@ -169,14 +175,11 @@ class MealsViewController: UIViewController {
             mealsDidChange = false
         }
     }
-//    @objc private func syncTickets(_ notification: Notification) {
-//        syncTickets()
-//    }
 
     @objc private func saveMeals(_ notification: Notification) {
         do {
             print("save meals")
-            try coreDataManager.managedObjectContext.save()
+            try self.managedObjectContext!.save()
         } catch {
             fatalError("Failure to save context: \(error)")
         }
@@ -192,7 +195,7 @@ class MealsViewController: UIViewController {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.mealName), ascending: true)]
         
         // Perform Fetch Request
-        coreDataManager.managedObjectContext.performAndWait {
+        self.managedObjectContext!.performAndWait {
             do {
                 // Execute Fetch Request
                 let meals = try fetchRequest.execute()

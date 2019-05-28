@@ -24,6 +24,7 @@
 		747E3558211CE7380065799E /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747E3557211CE7380065799E /* CoreDataManager.swift */; };
 		748947CA211A0D73000859F1 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748947C9211A0D73000859F1 /* PlanViewController.swift */; };
 		748947CC211A0DF2000859F1 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748947CB211A0DF2000859F1 /* RecipeViewController.swift */; };
+		A777A59C229DB3300071326E /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A777A59B229DB3300071326E /* BaseTabBarController.swift */; };
 		A7D07DEB2266835F0017B047 /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D07DEA2266835F0017B047 /* MealTableViewCell.swift */; };
 		A7E1BEDB2295D174000F053E /* ReplaceMealController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E1BEDA2295D174000F053E /* ReplaceMealController.swift */; };
 /* End PBXBuildFile section */
@@ -48,6 +49,7 @@
 		747E3557211CE7380065799E /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		748947C9211A0D73000859F1 /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
 		748947CB211A0DF2000859F1 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
+		A777A59B229DB3300071326E /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		A7D07DEA2266835F0017B047 /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
 		A7E1BEDA2295D174000F053E /* ReplaceMealController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceMealController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,6 +86,7 @@
 				4092938E21486A5600B16004 /* CategoriesViewController.swift */,
 				400C0F31226A5D010039625E /* CreatePlanViewController.swift */,
 				A7E1BEDA2295D174000F053E /* ReplaceMealController.swift */,
+				A777A59B229DB3300071326E /* BaseTabBarController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				747E3535211CDD1B0065799E /* MealModel.xcdatamodeld in Sources */,
+				A777A59C229DB3300071326E /* BaseTabBarController.swift in Sources */,
 				4092938F21486A5600B16004 /* CategoriesViewController.swift in Sources */,
 				40597E4C22717265003C21E8 /* PlanHelpers.swift in Sources */,
 				4029E3152132096F003D3071 /* RecipeIngredientViewController.swift in Sources */,
