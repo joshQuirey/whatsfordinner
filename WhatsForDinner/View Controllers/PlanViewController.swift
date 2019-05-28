@@ -74,13 +74,13 @@ class PlanViewController: UIViewController {
         //}
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        do {
-            try self.managedObjectContext!.save()
-        } catch {
-            fatalError("Failure to save context: \(error)")
-        }
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        do {
+//            try self.managedObjectContext!.save()
+//        } catch {
+//            fatalError("Failure to save context: \(error)")
+//        }
+//    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent

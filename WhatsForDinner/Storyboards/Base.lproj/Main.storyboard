@@ -46,7 +46,7 @@
                                                             <attributedString key="attributedText">
                                                                 <fragment content="Name">
                                                                     <attributes>
-                                                                        <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <font key="NSFont" size="24" name="SFProText-Bold"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
@@ -59,7 +59,7 @@
                                                             <attributedString key="attributedText">
                                                                 <fragment content="Frequency">
                                                                     <attributes>
-                                                                        <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <font key="NSFont" size="13" name="SFProText-Regular"/>
                                                                     </attributes>
                                                                 </fragment>
@@ -71,6 +71,7 @@
                                                             <attributedString key="attributedText">
                                                                 <fragment content="Category">
                                                                     <attributes>
+                                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <font key="NSFont" size="13" name="SFProText-Regular"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
@@ -381,8 +382,8 @@
                                 <color key="backgroundColor" red="0.93140786919999996" green="0.93140786919999996" blue="0.93140786919999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </containerView>
                         </subviews>
-                        <color key="backgroundColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="tintColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="t8i-p7-NQg" firstAttribute="trailing" secondItem="7YL-gZ-gT2" secondAttribute="trailing" id="1mL-lA-g08"/>
                             <constraint firstItem="heV-je-CGH" firstAttribute="top" secondItem="7YL-gZ-gT2" secondAttribute="bottom" id="BOB-aN-JDX"/>
@@ -610,7 +611,7 @@
                                                                             <attributedString key="attributedText">
                                                                                 <fragment content="Name">
                                                                                     <attributes>
-                                                                                        <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                                         <font key="NSFont" size="24" name="SFProText-Bold"/>
                                                                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                     </attributes>
@@ -618,12 +619,14 @@
                                                                             </attributedString>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="URw-BE-aya">
+                                                                        <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="URw-BE-aya">
                                                                             <rect key="frame" x="0.0" y="37.666666666666664" width="211" height="17.666666666666664"/>
+                                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <attributedString key="attributedText">
                                                                                 <fragment content="Category">
                                                                                     <attributes>
-                                                                                        <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                                         <font key="NSFont" size="13" name="SFProText-Regular"/>
                                                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                     </attributes>
@@ -798,7 +801,7 @@
                                                                     </attributedString>
                                                                     <color key="highlightedColor" red="0.12939462069999999" green="0.12942379709999999" blue="0.12939074640000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </label>
-                                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Categories" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q17-OJ-For">
+                                                                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Categories" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q17-OJ-For">
                                                                     <rect key="frame" x="0.0" y="35.333333333333336" width="67.666666666666671" height="18.666666666666664"/>
                                                                     <attributedString key="attributedText">
                                                                         <fragment content="Categories">
@@ -1552,6 +1555,6 @@
         <image name="first" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cIL-TX-hOf"/>
+        <segue reference="Y4X-TR-EdA"/>
     </inferredMetricsTieBreakers>
 </document>

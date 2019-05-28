@@ -88,11 +88,13 @@ extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let currentCategory = categoryData[indexPath.item]
         
-        for tag in (meal?.tags)! {
-            let _tag = tag as! Tag
-            
-            if _tag.name! == currentCategory {
-                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
+        if (meal!.tags != nil) {
+            for tag in (meal?.tags)! {
+                let _tag = tag as! Tag
+                
+                if _tag.name! == currentCategory {
+                    tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
+                }
             }
         }
     }

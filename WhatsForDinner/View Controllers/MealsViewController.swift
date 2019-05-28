@@ -103,7 +103,9 @@ class MealsViewController: UIViewController {
             }
             
             destination.managedObjectContext = self.managedObjectContext
-            destination.meal = Meal(context: self.managedObjectContext!)
+            //destination.meal = Meal(context: self.managedObjectContext!)
+            //destination.meal?.mealName = "test"
+            
 
         case Segue.ViewMeal:
             guard let destination = segue.destination as? RecipeViewController else {
@@ -113,7 +115,6 @@ class MealsViewController: UIViewController {
             destination.managedObjectContext = self.managedObjectContext
             let _indexpath = tableView.indexPathForSelectedRow
             let _meal = meals![(_indexpath?.row)!]
-            print(_meal)
             destination.meal = _meal
         
         default:

@@ -60,6 +60,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         pickImage.delegate = self
+        //meal = Meal(context: self.managedObjectContext!)
         showPicker(self.frequency, self.pickFrequency)
         showPrepDatePicker()
         showCookDatePicker()
@@ -67,16 +68,19 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         self.name.attributedPlaceholder = NSAttributedString(string: "Enter Meal Name",attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        print(self.managedObjectContext!)
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        print(self.managedObjectContext!)
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         if (meal?.mealImage != nil) {
             imageButton.setTitle(nil, for: .normal)
         }
         
-        viewMeal()
+        if (meal != nil) {
+            viewMeal()
+        }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -108,7 +112,9 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
             }
         
             destination.meal = meal
-            destination.selectedTags = (meal?.tags)!
+            if (meal!.tags != nil) {
+                destination.selectedTags = (meal?.tags)!
+            }
         default:
             break
         }
@@ -125,12 +131,14 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         }
         
 
-        
         categories.text = nil
+        //if (meal!.tags != nil) {
+        //if (meal!.tags!.count > 0) {
         for _tag in (meal!.tags?.allObjects)! {
             let tag = _tag as! Tag
             categories.text?.append(tag.name!)
         }
+        //}
         
         mealDescription.text = meal!.mealDesc
         
@@ -209,6 +217,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     //Actions
     /////////////////////////////
     @IBAction func save(_ sender: UIBarButtonItem) {
+        if (meal == nil) {
+            meal = Meal(context: managedObjectContext!)
+        }
+        
         populateMeal(meal!)
         
         self.dismiss(animated: true, completion: nil)
@@ -216,11 +228,11 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     @IBAction func cancel(_ sender: Any) {
         
-        if (meal!.mealName == nil) {
-            managedObjectContext?.delete(meal!)
-        } else {
-            print(meal!.mealName!)
-        }
+        //if (meal!.mealName == nil) {
+            //managedObjectContext?.delete(meal!)
+        //} else {
+        //    print(meal!.mealName!)
+       // }
         //if meal!. {
        //     print("had changes")
        // }
