@@ -54,14 +54,14 @@ class MealsViewController: UIViewController {
         tableView.tableFooterView = UIView()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        do {
-            print("save meals 2")
-            try self.managedObjectContext!.save()
-        } catch {
-            fatalError("Failure to save context: \(error)")
-        }
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        do {
+//            print("save meals 2")
+//            try self.managedObjectContext!.save()
+//        } catch {
+//            fatalError("Failure to save context: \(error)")
+//        }
+//    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -91,11 +91,9 @@ class MealsViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //print("tony")
         guard let identifier = segue.identifier else {
-            //  print("help")
             return }
-        //print("josh")
+        
         switch identifier {
         case Segue.AddMeal:
             guard let destination = segue.destination as? RecipeViewController else {
@@ -103,9 +101,7 @@ class MealsViewController: UIViewController {
             }
             
             destination.managedObjectContext = self.managedObjectContext
-            //destination.meal = Meal(context: self.managedObjectContext!)
-            //destination.meal?.mealName = "test"
-            
+            destination.meal = Meal(context: self.managedObjectContext!)
 
         case Segue.ViewMeal:
             guard let destination = segue.destination as? RecipeViewController else {
@@ -282,7 +278,8 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         if (_meal.mealImage != nil) {
-            cell.mealImage?.image = UIImage(data: _meal.mealImage!)
+            let image: UIImage = UIImage(data: _meal.mealImage!)!
+            cell.mealImage?.image = image
         } else {
             cell.mealImage.isHidden = true
         }
@@ -295,7 +292,7 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         guard let _meal = meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
         
         // Delete Note
-        _meal.managedObjectContext?.delete(_meal)
+        //_meal.managedObjectContext?.delete(_meal)
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {

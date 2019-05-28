@@ -132,13 +132,13 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
 
         categories.text = nil
-        //if (meal!.tags != nil) {
+        if (meal!.tags != nil) {
         //if (meal!.tags!.count > 0) {
         for _tag in (meal!.tags?.allObjects)! {
             let tag = _tag as! Tag
             categories.text?.append(tag.name!)
         }
-        //}
+        }
         
         mealDescription.text = meal!.mealDesc
         
@@ -228,9 +228,9 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     @IBAction func cancel(_ sender: Any) {
         
-        //if (meal!.mealName == nil) {
-            //managedObjectContext?.delete(meal!)
-        //} else {
+        if (meal!.mealName == nil) {
+            managedObjectContext?.delete(meal!)
+        } //else {
         //    print(meal!.mealName!)
        // }
         //if meal!. {

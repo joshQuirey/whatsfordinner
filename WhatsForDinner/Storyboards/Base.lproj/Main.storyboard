@@ -39,7 +39,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="07G-BL-aKE">
-                                                    <rect key="frame" x="98" y="8" width="224" height="68.666666666666671"/>
+                                                    <rect key="frame" x="98" y="8" width="224" height="69.333333333333329"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oDh-k1-Rk6" userLabel="Name">
                                                             <rect key="frame" x="0.0" y="0.0" width="63.666666666666664" height="28"/>
@@ -47,7 +47,7 @@
                                                                 <fragment content="Name">
                                                                     <attributes>
                                                                         <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                        <font key="NSFont" size="24" name="SFProText-Bold"/>
+                                                                        <font key="NSFont" metaFont="system" size="24"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
                                                                 </fragment>
@@ -55,24 +55,24 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DFE-4a-SaI" userLabel="Frequency">
-                                                            <rect key="frame" x="0.0" y="33" width="61.333333333333336" height="15.333333333333336"/>
+                                                            <rect key="frame" x="0.0" y="33" width="64" height="15.666666666666664"/>
                                                             <attributedString key="attributedText">
                                                                 <fragment content="Frequency">
                                                                     <attributes>
                                                                         <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                        <font key="NSFont" size="13" name="SFProText-Regular"/>
+                                                                        <font key="NSFont" metaFont="system"/>
                                                                     </attributes>
                                                                 </fragment>
                                                             </attributedString>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Weh-th-4G9" userLabel="Category">
-                                                            <rect key="frame" x="0.0" y="53.333333333333336" width="57.333333333333336" height="15.333333333333336"/>
+                                                            <rect key="frame" x="0.0" y="53.666666666666664" width="59.666666666666664" height="15.666666666666664"/>
                                                             <attributedString key="attributedText">
                                                                 <fragment content="Category">
                                                                     <attributes>
                                                                         <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                        <font key="NSFont" size="13" name="SFProText-Regular"/>
+                                                                        <font key="NSFont" metaFont="system"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
                                                                 </fragment>
@@ -607,12 +607,12 @@
                                                                     <rect key="frame" x="88" y="0.0" width="211" height="80"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PxN-up-zYw" userLabel="Name">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="211" height="32.666666666666664"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="211" height="32.333333333333336"/>
                                                                             <attributedString key="attributedText">
                                                                                 <fragment content="Name">
                                                                                     <attributes>
                                                                                         <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                        <font key="NSFont" size="24" name="SFProText-Bold"/>
+                                                                                        <font key="NSFont" metaFont="system" size="24"/>
                                                                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                     </attributes>
                                                                                 </fragment>
@@ -620,14 +620,14 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="URw-BE-aya">
-                                                                            <rect key="frame" x="0.0" y="37.666666666666664" width="211" height="17.666666666666664"/>
+                                                                            <rect key="frame" x="0.0" y="37.333333333333336" width="211" height="18"/>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <attributedString key="attributedText">
                                                                                 <fragment content="Category">
                                                                                     <attributes>
                                                                                         <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                        <font key="NSFont" size="13" name="SFProText-Regular"/>
+                                                                                        <font key="NSFont" metaFont="system"/>
                                                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                     </attributes>
                                                                                 </fragment>
@@ -635,14 +635,14 @@
                                                                             <textInputTraits key="textInputTraits"/>
                                                                         </textField>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Pe4-xy-OC9">
-                                                                            <rect key="frame" x="0.0" y="60.333333333333336" width="66.666666666666671" height="19.666666666666664"/>
+                                                                            <rect key="frame" x="0.0" y="60.333333333333336" width="68" height="19.666666666666664"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Grh-ON-yhh">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="27.333333333333332" height="19.666666666666668"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="28.333333333333332" height="19.666666666666668"/>
                                                                                     <attributedString key="attributedText">
                                                                                         <fragment content="Prep">
                                                                                             <attributes>
-                                                                                                <font key="NSFont" size="13" name="SFProText-Regular"/>
+                                                                                                <font key="NSFont" metaFont="system"/>
                                                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                             </attributes>
                                                                                         </fragment>
@@ -650,11 +650,11 @@
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hXw-dv-HFE">
-                                                                                    <rect key="frame" x="35.333333333333343" y="0.0" width="31.333333333333329" height="19.666666666666668"/>
+                                                                                    <rect key="frame" x="36.333333333333343" y="0.0" width="31.666666666666671" height="19.666666666666668"/>
                                                                                     <attributedString key="attributedText">
                                                                                         <fragment content="Cook">
                                                                                             <attributes>
-                                                                                                <font key="NSFont" size="13" name="SFProText-Regular"/>
+                                                                                                <font key="NSFont" metaFont="system"/>
                                                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                             </attributes>
                                                                                         </fragment>
@@ -787,14 +787,14 @@
                                                             <rect key="frame" x="88" y="0.0" width="271" height="80"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ORN-Me-9W9">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="55.666666666666664" height="30.333333333333332"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="55.666666666666664" height="30"/>
                                                                     <color key="tintColor" red="0.12939462069999999" green="0.12942379709999999" blue="0.12939074640000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <attributedString key="attributedText">
                                                                         <fragment content="Name">
                                                                             <attributes>
                                                                                 <color key="NSBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                <font key="NSFont" size="21" name="SFProText-Regular"/>
+                                                                                <font key="NSFont" metaFont="system" size="21"/>
                                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                             </attributes>
                                                                         </fragment>
@@ -802,11 +802,11 @@
                                                                     <color key="highlightedColor" red="0.12939462069999999" green="0.12942379709999999" blue="0.12939074640000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </label>
                                                                 <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Categories" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q17-OJ-For">
-                                                                    <rect key="frame" x="0.0" y="35.333333333333336" width="67.666666666666671" height="18.666666666666664"/>
+                                                                    <rect key="frame" x="0.0" y="35" width="70" height="19"/>
                                                                     <attributedString key="attributedText">
                                                                         <fragment content="Categories">
                                                                             <attributes>
-                                                                                <font key="NSFont" size="13" name="SFProText-Regular"/>
+                                                                                <font key="NSFont" metaFont="system"/>
                                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                             </attributes>
                                                                         </fragment>
@@ -814,14 +814,14 @@
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8i5-gG-wid">
-                                                                    <rect key="frame" x="0.0" y="59" width="66.666666666666671" height="21"/>
+                                                                    <rect key="frame" x="0.0" y="59" width="68" height="21"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ga5-9T-p0I">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="27.333333333333332" height="21"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="28.333333333333332" height="21"/>
                                                                             <attributedString key="attributedText">
                                                                                 <fragment content="Prep">
                                                                                     <attributes>
-                                                                                        <font key="NSFont" size="13" name="SFProText-Regular"/>
+                                                                                        <font key="NSFont" metaFont="system"/>
                                                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                     </attributes>
                                                                                 </fragment>
@@ -829,11 +829,11 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3IY-gh-EDe">
-                                                                            <rect key="frame" x="35.333333333333343" y="0.0" width="31.333333333333329" height="21"/>
+                                                                            <rect key="frame" x="36.333333333333343" y="0.0" width="31.666666666666671" height="21"/>
                                                                             <attributedString key="attributedText">
                                                                                 <fragment content="Cook">
                                                                                     <attributes>
-                                                                                        <font key="NSFont" size="13" name="SFProText-Regular"/>
+                                                                                        <font key="NSFont" metaFont="system"/>
                                                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                     </attributes>
                                                                                 </fragment>
