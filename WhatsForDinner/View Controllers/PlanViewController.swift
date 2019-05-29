@@ -21,7 +21,7 @@ class PlanViewController: UIViewController {
     /////////////////////////////
     //private var coreDataManager = CoreDataManager(modelName: "MealModel")
     //var coreDataManager = CoreDataManager?.self
-        var managedObjectContext: NSManagedObjectContext?
+    var managedObjectContext: NSManagedObjectContext?
     private var currentIndex: Int?
     
     @IBOutlet weak var tableView: UITableView!
@@ -163,17 +163,18 @@ class PlanViewController: UIViewController {
         var planDidChange = false
         
         if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject> {
-            print("Context Inserts Exist")
+            print("Context Inserts Exist Plan")
             for insert in inserts {
                 if let plannedDay = insert as? PlannedDay {
-                    print(plannedDay)
+                    //print(plannedDay)
                     plannedDays?.append(plannedDay)
                     planDidChange = true
                 }
                 
                 if let plannedMeal = insert as? Meal {
-                    print(plannedMeal)
-                    if (plannedMeal.mealName != nil) {
+                    //print(plannedMeal)
+                    print(plannedMeal.isDeleted)
+                    if (plannedMeal.mealName == nil) {
                         self.managedObjectContext!.delete(plannedMeal)
                     }
                 }
@@ -181,8 +182,7 @@ class PlanViewController: UIViewController {
         }
         
         if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> {
-            print("Context Updates Exist")
-            //print(meals)
+            print("Context Updates Exist Plan")
             for update in updates {
                 if update is PlannedDay {
                     planDidChange = true
@@ -195,7 +195,7 @@ class PlanViewController: UIViewController {
         }
         
         if let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject> {
-            print("Context Deletes Exist")
+            print("Context Deletes Exist Plan")
             for delete in deletes {
                 if let plannedDay = delete as? PlannedDay {
                     if let index = plannedDays?.index(of: plannedDay) {
@@ -207,13 +207,7 @@ class PlanViewController: UIViewController {
         }
         
         if planDidChange {
-            //Update Section Ticket Lists
-            
             //Sort
-//            for plan in plannedDays! {
-//                print("\(plan.date) - Meal - \(plan.meal!.mealName)")
-//            }
-            
             plannedDays = plannedDays?.sorted(by: { $0.date!.compare($1.date!) == .orderedAscending })
             
             //Update Table View

@@ -183,7 +183,7 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
         guard let _currentMeal = currentPlannedDay?.meal else { fatalError("Unexpected Index Path")}
 
 //        if indexPath.section == MealSections.NextCategory.rawValue {
-            guard let _replaceMeal = nextMealsforCategory?[indexPath.row] else { fatalError("Unexpected Index Path")}
+            guard let _replaceMeal = nextMealsforCategory?[indexPath.section] else { fatalError("Unexpected Index Path")}
             //delete previous meal
             _currentMeal.estimatedNextDate = _currentMeal.previousDate
             _currentMeal.nextDate = nil

@@ -127,7 +127,7 @@ class MealsViewController: UIViewController {
         var mealsDidChange = false
         
         if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject> {
-            print("Context Inserts Exist")
+            print("Context Inserts Exist Meals")
             for insert in inserts {
                 if let meal = insert as? Meal {
                     meals?.append(meal)
@@ -137,7 +137,7 @@ class MealsViewController: UIViewController {
         }
         
         if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> {
-            print("Context Updates Exist")
+            print("Context Updates Exist Meals")
             
             for update in updates {
                 if update is Meal {
@@ -147,7 +147,7 @@ class MealsViewController: UIViewController {
         }
         
         if let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject> {
-            print("Context Deletes Exist")
+            print("Context Deletes Exist Meals")
             for delete in deletes {
                 if let meal = delete as? Meal {
                     if let index = meals?.index(of: meal) {
@@ -159,8 +159,6 @@ class MealsViewController: UIViewController {
         }
         
         if mealsDidChange {
-            //Update Section Ticket Lists
-            
             //Sort
             //meals?.sorted { $0 > $1 }
             
@@ -292,7 +290,7 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         guard let _meal = meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
         
         // Delete Note
-        //_meal.managedObjectContext?.delete(_meal)
+        _meal.managedObjectContext?.delete(_meal)
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {

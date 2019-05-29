@@ -59,12 +59,18 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     let picker6 = UIPickerView()
     let picker7 = UIPickerView()
     
-    var categoryData = [String](arrayLiteral: "Chef's Choice 🎲")
-        //"Asian Cuisine 🥡", "Breakfast for Dinner 🥓", "Barbecue 🐷", "Casserole 🥘", "Comfort Food 🛌", "Chicken 🐓", "Mexican  🌮", "Pasta 🍝", "Pizza 🍕", "Pork 🐖", "On The Grill 🥩", "Other", "Salad 🥗", "Sandwich 🥪", "Seafood 🍤", "Slow Cooker ⏲", "Soups Up 🍜", "Vegetarian 🥕")
-
+    let numberDaysToPlan = 7
     
+    let categoryData = [String](arrayLiteral: "Chef's Choice 🎲", "Asian Cuisine 🥡", "Breakfast for Dinner 🥓", "Barbecue 🐷", "Casserole 🥘", "Comfort Food 🛌", "Chicken 🐓", "Mexican  🌮", "Pasta 🍝", "Pizza 🍕", "Pork 🐖", "On The Grill 🥩", "Other", "Salad 🥗", "Sandwich 🥪", "Seafood 🍤", "Slow Cooker ⏲", "Soups Up 🍜", "Vegetarian 🥕")
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        //fetchPlans()
+        let numberAvailable = getNumberAvailableMeals()
+        if (numberAvailable! < numberDaysToPlan) {
+            
+        }
+        
         showStartingDatePicker()
         startingDate.delegate = self
         showPicker(self.category1, self.picker1)
@@ -77,53 +83,68 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        //self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        //self.navigationController?.navigationBar.shadowImage = UIImage()
-//        guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
-//            return
-//        }
-//        statusBarView.backgroundColor = UIColor.clear
+    func getNumberAvailableMeals() -> Int? {
+        var count = 0
+        // Create Fetch Request
+        let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
         
-        self.navigationController?.navigationBar.layer.cornerRadius = 25
-        self.navigationController?.navigationBar.clipsToBounds = true
-//        self.navigationController?.navigationBar.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
-    }
-    
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-       return UIStatusBarStyle.lightContent
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        loadCategories()
-    }
-    
-    func loadCategories() {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Tag")
-        fetchRequest.propertiesToFetch = ["name"]
-        fetchRequest.resultType = .dictionaryResultType
-        fetchRequest.returnsDistinctResults = true
-        
-        self.managedObjectContext?.performAndWait {
+        // Configure Fetch Request
+        fetchRequest.predicate = NSPredicate(format: "ANY estimatedNextDate != nil")
+
+        // Perform Fetch Request
+        self.managedObjectContext!.performAndWait {
             do {
-                let tags = try fetchRequest.execute()
-    
-                for tag in tags {
-                    if let dic = (tag as? [String : String]){
-                        if let nameString = dic["name"]{
-                            categoryData.append(nameString)
-                        }
-                    }
-                }
+                // Execute Fetch Request
+                let meals = try fetchRequest.execute()
+                count = meals.count
+               
             } catch {
                 let fetchError = error as NSError
                 print("Unable to Execute Fetch Request")
                 print("\(fetchError), \(fetchError.localizedDescription)")
             }
         }
+        
+        return count
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.layer.cornerRadius = 25
+        self.navigationController?.navigationBar.clipsToBounds = true
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+       return UIStatusBarStyle.lightContent
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //loadCategories()
+    }
+    
+//    func loadCategories() {
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Tag")
+//        fetchRequest.propertiesToFetch = ["name"]
+//        fetchRequest.resultType = .dictionaryResultType
+//        fetchRequest.returnsDistinctResults = true
+//
+//        self.managedObjectContext?.performAndWait {
+//            do {
+//                let tags = try fetchRequest.execute()
+//
+//                for tag in tags {
+//                    if let dic = (tag as? [String : String]){
+//                        if let nameString = dic["name"]{
+//                            categoryData.append(nameString)
+//                        }
+//                    }
+//                }
+//            } catch {
+//                let fetchError = error as NSError
+//                print("Unable to Execute Fetch Request")
+//                print("\(fetchError), \(fetchError.localizedDescription)")
+//            }
+//        }
+//    }
     
     @IBAction func cancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)

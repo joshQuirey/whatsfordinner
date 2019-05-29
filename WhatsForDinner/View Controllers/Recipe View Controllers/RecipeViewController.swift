@@ -210,7 +210,9 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         meal.directions = recipeDirectionsViewController.recipeDirections.text
         //ingredientss
         
-        meal.estimatedNextDate =  Calendar.current.date(byAdding: .day, value: Int(meal.frequency), to: Date())
+        if (meal.nextDate == nil) {
+            meal.estimatedNextDate =  Calendar.current.date(byAdding: .day, value: Int(meal.frequency), to: Date())
+        }
     }
 
     /////////////////////////////
@@ -227,16 +229,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     @IBAction func cancel(_ sender: Any) {
-        
         if (meal!.mealName == nil) {
             managedObjectContext?.delete(meal!)
-        } //else {
-        //    print(meal!.mealName!)
-       // }
-        //if meal!. {
-       //     print("had changes")
-       // }
-       // managedObjectContext?.refresh(meal!, mergeChanges: false)
+        }
+       
         self.dismiss(animated: true, completion: nil)
     }
     
