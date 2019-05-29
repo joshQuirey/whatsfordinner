@@ -61,6 +61,7 @@ class PlanViewController: UIViewController {
         managedObjectContext = tabBar.coreDataManager.managedObjectContext
         //fetchPlans()
         
+        
         //updateView()
         setupNotificationHandling()
         //let meal = Meal(context: coreDataManager.managedObjectContext)
