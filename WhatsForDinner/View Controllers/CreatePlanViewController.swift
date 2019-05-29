@@ -59,28 +59,61 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     let picker6 = UIPickerView()
     let picker7 = UIPickerView()
     
-    let numberDaysToPlan = 7
+    var numberDaysToPlan = 7
     
     let categoryData = [String](arrayLiteral: "Chef's Choice 🎲", "Asian Cuisine 🥡", "Breakfast for Dinner 🥓", "Barbecue 🐷", "Casserole 🥘", "Comfort Food 🛌", "Chicken 🐓", "Mexican  🌮", "Pasta 🍝", "Pizza 🍕", "Pork 🐖", "On The Grill 🥩", "Other", "Salad 🥗", "Sandwich 🥪", "Seafood 🍤", "Slow Cooker ⏲", "Soups Up 🍜", "Vegetarian 🥕")
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //fetchPlans()
-        let numberAvailable = getNumberAvailableMeals()
-        if (numberAvailable! < numberDaysToPlan) {
-            
-        }
-        
+    
         showStartingDatePicker()
         startingDate.delegate = self
-        showPicker(self.category1, self.picker1)
-        showPicker(self.category2, self.picker2)
-        showPicker(self.category3, self.picker3)
-        showPicker(self.category4, self.picker4)
-        showPicker(self.category5, self.picker5)
-        showPicker(self.category6, self.picker6)
-        showPicker(self.category7, self.picker7)
-       
+        
+        //determine max days that can be planned
+        let numberAvailable = getNumberAvailableMeals()
+        if (numberAvailable! < numberDaysToPlan) {
+            numberDaysToPlan = numberAvailable!
+        }
+        
+        childView1.isHidden = true
+        childView2.isHidden = true
+        childView3.isHidden = true
+        childView4.isHidden = true
+        childView5.isHidden = true
+        childView6.isHidden = true
+        childView7.isHidden = true
+        
+        var counter = 1
+        while (numberDaysToPlan >= counter) {
+            switch (counter) {
+            case 1:
+                showPicker(self.category1, self.picker1)
+                childView1.isHidden = false
+            case 2:
+                showPicker(self.category2, self.picker2)
+                childView2.isHidden = false
+            case 3:
+                showPicker(self.category3, self.picker3)
+                childView3.isHidden = false
+            case 4:
+                showPicker(self.category4, self.picker4)
+                childView4.isHidden = false
+            case 5:
+                showPicker(self.category5, self.picker5)
+                childView5.isHidden = false
+            case 6:
+                showPicker(self.category6, self.picker6)
+                childView6.isHidden = false
+            case 7:
+                showPicker(self.category7, self.picker7)
+                childView7.isHidden = false
+            default:
+                showPicker(self.category7, self.picker7)
+                childView7.isHidden = false
+            }
+            
+            counter = counter + 1
+        }
     }
     
     func getNumberAvailableMeals() -> Int? {
@@ -89,7 +122,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
         
         // Configure Fetch Request
-        fetchRequest.predicate = NSPredicate(format: "ANY estimatedNextDate != nil")
+        fetchRequest.predicate = NSPredicate(format: "estimatedNextDate != nil")
 
         // Perform Fetch Request
         self.managedObjectContext!.performAndWait {
@@ -151,152 +184,162 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     @IBAction func create(_ sender: Any) {
+
         //Day1
-        var plannedMeal = Meal(context: self.managedObjectContext!)
-        let day1Plan = PlannedDay(context: self.managedObjectContext!)
-        day1Plan.planStartDate = dateDay1
-        day1Plan.date = dateDay1
-        day1Plan.planEndDate = dateDay7
-        day1Plan.category = category1.text
-        //Get Meal by Category
-        day1Plan.meal = self.getNextMealforCategory(_plannedCategory: day1Plan.category!, _plannedDate: day1Plan.date!, _plannedMeal: &plannedMeal)
-        //Get Next Meal
-        if (day1Plan.meal!.mealName == nil) {
-            day1Plan.meal = self.getNextMeal(_plannedDate: day1Plan.date!, _plannedMeal: &plannedMeal)
+        if (!childView1.isHidden) {
+            var plannedMeal = Meal(context: self.managedObjectContext!)
+            let day1Plan = PlannedDay(context: self.managedObjectContext!)
+            day1Plan.planStartDate = dateDay1
+            day1Plan.date = dateDay1
+            day1Plan.planEndDate = dateDay7
+            day1Plan.category = category1.text
+            //Get Meal by Category
+            day1Plan.meal = self.getNextMealforCategory(_plannedCategory: day1Plan.category!, _plannedDate: day1Plan.date!, _plannedMeal: &plannedMeal)
+            //Get Next Meal
+            if (day1Plan.meal!.mealName == nil) {
+                day1Plan.meal = self.getNextMeal(_plannedDate: day1Plan.date!, _plannedMeal: &plannedMeal)
+            }
+            //Order Pizza
+            if (day1Plan.meal!.mealName == nil) {
+                day1Plan.meal?.mealName = "Order Pizza"
+                //Alert User that no meal could be found
+            }
+            print("Selected Meal 1: \(day1Plan.meal!.mealName!)")
         }
-        //Order Pizza
-        if (day1Plan.meal!.mealName == nil) {
-            day1Plan.meal?.mealName = "Order Pizza"
-            //Alert User that no meal could be found
-        }
-        print("Selected Meal 1: \(day1Plan.meal!.mealName!)")
         
         //Day2
-        var plannedMeal2 = Meal(context: self.managedObjectContext!)
-        let day2Plan = PlannedDay(context: self.managedObjectContext!)
-        day2Plan.planStartDate = dateDay1
-        day2Plan.date = dateDay2
-        day2Plan.planEndDate = dateDay7
-        day2Plan.category = category2.text
-        //Get Meal by Category
-        day2Plan.meal = self.getNextMealforCategory(_plannedCategory: day2Plan.category!, _plannedDate: day2Plan.date!, _plannedMeal: &plannedMeal2)
-        //Get Next Meal
-        if (day2Plan.meal!.mealName == nil) {
-            day2Plan.meal = self.getNextMeal(_plannedDate: day2Plan.date!, _plannedMeal: &plannedMeal2)
+        if (!childView2.isHidden) {
+            var plannedMeal2 = Meal(context: self.managedObjectContext!)
+            let day2Plan = PlannedDay(context: self.managedObjectContext!)
+            day2Plan.planStartDate = dateDay1
+            day2Plan.date = dateDay2
+            day2Plan.planEndDate = dateDay7
+            day2Plan.category = category2.text
+            //Get Meal by Category
+            day2Plan.meal = self.getNextMealforCategory(_plannedCategory: day2Plan.category!, _plannedDate: day2Plan.date!, _plannedMeal: &plannedMeal2)
+            //Get Next Meal
+            if (day2Plan.meal!.mealName == nil) {
+                day2Plan.meal = self.getNextMeal(_plannedDate: day2Plan.date!, _plannedMeal: &plannedMeal2)
+            }
+            //Order Pizza
+            if (day2Plan.meal!.mealName == nil) {
+                day2Plan.meal?.mealName = "Order Pizza 2"
+                //Alert User that no meal could be found
+            }
+            print("Selected Meal 2: \(day2Plan.meal!.mealName!)")
         }
-        //Order Pizza
-        if (day2Plan.meal!.mealName == nil) {
-            day2Plan.meal?.mealName = "Order Pizza 2"
-            //Alert User that no meal could be found
-        }
-        print("Selected Meal 2: \(day2Plan.meal!.mealName!)")
-       
         
         //Day3
-        var plannedMeal3 = Meal(context: self.managedObjectContext!)
-        let day3Plan = PlannedDay(context: self.managedObjectContext!)
-        day3Plan.planStartDate = dateDay1
-        day3Plan.date = dateDay3
-        day3Plan.planEndDate = dateDay7
-        day3Plan.category = category3.text
-        //Get Meal by Category
-        day3Plan.meal = self.getNextMealforCategory(_plannedCategory: day3Plan.category!, _plannedDate: day3Plan.date!, _plannedMeal: &plannedMeal3)
-        //Get Next Meal
-        if (day3Plan.meal!.mealName == nil) {
-            day3Plan.meal = self.getNextMeal(_plannedDate: day3Plan.date!, _plannedMeal: &plannedMeal3)
+        if (!childView3.isHidden) {
+            var plannedMeal3 = Meal(context: self.managedObjectContext!)
+            let day3Plan = PlannedDay(context: self.managedObjectContext!)
+            day3Plan.planStartDate = dateDay1
+            day3Plan.date = dateDay3
+            day3Plan.planEndDate = dateDay7
+            day3Plan.category = category3.text
+            //Get Meal by Category
+            day3Plan.meal = self.getNextMealforCategory(_plannedCategory: day3Plan.category!, _plannedDate: day3Plan.date!, _plannedMeal: &plannedMeal3)
+            //Get Next Meal
+            if (day3Plan.meal!.mealName == nil) {
+                day3Plan.meal = self.getNextMeal(_plannedDate: day3Plan.date!, _plannedMeal: &plannedMeal3)
+            }
+            //Order Pizza
+            if (day3Plan.meal!.mealName == nil) {
+                day3Plan.meal?.mealName = "Order Pizza 3"
+                //Alert User that no meal could be found
+            }
+            print("Selected Meal 3: \(day3Plan.meal!.mealName!)")
         }
-        //Order Pizza
-        if (day3Plan.meal!.mealName == nil) {
-            day3Plan.meal?.mealName = "Order Pizza 3"
-            //Alert User that no meal could be found
-        }
-        print("Selected Meal 3: \(day3Plan.meal!.mealName!)")
-       
         
         //Day4
-        var plannedMeal4 = Meal(context: self.managedObjectContext!)
-        let day4Plan = PlannedDay(context: self.managedObjectContext!)
-        day4Plan.planStartDate = dateDay1
-        day4Plan.date = dateDay4
-        day4Plan.planEndDate = dateDay7
-        day4Plan.category = category4.text
-        //Get Meal by Category
-        day4Plan.meal = self.getNextMealforCategory(_plannedCategory: day4Plan.category!, _plannedDate: day4Plan.date!, _plannedMeal: &plannedMeal4)
-        //Get Next Meal
-        if (day4Plan.meal!.mealName == nil) {
-            day4Plan.meal = self.getNextMeal(_plannedDate: day4Plan.date!, _plannedMeal: &plannedMeal4)
+        if (!childView4.isHidden) {
+            var plannedMeal4 = Meal(context: self.managedObjectContext!)
+            let day4Plan = PlannedDay(context: self.managedObjectContext!)
+            day4Plan.planStartDate = dateDay1
+            day4Plan.date = dateDay4
+            day4Plan.planEndDate = dateDay7
+            day4Plan.category = category4.text
+            //Get Meal by Category
+            day4Plan.meal = self.getNextMealforCategory(_plannedCategory: day4Plan.category!, _plannedDate: day4Plan.date!, _plannedMeal: &plannedMeal4)
+            //Get Next Meal
+            if (day4Plan.meal!.mealName == nil) {
+                day4Plan.meal = self.getNextMeal(_plannedDate: day4Plan.date!, _plannedMeal: &plannedMeal4)
+            }
+            //Order Pizza
+            if (day4Plan.meal!.mealName == nil) {
+                day4Plan.meal?.mealName = "Order Pizza 4"
+                //Alert User that no meal could be found
+            }
+            //Cleanup
+            print("Selected Meal 4: \(day4Plan.meal!.mealName!)")
         }
-        //Order Pizza
-        if (day4Plan.meal!.mealName == nil) {
-            day4Plan.meal?.mealName = "Order Pizza 4"
-            //Alert User that no meal could be found
-        }
-        //Cleanup
-        print("Selected Meal 4: \(day4Plan.meal!.mealName!)")
-    
 
         //Day5
-        var plannedMeal5 = Meal(context: self.managedObjectContext!)
-        let day5Plan = PlannedDay(context: self.managedObjectContext!)
-        day5Plan.planStartDate = dateDay1
-        day5Plan.date = dateDay5
-        day5Plan.planEndDate = dateDay7
-        day5Plan.category = category5.text
-        //Get Meal by Category
-        day5Plan.meal = self.getNextMealforCategory(_plannedCategory: day5Plan.category!, _plannedDate: day5Plan.date!, _plannedMeal: &plannedMeal5)
-        //Get Next Meal
-        if (day5Plan.meal!.mealName == nil) {
-            day5Plan.meal = self.getNextMeal(_plannedDate: day5Plan.date!, _plannedMeal: &plannedMeal5)
+        if (!childView5.isHidden) {
+            var plannedMeal5 = Meal(context: self.managedObjectContext!)
+            let day5Plan = PlannedDay(context: self.managedObjectContext!)
+            day5Plan.planStartDate = dateDay1
+            day5Plan.date = dateDay5
+            day5Plan.planEndDate = dateDay7
+            day5Plan.category = category5.text
+            //Get Meal by Category
+            day5Plan.meal = self.getNextMealforCategory(_plannedCategory: day5Plan.category!, _plannedDate: day5Plan.date!, _plannedMeal: &plannedMeal5)
+            //Get Next Meal
+            if (day5Plan.meal!.mealName == nil) {
+                day5Plan.meal = self.getNextMeal(_plannedDate: day5Plan.date!, _plannedMeal: &plannedMeal5)
+            }
+            //Order Pizza
+            if (day5Plan.meal!.mealName == nil) {
+                day5Plan.meal?.mealName = "Order Pizza 5"
+                //Alert User that no meal could be found
+            }
+            print("Selected Meal 5: \(day5Plan.meal!.mealName!)")
         }
-        //Order Pizza
-        if (day5Plan.meal!.mealName == nil) {
-            day5Plan.meal?.mealName = "Order Pizza 5"
-            //Alert User that no meal could be found
-        }
-        print("Selected Meal 5: \(day5Plan.meal!.mealName!)")
-        
         
         //Day6
-        var plannedMeal6 = Meal(context: self.managedObjectContext!)
-        let day6Plan = PlannedDay(context: self.managedObjectContext!)
-        day6Plan.planStartDate = dateDay1
-        day6Plan.date = dateDay6
-        day6Plan.planEndDate = dateDay7
-        day6Plan.category = category6.text
-        //Get Meal by Category
-        day6Plan.meal = self.getNextMealforCategory(_plannedCategory: day6Plan.category!, _plannedDate: day6Plan.date!, _plannedMeal: &plannedMeal6)
-        //Get Next Meal
-        if (day6Plan.meal!.mealName == nil) {
-            day6Plan.meal = self.getNextMeal(_plannedDate: day6Plan.date!, _plannedMeal: &plannedMeal6)
+        if (!childView6.isHidden) {
+            var plannedMeal6 = Meal(context: self.managedObjectContext!)
+            let day6Plan = PlannedDay(context: self.managedObjectContext!)
+            day6Plan.planStartDate = dateDay1
+            day6Plan.date = dateDay6
+            day6Plan.planEndDate = dateDay7
+            day6Plan.category = category6.text
+            //Get Meal by Category
+            day6Plan.meal = self.getNextMealforCategory(_plannedCategory: day6Plan.category!, _plannedDate: day6Plan.date!, _plannedMeal: &plannedMeal6)
+            //Get Next Meal
+            if (day6Plan.meal!.mealName == nil) {
+                day6Plan.meal = self.getNextMeal(_plannedDate: day6Plan.date!, _plannedMeal: &plannedMeal6)
+            }
+            //Order Pizza
+            if (day6Plan.meal!.mealName == nil) {
+                day6Plan.meal?.mealName = "Order Pizza 3"
+                //Alert User that no meal could be found
+            }
+            print("Selected Meal 6: \(day6Plan.meal!.mealName!)")
         }
-        //Order Pizza
-        if (day6Plan.meal!.mealName == nil) {
-            day6Plan.meal?.mealName = "Order Pizza 3"
-            //Alert User that no meal could be found
-        }
-        print("Selected Meal 6: \(day6Plan.meal!.mealName!)")
-
         
         //Day7
-        var plannedMeal7 = Meal(context: self.managedObjectContext!)
-        let day7Plan = PlannedDay(context: self.managedObjectContext!)
-        day7Plan.planStartDate = dateDay1
-        day7Plan.date = dateDay7
-        day7Plan.planEndDate = dateDay7
-        day7Plan.category = category7.text
-        //Get Meal by Category
-        day7Plan.meal = self.getNextMealforCategory(_plannedCategory: day7Plan.category!, _plannedDate: day7Plan.date!, _plannedMeal: &plannedMeal7)
-        //Get Next Meal
-        if (day7Plan.meal!.mealName == nil) {
-            day7Plan.meal = self.getNextMeal(_plannedDate: day7Plan.date!, _plannedMeal: &plannedMeal7)
+        if (!childView7.isHidden) {
+            var plannedMeal7 = Meal(context: self.managedObjectContext!)
+            let day7Plan = PlannedDay(context: self.managedObjectContext!)
+            day7Plan.planStartDate = dateDay1
+            day7Plan.date = dateDay7
+            day7Plan.planEndDate = dateDay7
+            day7Plan.category = category7.text
+            //Get Meal by Category
+            day7Plan.meal = self.getNextMealforCategory(_plannedCategory: day7Plan.category!, _plannedDate: day7Plan.date!, _plannedMeal: &plannedMeal7)
+            //Get Next Meal
+            if (day7Plan.meal!.mealName == nil) {
+                day7Plan.meal = self.getNextMeal(_plannedDate: day7Plan.date!, _plannedMeal: &plannedMeal7)
+            }
+            //Order Pizza
+            if (day7Plan.meal!.mealName == nil) {
+                day7Plan.meal?.mealName = "Order Pizza 7"
+                //Alert User that no meal could be found
+            }
+            print("Selected Meal 7: \(day7Plan.meal!.mealName!)")
         }
-        //Order Pizza
-        if (day7Plan.meal!.mealName == nil) {
-            day7Plan.meal?.mealName = "Order Pizza 7"
-            //Alert User that no meal could be found
-        }
-        print("Selected Meal 7: \(day7Plan.meal!.mealName!)")
-    
+        
         //Cleanup
 //        self.managedObjectContext?.delete(plannedMeal)
 //        self.managedObjectContext?.delete(plannedMeal2)
