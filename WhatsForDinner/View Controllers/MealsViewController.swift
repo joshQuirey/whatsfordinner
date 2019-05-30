@@ -102,6 +102,7 @@ class MealsViewController: UIViewController {
             
             destination.managedObjectContext = self.managedObjectContext
             destination.meal = Meal(context: self.managedObjectContext!)
+            //destination.title = "Add Meal"
 
         case Segue.ViewMeal:
             guard let destination = segue.destination as? RecipeViewController else {
@@ -112,7 +113,8 @@ class MealsViewController: UIViewController {
             let _indexpath = tableView.indexPathForSelectedRow
             let _meal = meals![(_indexpath?.row)!]
             destination.meal = _meal
-        
+            //destination.title = "Update Meal"
+            
         default:
             break
         }
@@ -283,14 +285,24 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        guard editingStyle == .delete else { return }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            print("OK, marked as delete")
+            
+            // Fetch Note
+            guard let _meal = self.meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
+            
+            // Delete Note
+            _meal.managedObjectContext?.delete(_meal)
+            
+            success(true)
+        })
+        deleteAction.image = UIImage(named: "delete")
+        //completeAction.
+        deleteAction.backgroundColor = UIColor(red: 149/255, green: 40/255, blue: 51/255, alpha: 1.0)
         
-        // Fetch Note
-        guard let _meal = meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
-        
-        // Delete Note
-        _meal.managedObjectContext?.delete(_meal)
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {

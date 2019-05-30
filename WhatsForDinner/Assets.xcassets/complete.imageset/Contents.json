@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "basket.png",
+      "filename" : "complete.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "complete@2x.png",
       "scale" : "2x"
     },
     {

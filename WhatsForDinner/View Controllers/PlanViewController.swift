@@ -285,7 +285,8 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             configure(cell, at: indexPath)
         }
         
-        cell.layer.borderWidth = 0
+        //cell.layer.borderColor = UIColor.black.cgColor
+        //cell.layer.borderWidth = 1
         cell.layer.cornerRadius = 8
         cell.clipsToBounds = true
         
@@ -335,48 +336,89 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             //cell.serve?.text? = "Serves-\(_plannedDay.meal!.serves!)"
         }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        guard editingStyle == .delete else { return }
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+//        guard editingStyle == .delete else { return }
+//
+//        // Fetch Day
+//        guard let _plannedDay = plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path") }
+//
+//        // Delete Day
+//        guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
+//        _meal.estimatedNextDate = _meal.previousDate
+//        _meal.nextDate = nil
+//        _meal.previousDate = nil
+//        //Need to roll back the planned date for each of the meals coming up after the meal deleted
+//        self.managedObjectContext!.delete(_plannedDay)
+//
+//        //Update the dates for remaining planned days to be a day earlier
+//        print(indexPath.section)
+//        var i = indexPath.section + 1
+//        print(i)
+//        print(plannedDays!.count)
+//        while (i < plannedDays!.count) {
+//            plannedDays?[i].date = Calendar.current.date(byAdding: .day, value: -1, to: (plannedDays?[i].date)!)
+//
+//            plannedDays?[i].planEndDate = Calendar.current.date(byAdding: .day, value: -1, to: (plannedDays?[i].planEndDate)!)
+//
+//            guard let _nextMeal = plannedDays?[i].meal else { fatalError("Unexpected Index Path") }
+//
+//            _nextMeal.nextDate = Calendar.current.date(byAdding: .day, value: -1, to: _nextMeal.nextDate!)
+//
+//            i += 1
+//        }
+//    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let cancelAction = UIContextualAction(style: .destructive, title:  "Cancel", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            print("OK, marked as cancel")
+            
+            // Fetch Day
+            guard let _plannedDay = self.plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path") }
+            //print(_plannedDay)
+            //print(_plannedDay.meal?.mealName)
+            // Delete Day
+            guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
+            _meal.estimatedNextDate = _meal.previousDate
+            _meal.nextDate = nil
+            _meal.previousDate = nil
+            //Need to roll back the planned date for each of the meals coming up after the meal deleted
+            self.managedObjectContext!.delete(_plannedDay)
+            
+            //Update the dates for remaining planned days to be a day earlier
+            print(indexPath.section)
+            var i = indexPath.section + 1
+            print(i)
+            print(self.plannedDays!.count)
+            while (i < self.plannedDays!.count) {
+                self.plannedDays?[i].date = Calendar.current.date(byAdding: .day, value: -1, to: (self.plannedDays?[i].date)!)
+                //            print("Planned Date \(plannedDays?[i].date)")
+                
+                //            print("Planned End Date \(plannedDays?[i].planEndDate)")
+                self.plannedDays?[i].planEndDate = Calendar.current.date(byAdding: .day, value: -1, to: (self.plannedDays?[i].planEndDate)!)
+                //            print("Planned End Date \(plannedDays?[i].planEndDate)")
+                
+                guard let _nextMeal = self.plannedDays?[i].meal else { fatalError("Unexpected Index Path") }
+                //            print("Next Date \(_nextMeal.nextDate)")
+                _nextMeal.nextDate = Calendar.current.date(byAdding: .day, value: -1, to: _nextMeal.nextDate!)
+                //            print("Next Date \(_nextMeal.nextDate)")
+                
+                i += 1
+            }
+            
+            success(true)
+        })
+        cancelAction.image = UIImage(named: "cancel")
+        //completeAction.
+        cancelAction.backgroundColor = UIColor(red: 149/255, green: 40/255, blue: 51/255, alpha: 1.0)
         
-        // Fetch Day
-        guard let _plannedDay = plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path") }
-        //print(_plannedDay)
-        //print(_plannedDay.meal?.mealName)
-        // Delete Day
-        guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
-        _meal.estimatedNextDate = _meal.previousDate
-        _meal.nextDate = nil
-        _meal.previousDate = nil
-        //Need to roll back the planned date for each of the meals coming up after the meal deleted
-        self.managedObjectContext!.delete(_plannedDay)
-        
-        //Update the dates for remaining planned days to be a day earlier
-        print(indexPath.section)
-        var i = indexPath.section + 1
-        print(i)
-        print(plannedDays!.count)
-        while (i < plannedDays!.count) {
-            plannedDays?[i].date = Calendar.current.date(byAdding: .day, value: -1, to: (plannedDays?[i].date)!)
-//            print("Planned Date \(plannedDays?[i].date)")
-            
-//            print("Planned End Date \(plannedDays?[i].planEndDate)")
-            plannedDays?[i].planEndDate = Calendar.current.date(byAdding: .day, value: -1, to: (plannedDays?[i].planEndDate)!)
-//            print("Planned End Date \(plannedDays?[i].planEndDate)")
-            
-            guard let _nextMeal = plannedDays?[i].meal else { fatalError("Unexpected Index Path") }
-//            print("Next Date \(_nextMeal.nextDate)")
-            _nextMeal.nextDate = Calendar.current.date(byAdding: .day, value: -1, to: _nextMeal.nextDate!)
-//            print("Next Date \(_nextMeal.nextDate)")
-            
-            i += 1
-        }
+        return UISwipeActionsConfiguration(actions: [cancelAction])
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         print(indexPath.section)
   
 //COMPLETE
-        let completeAction = UIContextualAction(style: .normal, title:  "Complete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+        let completeAction = UIContextualAction(style: .destructive, title:  "Complete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             print("OK, marked as Completed")
             
             // Fetch Day
@@ -393,8 +435,9 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             
             success(true)
         })
-        completeAction.image = UIImage(named: "tick")
-        completeAction.backgroundColor = .purple
+        completeAction.image = UIImage(named: "complete")
+        //completeAction.
+        completeAction.backgroundColor = UIColor(red: 49/255, green: 141/255, blue: 10/255, alpha: 1.0)
     
 //REPLACE
         let replaceAction = UIContextualAction(style: .normal, title:  "Replace", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
@@ -405,8 +448,8 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             
             success(true)
         })
-        replaceAction.image = UIImage(named: "tick")
-        replaceAction.backgroundColor = .blue
+        replaceAction.image = UIImage(named: "replace")
+        replaceAction.backgroundColor = UIColor(red: 32/255, green: 21/255, blue: 32/255, alpha: 1.0)
 
 //SHUFFLE
         let shuffleAction = UIContextualAction(style: .normal, title:  "Shuffle", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
@@ -444,8 +487,8 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             
             success(true)
         })
-        shuffleAction.image = UIImage(named: "tick")
-        shuffleAction.backgroundColor = .green
+        shuffleAction.image = UIImage(named: "shuffle")
+        shuffleAction.backgroundColor = UIColor(red: 32/255, green: 21/255, blue: 32/255, alpha: 1.0)
 
         return UISwipeActionsConfiguration(actions: [completeAction,replaceAction,shuffleAction])
     }
