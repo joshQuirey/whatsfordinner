@@ -313,6 +313,10 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.mealImage?.image = UIImage(data: _plannedDay.meal!.mealImage!)
             }
         
+        cell.mealImage.layer.cornerRadius = 8
+        cell.mealImage.clipsToBounds = true
+        
+        
 //            formatter.dateFormat = "EEE MMM d"
             cell.mealName?.text = _plannedDay.meal!.mealName //"\(formatter.string(from: _plannedDay.meal!.nextDate!))  \()"
         

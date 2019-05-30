@@ -283,8 +283,11 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             cell.mealImage.isHidden = true
         }
+        
+        cell.mealImage.layer.cornerRadius = 8
+        cell.mealImage.clipsToBounds = true
     }
-    
+
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
@@ -312,6 +315,7 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         
         return indexPath
     }
+    
     
 //    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 //        return 0
