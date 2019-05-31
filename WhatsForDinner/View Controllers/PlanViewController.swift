@@ -315,7 +315,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.mealImage?.image = UIImage(data: _plannedDay.meal!.mealImage!)
             }
         
-        cell.mealImage.layer.cornerRadius = 35
+        cell.mealImage.layer.cornerRadius = cell.mealImage.frame.height/2
         cell.mealImage.clipsToBounds = true
         
         

@@ -277,7 +277,7 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
             cell.mealImage.isHidden = true
         }
         
-        cell.mealImage.layer.cornerRadius = 30
+        cell.mealImage.layer.cornerRadius = cell.mealImage.frame.height/2
         cell.mealImage.clipsToBounds = true
     }
 
@@ -295,8 +295,8 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
             success(true)
         })
         deleteAction.image = UIImage(named: "delete")
-        //completeAction.
-        deleteAction.backgroundColor = UIColor(red: 149/255, green: 40/255, blue: 51/255, alpha: 1.0)
+        deleteAction.title = "test"
+        deleteAction.backgroundColor = UIColor(red: 93/255, green: 115/255, blue: 77/255, alpha: 1.0)
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
@@ -308,38 +308,6 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         
         return indexPath
     }
-    
-    
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 0
-//    }
-//
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//
-//        return "test"
-//    }
-    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let myLabel = UILabel()
-//        myLabel.font = UIFont.boldSystemFont(ofSize: 4)
-//        myLabel.text = "testing"
-//
-//        let header = UIView()
-//        //header?.textLabel!.font = UIFont(name: "Futura", size: 4)
-//        header.addSubview(myLabel)
-//
-//        return header
-//    }
-
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 250.0
-//    }
-//
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerView = UIView()
-//        headerView.backgroundColor = UIColor.clear
-//        return headerView
-//    }
 }
 
 extension MealsViewController: NSFetchedResultsControllerDelegate {
