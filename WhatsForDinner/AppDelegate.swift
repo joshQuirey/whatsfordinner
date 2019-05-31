@@ -36,6 +36,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             tabBarController.tabBar.backgroundImage = UIImage()
             tabBarController.tabBar.shadowImage = UIImage()
         }
+        
+//        UINavigationBar.appearance().shadowImage = UIImage()
+//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         return true
     }
     

@@ -52,16 +52,9 @@ class MealsViewController: UIViewController {
         updateView()
         setupNotificationHandling()
         tableView.tableFooterView = UIView()
+                self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+
     }
-    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        do {
-//            print("save meals 2")
-//            try self.managedObjectContext!.save()
-//        } catch {
-//            fatalError("Failure to save context: \(error)")
-//        }
-//    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -284,7 +277,7 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
             cell.mealImage.isHidden = true
         }
         
-        cell.mealImage.layer.cornerRadius = 8
+        cell.mealImage.layer.cornerRadius = 30
         cell.mealImage.clipsToBounds = true
     }
 

@@ -61,7 +61,7 @@ class PlanViewController: UIViewController {
         managedObjectContext = tabBar.coreDataManager.managedObjectContext
         //fetchPlans()
         
-        
+        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         //updateView()
         setupNotificationHandling()
         //let meal = Meal(context: coreDataManager.managedObjectContext)
@@ -73,6 +73,8 @@ class PlanViewController: UIViewController {
         //    print("Unable to Save Managed Object Context")
         //    print("\(error), \(error.localizedDescription)")
         //}
+        
+        
     }
     
 //    override func viewWillDisappear(_ animated: Bool) {
@@ -83,9 +85,9 @@ class PlanViewController: UIViewController {
 //        }
 //    }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return UIStatusBarStyle.lightContent
-    }
+//    override var preferredStatusBarStyle: UIStatusBarStyle {
+//        return UIStatusBarStyle.default
+//    }
     
     private func setupNotificationHandling() {
         let notificationCenter = NotificationCenter.default
@@ -313,7 +315,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.mealImage?.image = UIImage(data: _plannedDay.meal!.mealImage!)
             }
         
-        cell.mealImage.layer.cornerRadius = 8
+        cell.mealImage.layer.cornerRadius = 35
         cell.mealImage.clipsToBounds = true
         
         
@@ -413,7 +415,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         })
         cancelAction.image = UIImage(named: "cancel")
         //completeAction.
-        cancelAction.backgroundColor = UIColor(red: 149/255, green: 40/255, blue: 51/255, alpha: 1.0)
+        cancelAction.backgroundColor = UIColor(red: 166/255, green: 55/255, blue: 45/255, alpha: 1.0)
         
         return UISwipeActionsConfiguration(actions: [cancelAction])
     }
@@ -441,7 +443,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         })
         completeAction.image = UIImage(named: "complete")
         //completeAction.
-        completeAction.backgroundColor = UIColor(red: 49/255, green: 141/255, blue: 10/255, alpha: 1.0)
+        completeAction.backgroundColor = UIColor(red: 93/255, green: 115/255, blue: 77/255, alpha: 1.0)
     
 //REPLACE
         let replaceAction = UIContextualAction(style: .normal, title:  "Replace", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
