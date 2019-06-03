@@ -150,6 +150,9 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
             if (_meal.mealImage != nil) {
                 cell.mealImage?.image = UIImage(data: _meal.mealImage!)
             }
+        
+        cell.mealImage.layer.cornerRadius = 8
+        cell.mealImage.clipsToBounds = true
             
             cell.mealName.text = _meal.mealName
         
@@ -171,11 +174,10 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
                 cell.cook?.text? = " "
             }
         
-        //cell.layer.borderWidth = 0
-        //cell.layer.cornerRadius = 8
+
+        cell.layer.cornerRadius = 8
         cell.clipsToBounds = true
-        //cell.layer.frame = CGRect(x: 8, y: 8, width: 100, height: 80)
-        //cell.backgroundColor = .red
+
         return cell
     }
     

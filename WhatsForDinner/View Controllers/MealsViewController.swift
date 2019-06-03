@@ -233,7 +233,6 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         configure(cell, at: indexPath)
         
         //configure look of cell
-        //cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 0
         cell.layer.cornerRadius = 8
         cell.clipsToBounds = true
@@ -277,7 +276,7 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
             cell.mealImage.isHidden = true
         }
         
-        cell.mealImage.layer.cornerRadius = cell.mealImage.frame.height/2
+        cell.mealImage.layer.cornerRadius = 8 // cell.mealImage.frame.height/2
         cell.mealImage.clipsToBounds = true
     }
 
@@ -296,7 +295,7 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         })
         deleteAction.image = UIImage(named: "delete")
         deleteAction.title = "test"
-        deleteAction.backgroundColor = UIColor(red: 93/255, green: 115/255, blue: 77/255, alpha: 1.0)
+        deleteAction.backgroundColor = UIColor(red: 122/255, green: 00/255, blue: 38/255, alpha: 1.0)
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
