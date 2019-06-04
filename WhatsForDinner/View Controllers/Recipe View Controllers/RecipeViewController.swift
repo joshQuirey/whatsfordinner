@@ -40,6 +40,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     let pickTime = UIDatePicker()
     let pickServing = UIPickerView()
     
+    @IBOutlet weak var parentView: UIView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var segmentedParentView: UIView!
     
@@ -66,6 +67,8 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         showCookDatePicker()
         setupView()
         self.name.attributedPlaceholder = NSAttributedString(string: "Enter Meal Name",attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
+        
+        setupNotificationHandling()
     }
     
 //    override func viewDidAppear(_ animated: Bool) {
@@ -238,6 +241,48 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
        
         self.dismiss(animated: true, completion: nil)
     }
+    
+    private func setupNotificationHandling() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self,
+                                       selector: #selector(keyboardWillChange(notification:)),
+                                       name: Notification.Name.UIKeyboardWillShow,
+                                       object: nil)
+        
+        notificationCenter.addObserver(self,
+                                       selector: #selector(keyboardWillChange(notification:)),
+                                       name: Notification.Name.UIKeyboardWillHide,
+                                       object: nil)
+        
+        notificationCenter.addObserver(self,
+                                       selector: #selector(keyboardWillChange(notification:)),
+                                       name: Notification.Name.UIKeyboardWillChangeFrame,
+                                       object: nil)
+    }
+    
+    @objc func keyboardWillChange(notification: Notification) {
+            print("Keyboard will show")
+        parentView.frame.origin.y = -200
+        //view.frame.origin.y = -300
+        segmentedParentView.frame.origin.y = parentView.frame.maxY
+        
+    }
+    
+    deinit {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.removeObserver(self,
+                                       name: Notification.Name.UIKeyboardWillShow,
+                                       object: nil)
+        
+        notificationCenter.removeObserver(self,
+                                       name: Notification.Name.UIKeyboardWillHide,
+                                       object: nil)
+        
+        notificationCenter.removeObserver(self,
+                                       name: Notification.Name.UIKeyboardWillChangeFrame,
+                                       object: nil)
+    }
+    
     
     /////////////////////////////
     //Image Functions
