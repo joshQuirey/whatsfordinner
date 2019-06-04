@@ -22,7 +22,7 @@ class MealsViewController: UIViewController {
     
     private var meals: [Meal]? {
         didSet {
-            //updateView()
+            updateView()
         }
     }
     
@@ -94,7 +94,7 @@ class MealsViewController: UIViewController {
             }
             
             destination.managedObjectContext = self.managedObjectContext
-            destination.meal = Meal(context: self.managedObjectContext!)
+            //destination.meal = Meal(context: self.managedObjectContext!)
             //destination.title = "Add Meal"
 
         case Segue.ViewMeal:

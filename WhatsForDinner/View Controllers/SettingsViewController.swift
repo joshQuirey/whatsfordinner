@@ -1,29 +1,25 @@
 //
-//  LaunchScreenViewController.swift
+//  SettingsViewController.swift
 //  WhatsForDinner
 //
-//  Created by Josh Quirey on 6/3/19.
+//  Created by Josh Quirey on 6/4/19.
 //  Copyright © 2019 jquirey. All rights reserved.
 //
 
 import UIKit
 
-class LaunchScreenViewController: UIViewController {
+class SettingsViewController: UIViewController {
 
-    let colors = Colors()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.clear
-        var backgroundLayer = colors.gl
-        backgroundLayer!.frame = view.frame
-        view.layer.insertSublayer(backgroundLayer!, at: 0)
-        
         // Do any additional setup after loading the view.
     }
     
-
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
+    
     /*
     // MARK: - Navigation
 

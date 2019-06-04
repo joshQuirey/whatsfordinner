@@ -25,11 +25,11 @@ class PlanViewController: UIViewController {
     private var currentIndex: Int?
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var emptyTableLabel: UILabel!
     
     var plannedDays: [PlannedDay]? {
         didSet {
-            //Plan.plannedDays = plannedDays
-            //updateView()
+            updateView()
         }
     }
     
@@ -49,7 +49,7 @@ class PlanViewController: UIViewController {
     
     private func updateView() {
         tableView.isHidden = !hasPlans
-        //emptyTableLabel.isHidden = hasMeals
+        emptyTableLabel.isHidden = hasPlans
     }
     
     /////////////////////////////
@@ -62,7 +62,7 @@ class PlanViewController: UIViewController {
         //fetchPlans()
         
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
-        //updateView()
+        updateView()
         setupNotificationHandling()
         //let meal = Meal(context: coreDataManager.managedObjectContext)
         //meal.category

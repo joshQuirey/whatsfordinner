@@ -103,6 +103,9 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let identifier = segue.identifier else { return }
+        if (meal == nil) {
+            meal = Meal(context: managedObjectContext!)
+        }
         populateMeal(meal!)
         
         switch identifier {
