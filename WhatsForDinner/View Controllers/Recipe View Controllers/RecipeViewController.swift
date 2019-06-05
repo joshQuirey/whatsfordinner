@@ -235,8 +235,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     @IBAction func cancel(_ sender: Any) {
-        if (meal!.mealName == nil) {
-            managedObjectContext?.delete(meal!)
+        if (meal != nil ) {
+            if (meal!.mealName == nil) {
+                managedObjectContext?.delete(meal!)
+            }
         }
        
         self.dismiss(animated: true, completion: nil)
