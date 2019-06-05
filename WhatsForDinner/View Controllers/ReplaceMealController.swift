@@ -40,9 +40,9 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
+//    override var prefersStatusBarHidden: Bool {
+//        return true
+//    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent

@@ -40,6 +40,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     let pickTime = UIDatePicker()
     let pickServing = UIPickerView()
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var parentView: UIView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var segmentedParentView: UIView!
@@ -247,26 +248,53 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     private func setupNotificationHandling() {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self,
-                                       selector: #selector(keyboardWillChange(notification:)),
+                                       selector: #selector(keyboardWillShow(notification:)),
                                        name: Notification.Name.UIKeyboardWillShow,
                                        object: nil)
         
         notificationCenter.addObserver(self,
-                                       selector: #selector(keyboardWillChange(notification:)),
+                                       selector: #selector(keyboardWillHide(notification:)),
                                        name: Notification.Name.UIKeyboardWillHide,
                                        object: nil)
         
         notificationCenter.addObserver(self,
-                                       selector: #selector(keyboardWillChange(notification:)),
+                                       selector: #selector(keyboardWillHide(notification:)),
                                        name: Notification.Name.UIKeyboardWillChangeFrame,
                                        object: nil)
     }
     
-    @objc func keyboardWillChange(notification: Notification) {
+    @objc func keyboardWillShow(notification: Notification) {
             print("Keyboard will show")
-        parentView.frame.origin.y = -200
+        scrollView.isScrollEnabled = true
+        var info:NSDictionary = notification.userInfo! as NSDictionary
+        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize!.height, 0.0)
+        
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+        
+        var aRect: CGRect = parentView.frame
+        aRect.size.height -= keyboardSize!.height + 100
+        if let activeField = recipeIngredientViewController._ingredient {
+            if (!aRect.contains(segmentedParentView.frame.origin)) {
+                scrollView.scrollRectToVisible(segmentedParentView.frame, animated: true)
+            }
+        }
+        //scrollView.setContentOffset(CGPoint(x: 0,y: 100), animated: true)
+        //NSDictionary* info = [notification userInfo]
+        //CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size
+        //parentView.frame.origin.y = -200
         //view.frame.origin.y = -300
-        segmentedParentView.frame.origin.y = parentView.frame.maxY
+        //segmentedParentView.frame.origin.y = parentView.frame.maxY
+        
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        print("Keyboard will hide")
+        scrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: true)
+        //parentView.frame.origin.y = 0
+        //view.frame.origin.y = -300
+        //segmentedParentView.frame.origin.y = parentView.frame.maxY
         
     }
     

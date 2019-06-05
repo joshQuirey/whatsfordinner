@@ -14,13 +14,13 @@ struct MyVariables {
     static var test = "strings"
 }
 
+
+
 class PlanViewController: UIViewController {
     
     /////////////////////////////
     //Properties
     /////////////////////////////
-    //private var coreDataManager = CoreDataManager(modelName: "MealModel")
-    //var coreDataManager = CoreDataManager?.self
     var managedObjectContext: NSManagedObjectContext?
     private var currentIndex: Int?
     
@@ -85,9 +85,9 @@ class PlanViewController: UIViewController {
 //        }
 //    }
     
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return UIStatusBarStyle.default
-//    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
     
     private func setupNotificationHandling() {
         let notificationCenter = NotificationCenter.default
@@ -443,7 +443,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         })
         completeAction.image = UIImage(named: "complete")
         //completeAction.
-        completeAction.backgroundColor = UIColor(red: 129/255, green: 149/255, blue: 235/255, alpha: 1.0)
+        completeAction.backgroundColor = UIColor(red: 150/255, green: 217/255, blue: 217/255, alpha: 1.0)
     
 //REPLACE
         let replaceAction = UIContextualAction(style: .normal, title:  "Replace", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
@@ -455,7 +455,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             success(true)
         })
         replaceAction.image = UIImage(named: "replace")
-        replaceAction.backgroundColor = UIColor(red: 77/255, green: 72/255, blue: 147/255, alpha: 1.0)
+        replaceAction.backgroundColor = UIColor(red: 137/255, green: 186/255, blue: 217/255, alpha: 1.0)
 
 //SHUFFLE
         let shuffleAction = UIContextualAction(style: .normal, title:  "Shuffle", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
@@ -494,7 +494,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             success(true)
         })
         shuffleAction.image = UIImage(named: "shuffle")
-        shuffleAction.backgroundColor = UIColor(red: 77/255, green: 72/255, blue: 147/255, alpha: 1.0)
+        shuffleAction.backgroundColor = UIColor(red: 137/255, green: 186/255, blue: 217/255, alpha: 1.0)
 
         return UISwipeActionsConfiguration(actions: [completeAction,replaceAction,shuffleAction])
     }

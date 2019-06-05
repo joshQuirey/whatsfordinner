@@ -18,3 +18,10 @@ class BaseTabBarController: UITabBarController {
         // Do any additional setup after loading the view.
     }
 }
+
+extension UINavigationController {
+    
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return topViewController?.preferredStatusBarStyle ?? .lightContent
+    }
+}

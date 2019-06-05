@@ -52,6 +52,7 @@
 		748947CB211A0DF2000859F1 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		A728FE5622A6E2720078C666 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A777A59B229DB3300071326E /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
+		A78F8D8422A830F700456A9E /* WhatsForDinner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WhatsForDinner.entitlements; sourceTree = "<group>"; };
 		A7D07DEA2266835F0017B047 /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
 		A7E1BEDA2295D174000F053E /* ReplaceMealController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceMealController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,6 +124,7 @@
 		747BF01C2118B6D1006EACA0 /* WhatsForDinner */ = {
 			isa = PBXGroup;
 			children = (
+				A78F8D8422A830F700456A9E /* WhatsForDinner.entitlements */,
 				40929389214868EA00B16004 /* Storyboards */,
 				4029E317213209AD003D3071 /* View Controllers */,
 				A7D07DEA2266835F0017B047 /* MealTableViewCell.swift */,
@@ -168,6 +170,11 @@
 				TargetAttributes = {
 					747BF0192118B6D1006EACA0 = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -377,7 +384,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = jquirey.Sporkfed;
+				PRODUCT_BUNDLE_IDENTIFIER = co.app41.sporkfed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -398,7 +405,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = jquirey.Sporkfed;
+				PRODUCT_BUNDLE_IDENTIFIER = co.app41.sporkfed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
