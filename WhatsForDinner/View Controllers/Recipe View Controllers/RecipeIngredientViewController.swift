@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     /////////////////////////////
     //Properties
     /////////////////////////////
@@ -44,6 +44,37 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
         updateView()
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("ingredients - textfield did begin editing")
+        
+        parent!.view.frame.origin.y = -300
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("ingredients - textfield did end editing")
+        
+        parent!.view.frame.origin.y = 0
+    }
+    
+    
+//    private func setupNotificationHandling() {
+//        let notificationCenter = NotificationCenter.default
+//        notificationCenter.addObserver(self,
+//                                       selector: #selector(keyboardWillShow(notification:)),
+//                                       name: Notification.Name.UIKeyboardWillShow,
+//                                       object: nil)
+//
+//        notificationCenter.addObserver(self,
+//                                       selector: #selector(keyboardWillHide(notification:)),
+//                                       name: Notification.Name.UIKeyboardWillHide,
+//                                       object: nil)
+//
+//        //        notificationCenter.addObserver(self,
+//        //                                       selector: #selector(keyboardWillHide(notification:)),
+//        //                                       name: Notification.Name.UIKeyboardWillChangeFrame,
+//        //                                       object: nil)
+//    }
+
     func updateView() {
         if meal?.ingredients == nil {
             ingredientTableView.isHidden = true

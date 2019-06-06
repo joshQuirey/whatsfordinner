@@ -11,7 +11,7 @@ import CoreData
 import AVFoundation
 import Photos
 
-class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UITextViewDelegate {
     /////////////////////////////
     //Properties
     /////////////////////////////
@@ -69,7 +69,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         setupView()
         self.name.attributedPlaceholder = NSAttributedString(string: "Enter Meal Name",attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
         
-        setupNotificationHandling()
+        //setupNotificationHandling()
     }
     
 //    override func viewDidAppear(_ animated: Bool) {
@@ -245,73 +245,69 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         self.dismiss(animated: true, completion: nil)
     }
     
-    private func setupNotificationHandling() {
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self,
-                                       selector: #selector(keyboardWillShow(notification:)),
-                                       name: Notification.Name.UIKeyboardWillShow,
-                                       object: nil)
-        
-        notificationCenter.addObserver(self,
-                                       selector: #selector(keyboardWillHide(notification:)),
-                                       name: Notification.Name.UIKeyboardWillHide,
-                                       object: nil)
-        
-        notificationCenter.addObserver(self,
-                                       selector: #selector(keyboardWillHide(notification:)),
-                                       name: Notification.Name.UIKeyboardWillChangeFrame,
-                                       object: nil)
-    }
+//    private func setupNotificationHandling() {
+//        let notificationCenter = NotificationCenter.default
+//        notificationCenter.addObserver(self,
+//                                       selector: #selector(keyboardWillShow(notification:)),
+//                                       name: Notification.Name.UIKeyboardWillShow,
+//                                       object: nil)
+//
+//        notificationCenter.addObserver(self,
+//                                       selector: #selector(keyboardWillHide(notification:)),
+//                                       name: Notification.Name.UIKeyboardWillHide,
+//                                       object: nil)
+//
+////        notificationCenter.addObserver(self,
+////                                       selector: #selector(keyboardWillHide(notification:)),
+////                                       name: Notification.Name.UIKeyboardWillChangeFrame,
+////                                       object: nil)
+//    }
     
-    @objc func keyboardWillShow(notification: Notification) {
-            print("Keyboard will show")
-        scrollView.isScrollEnabled = true
-        var info:NSDictionary = notification.userInfo! as NSDictionary
-        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
-        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize!.height, 0.0)
-        
-        scrollView.contentInset = contentInsets
-        scrollView.scrollIndicatorInsets = contentInsets
-        
-        var aRect: CGRect = parentView.frame
-        aRect.size.height -= keyboardSize!.height + 100
-        if let activeField = recipeIngredientViewController._ingredient {
-            if (!aRect.contains(segmentedParentView.frame.origin)) {
-                scrollView.scrollRectToVisible(segmentedParentView.frame, animated: true)
-            }
-        }
-        //scrollView.setContentOffset(CGPoint(x: 0,y: 100), animated: true)
-        //NSDictionary* info = [notification userInfo]
-        //CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size
-        //parentView.frame.origin.y = -200
-        //view.frame.origin.y = -300
-        //segmentedParentView.frame.origin.y = parentView.frame.maxY
-        
-    }
+//    deinit {
+//        let notificationCenter = NotificationCenter.default
+//        notificationCenter.removeObserver(self,
+//                                          name: Notification.Name.UIKeyboardWillShow,
+//                                          object: nil)
+//
+//        notificationCenter.removeObserver(self,
+//                                          name: Notification.Name.UIKeyboardWillHide,
+//                                          object: nil)
+//    }
     
-    @objc func keyboardWillHide(notification: Notification) {
-        print("Keyboard will hide")
-        scrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: true)
-        //parentView.frame.origin.y = 0
-        //view.frame.origin.y = -300
-        //segmentedParentView.frame.origin.y = parentView.frame.maxY
-        
-    }
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        //self.activeTextField = textField
+//        print("recipe controller - textfield did begin editing")
+//    }
+//
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        print("recipe controller - textfield did end editing")
+//    }
+//
+//    func textViewDidBeginEditing(_ textView: UITextView) {
+//        //self.activeTextView = textView
+//        print("recipe controller - textview did begin editing")
+//    }
+//
+//    func textViewDidEndEditing(_ textView: UITextView) {
+//        print("recipe controller - textview did end editing")
+//    }
+//
     
-    deinit {
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.removeObserver(self,
-                                       name: Notification.Name.UIKeyboardWillShow,
-                                       object: nil)
-        
-        notificationCenter.removeObserver(self,
-                                       name: Notification.Name.UIKeyboardWillHide,
-                                       object: nil)
-        
-        notificationCenter.removeObserver(self,
-                                       name: Notification.Name.UIKeyboardWillChangeFrame,
-                                       object: nil)
-    }
+//    @objc func keyboardWillShow(notification: Notification) {
+//        print("Keyboard will show")
+//        if (true) {
+//            var info:NSDictionary = notification.userInfo! as NSDictionary
+//            let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+//
+//
+//            parent!.view.frame.origin.y = -(keyboardSize!.height)
+//        }
+//    }
+    
+//    @objc func keyboardWillHide(notification: Notification) {
+//        print("Keyboard will hide")
+//        //parent!.view.frame.origin.y = 0
+//    }
     
     
     /////////////////////////////
