@@ -9,13 +9,16 @@
 import UIKit
 import CoreData
 
-class MealsViewController: UIViewController {
+class MealsViewController: UIViewController, UISearchResultsUpdating {
+    
+    
     /////////////////////////////
     //Properties
     /////////////////////////////
     //private var coreDataManager = CoreDataManager(modelName: "MealModel")
     var managedObjectContext: NSManagedObjectContext?
-
+    let searchController = UISearchController(searchResultsController: nil)
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyTableLabel: UILabel!
     private var selectedObjectID = NSManagedObjectID()
@@ -25,6 +28,8 @@ class MealsViewController: UIViewController {
             updateView()
         }
     }
+    
+    var filteredMeals: [Meal]?
     
     private var hasMeals: Bool {
         guard let meals = meals else { return false }
@@ -51,9 +56,21 @@ class MealsViewController: UIViewController {
         fetchMeals()
         updateView()
         setupNotificationHandling()
+        
+        //Search Controller
+        searchController.searchResultsUpdater = self
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.dimsBackgroundDuringPresentation = false
+        tableView.tableHeaderView = searchController.searchBar
+        
         tableView.tableFooterView = UIView()
                 self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
 
+    }
+    
+    
+    func updateSearchResults(for searchController: UISearchController) {
+    
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
