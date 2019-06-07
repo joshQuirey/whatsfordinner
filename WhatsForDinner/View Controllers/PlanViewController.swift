@@ -74,7 +74,11 @@ class PlanViewController: UIViewController {
         //    print("\(error), \(error.localizedDescription)")
         //}
         
-        
+        let logo = UIImageView()
+        logo.image = UIImage(named: "sporkfed_whitelogo")
+        logo.contentMode = .scaleAspectFit
+    
+        self.navigationItem.titleView = logo
     }
     
 //    override func viewWillDisappear(_ animated: Bool) {

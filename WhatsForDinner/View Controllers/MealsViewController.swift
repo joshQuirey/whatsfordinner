@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class MealsViewController: UIViewController, UISearchResultsUpdating {
+class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBarDelegate {
     
     
     /////////////////////////////
@@ -17,8 +17,9 @@ class MealsViewController: UIViewController, UISearchResultsUpdating {
     /////////////////////////////
     //private var coreDataManager = CoreDataManager(modelName: "MealModel")
     var managedObjectContext: NSManagedObjectContext?
-    let searchController = UISearchController(searchResultsController: nil)
+    //let searchController = UISearchController(searchResultsController: nil)
     
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyTableLabel: UILabel!
     private var selectedObjectID = NSManagedObjectID()
@@ -29,7 +30,7 @@ class MealsViewController: UIViewController, UISearchResultsUpdating {
         }
     }
     
-    var filteredMeals: [Meal]?
+    var allMeals: [Meal]?
     
     private var hasMeals: Bool {
         guard let meals = meals else { return false }
@@ -58,20 +59,20 @@ class MealsViewController: UIViewController, UISearchResultsUpdating {
         setupNotificationHandling()
         
         //Search Controller
-        searchController.searchResultsUpdater = self
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.dimsBackgroundDuringPresentation = false
-        tableView.tableHeaderView = searchController.searchBar
+        //searchController.searchResultsUpdater = self
+        //searchController.hidesNavigationBarDuringPresentation = false
+        //searchController.dimsBackgroundDuringPresentation = false
+        //tableView.tableHeaderView = searchController.searchBar
+        searchBar.delegate = self
+        self.navigationItem.titleView = searchBar
+        self.navigationItem.hidesSearchBarWhenScrolling = true
         
         tableView.tableFooterView = UIView()
                 self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
 
     }
     
-    
-    func updateSearchResults(for searchController: UISearchController) {
-    
-    }
+
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -209,7 +210,8 @@ class MealsViewController: UIViewController, UISearchResultsUpdating {
                 //                print("Tickets Count Total: \(tickets.count)")
                 
                 // Update Tickets
-                self.meals = meals
+                self.allMeals = meals
+                self.meals = self.allMeals
                 
                 //Reload Table View
                 tableView.reloadData()
@@ -360,8 +362,18 @@ extension MealsViewController: NSFetchedResultsControllerDelegate {
             }
         }
     }
-}
-
-
-
-
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty else {
+            meals = allMeals
+            tableView.reloadData()
+            return
+        }
+        
+        meals = allMeals!.filter({ Meal -> Bool in
+            return (Meal.mealName?.lowercased().contains(searchText.lowercased()))!
+        })
+        
+        tableView.reloadData()
+    }}

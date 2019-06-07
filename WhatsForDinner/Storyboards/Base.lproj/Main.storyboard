@@ -18,6 +18,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="589"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar opaque="NO" contentMode="redraw" searchBarStyle="prominent" placeholder="Search Meal Name" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goC-Ye-WWY">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                <color key="backgroundColor" red="0.58724212649999996" green="0.84964609150000003" blue="0.8512305617" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="barTintColor" red="0.58724212649999996" green="0.84964609150000003" blue="0.8512305617" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                            </searchBar>
                             <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="80" sectionHeaderHeight="10" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Pjl-Ga-bM0">
                                 <rect key="frame" x="10" y="0.0" width="355" height="589"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -122,19 +133,22 @@
                                 <attributedString key="attributedText">
                                     <fragment content="Add a Meal to Get Started!">
                                         <attributes>
-                                            <color key="NSColor" red="0.53613191839999996" green="0.72815293069999998" blue="0.85247904060000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="NSColor" red="0.58724212649999996" green="0.84964609150000003" blue="0.8512305617" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" metaFont="system" size="20"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
-                                <color key="highlightedColor" red="0.50588235290000005" green="0.58431372550000005" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="highlightedColor" red="0.58724212649999996" green="0.84964609150000003" blue="0.8512305617" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="goC-Ye-WWY" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="0Wt-L4-Ylq"/>
+                            <constraint firstItem="goC-Ye-WWY" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="2ub-3G-B37"/>
                             <constraint firstItem="Pjl-Ga-bM0" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="10" id="KWb-1m-VM4"/>
+                            <constraint firstItem="goC-Ye-WWY" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="iSR-JU-6ls"/>
                             <constraint firstItem="9k2-WJ-RZu" firstAttribute="centerY" secondItem="tsR-hK-woN" secondAttribute="centerY" id="k0m-8I-8Ak"/>
                             <constraint firstItem="Pjl-Ga-bM0" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="mJ6-lI-fYj"/>
                             <constraint firstItem="Pjl-Ga-bM0" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" id="nw2-ZP-pKM"/>
@@ -154,12 +168,13 @@
                     <connections>
                         <outlet property="EmptyTableLabel" destination="9k2-WJ-RZu" id="U4l-aM-GcU"/>
                         <outlet property="emptyTableLabel" destination="9k2-WJ-RZu" id="Mqh-uS-gwE"/>
+                        <outlet property="searchBar" destination="goC-Ye-WWY" id="7c0-A6-fVE"/>
                         <outlet property="tableView" destination="Pjl-Ga-bM0" id="TpF-px-5d9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1602" y="1717"/>
+            <point key="canvasLocation" x="1600.8" y="1716.5024630541873"/>
         </scene>
         <!--Recipe View Controller-->
         <scene sceneID="UIK-vq-SSn">
@@ -816,6 +831,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Menu" id="y6O-4l-wd0">
+                        <barButtonItem key="leftBarButtonItem" enabled="NO" title="Item" id="Cgu-ho-TAp"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Njr-3d-Hv3">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -840,6 +856,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="Search Meal Name" translatesAutoresizingMaskIntoConstraints="NO" id="QBW-OT-NgA">
+                                <rect key="frame" x="0.0" y="140" width="375" height="56"/>
+                                <color key="tintColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="barTintColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                            </searchBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1re-8q-tfZ">
                                 <rect key="frame" x="0.0" y="140" width="375" height="638"/>
                                 <subviews>
@@ -1021,8 +1043,11 @@
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1re-8q-tfZ" firstAttribute="top" secondItem="V6h-fC-46k" secondAttribute="bottom" id="1dj-uf-n4y"/>
+                            <constraint firstItem="QBW-OT-NgA" firstAttribute="top" secondItem="V6h-fC-46k" secondAttribute="bottom" id="39E-pe-8zs"/>
                             <constraint firstItem="1re-8q-tfZ" firstAttribute="leading" secondItem="VFb-X4-hrg" secondAttribute="leading" id="3a2-N7-lgq"/>
                             <constraint firstItem="V6h-fC-46k" firstAttribute="top" secondItem="VFb-X4-hrg" secondAttribute="top" id="5L7-HR-BqL"/>
+                            <constraint firstItem="QBW-OT-NgA" firstAttribute="trailing" secondItem="VFb-X4-hrg" secondAttribute="trailing" id="CP4-ZY-wfD"/>
+                            <constraint firstItem="QBW-OT-NgA" firstAttribute="leading" secondItem="VFb-X4-hrg" secondAttribute="leading" id="MbU-6G-rmm"/>
                             <constraint firstItem="V6h-fC-46k" firstAttribute="trailing" secondItem="VFb-X4-hrg" secondAttribute="trailing" id="OOb-xD-6MT"/>
                             <constraint firstItem="1re-8q-tfZ" firstAttribute="trailing" secondItem="VFb-X4-hrg" secondAttribute="trailing" id="TOk-f7-NHd"/>
                             <constraint firstItem="V6h-fC-46k" firstAttribute="leading" secondItem="VFb-X4-hrg" secondAttribute="leading" id="X6S-v1-12m"/>
@@ -1031,6 +1056,7 @@
                         <viewLayoutGuide key="safeArea" id="VFb-X4-hrg"/>
                     </view>
                     <connections>
+                        <outlet property="searchBar" destination="QBW-OT-NgA" id="K5C-1n-Z6V"/>
                         <outlet property="tableView" destination="kZr-I4-bwm" id="R0u-jV-r8I"/>
                     </connections>
                 </viewController>
