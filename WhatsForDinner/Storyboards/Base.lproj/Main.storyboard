@@ -673,10 +673,10 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="vQU-Vy-btx">
-                                                                    <rect key="frame" x="78" y="0.0" width="224" height="80"/>
+                                                                    <rect key="frame" x="75" y="0.0" width="235" height="80"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PxN-up-zYw" userLabel="Name">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="224" height="36"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="63.666666666666664" height="36"/>
                                                                             <color key="backgroundColor" red="0.95675367119999999" green="0.96840625999999996" blue="0.96030706170000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <attributedString key="attributedText">
                                                                                 <fragment content="Name">
@@ -692,7 +692,7 @@
                                                                             <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         </label>
                                                                         <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="URw-BE-aya">
-                                                                            <rect key="frame" x="0.0" y="38" width="224" height="19.666666666666671"/>
+                                                                            <rect key="frame" x="0.0" y="38" width="59.666666666666664" height="19.666666666666671"/>
                                                                             <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <attributedString key="attributedText">
@@ -740,22 +740,17 @@
                                                                         </stackView>
                                                                     </subviews>
                                                                     <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="trailing" secondItem="URw-BE-aya" secondAttribute="trailing" id="mh6-9B-DVs"/>
-                                                                        <constraint firstItem="URw-BE-aya" firstAttribute="leading" secondItem="vQU-Vy-btx" secondAttribute="leading" id="sds-vc-oVp"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="PxN-up-zYw" secondAttribute="trailing" id="xQE-p8-nGi"/>
-                                                                    </constraints>
                                                                 </stackView>
                                                             </subviews>
                                                             <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
+                                                                <constraint firstItem="vQU-Vy-btx" firstAttribute="leading" secondItem="Dqc-vf-bAx" secondAttribute="trailing" constant="5" id="9DV-1u-P1Z"/>
                                                                 <constraint firstItem="Dqc-vf-bAx" firstAttribute="leading" secondItem="Rxh-0O-Pc4" secondAttribute="leading" id="9cq-6q-FLM"/>
                                                                 <constraint firstAttribute="bottom" secondItem="Dqc-vf-bAx" secondAttribute="bottom" constant="5" id="E6K-DI-i87"/>
-                                                                <constraint firstItem="vQU-Vy-btx" firstAttribute="top" secondItem="Rxh-0O-Pc4" secondAttribute="top" id="KxB-sE-Jju"/>
+                                                                <constraint firstAttribute="bottom" secondItem="vQU-Vy-btx" secondAttribute="bottom" id="Kee-hw-lT3"/>
                                                                 <constraint firstItem="Dqc-vf-bAx" firstAttribute="top" secondItem="Rxh-0O-Pc4" secondAttribute="top" constant="5" id="Sq1-hE-u8d"/>
-                                                                <constraint firstItem="vQU-Vy-btx" firstAttribute="leading" secondItem="Dqc-vf-bAx" secondAttribute="trailing" constant="8" id="T1u-kq-tpC"/>
-                                                                <constraint firstAttribute="bottom" secondItem="vQU-Vy-btx" secondAttribute="bottom" id="TVI-Sg-hSe"/>
-                                                                <constraint firstAttribute="trailing" secondItem="vQU-Vy-btx" secondAttribute="trailing" constant="8" id="cQj-FP-FeP"/>
+                                                                <constraint firstAttribute="trailing" secondItem="vQU-Vy-btx" secondAttribute="trailing" id="Uhv-aL-Pid"/>
+                                                                <constraint firstItem="vQU-Vy-btx" firstAttribute="top" secondItem="Rxh-0O-Pc4" secondAttribute="top" id="aLJ-hs-2DK"/>
                                                                 <constraint firstItem="Dqc-vf-bAx" firstAttribute="leading" secondItem="Rxh-0O-Pc4" secondAttribute="leading" id="pNr-2B-D4L"/>
                                                             </constraints>
                                                         </view>
@@ -856,19 +851,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="Search Meal Name" translatesAutoresizingMaskIntoConstraints="NO" id="QBW-OT-NgA">
-                                <rect key="frame" x="0.0" y="140" width="375" height="56"/>
-                                <color key="tintColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <navigationBar contentMode="scaleToFill" translucent="NO" largeTitles="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V6h-fC-46k">
+                                <rect key="frame" x="0.0" y="44" width="375" height="96"/>
+                                <color key="backgroundColor" red="0.12939462069999999" green="0.12942379709999999" blue="0.12939074640000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="barTintColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
-                            </searchBar>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1re-8q-tfZ">
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="textShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textAttributes>
+                                <textAttributes key="largeTitleTextAttributes">
+                                    <color key="textColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="textShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="Replace Meal" id="w5J-fr-83z">
+                                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="cancel" id="UeB-wx-mOe">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="cancel:" destination="b5c-xE-Hkv" id="Hd6-nh-VK0"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1re-8q-tfZ">
                                 <rect key="frame" x="0.0" y="140" width="375" height="638"/>
                                 <subviews>
                                     <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="10" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kZr-I4-bwm">
-                                        <rect key="frame" x="10" y="0.0" width="355" height="638"/>
+                                        <rect key="frame" x="10" y="56" width="355" height="582"/>
                                         <color key="backgroundColor" red="0.95675367119999999" green="0.96840625999999996" blue="0.96030706170000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="tintColor" red="0.95675367119999999" green="0.96840625999999996" blue="0.96030706170000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="separatorColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="sectionIndexBackgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
@@ -1004,50 +1017,34 @@
                                             <outlet property="delegate" destination="b5c-xE-Hkv" id="Pl7-wJ-uPV"/>
                                         </connections>
                                     </tableView>
+                                    <searchBar opaque="NO" contentMode="redraw" placeholder="Meal Name" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Raf-HR-hIQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="barTintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                    </searchBar>
                                 </subviews>
-                                <color key="backgroundColor" red="0.95675367119999999" green="0.96840625999999996" blue="0.96030706170000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.95675367119999999" green="0.96840625999999996" blue="0.96030706170000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Raf-HR-hIQ" secondAttribute="trailing" id="1Kz-Bm-ceu"/>
                                     <constraint firstItem="kZr-I4-bwm" firstAttribute="leading" secondItem="1re-8q-tfZ" secondAttribute="leading" constant="10" id="BMy-ND-roN"/>
-                                    <constraint firstItem="kZr-I4-bwm" firstAttribute="top" secondItem="1re-8q-tfZ" secondAttribute="top" id="ZPg-dm-pBq"/>
+                                    <constraint firstItem="Raf-HR-hIQ" firstAttribute="leading" secondItem="1re-8q-tfZ" secondAttribute="leading" id="bMp-FA-XBg"/>
                                     <constraint firstAttribute="trailing" secondItem="kZr-I4-bwm" secondAttribute="trailing" constant="10" id="gei-Oz-cvH"/>
+                                    <constraint firstItem="kZr-I4-bwm" firstAttribute="top" secondItem="Raf-HR-hIQ" secondAttribute="bottom" id="x1x-2k-TL0"/>
+                                    <constraint firstItem="Raf-HR-hIQ" firstAttribute="top" secondItem="1re-8q-tfZ" secondAttribute="top" id="yh2-tg-2SX"/>
                                     <constraint firstAttribute="bottom" secondItem="kZr-I4-bwm" secondAttribute="bottom" id="zTw-KT-T1X"/>
+                                    <constraint firstItem="kZr-I4-bwm" firstAttribute="top" secondItem="1re-8q-tfZ" secondAttribute="top" constant="56" id="zkr-qa-pTb"/>
                                 </constraints>
                             </view>
-                            <navigationBar contentMode="scaleToFill" translucent="NO" largeTitles="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V6h-fC-46k">
-                                <rect key="frame" x="0.0" y="44" width="375" height="96"/>
-                                <color key="backgroundColor" red="0.12939462069999999" green="0.12942379709999999" blue="0.12939074640000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="barTintColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <color key="textColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="textShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </textAttributes>
-                                <textAttributes key="largeTitleTextAttributes">
-                                    <color key="textColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="textShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="Replace Meal" id="w5J-fr-83z">
-                                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="UeB-wx-mOe">
-                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <connections>
-                                                <action selector="cancel:" destination="b5c-xE-Hkv" id="Hd6-nh-VK0"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="1re-8q-tfZ" firstAttribute="top" secondItem="V6h-fC-46k" secondAttribute="bottom" id="1dj-uf-n4y"/>
-                            <constraint firstItem="QBW-OT-NgA" firstAttribute="top" secondItem="V6h-fC-46k" secondAttribute="bottom" id="39E-pe-8zs"/>
                             <constraint firstItem="1re-8q-tfZ" firstAttribute="leading" secondItem="VFb-X4-hrg" secondAttribute="leading" id="3a2-N7-lgq"/>
                             <constraint firstItem="V6h-fC-46k" firstAttribute="top" secondItem="VFb-X4-hrg" secondAttribute="top" id="5L7-HR-BqL"/>
-                            <constraint firstItem="QBW-OT-NgA" firstAttribute="trailing" secondItem="VFb-X4-hrg" secondAttribute="trailing" id="CP4-ZY-wfD"/>
-                            <constraint firstItem="QBW-OT-NgA" firstAttribute="leading" secondItem="VFb-X4-hrg" secondAttribute="leading" id="MbU-6G-rmm"/>
                             <constraint firstItem="V6h-fC-46k" firstAttribute="trailing" secondItem="VFb-X4-hrg" secondAttribute="trailing" id="OOb-xD-6MT"/>
                             <constraint firstItem="1re-8q-tfZ" firstAttribute="trailing" secondItem="VFb-X4-hrg" secondAttribute="trailing" id="TOk-f7-NHd"/>
                             <constraint firstItem="V6h-fC-46k" firstAttribute="leading" secondItem="VFb-X4-hrg" secondAttribute="leading" id="X6S-v1-12m"/>
@@ -1056,7 +1053,8 @@
                         <viewLayoutGuide key="safeArea" id="VFb-X4-hrg"/>
                     </view>
                     <connections>
-                        <outlet property="searchBar" destination="QBW-OT-NgA" id="K5C-1n-Z6V"/>
+                        <outlet property="navBar" destination="V6h-fC-46k" id="yPI-cE-47E"/>
+                        <outlet property="searchBar" destination="Raf-HR-hIQ" id="Hm3-N3-jZb"/>
                         <outlet property="tableView" destination="kZr-I4-bwm" id="R0u-jV-r8I"/>
                     </connections>
                 </viewController>

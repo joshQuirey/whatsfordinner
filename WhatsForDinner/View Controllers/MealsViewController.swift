@@ -72,8 +72,6 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
 
     }
     
-
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
@@ -235,17 +233,11 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        guard let section = fetchedResultsController.sections?[section] else { return 0 }
-//        return section.numberOfObjects
-        //return 1
         return meals!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Dequeue Reusable Cell
-        //guard let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath) else {
-        //    fatalError("Unexpected Index Path")
-        //}
         let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath) as! MealTableViewCell
         
         // Configure Cell
@@ -291,12 +283,11 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         if (_meal.mealImage != nil) {
             let image: UIImage = UIImage(data: _meal.mealImage!)!
             cell.mealImage?.image = image
+            cell.mealImage.layer.cornerRadius = 8 // cell.mealImage.frame.height/2
+            cell.mealImage.clipsToBounds = true
         } else {
             cell.mealImage.isHidden = true
         }
-        
-        cell.mealImage.layer.cornerRadius = 8 // cell.mealImage.frame.height/2
-        cell.mealImage.clipsToBounds = true
     }
 
     

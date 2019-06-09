@@ -23,6 +23,7 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
@@ -42,10 +43,25 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        //let search = UISearchBar()
+        //search.delegate = self
+        //search.searchBarStyle = .minimal
         
         searchBar.delegate = self
+        searchBar.layer.borderWidth = 2
+        searchBar.layer.borderColor = UIColor(red: 244/255, green: 247/255, blue: 245/255, alpha: 1.0).cgColor
+        
         self.navigationItem.titleView = searchBar
         self.navigationItem.hidesSearchBarWhenScrolling = true
+        
+        //self.navigationItem.hidesSearchBarWhenScrolling = true
+        //search.backgroundColor = .white
+        //let leftNavBarButton = UIBarButtonItem(customView:search)
+        //self.navigationItem.leftBarButtonItem = leftNavBarButton
+        //navBar.backItem?.leftBarButtonItem = leftNavBarButton
+        
+        
+
     }
 
 //    override var prefersStatusBarHidden: Bool {
@@ -86,7 +102,7 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
                 print("\(fetchError), \(fetchError.localizedDescription)")
             }
         }
-        //print(self.nextMealsforCategory)
+        print(self.allMeals)
     }
     
     private func fetchNextMeals() {
@@ -118,7 +134,7 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
         
-        //print(self.nextMeals)
+        print(self.allMeals)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

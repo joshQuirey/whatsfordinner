@@ -317,10 +317,11 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         
             if (_plannedDay.meal!.mealImage != nil) {
                 cell.mealImage?.image = UIImage(data: _plannedDay.meal!.mealImage!)
+                cell.mealImage.layer.cornerRadius = 8 //cell.mealImage.frame.height/2
+                cell.mealImage.clipsToBounds = true
+            } else {
+                cell.mealImage.isHidden = true
             }
-        
-        cell.mealImage.layer.cornerRadius = 8 //cell.mealImage.frame.height/2
-        cell.mealImage.clipsToBounds = true
         
         
 //            formatter.dateFormat = "EEE MMM d"
