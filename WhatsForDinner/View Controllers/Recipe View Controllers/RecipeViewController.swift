@@ -70,8 +70,34 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         self.name.attributedPlaceholder = NSAttributedString(string: "Enter Meal Name",attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
         
-        //setupNotificationHandling()
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+        
+        categories.delegate = self
+        categories.text = "Categories"
+        categories.textColor = .lightGray
+        categories.textContainer.lineBreakMode = .byWordWrapping
+        
+//        categories.translatesAutoresizingMaskIntoConstraints = false
+//        [
+//            categories.heightAnchor.constraint(equalToConstant: 100)
+//            ].forEach{ $0.isActive = true }
     }
+    
+//    func textViewDidBeginEditing(_ textView: UITextView) {
+//        if categories.textColor == .lightGray {
+//            categories.text = ""
+//            categories.textColor = .black
+//        }
+//    }
+////
+//    func textViewDidEndEditing(_ textView: UITextView) {
+//        if categories.text == "" {
+//            categories.text = "Categories"
+//            categories.textColor = .lightGray
+//        }
+//    }
     
 //    override func viewDidAppear(_ animated: Bool) {
 //        print(self.managedObjectContext!)
@@ -115,7 +141,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let identifier = segue.identifier else { return }
-        print(meal)
         if (meal == nil) {
             meal = Meal(context: managedObjectContext!)
         }
@@ -146,14 +171,19 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
             imageButton.setBackgroundImage(UIImage(data: meal!.mealImage!), for: .normal)
         }
         
-
-        categories.text = nil
+        //categories.text = nil
         if (meal!.tags != nil) {
-        //if (meal!.tags!.count > 0) {
-        for _tag in (meal!.tags?.allObjects)! {
-            let tag = _tag as! Tag
-            categories.text?.append(tag.name!)
-        }
+            if (meal!.tags!.count > 0) {
+                categories.text = nil
+                categories.textColor = .black
+                for _tag in (meal!.tags?.allObjects)! {
+                    let tag = _tag as! Tag
+                    categories.text?.append(tag.name!)
+                }
+            } else {
+                categories.text = "Categories"
+                categories.textColor = .lightGray
+            }
         }
         
         mealDescription.text = meal!.mealDesc
@@ -177,11 +207,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         cookTime.text = meal!.cookTime
         serves.text = meal!.serves
         recipeDirectionsViewController.recipeDirections.text = meal!.directions
-        //ingredients
-//        for _tag in (meal!.tags?.allObjects)! {
-//            let tag = _tag as! Tag
-//            categories.text?.append(tag.name!)
-//        }
     }
     
     func populateMeal(_ meal: Meal) {
@@ -253,70 +278,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
        
         self.dismiss(animated: true, completion: nil)
     }
-    
-//    private func setupNotificationHandling() {
-//        let notificationCenter = NotificationCenter.default
-//        notificationCenter.addObserver(self,
-//                                       selector: #selector(keyboardWillShow(notification:)),
-//                                       name: Notification.Name.UIKeyboardWillShow,
-//                                       object: nil)
-//
-//        notificationCenter.addObserver(self,
-//                                       selector: #selector(keyboardWillHide(notification:)),
-//                                       name: Notification.Name.UIKeyboardWillHide,
-//                                       object: nil)
-//
-////        notificationCenter.addObserver(self,
-////                                       selector: #selector(keyboardWillHide(notification:)),
-////                                       name: Notification.Name.UIKeyboardWillChangeFrame,
-////                                       object: nil)
-//    }
-    
-//    deinit {
-//        let notificationCenter = NotificationCenter.default
-//        notificationCenter.removeObserver(self,
-//                                          name: Notification.Name.UIKeyboardWillShow,
-//                                          object: nil)
-//
-//        notificationCenter.removeObserver(self,
-//                                          name: Notification.Name.UIKeyboardWillHide,
-//                                          object: nil)
-//    }
-    
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        //self.activeTextField = textField
-//        print("recipe controller - textfield did begin editing")
-//    }
-//
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        print("recipe controller - textfield did end editing")
-//    }
-//
-//    func textViewDidBeginEditing(_ textView: UITextView) {
-//        //self.activeTextView = textView
-//        print("recipe controller - textview did begin editing")
-//    }
-//
-//    func textViewDidEndEditing(_ textView: UITextView) {
-//        print("recipe controller - textview did end editing")
-//    }
-//
-    
-//    @objc func keyboardWillShow(notification: Notification) {
-//        print("Keyboard will show")
-//        if (true) {
-//            var info:NSDictionary = notification.userInfo! as NSDictionary
-//            let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
-//
-//
-//            parent!.view.frame.origin.y = -(keyboardSize!.height)
-//        }
-//    }
-    
-//    @objc func keyboardWillHide(notification: Notification) {
-//        print("Keyboard will hide")
-//        //parent!.view.frame.origin.y = 0
-//    }
     
     
     /////////////////////////////
