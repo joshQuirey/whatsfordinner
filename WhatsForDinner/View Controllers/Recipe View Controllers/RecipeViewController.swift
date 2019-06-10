@@ -85,33 +85,12 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
 //            ].forEach{ $0.isActive = true }
     }
     
-//    func textViewDidBeginEditing(_ textView: UITextView) {
-//        if categories.textColor == .lightGray {
-//            categories.text = ""
-//            categories.textColor = .black
-//        }
-//    }
-////
-//    func textViewDidEndEditing(_ textView: UITextView) {
-//        if categories.text == "" {
-//            categories.text = "Categories"
-//            categories.textColor = .lightGray
-//        }
-//    }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        print(self.managedObjectContext!)
-//    }
-    
     override func viewWillAppear(_ animated: Bool) {
         
         if (meal?.mealImage != nil) {
             imageButton.setTitle(nil, for: .normal)
         }
         
-//        if (meal != nil) {
-//            viewMeal()
-//        }
         if (meal == nil) {
             meal = Meal(context: managedObjectContext!)
             meal?.mealName = ""
@@ -270,12 +249,12 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     @IBAction func cancel(_ sender: Any) {
-        if (meal != nil ) {
-            if (meal!.mealName == nil) {
+        if (meal != nil) {
+            if (meal!.frequency == 0) { //this is a meal that has not been changed
                 managedObjectContext?.delete(meal!)
             }
         }
-       
+        
         self.dismiss(animated: true, completion: nil)
     }
     
