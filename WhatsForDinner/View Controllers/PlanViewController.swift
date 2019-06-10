@@ -74,7 +74,11 @@ class PlanViewController: UIViewController {
         //    print("\(error), \(error.localizedDescription)")
         //}
         
-        
+        let logo = UIImageView()
+        logo.image = UIImage(named: "sporkfed_whitelogo")
+        logo.contentMode = .scaleAspectFit
+    
+        self.navigationItem.titleView = logo
     }
     
 //    override func viewWillDisappear(_ animated: Bool) {
@@ -176,7 +180,7 @@ class PlanViewController: UIViewController {
                 
                 if let plannedMeal = insert as? Meal {
                     //print(plannedMeal)
-                    print(plannedMeal.isDeleted)
+                    //print(plannedMeal.isDeleted)
                     if (plannedMeal.mealName == nil) {
                         self.managedObjectContext!.delete(plannedMeal)
                     }
@@ -313,10 +317,11 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         
             if (_plannedDay.meal!.mealImage != nil) {
                 cell.mealImage?.image = UIImage(data: _plannedDay.meal!.mealImage!)
+                cell.mealImage.layer.cornerRadius = 8 //cell.mealImage.frame.height/2
+                cell.mealImage.clipsToBounds = true
+            } else {
+                cell.mealImage.isHidden = true
             }
-        
-        cell.mealImage.layer.cornerRadius = 8 //cell.mealImage.frame.height/2
-        cell.mealImage.clipsToBounds = true
         
         
 //            formatter.dateFormat = "EEE MMM d"

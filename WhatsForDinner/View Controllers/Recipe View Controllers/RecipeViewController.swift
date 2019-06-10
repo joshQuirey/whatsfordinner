@@ -61,12 +61,13 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     /////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         pickImage.delegate = self
         //meal = Meal(context: self.managedObjectContext!)
         showPicker(self.frequency, self.pickFrequency)
         showPrepDatePicker()
         showCookDatePicker()
-        setupView()
+        
         self.name.attributedPlaceholder = NSAttributedString(string: "Enter Meal Name",attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
         
         //setupNotificationHandling()
@@ -82,9 +83,16 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
             imageButton.setTitle(nil, for: .normal)
         }
         
-        if (meal != nil) {
-            viewMeal()
+//        if (meal != nil) {
+//            viewMeal()
+//        }
+        if (meal == nil) {
+            meal = Meal(context: managedObjectContext!)
+            meal?.mealName = ""
         }
+        
+        setupView()
+        viewMeal()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -107,6 +115,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let identifier = segue.identifier else { return }
+        print(meal)
         if (meal == nil) {
             meal = Meal(context: managedObjectContext!)
         }
@@ -382,23 +391,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
             frequency.text? = frequencyData[row]
-            var _frequency = 0
-        
-            switch frequency.text {
-            case "Weekly":
-                _frequency = 7
-            case "Every Other Week":
-                _frequency = 14
-            case "Monthly":
-                _frequency = 30
-            case "Every Other Month":
-                _frequency = 60
-            case "Every Few Months":
-                _frequency = 90
-            default:
-                _frequency = 180
-            }
-            meal!.frequency = Int16(_frequency)
     }
     
     func showPicker(_ textField: UITextField, _ pickerView: UIPickerView) {
@@ -514,6 +506,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         // Instantiate View Controller
         var viewController = storyboard.instantiateViewController(withIdentifier: "RecipeIngredientViewController") as! RecipeIngredientViewController
+        
         viewController.meal = meal
         
         // Add View Controller as Child View Controller

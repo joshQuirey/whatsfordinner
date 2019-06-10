@@ -9,18 +9,22 @@
 import UIKit
 import CoreData
 
-class ReplaceMealController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ReplaceMealController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate {
     
     //@IBOutlet weak var mealName: UILabel!
     var managedObjectContext: NSManagedObjectContext?
     private var nextMealsforCategory: [Meal]?
     private var nextMeals: [Meal]?
+    private var allMeals: [Meal]?
+    
     var currentPlannedDay: PlannedDay?
     
     @IBAction func cancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBOutlet weak var navBar: UINavigationBar!
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
     enum MealSections: Int {
@@ -32,12 +36,32 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
         //title = "Meals"
         fetchNextMealsforCategory()
         fetchNextMeals()
+        self.nextMealsforCategory = self.allMeals
         tableView.reloadData()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        //let search = UISearchBar()
+        //search.delegate = self
+        //search.searchBarStyle = .minimal
+        
+        searchBar.delegate = self
+        searchBar.layer.borderWidth = 2
+        searchBar.layer.borderColor = UIColor(red: 244/255, green: 247/255, blue: 245/255, alpha: 1.0).cgColor
+        
+        self.navigationItem.titleView = searchBar
+        self.navigationItem.hidesSearchBarWhenScrolling = true
+        
+        //self.navigationItem.hidesSearchBarWhenScrolling = true
+        //search.backgroundColor = .white
+        //let leftNavBarButton = UIBarButtonItem(customView:search)
+        //self.navigationItem.leftBarButtonItem = leftNavBarButton
+        //navBar.backItem?.leftBarButtonItem = leftNavBarButton
+        
+        
+
     }
 
 //    override var prefersStatusBarHidden: Bool {
@@ -68,7 +92,7 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
                 //                print("Tickets Count Total: \(tickets.count)")
                 
                 // Update Tickets
-                self.nextMealsforCategory = meals
+                self.allMeals = meals
                 
                 //Reload Table View
                 //tableView.reloadData()
@@ -78,7 +102,7 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
                 print("\(fetchError), \(fetchError.localizedDescription)")
             }
         }
-        print(self.nextMealsforCategory)
+        print(self.allMeals)
     }
     
     private func fetchNextMeals() {
@@ -99,7 +123,7 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
                 //                print("Tickets Count Total: \(tickets.count)")
                 
                 // Update Tickets
-                self.nextMealsforCategory?.append(contentsOf: meals)
+                self.allMeals?.append(contentsOf: meals)
                 
                 //Reload Table View
                 //tableView.reloadData()
@@ -110,7 +134,7 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
         
-        //print(self.nextMeals)
+        print(self.allMeals)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -214,5 +238,19 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
 
         
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty else {
+            nextMealsforCategory = allMeals
+            tableView.reloadData()
+            return
+        }
+        
+        nextMealsforCategory = allMeals!.filter({ Meal -> Bool in
+            return (Meal.mealName?.lowercased().contains(searchText.lowercased()))!
+        })
+        
+        tableView.reloadData()
     }
 }

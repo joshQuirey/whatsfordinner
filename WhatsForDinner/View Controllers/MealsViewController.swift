@@ -9,13 +9,17 @@
 import UIKit
 import CoreData
 
-class MealsViewController: UIViewController {
+class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBarDelegate {
+    
+    
     /////////////////////////////
     //Properties
     /////////////////////////////
     //private var coreDataManager = CoreDataManager(modelName: "MealModel")
     var managedObjectContext: NSManagedObjectContext?
-
+    //let searchController = UISearchController(searchResultsController: nil)
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyTableLabel: UILabel!
     private var selectedObjectID = NSManagedObjectID()
@@ -25,6 +29,8 @@ class MealsViewController: UIViewController {
             updateView()
         }
     }
+    
+    var allMeals: [Meal]?
     
     private var hasMeals: Bool {
         guard let meals = meals else { return false }
@@ -51,6 +57,16 @@ class MealsViewController: UIViewController {
         fetchMeals()
         updateView()
         setupNotificationHandling()
+        
+        //Search Controller
+        //searchController.searchResultsUpdater = self
+        //searchController.hidesNavigationBarDuringPresentation = false
+        //searchController.dimsBackgroundDuringPresentation = false
+        //tableView.tableHeaderView = searchController.searchBar
+        searchBar.delegate = self
+        self.navigationItem.titleView = searchBar
+        self.navigationItem.hidesSearchBarWhenScrolling = true
+        
         tableView.tableFooterView = UIView()
                 self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
 
@@ -192,7 +208,8 @@ class MealsViewController: UIViewController {
                 //                print("Tickets Count Total: \(tickets.count)")
                 
                 // Update Tickets
-                self.meals = meals
+                self.allMeals = meals
+                self.meals = self.allMeals
                 
                 //Reload Table View
                 tableView.reloadData()
@@ -216,17 +233,11 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        guard let section = fetchedResultsController.sections?[section] else { return 0 }
-//        return section.numberOfObjects
-        //return 1
         return meals!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Dequeue Reusable Cell
-        //guard let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath) else {
-        //    fatalError("Unexpected Index Path")
-        //}
         let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath) as! MealTableViewCell
         
         // Configure Cell
@@ -272,12 +283,11 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         if (_meal.mealImage != nil) {
             let image: UIImage = UIImage(data: _meal.mealImage!)!
             cell.mealImage?.image = image
+            cell.mealImage.layer.cornerRadius = 8 // cell.mealImage.frame.height/2
+            cell.mealImage.clipsToBounds = true
         } else {
             cell.mealImage.isHidden = true
         }
-        
-        cell.mealImage.layer.cornerRadius = 8 // cell.mealImage.frame.height/2
-        cell.mealImage.clipsToBounds = true
     }
 
     
@@ -285,11 +295,15 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         let deleteAction = UIContextualAction(style: .destructive, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             print("OK, marked as delete")
             
+            DispatchQueue.main.async {
+                self.showDeleteWarning(for: indexPath)
+            }
+            
             // Fetch Note
-            guard let _meal = self.meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
+           // guard let _meal = self.meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
             
             // Delete Note
-            _meal.managedObjectContext?.delete(_meal)
+           // _meal.managedObjectContext?.delete(_meal)
             
             success(true)
         })
@@ -298,6 +312,61 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         deleteAction.backgroundColor = UIColor(red: 122/255, green: 00/255, blue: 38/255, alpha: 1.0)
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
+    func showDeleteWarning(for indexPath: IndexPath) {
+        guard let _meal = self.meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
+        
+        let alert = UIAlertController(title: "Delete \(_meal.mealName!)", message: "Select Option Below", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive , handler:{ (UIAlertAction)in
+            DispatchQueue.main.async {
+                // Fetch Note
+                guard let _meal = self.meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
+                
+                // Delete Note
+                _meal.managedObjectContext?.delete(_meal)
+                
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default , handler:{ (UIAlertAction)in
+            self.tableView.reloadData()
+        }))
+    
+        
+        self.present(alert, animated: true, completion: {
+            print("completion block")
+        })
+        
+        
+        
+        
+        
+        //Create the alert controller and actions
+//        let alert = UIAlertController(title: "Delete \(_meal.mealName!)", message: "Are You Sure?", preferredStyle: .alert)
+//
+//        let cancelAction = UIAlertAction(title: "No", style: .cancel) { _ in
+//            self.tableView.reloadData()
+//        }
+//
+//        let deleteAction = UIAlertAction(title: "Yes", style: .destructive) { _ in
+//            DispatchQueue.main.async {
+//                // Fetch Note
+//                guard let _meal = self.meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
+//
+//                // Delete Note
+//                _meal.managedObjectContext?.delete(_meal)
+//
+//            }
+//        }
+//
+//        //Add the actions to the alert controller
+//        alert.addAction(cancelAction)
+//        alert.addAction(deleteAction)
+//
+        //Present the alert controller
+//        present(alert, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -343,8 +412,18 @@ extension MealsViewController: NSFetchedResultsControllerDelegate {
             }
         }
     }
-}
-
-
-
-
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty else {
+            meals = allMeals
+            tableView.reloadData()
+            return
+        }
+        
+        meals = allMeals!.filter({ Meal -> Bool in
+            return (Meal.mealName?.lowercased().contains(searchText.lowercased()))!
+        })
+        
+        tableView.reloadData()
+    }}

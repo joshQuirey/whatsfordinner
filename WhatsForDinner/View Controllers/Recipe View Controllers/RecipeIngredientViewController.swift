@@ -119,7 +119,7 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
     
     func addNewIngredient() {
         guard let managedObjectContext = meal?.managedObjectContext else { return }
-    
+        
         ingredient = Ingredient(context: managedObjectContext)
         ingredient!.item = _ingredient.text
         meal?.addToIngredients(ingredient!)
@@ -145,13 +145,31 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
         return cell
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        guard editingStyle == .delete else { return }
-        let deletedIngredient = ingredients![indexPath.row]
-        meal?.removeFromIngredients(deletedIngredient)
-        ingredients?.remove(at: indexPath.row)
-        ingredientTableView.reloadData()
-        updateView()    
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+//        guard editingStyle == .delete else { return }
+//        let deletedIngredient = ingredients![indexPath.row]
+//        meal?.removeFromIngredients(deletedIngredient)
+//        ingredients?.remove(at: indexPath.row)
+//        ingredientTableView.reloadData()
+//        updateView()
+//    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            print("OK, marked as delete")
+            
+            let deletedIngredient = self.ingredients![indexPath.row]
+            self.meal?.removeFromIngredients(deletedIngredient)
+            self.ingredients?.remove(at: indexPath.row)
+            self.ingredientTableView.reloadData()
+            self.updateView()
+            success(true)
+        })
+        deleteAction.image = UIImage(named: "delete")
+    
+        deleteAction.backgroundColor = UIColor(red: 122/255, green: 00/255, blue: 38/255, alpha: 1.0)
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
     /*
