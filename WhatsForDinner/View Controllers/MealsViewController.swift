@@ -295,11 +295,15 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         let deleteAction = UIContextualAction(style: .destructive, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             print("OK, marked as delete")
             
+            DispatchQueue.main.async {
+                self.showDeleteWarning(for: indexPath)
+            }
+            
             // Fetch Note
-            guard let _meal = self.meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
+           // guard let _meal = self.meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
             
             // Delete Note
-            _meal.managedObjectContext?.delete(_meal)
+           // _meal.managedObjectContext?.delete(_meal)
             
             success(true)
         })
@@ -308,6 +312,61 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         deleteAction.backgroundColor = UIColor(red: 122/255, green: 00/255, blue: 38/255, alpha: 1.0)
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
+    func showDeleteWarning(for indexPath: IndexPath) {
+        guard let _meal = self.meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
+        
+        let alert = UIAlertController(title: "Delete \(_meal.mealName!)", message: "Select Option Below", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive , handler:{ (UIAlertAction)in
+            DispatchQueue.main.async {
+                // Fetch Note
+                guard let _meal = self.meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
+                
+                // Delete Note
+                _meal.managedObjectContext?.delete(_meal)
+                
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default , handler:{ (UIAlertAction)in
+            self.tableView.reloadData()
+        }))
+    
+        
+        self.present(alert, animated: true, completion: {
+            print("completion block")
+        })
+        
+        
+        
+        
+        
+        //Create the alert controller and actions
+//        let alert = UIAlertController(title: "Delete \(_meal.mealName!)", message: "Are You Sure?", preferredStyle: .alert)
+//
+//        let cancelAction = UIAlertAction(title: "No", style: .cancel) { _ in
+//            self.tableView.reloadData()
+//        }
+//
+//        let deleteAction = UIAlertAction(title: "Yes", style: .destructive) { _ in
+//            DispatchQueue.main.async {
+//                // Fetch Note
+//                guard let _meal = self.meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
+//
+//                // Delete Note
+//                _meal.managedObjectContext?.delete(_meal)
+//
+//            }
+//        }
+//
+//        //Add the actions to the alert controller
+//        alert.addAction(cancelAction)
+//        alert.addAction(deleteAction)
+//
+        //Present the alert controller
+//        present(alert, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {

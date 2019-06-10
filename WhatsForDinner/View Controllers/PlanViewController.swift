@@ -180,7 +180,7 @@ class PlanViewController: UIViewController {
                 
                 if let plannedMeal = insert as? Meal {
                     //print(plannedMeal)
-                    print(plannedMeal.isDeleted)
+                    //print(plannedMeal.isDeleted)
                     if (plannedMeal.mealName == nil) {
                         self.managedObjectContext!.delete(plannedMeal)
                     }
