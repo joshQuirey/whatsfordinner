@@ -24,17 +24,17 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
     @IBOutlet weak var emptyTableLabel: UILabel!
     private var selectedObjectID = NSManagedObjectID()
     
-    private var meals: [Meal]? {
+    private var allMeals: [Meal]? {
         didSet {
             updateView()
         }
     }
     
-    var allMeals: [Meal]?
+    var meals: [Meal]?
     
     private var hasMeals: Bool {
-        guard let meals = meals else { return false }
-        return meals.count > 0
+        guard let allMeals = meals else { return false }
+        return allMeals.count > 0
     }
 
     /////////////////////////////
@@ -59,16 +59,14 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
         setupNotificationHandling()
         
         //Search Controller
-        //searchController.searchResultsUpdater = self
-        //searchController.hidesNavigationBarDuringPresentation = false
-        //searchController.dimsBackgroundDuringPresentation = false
-        //tableView.tableHeaderView = searchController.searchBar
         searchBar.delegate = self
         self.navigationItem.titleView = searchBar
         self.navigationItem.hidesSearchBarWhenScrolling = true
         
         tableView.tableFooterView = UIView()
                 self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        
+        tableView.keyboardDismissMode = .onDrag
 
     }
     
@@ -142,6 +140,7 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
             for insert in inserts {
                 if let meal = insert as? Meal {
                     meals?.append(meal)
+                    self.allMeals = meals
                     mealsDidChange = true
                 }
             }
@@ -163,6 +162,7 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
                 if let meal = delete as? Meal {
                     if let index = meals?.index(of: meal) {
                         meals?.remove(at: index)
+                        self.allMeals = meals
                         mealsDidChange = true
                     }
                 }
@@ -208,8 +208,8 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
                 //                print("Tickets Count Total: \(tickets.count)")
                 
                 // Update Tickets
-                self.allMeals = meals
-                self.meals = self.allMeals
+                self.meals = meals
+                self.allMeals = self.meals
                 
                 //Reload Table View
                 tableView.reloadData()

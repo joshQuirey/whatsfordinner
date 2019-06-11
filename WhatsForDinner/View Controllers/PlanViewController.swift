@@ -418,6 +418,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             
             success(true)
         })
+        
         cancelAction.image = UIImage(named: "cancel")
         //completeAction.
         cancelAction.backgroundColor = UIColor(red: 122/255, green: 00/255, blue: 38/255, alpha: 1.0)
@@ -459,7 +460,8 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             
             success(true)
         })
-        replaceAction.image = UIImage(named: "replace")
+        replaceAction.title = "\u{2190}\u{2192}\n Replace" //24E7
+        //replaceAction.image = UIImage(named: "replace")
         replaceAction.backgroundColor = UIColor(red: 137/255, green: 186/255, blue: 217/255, alpha: 1.0)
 
 //SHUFFLE
@@ -498,7 +500,9 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             
             success(true)
         })
-        shuffleAction.image = UIImage(named: "shuffle")
+        
+        shuffleAction.title = "\u{2682}\u{2683}\nShuffle"
+        //shuffleAction.image = UIImage(named: "shuffle")
         shuffleAction.backgroundColor = UIColor(red: 137/255, green: 186/255, blue: 217/255, alpha: 1.0)
 
         return UISwipeActionsConfiguration(actions: [completeAction,replaceAction,shuffleAction])
@@ -561,45 +565,3 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         return _nextMeal
     }
 }
-
-
-
-
-
-//@objc func replace (sender: UIButton!) {
-//    print(Plan.plannedDays!)
-//    print(planDay)
-//    for plan in Plan.plannedDays! {
-//        if (plan.meal?.mealName == mealName.text) {
-//            //get index
-//            let x = Plan.plannedDays?.index(of: plan)
-//            print(x)
-//        }
-//    }
-//}
-
-
-
-
-
-//Update the dates for remaining planned days to be a day earlier
-//                print(indexPath.section)
-//                var i = indexPath.section + 1
-//                print(i)
-//                print(plannedDays!.count)
-//                while (i < plannedDays!.count) {
-//                    //            print("Planned Date \(plannedDays?[i].date)")
-//                    plannedDays?[i].date = Calendar.current.date(byAdding: .day, value: -1, to: (plannedDays?[i].date)!)
-//                    //            print("Planned Date \(plannedDays?[i].date)")
-//
-//                    //            print("Planned End Date \(plannedDays?[i].planEndDate)")
-//                    plannedDays?[i].planEndDate = Calendar.current.date(byAdding: .day, value: -1, to: (plannedDays?[i].planEndDate)!)
-//                    //            print("Planned End Date \(plannedDays?[i].planEndDate)")
-//
-//                    guard let _nextMeal = plannedDays?[i].meal else { fatalError("Unexpected Index Path") }
-//                    //            print("Next Date \(_nextMeal.nextDate)")
-//                    _nextMeal.nextDate = Calendar.current.date(byAdding: .day, value: -1, to: _nextMeal.nextDate!)
-//                    //            print("Next Date \(_nextMeal.nextDate)")
-//
-//                    i += 1
-//                }
