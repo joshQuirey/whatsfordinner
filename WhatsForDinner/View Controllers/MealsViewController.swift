@@ -168,7 +168,7 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
         }
         
         if mealsDidChange {
-            //meals?.sorted { $0 > $1 }
+            //meals!.sorted(by: { $0.mealName > $1.mealName })
             tableView.reloadData()
             updateView()
             mealsDidChange = false
@@ -177,7 +177,6 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
 
     @objc private func saveMeals(_ notification: Notification) {
         do {
-            print("save meals")
             try self.managedObjectContext!.save()
         } catch {
             fatalError("Failure to save context: \(error)")
@@ -277,6 +276,7 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
             cell.mealImage?.image = image
             cell.mealImage.layer.cornerRadius = 8 // cell.mealImage.frame.height/2
             cell.mealImage.clipsToBounds = true
+            cell.mealImage.isHidden = false
         } else {
             cell.mealImage.isHidden = true
         }
@@ -302,9 +302,10 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
     func showDeleteWarning(for indexPath: IndexPath) {
         guard let _meal = self.meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
         
-        let alert = UIAlertController(title: "Delete \(_meal.mealName!)", message: "Select Option Below", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Delete \(_meal.mealName!)?", message:nil, preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Delete", style: .destructive , handler:{ (UIAlertAction)in
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive , handler:{ (UIAlertAction)in
             DispatchQueue.main.async {
                 guard let _meal = self.meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
                 _meal.managedObjectContext?.delete(_meal)

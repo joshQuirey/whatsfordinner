@@ -319,6 +319,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.mealImage?.image = UIImage(data: _plannedDay.meal!.mealImage!)
                 cell.mealImage.layer.cornerRadius = 8 //cell.mealImage.frame.height/2
                 cell.mealImage.clipsToBounds = true
+                cell.mealImage.isHidden = false
             } else {
                 cell.mealImage.isHidden = true
             }

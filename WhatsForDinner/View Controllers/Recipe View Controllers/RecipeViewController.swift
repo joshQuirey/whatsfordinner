@@ -259,6 +259,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     //Image Functions
     /////////////////////////////
     @IBAction func addImage(_ sender: Any) {
+        populateMeal(meal!)
         self.showActionSheet(vc: self)
     }
     
@@ -296,11 +297,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
 
     func DisplayPicker(type: UIImagePickerControllerSourceType){
-        print(type)
-        print(pickImage)
-        print(pickImage.mediaTypes)
-        print(UIImagePickerController.self)
-        
         pickImage.mediaTypes = UIImagePickerController.availableMediaTypes(for: type)!
         pickImage.sourceType = type
         pickImage.allowsEditing = false
