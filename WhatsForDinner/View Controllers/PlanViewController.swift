@@ -315,37 +315,41 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             formatter.dateFormat = "EEE"
             cell.planDay.text = formatter.string(from: date!)
         
-            if (_plannedDay.meal!.mealImage != nil) {
-                cell.mealImage?.image = UIImage(data: _plannedDay.meal!.mealImage!)
-                cell.mealImage.layer.cornerRadius = 8 //cell.mealImage.frame.height/2
-                cell.mealImage.clipsToBounds = true
-                cell.mealImage.isHidden = false
+            print(_plannedDay.meal)
+        
+            if (_plannedDay.meal != nil) {
+                if (_plannedDay.meal!.mealImage != nil) {
+                    cell.mealImage?.image = UIImage(data: _plannedDay.meal!.mealImage!)
+                    cell.mealImage.layer.cornerRadius = 8 //cell.mealImage.frame.height/2
+                    cell.mealImage.clipsToBounds = true
+                    cell.mealImage.isHidden = false
+                } else {
+                    cell.mealImage.isHidden = true
+                }
+                
+                cell.mealName?.text =  _plannedDay.meal!.mealName
+                
+                cell.mealCategories?.text = ""
+                for _tag in (_plannedDay.meal!.tags?.allObjects)! {
+                    let tag = _tag as! Tag
+                    cell.mealCategories?.text?.append("\(tag.name!) ")
+                }
+                
+                if (_plannedDay.meal!.prepTime! != nil && _plannedDay.meal!.prepTime! != "") {
+                    cell.prep?.text? = "Plan: \(_plannedDay.meal!.prepTime!)"
+                } else {
+                    cell.prep?.text? = " "
+                }
+                
+                if (_plannedDay.meal!.cookTime != nil && _plannedDay.meal!.cookTime! != "") {
+                    cell.cook?.text? = "Cook: \(_plannedDay.meal!.cookTime!)"
+                } else {
+                    cell.cook?.text? = " "
+                }
             } else {
                 cell.mealImage.isHidden = true
+                cell.mealName?.text = _plannedDay.category
             }
-        
-        
-//            formatter.dateFormat = "EEE MMM d"
-            cell.mealName?.text = _plannedDay.meal!.mealName //"\(formatter.string(from: _plannedDay.meal!.nextDate!))  \()"
-        
-            cell.mealCategories?.text = ""
-            for _tag in (_plannedDay.meal!.tags?.allObjects)! {
-                let tag = _tag as! Tag
-                cell.mealCategories?.text?.append("\(tag.name!) ")
-            }
-        
-            if (_plannedDay.meal!.prepTime! != nil && _plannedDay.meal!.prepTime! != "") {
-                cell.prep?.text? = "Plan: \(_plannedDay.meal!.prepTime!)"
-            } else {
-                cell.prep?.text? = " "
-            }
-        
-            if (_plannedDay.meal!.cookTime != nil && _plannedDay.meal!.cookTime! != "") {
-                cell.cook?.text? = "Cook: \(_plannedDay.meal!.cookTime!)"
-            } else {
-                cell.cook?.text? = " "
-        }
-            //cell.serve?.text? = "Serves-\(_plannedDay.meal!.serves!)"
         }
     
 //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -389,10 +393,12 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             //print(_plannedDay)
             //print(_plannedDay.meal?.mealName)
             // Delete Day
-            guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
-            _meal.estimatedNextDate = _meal.previousDate
-            _meal.nextDate = nil
-            _meal.previousDate = nil
+            if (_plannedDay.meal != nil) {
+                guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
+                _meal.estimatedNextDate = _meal.previousDate
+                _meal.nextDate = nil
+                _meal.previousDate = nil
+            }
             //Need to roll back the planned date for each of the meals coming up after the meal deleted
             self.managedObjectContext!.delete(_plannedDay)
             
@@ -436,14 +442,15 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             
             // Fetch Day
             guard let _plannedDay = self.plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
-            guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
-    
-            _meal.estimatedNextDate = Calendar.current.date(byAdding: .day, value: Int(_meal.frequency), to: _meal.nextDate!)
-
-            _meal.nextDate = nil
-            _meal.previousDate = nil
+            
+            if (_plannedDay.meal != nil) {
+                guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
+                _meal.estimatedNextDate = Calendar.current.date(byAdding: .day, value: Int(_meal.frequency), to: _meal.nextDate!)
+                _meal.nextDate = nil
+                _meal.previousDate = nil
+            }
+            
             _plannedDay.isCompleted = true
-
             self.managedObjectContext!.delete(_plannedDay)
             
             success(true)
@@ -471,9 +478,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             //Implement
             // Fetch Day
             guard let _plannedDay = self.plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
-            //Fetch Meal
-            guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
-            
+ 
             //Get next meal for current planned category
             var next = Meal(context: self.managedObjectContext!)
             next = self.getNextMealforCategory(_category: _plannedDay.category!, _date: _plannedDay.date!, _nextMeal: &next)!
@@ -483,22 +488,24 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
                 next = self.getNextMeal(_date: _plannedDay.date!, _nextMeal: &next)
             }
             
-            //print(next.mealName)
-            //If No Meal could be found then make no change
-            if (_meal.mealName != next.mealName) {
-                //delete previous meal
-                _meal.estimatedNextDate = _meal.previousDate
-                _meal.nextDate = nil
-                _meal.previousDate = nil
-                _meal.removeFromPlannedDays(_plannedDay)
+            //Fetch Current Meal
+            if (_plannedDay.meal != nil) {
+                guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
                 
-                //add next meal
-                next.previousDate = next.estimatedNextDate
-                next.estimatedNextDate = nil
-                next.nextDate = _plannedDay.date
-                next.addToPlannedDays(_plannedDay)
+                if (_meal.mealName != next.mealName) {
+                    //delete previous meal
+                    _meal.estimatedNextDate = _meal.previousDate
+                    _meal.nextDate = nil
+                    _meal.previousDate = nil
+                    _meal.removeFromPlannedDays(_plannedDay)
+                }
             }
-            
+
+            //add next meal
+            next.previousDate = next.estimatedNextDate
+            next.estimatedNextDate = nil
+            next.nextDate = _plannedDay.date
+            next.addToPlannedDays(_plannedDay)
             success(true)
         })
         

@@ -47,6 +47,8 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
         self.navigationItem.hidesSearchBarWhenScrolling = true
         
         tableView.keyboardDismissMode = .onDrag
+        
+        
 
     }
     
@@ -174,15 +176,16 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let _currentMeal = currentPlannedDay?.meal else { fatalError("Unexpected Index Path")}
-
-        guard let _replaceMeal = nextMealsforCategory?[indexPath.section] else { fatalError("Unexpected Index Path")}
-        //delete previous meal
-        _currentMeal.estimatedNextDate = _currentMeal.previousDate
-        _currentMeal.nextDate = nil
-        _currentMeal.previousDate = nil
-        _currentMeal.removeFromPlannedDays(currentPlannedDay!)
+        if (currentPlannedDay?.meal != nil) {
+            guard let _currentMeal = currentPlannedDay?.meal else { fatalError("Unexpected Index Path")}
+            //delete previous meal
+            _currentMeal.estimatedNextDate = _currentMeal.previousDate
+            _currentMeal.nextDate = nil
+            _currentMeal.previousDate = nil
+            _currentMeal.removeFromPlannedDays(currentPlannedDay!)
+        }
         
+        guard let _replaceMeal = nextMealsforCategory?[indexPath.section] else { fatalError("Unexpected Index Path")}
         //add next meal
         _replaceMeal.previousDate = _replaceMeal.estimatedNextDate
         _replaceMeal.estimatedNextDate = nil

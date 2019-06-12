@@ -61,7 +61,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     var numberDaysToPlan = 7
     
-    let categoryData = [String](arrayLiteral: "Chef's Choice 🎲", "Asian Cuisine 🥡", "Breakfast for Dinner 🥓", "Barbecue 🐷", "Beef 🐄", "Casserole 🥘", "Comfort Food 🛌", "Chicken 🐓", "Hispanic  🌮", "Pasta 🍝", "Pizza 🍕", "Pork 🐖", "On The Grill 🥩", "Other", "Salad 🥗", "Sandwich 🥪", "Seafood 🍤", "Slow Cooker ⏲", "Soups Up 🍜", "Vegetarian 🥕")
+    let categoryData = [String](arrayLiteral: "Chef's Choice 🎲", "Asian Cuisine 🥡", "Breakfast for Dinner 🥓", "Barbecue 🐷", "Beef 🐄", "Casserole 🥘", "Comfort Food 🛌", "Chicken 🐓", "Hispanic  🌮", "Pasta 🍝", "Pizza 🍕", "Pork 🐖", "On The Grill 🥩", "Other", "Salad 🥗", "Sandwich 🥪", "Seafood 🍤", "Slow Cooker ⏲", "Soups Up 🍜", "Vegetarian 🥕", "Restaurant 👨‍🍳", "Leftovers 🍴")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,37 +150,12 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
        return UIStatusBarStyle.lightContent
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        //loadCategories()
-    }
-    
-//    func loadCategories() {
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Tag")
-//        fetchRequest.propertiesToFetch = ["name"]
-//        fetchRequest.resultType = .dictionaryResultType
-//        fetchRequest.returnsDistinctResults = true
-//
-//        self.managedObjectContext?.performAndWait {
-//            do {
-//                let tags = try fetchRequest.execute()
-//
-//                for tag in tags {
-//                    if let dic = (tag as? [String : String]){
-//                        if let nameString = dic["name"]{
-//                            categoryData.append(nameString)
-//                        }
-//                    }
-//                }
-//            } catch {
-//                let fetchError = error as NSError
-//                print("Unable to Execute Fetch Request")
-//                print("\(fetchError), \(fetchError.localizedDescription)")
-//            }
-//        }
-//    }
-    
     @IBAction func cancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func noMealNeeded() {
+        
     }
     
     @IBAction func create(_ sender: Any) {
@@ -193,18 +168,21 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
             day1Plan.date = dateDay1
             day1Plan.planEndDate = dateDay7
             day1Plan.category = category1.text
-            //Get Meal by Category
-            day1Plan.meal = self.getNextMealforCategory(_plannedCategory: day1Plan.category!, _plannedDate: day1Plan.date!, _plannedMeal: &plannedMeal)
-            //Get Next Meal
-            if (day1Plan.meal!.mealName == nil) {
-                day1Plan.meal = self.getNextMeal(_plannedDate: day1Plan.date!, _plannedMeal: &plannedMeal)
+
+            if (day1Plan.category != "Restaurant 👨‍🍳" && day1Plan.category != "Leftovers 🍴") {
+                //Get Meal by Category
+                day1Plan.meal = self.getNextMealforCategory(_plannedCategory: day1Plan.category!, _plannedDate: day1Plan.date!, _plannedMeal: &plannedMeal)
+                //Get Next Meal
+                if (day1Plan.meal!.mealName == nil) {
+                    day1Plan.meal = self.getNextMeal(_plannedDate: day1Plan.date!, _plannedMeal: &plannedMeal)
+                }
             }
-            //Order Pizza
-            if (day1Plan.meal!.mealName == nil) {
-                day1Plan.meal?.mealName = "Order Pizza"
-                //Alert User that no meal could be found
+        
+            if (day1Plan.meal == nil) {
+                print(day1Plan.category!)
+            } else {
+                print("Selected Meal 1: \(day1Plan.meal!.mealName!)")
             }
-            print("Selected Meal 1: \(day1Plan.meal!.mealName!)")
         }
         
         //Day2

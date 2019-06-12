@@ -18,19 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="589"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar opaque="NO" contentMode="redraw" searchBarStyle="prominent" placeholder="Meal Name" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goC-Ye-WWY">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
-                                <color key="backgroundColor" red="0.58724212649999996" green="0.84964609150000003" blue="0.8512305617" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="tintColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="barTintColor" red="0.58724212649999996" green="0.84964609150000003" blue="0.8512305617" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
-                                <scopeButtonTitles>
-                                    <string>Title</string>
-                                    <string>Title</string>
-                                </scopeButtonTitles>
-                            </searchBar>
                             <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="80" sectionHeaderHeight="10" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Pjl-Ga-bM0">
-                                <rect key="frame" x="10" y="0.0" width="355" height="589"/>
+                                <rect key="frame" x="10" y="56" width="355" height="533"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -129,6 +118,36 @@
                                     <outlet property="delegate" destination="9pv-A4-QxB" id="oCf-oJ-JaN"/>
                                 </connections>
                             </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ksr-Vo-AvU">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                <subviews>
+                                    <searchBar opaque="NO" contentMode="redraw" searchBarStyle="prominent" placeholder="Meal Name" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goC-Ye-WWY">
+                                        <rect key="frame" x="0.0" y="0.0" width="325" height="56"/>
+                                        <color key="backgroundColor" red="0.58724212649999996" green="0.84964609150000003" blue="0.8512305617" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="barTintColor" red="0.58724212649999996" green="0.84964609150000003" blue="0.8512305617" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                        <scopeButtonTitles>
+                                            <string>Title</string>
+                                            <string>Title</string>
+                                        </scopeButtonTitles>
+                                    </searchBar>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2bU-BW-XYa">
+                                        <rect key="frame" x="325" y="0.0" width="50" height="56"/>
+                                        <color key="backgroundColor" red="0.58823529409999997" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="44g-Ob-1Lx"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="order"/>
+                                        <connections>
+                                            <action selector="filterButton:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Jcn-y7-NU8"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9k2-WJ-RZu">
                                 <rect key="frame" x="68.000000000000014" y="283" width="239.33333333333337" height="23.333333333333314"/>
                                 <attributedString key="attributedText">
@@ -146,14 +165,16 @@
                         <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="goC-Ye-WWY" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="0Wt-L4-Ylq"/>
-                            <constraint firstItem="goC-Ye-WWY" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="2ub-3G-B37"/>
+                            <constraint firstAttribute="trailing" secondItem="Ksr-Vo-AvU" secondAttribute="trailing" id="6O4-Ms-XEa"/>
+                            <constraint firstItem="Ksr-Vo-AvU" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="HWH-xQ-NLo"/>
+                            <constraint firstItem="Ksr-Vo-AvU" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="HpM-cD-tbx"/>
                             <constraint firstItem="Pjl-Ga-bM0" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="10" id="KWb-1m-VM4"/>
-                            <constraint firstItem="goC-Ye-WWY" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="iSR-JU-6ls"/>
+                            <constraint firstItem="Ksr-Vo-AvU" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="Lyz-On-Dnk"/>
                             <constraint firstItem="9k2-WJ-RZu" firstAttribute="centerY" secondItem="tsR-hK-woN" secondAttribute="centerY" id="k0m-8I-8Ak"/>
-                            <constraint firstItem="Pjl-Ga-bM0" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="mJ6-lI-fYj"/>
+                            <constraint firstItem="Pjl-Ga-bM0" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" constant="56" id="mJ6-lI-fYj"/>
                             <constraint firstItem="Pjl-Ga-bM0" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" id="nw2-ZP-pKM"/>
                             <constraint firstItem="9k2-WJ-RZu" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="p8U-e9-kAy"/>
+                            <constraint firstItem="Ksr-Vo-AvU" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="sqO-JS-mAF"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="Pjl-Ga-bM0" secondAttribute="trailing" constant="10" id="uZF-NS-0lD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
@@ -881,13 +902,6 @@
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1re-8q-tfZ">
                                 <rect key="frame" x="0.0" y="140" width="375" height="638"/>
                                 <subviews>
-                                    <searchBar opaque="NO" contentMode="redraw" searchBarStyle="prominent" placeholder="Meal Name" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Raf-HR-hIQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
-                                        <color key="backgroundColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="tintColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="barTintColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
-                                    </searchBar>
                                     <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="10" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kZr-I4-bwm">
                                         <rect key="frame" x="10" y="56" width="355" height="582"/>
                                         <color key="backgroundColor" red="0.95675367119999999" green="0.96840625999999996" blue="0.96030706170000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1019,6 +1033,13 @@
                                             <outlet property="delegate" destination="b5c-xE-Hkv" id="Pl7-wJ-uPV"/>
                                         </connections>
                                     </tableView>
+                                    <searchBar opaque="NO" contentMode="redraw" searchBarStyle="prominent" placeholder="Meal Name" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Raf-HR-hIQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                        <color key="backgroundColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="barTintColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                    </searchBar>
                                 </subviews>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.95675367119999999" green="0.96840625999999996" blue="0.96030706170000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1793,9 +1814,10 @@
     <resources>
         <image name="meals" width="32" height="32"/>
         <image name="menu" width="32" height="32"/>
+        <image name="order" width="32" height="32"/>
         <image name="settings" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cIL-TX-hOf"/>
+        <segue reference="qnc-uL-VBf"/>
     </inferredMetricsTieBreakers>
 </document>

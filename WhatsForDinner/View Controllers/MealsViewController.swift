@@ -17,7 +17,6 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyTableLabel: UILabel!
     
-    
     /////////////////////////////
     //Properties
     /////////////////////////////
@@ -61,14 +60,15 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
         setupNotificationHandling()
 
         searchBar.delegate = self
-        self.navigationItem.titleView = searchBar
-        self.navigationItem.hidesSearchBarWhenScrolling = true
+        //self.navigationItem.titleView = searchBar
+        //self.navigationItem.hidesSearchBarWhenScrolling = true
+        searchBar.layer.borderWidth = 2
+        searchBar.layer.borderColor = UIColor(red: 150/255, green: 217/255, blue: 217/255, alpha: 1.0).cgColor
         
         tableView.tableFooterView = UIView()
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         
         tableView.keyboardDismissMode = .onDrag
-        
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -185,7 +185,28 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
 
     private func fetchMeals() {
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
+        //Sort Alphabetically
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.mealName), ascending: true)]
+        
+        self.managedObjectContext!.performAndWait {
+            do {
+                let meals = try fetchRequest.execute()
+                self.meals = meals
+                self.allMeals = self.meals
+                
+                tableView.reloadData()
+            } catch {
+                let fetchError = error as NSError
+                print("Unable to Execute Fetch Request")
+                print("\(fetchError), \(fetchError.localizedDescription)")
+            }
+        }
+    }
+    
+    private func fetchMealsUpNext() {
+        let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
+        //Sort Alphabetically
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending: true)]
         
         self.managedObjectContext!.performAndWait {
             do {
@@ -214,6 +235,30 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
         })
         
         tableView.reloadData()
+    }
+    
+    @IBAction func filterButton(_ sender: Any) {
+        //guard let _meal = self.meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
+        
+        let alert = UIAlertController(title: nil, message:"Sort Options", preferredStyle: .actionSheet)
+        
+        
+        alert.addAction(UIAlertAction(title: "Up Next", style: .default , handler:{ (UIAlertAction)in
+            DispatchQueue.main.async {
+                self.fetchMealsUpNext()
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Meal Name", style: .default , handler:{ (UIAlertAction)in
+            DispatchQueue.main.async {
+                self.fetchMeals()
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel , handler:{ (UIAlertAction)in
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
