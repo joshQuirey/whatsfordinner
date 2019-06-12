@@ -13,6 +13,22 @@ import Photos
 
 class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UITextViewDelegate {
     /////////////////////////////
+    //Outlets
+    /////////////////////////////
+    @IBOutlet weak var name: UITextField!
+    @IBOutlet weak var categories: UITextView!
+    @IBOutlet weak var mealDescription: UITextField!
+    @IBOutlet weak var frequency: UITextField!
+    @IBOutlet weak var serves: UITextField!
+    @IBOutlet weak var prepTime: UITextField!
+    @IBOutlet weak var cookTime: UITextField!
+    @IBOutlet weak var imageButton: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var parentView: UIView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var segmentedParentView: UIView!
+    
+    /////////////////////////////
     //Properties
     /////////////////////////////
     let frequencyData = [String](arrayLiteral: "", "Weekly", "Every Other Week", "Monthly", "Every Other Month", "Every Few Months")
@@ -26,25 +42,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         case nopreference = 180
     }
     
-    @IBOutlet weak var name: UITextField!
-    @IBOutlet weak var categories: UITextView!
-    @IBOutlet weak var mealDescription: UITextField!
-    @IBOutlet weak var frequency: UITextField!
-    @IBOutlet weak var serves: UITextField!
-    @IBOutlet weak var prepTime: UITextField!
-    @IBOutlet weak var cookTime: UITextField!
-    @IBOutlet weak var imageButton: UIButton!
-    
     let pickImage = UIImagePickerController()
     let pickFrequency = UIPickerView()
     let pickTime = UIDatePicker()
     let pickServing = UIPickerView()
-    
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var parentView: UIView!
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var segmentedParentView: UIView!
-    
     var managedObjectContext: NSManagedObjectContext?
     var meal: Meal?
     var imageChanged: Bool = false
@@ -63,34 +64,37 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         super.viewDidLoad()
        
         pickImage.delegate = self
-        //meal = Meal(context: self.managedObjectContext!)
         showPicker(self.frequency, self.pickFrequency)
         showPrepDatePicker()
         showCookDatePicker()
         
         self.name.attributedPlaceholder = NSAttributedString(string: "Enter Meal Name",attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
         
-        //setupNotificationHandling()
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+        
+        categories.delegate = self
+        categories.text = "Categories"
+        categories.textColor = .lightGray
+        categories.textContainer.lineBreakMode = .byWordWrapping
+        
+//        categories.translatesAutoresizingMaskIntoConstraints = false
+//        [
+//            categories.heightAnchor.constraint(equalToConstant: 100)
+//            ].forEach{ $0.isActive = true }
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        print(self.managedObjectContext!)
-//    }
-    
     override func viewWillAppear(_ animated: Bool) {
-        
         if (meal?.mealImage != nil) {
             imageButton.setTitle(nil, for: .normal)
         }
         
-//        if (meal != nil) {
-//            viewMeal()
-//        }
         if (meal == nil) {
             meal = Meal(context: managedObjectContext!)
             meal?.mealName = ""
         }
-        
+
         setupView()
         viewMeal()
     }
@@ -115,7 +119,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let identifier = segue.identifier else { return }
-        print(meal)
         if (meal == nil) {
             meal = Meal(context: managedObjectContext!)
         }
@@ -141,19 +144,22 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         //photo
         if (meal!.mealImage != nil && !imageChanged) {
-            //imageButton.setImage(UIImage(data: meal!.mealImage!), for: .normal)
-            //imageButton.imageView?.image = UIImage(data: meal!.mealImage!)
             imageButton.setBackgroundImage(UIImage(data: meal!.mealImage!), for: .normal)
         }
         
-
-        categories.text = nil
+        //categories.text = nil
         if (meal!.tags != nil) {
-        //if (meal!.tags!.count > 0) {
-        for _tag in (meal!.tags?.allObjects)! {
-            let tag = _tag as! Tag
-            categories.text?.append(tag.name!)
-        }
+            if (meal!.tags!.count > 0) {
+                categories.text = nil
+                categories.textColor = .black
+                for _tag in (meal!.tags?.allObjects)! {
+                    let tag = _tag as! Tag
+                    categories.text?.append(tag.name!)
+                }
+            } else {
+                categories.text = "Categories"
+                categories.textColor = .lightGray
+            }
         }
         
         mealDescription.text = meal!.mealDesc
@@ -177,11 +183,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         cookTime.text = meal!.cookTime
         serves.text = meal!.serves
         recipeDirectionsViewController.recipeDirections.text = meal!.directions
-        //ingredients
-//        for _tag in (meal!.tags?.allObjects)! {
-//            let tag = _tag as! Tag
-//            categories.text?.append(tag.name!)
-//        }
     }
     
     func populateMeal(_ meal: Meal) {
@@ -240,89 +241,25 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         }
         
         populateMeal(meal!)
-        
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func cancel(_ sender: Any) {
-        if (meal != nil ) {
-            if (meal!.mealName == nil) {
+        if (meal != nil) {
+            if (meal!.frequency == 0) { //this is a meal that has not been changed
                 managedObjectContext?.delete(meal!)
             }
         }
-       
+        
         self.dismiss(animated: true, completion: nil)
     }
-    
-//    private func setupNotificationHandling() {
-//        let notificationCenter = NotificationCenter.default
-//        notificationCenter.addObserver(self,
-//                                       selector: #selector(keyboardWillShow(notification:)),
-//                                       name: Notification.Name.UIKeyboardWillShow,
-//                                       object: nil)
-//
-//        notificationCenter.addObserver(self,
-//                                       selector: #selector(keyboardWillHide(notification:)),
-//                                       name: Notification.Name.UIKeyboardWillHide,
-//                                       object: nil)
-//
-////        notificationCenter.addObserver(self,
-////                                       selector: #selector(keyboardWillHide(notification:)),
-////                                       name: Notification.Name.UIKeyboardWillChangeFrame,
-////                                       object: nil)
-//    }
-    
-//    deinit {
-//        let notificationCenter = NotificationCenter.default
-//        notificationCenter.removeObserver(self,
-//                                          name: Notification.Name.UIKeyboardWillShow,
-//                                          object: nil)
-//
-//        notificationCenter.removeObserver(self,
-//                                          name: Notification.Name.UIKeyboardWillHide,
-//                                          object: nil)
-//    }
-    
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        //self.activeTextField = textField
-//        print("recipe controller - textfield did begin editing")
-//    }
-//
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        print("recipe controller - textfield did end editing")
-//    }
-//
-//    func textViewDidBeginEditing(_ textView: UITextView) {
-//        //self.activeTextView = textView
-//        print("recipe controller - textview did begin editing")
-//    }
-//
-//    func textViewDidEndEditing(_ textView: UITextView) {
-//        print("recipe controller - textview did end editing")
-//    }
-//
-    
-//    @objc func keyboardWillShow(notification: Notification) {
-//        print("Keyboard will show")
-//        if (true) {
-//            var info:NSDictionary = notification.userInfo! as NSDictionary
-//            let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
-//
-//
-//            parent!.view.frame.origin.y = -(keyboardSize!.height)
-//        }
-//    }
-    
-//    @objc func keyboardWillHide(notification: Notification) {
-//        print("Keyboard will hide")
-//        //parent!.view.frame.origin.y = 0
-//    }
     
     
     /////////////////////////////
     //Image Functions
     /////////////////////////////
     @IBAction func addImage(_ sender: Any) {
+        populateMeal(meal!)
         self.showActionSheet(vc: self)
     }
     
@@ -339,12 +276,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func showActionSheet(vc: UIViewController) {
-        //currentVC = vc
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "Use Camera", style: .default, handler: { (alert:UIAlertAction!) -> Void in
             self.DisplayPicker(type: .camera)
-            
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Use Photo Library", style: .default, handler: { (alert:UIAlertAction!) -> Void in
@@ -352,15 +287,12 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
         vc.present(actionSheet, animated: true, completion: nil)
     }
     
     func photoFromLibrary() {
         pickImage.allowsEditing = true
         pickImage.delegate = self
-        //picker.sourceType = .photoLibrary
-        //picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
         self.present(pickImage, animated: true, completion: nil)
     }
 
@@ -409,7 +341,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     @objc func cancelTextPicker() {
-//        categories.text = nil
         self.view.endEditing(true)
     }
     

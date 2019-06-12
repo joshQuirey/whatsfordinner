@@ -55,25 +55,6 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
         
         parent!.view.frame.origin.y = 0
     }
-    
-    
-//    private func setupNotificationHandling() {
-//        let notificationCenter = NotificationCenter.default
-//        notificationCenter.addObserver(self,
-//                                       selector: #selector(keyboardWillShow(notification:)),
-//                                       name: Notification.Name.UIKeyboardWillShow,
-//                                       object: nil)
-//
-//        notificationCenter.addObserver(self,
-//                                       selector: #selector(keyboardWillHide(notification:)),
-//                                       name: Notification.Name.UIKeyboardWillHide,
-//                                       object: nil)
-//
-//        //        notificationCenter.addObserver(self,
-//        //                                       selector: #selector(keyboardWillHide(notification:)),
-//        //                                       name: Notification.Name.UIKeyboardWillChangeFrame,
-//        //                                       object: nil)
-//    }
 
     func updateView() {
         if meal?.ingredients == nil {
@@ -86,36 +67,35 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
             ingredientTableView.isHidden = true
         }
     }
-//    override func viewWillAppear(_ animated: Bool) {
-//        if (ticket != nil) {
-//            activityTableView.tableFooterView = UIView(frame: .zero)
-//
-//            if ticket!.activities!.count > 0 {
-//                activities = ticket?.activities?.allObjects as? [Activity]
-//                activityTableView.reloadData()
-//            } else {
-//                activityTableView.isHidden = true
-//            }
-//        }
-//    }
-//
     
     override func viewDidAppear(_ animated: Bool) {
         ingredientTableView.reloadData()
     }
     
-    /////////////////////////////
-    //Actions
-    /////////////////////////////
-    @IBAction func addIngredient(_ sender: Any) {
-        if (_ingredient.text != nil && _ingredient.text != "") {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if (textField.text != nil && textField.text != "") {
             addNewIngredient()
             ingredientTableView.isHidden = false
             ingredients = meal?.ingredients?.allObjects as? [Ingredient]
             ingredientTableView.reloadData()
-            _ingredient.text = nil
+            textField.text = nil
         }
+
+        return true
     }
+    
+    /////////////////////////////
+    //Actions
+    /////////////////////////////
+//    @IBAction func addIngredient(_ sender: Any) {
+//        if (_ingredient.text != nil && _ingredient.text != "") {
+//            addNewIngredient()
+//            ingredientTableView.isHidden = false
+//            ingredients = meal?.ingredients?.allObjects as? [Ingredient]
+//            ingredientTableView.reloadData()
+//            _ingredient.text = nil
+//        }
+//    }
     
     func addNewIngredient() {
         guard let managedObjectContext = meal?.managedObjectContext else { return }
