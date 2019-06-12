@@ -10,19 +10,6 @@ import UIKit
 import CoreData
 
 
-//class Colors {
-//    var gl:CAGradientLayer!
-//
-//    init() {
-//        let colorTop = UIColor(red: 192.0 / 255.0, green: 38.0 / 255.0, blue: 42.0 / 255.0, alpha: 1.0).cgColor
-//        let colorBottom = UIColor(red: 35.0 / 255.0, green: 2.0 / 255.0, blue: 2.0 / 255.0, alpha: 1.0).cgColor
-//
-//        self.gl = CAGradientLayer()
-//        self.gl.colors = [colorTop, colorBottom]
-//        self.gl.locations = [0.0, 1.0]
-//    }
-//}
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -31,31 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private let coreDataManager = CoreDataManager(modelName:"MealModel")
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-//        if let tabBarController = self.window?.rootViewController as? UITabBarController {
-//
-//            let tabGradientView = UIView(frame: tabBarController.tabBar.bounds)
-//            tabGradientView.backgroundColor = UIColor.white
-//            tabGradientView.translatesAutoresizingMaskIntoConstraints = false;
-//
-//
-//            tabBarController.tabBar.addSubview(tabGradientView)
-//            tabBarController.tabBar.sendSubview(toBack: tabGradientView)
-//            tabGradientView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//
-//            tabGradientView.layer.shadowOffset = CGSize(width: 0, height: 0)
-//            tabGradientView.layer.shadowRadius = 4.0
-//            tabGradientView.layer.shadowColor = UIColor.gray.cgColor
-//            tabGradientView.layer.shadowOpacity = 0.6
-//            tabBarController.tabBar.clipsToBounds = false
-//            tabBarController.tabBar.backgroundImage = UIImage()
-//            tabBarController.tabBar.shadowImage = UIImage()
-//        }
-        
-//        UINavigationBar.appearance().shadowImage = UIImage()
-//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         return true
     }
-    
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

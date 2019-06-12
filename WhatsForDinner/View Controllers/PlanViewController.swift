@@ -415,10 +415,11 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
                 self.plannedDays?[i].planEndDate = Calendar.current.date(byAdding: .day, value: -1, to: (self.plannedDays?[i].planEndDate)!)
                 //            print("Planned End Date \(plannedDays?[i].planEndDate)")
                 
-                guard let _nextMeal = self.plannedDays?[i].meal else { fatalError("Unexpected Index Path") }
-                //            print("Next Date \(_nextMeal.nextDate)")
-                _nextMeal.nextDate = Calendar.current.date(byAdding: .day, value: -1, to: _nextMeal.nextDate!)
-                //            print("Next Date \(_nextMeal.nextDate)")
+                if (self.plannedDays?[i].meal != nil) {
+                    guard let _nextMeal = self.plannedDays?[i].meal else { fatalError("Unexpected Index Path") }
+                    
+                    _nextMeal.nextDate = Calendar.current.date(byAdding: .day, value: -1, to: _nextMeal.nextDate!)
+                }
                 
                 i += 1
             }
