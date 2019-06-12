@@ -33,40 +33,22 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //title = "Meals"
+
         fetchNextMealsforCategory()
         fetchNextMeals()
         self.nextMealsforCategory = self.allMeals
         tableView.reloadData()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        //let search = UISearchBar()
-        //search.delegate = self
-        //search.searchBarStyle = .minimal
         
         searchBar.delegate = self
         searchBar.layer.borderWidth = 2
-        searchBar.layer.borderColor = UIColor(red: 244/255, green: 247/255, blue: 245/255, alpha: 1.0).cgColor
+        searchBar.layer.borderColor = UIColor(red: 77/255, green: 72/255, blue: 147/255, alpha: 1.0).cgColor
         
         self.navigationItem.titleView = searchBar
         self.navigationItem.hidesSearchBarWhenScrolling = true
         
-        //self.navigationItem.hidesSearchBarWhenScrolling = true
-        //search.backgroundColor = .white
-        //let leftNavBarButton = UIBarButtonItem(customView:search)
-        //self.navigationItem.leftBarButtonItem = leftNavBarButton
-        //navBar.backItem?.leftBarButtonItem = leftNavBarButton
-        
-        
+        tableView.keyboardDismissMode = .onDrag
 
     }
-
-//    override var prefersStatusBarHidden: Bool {
-//        return true
-//    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -102,7 +84,6 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
                 print("\(fetchError), \(fetchError.localizedDescription)")
             }
         }
-        print(self.allMeals)
     }
     
     private func fetchNextMeals() {
@@ -133,31 +114,16 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
                 print("\(fetchError), \(fetchError.localizedDescription)")
             }
         }
-        
-        print(self.allMeals)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return nextMealsforCategory!.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //if section == 0 {
         return 1
-            //return nextMealsforCategory!.count
-        //} else {
-        //    return nextMeals!.count
-        //}
     }
-
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        if section == 0 {
-//            return "Next Available \(currentPlannedDay!.category!)"
-//        } else {
-//            return "Next Available"
-//        }
-//    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 10))
         
@@ -173,11 +139,12 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
             
             if (_meal.mealImage != nil) {
                 cell.mealImage?.image = UIImage(data: _meal.mealImage!)
+                cell.mealImage.layer.cornerRadius = 8
+                cell.mealImage.clipsToBounds = true
+            } else {
+                cell.mealImage.isHidden = true
             }
         
-        cell.mealImage.layer.cornerRadius = 8
-        cell.mealImage.clipsToBounds = true
-            
             cell.mealName.text = _meal.mealName
         
             cell.mealCategories?.text = ""
@@ -208,34 +175,18 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let _currentMeal = currentPlannedDay?.meal else { fatalError("Unexpected Index Path")}
 
-//        if indexPath.section == MealSections.NextCategory.rawValue {
-            guard let _replaceMeal = nextMealsforCategory?[indexPath.section] else { fatalError("Unexpected Index Path")}
-            //delete previous meal
-            _currentMeal.estimatedNextDate = _currentMeal.previousDate
-            _currentMeal.nextDate = nil
-            _currentMeal.previousDate = nil
-            _currentMeal.removeFromPlannedDays(currentPlannedDay!)
-            
-            //add next meal
-            _replaceMeal.previousDate = _replaceMeal.estimatedNextDate
-            _replaceMeal.estimatedNextDate = nil
-            _replaceMeal.nextDate = currentPlannedDay!.date
-            _replaceMeal.addToPlannedDays(currentPlannedDay!)
-//        } else {
-//            guard let _replaceMeal = nextMeals?[indexPath.row] else { fatalError("Unexpected Index Path")}
-//            //delete previous meal
-//            _currentMeal.estimatedNextDate = _currentMeal.previousDate
-//            _currentMeal.nextDate = nil
-//            _currentMeal.previousDate = nil
-//            _currentMeal.removeFromPlannedDays(currentPlannedDay!)
-//
-//            //add next meal
-//            _replaceMeal.previousDate = _replaceMeal.estimatedNextDate
-//            _replaceMeal.estimatedNextDate = nil
-//            _replaceMeal.nextDate = currentPlannedDay!.date
-//            _replaceMeal.addToPlannedDays(currentPlannedDay!)
-//        }
-
+        guard let _replaceMeal = nextMealsforCategory?[indexPath.section] else { fatalError("Unexpected Index Path")}
+        //delete previous meal
+        _currentMeal.estimatedNextDate = _currentMeal.previousDate
+        _currentMeal.nextDate = nil
+        _currentMeal.previousDate = nil
+        _currentMeal.removeFromPlannedDays(currentPlannedDay!)
+        
+        //add next meal
+        _replaceMeal.previousDate = _replaceMeal.estimatedNextDate
+        _replaceMeal.estimatedNextDate = nil
+        _replaceMeal.nextDate = currentPlannedDay!.date
+        _replaceMeal.addToPlannedDays(currentPlannedDay!)
         
         self.dismiss(animated: true, completion: nil)
     }

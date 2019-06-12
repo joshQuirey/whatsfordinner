@@ -13,6 +13,22 @@ import Photos
 
 class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UITextViewDelegate {
     /////////////////////////////
+    //Outlets
+    /////////////////////////////
+    @IBOutlet weak var name: UITextField!
+    @IBOutlet weak var categories: UITextView!
+    @IBOutlet weak var mealDescription: UITextField!
+    @IBOutlet weak var frequency: UITextField!
+    @IBOutlet weak var serves: UITextField!
+    @IBOutlet weak var prepTime: UITextField!
+    @IBOutlet weak var cookTime: UITextField!
+    @IBOutlet weak var imageButton: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var parentView: UIView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var segmentedParentView: UIView!
+    
+    /////////////////////////////
     //Properties
     /////////////////////////////
     let frequencyData = [String](arrayLiteral: "", "Weekly", "Every Other Week", "Monthly", "Every Other Month", "Every Few Months")
@@ -26,25 +42,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         case nopreference = 180
     }
     
-    @IBOutlet weak var name: UITextField!
-    @IBOutlet weak var categories: UITextView!
-    @IBOutlet weak var mealDescription: UITextField!
-    @IBOutlet weak var frequency: UITextField!
-    @IBOutlet weak var serves: UITextField!
-    @IBOutlet weak var prepTime: UITextField!
-    @IBOutlet weak var cookTime: UITextField!
-    @IBOutlet weak var imageButton: UIButton!
-    
     let pickImage = UIImagePickerController()
     let pickFrequency = UIPickerView()
     let pickTime = UIDatePicker()
     let pickServing = UIPickerView()
-    
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var parentView: UIView!
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var segmentedParentView: UIView!
-    
     var managedObjectContext: NSManagedObjectContext?
     var meal: Meal?
     var imageChanged: Bool = false
@@ -63,7 +64,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         super.viewDidLoad()
        
         pickImage.delegate = self
-        //meal = Meal(context: self.managedObjectContext!)
         showPicker(self.frequency, self.pickFrequency)
         showPrepDatePicker()
         showCookDatePicker()
@@ -86,7 +86,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         if (meal?.mealImage != nil) {
             imageButton.setTitle(nil, for: .normal)
         }
@@ -95,7 +94,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
             meal = Meal(context: managedObjectContext!)
             meal?.mealName = ""
         }
-        
+
         setupView()
         viewMeal()
     }
@@ -145,8 +144,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         //photo
         if (meal!.mealImage != nil && !imageChanged) {
-            //imageButton.setImage(UIImage(data: meal!.mealImage!), for: .normal)
-            //imageButton.imageView?.image = UIImage(data: meal!.mealImage!)
             imageButton.setBackgroundImage(UIImage(data: meal!.mealImage!), for: .normal)
         }
         
@@ -244,7 +241,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         }
         
         populateMeal(meal!)
-        
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -279,12 +275,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func showActionSheet(vc: UIViewController) {
-        //currentVC = vc
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "Use Camera", style: .default, handler: { (alert:UIAlertAction!) -> Void in
             self.DisplayPicker(type: .camera)
-            
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Use Photo Library", style: .default, handler: { (alert:UIAlertAction!) -> Void in
@@ -292,19 +286,21 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
         vc.present(actionSheet, animated: true, completion: nil)
     }
     
     func photoFromLibrary() {
         pickImage.allowsEditing = true
         pickImage.delegate = self
-        //picker.sourceType = .photoLibrary
-        //picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
         self.present(pickImage, animated: true, completion: nil)
     }
 
     func DisplayPicker(type: UIImagePickerControllerSourceType){
+        print(type)
+        print(pickImage)
+        print(pickImage.mediaTypes)
+        print(UIImagePickerController.self)
+        
         pickImage.mediaTypes = UIImagePickerController.availableMediaTypes(for: type)!
         pickImage.sourceType = type
         pickImage.allowsEditing = false
@@ -349,7 +345,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     @objc func cancelTextPicker() {
-//        categories.text = nil
         self.view.endEditing(true)
     }
     
