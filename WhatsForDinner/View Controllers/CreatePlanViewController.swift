@@ -14,7 +14,6 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var bottomStackViewConstraint: NSLayoutConstraint!
     
     var managedObjectContext: NSManagedObjectContext?
-    //var day7Plan: PlannedDay?
     var weekPlan = [PlannedDay?]()
     
     @IBOutlet weak var parentView: UIView!
@@ -61,7 +60,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     var numberDaysToPlan = 7
     
-    let categoryData = [String](arrayLiteral: "Chef's Choice 🎲", "Asian Cuisine 🥡", "Breakfast for Dinner 🥓", "Barbecue 🐷", "Beef 🐄", "Casserole 🥘", "Comfort Food 🛌", "Chicken 🐓", "Hispanic  🌮", "Pasta 🍝", "Pizza 🍕", "Pork 🐖", "On The Grill 🥩", "Other", "Salad 🥗", "Sandwich 🥪", "Seafood 🍤", "Slow Cooker ⏲", "Soups Up 🍜", "Vegetarian 🥕", "Restaurant 👨‍🍳", "Leftovers 🍴")
+    let categoryData = [String](arrayLiteral: "Chef's Choice 🎲", "🥡 Asian Cuisine", " 🥓 Breakfast for Dinner", "🐷 Barbecue", "🐄 Beef", "🥘 Casserole", "🛌 Comfort Food", "🐓 Chicken", "🌾 Grains", "🌮 Hispanic", "🍴 Leftovers", "🍜 Noodles", "🍝 Pasta", "🍕 Pizza", "🐖 Pork", "🥩 On The Grill", "🍯 Other","👨‍🍳 Restaurant", "🥗 Salad", "🥪 Sandwich", "🍤 Seafood", "⏲ Slow Cooker", "🥣 Soups Up", "🥕 Vegetarian")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -349,9 +348,9 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     func getNextMealforCategory(_plannedCategory: String, _plannedDate: Date, _plannedMeal: inout Meal) -> Meal? {
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
-        
+
         //Fetch Meals using Category
-        fetchRequest.predicate = NSPredicate(format: "ANY tags.name == %@ AND estimatedNextDate != nil", _plannedCategory)
+        fetchRequest.predicate = NSPredicate(format: "(ANY tags.name == %@) AND estimatedNextDate != nil", _plannedCategory)
         
         //Sort by estimated next date
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending:true)]
@@ -379,7 +378,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
         
         //Fetch Meals using Category
-        fetchRequest.predicate = NSPredicate(format: "ANY estimatedNextDate != nil")
+        fetchRequest.predicate = NSPredicate(format: "estimatedNextDate != nil")
         
         //Sort by estimated next date
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending:true)]
@@ -436,13 +435,11 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     //Text Field Functions
     ////////////////////////////
     func textFieldDidEndEditing(_ textField: UITextField) {
-        print(textField)
         //update each of the day labels
         updateDayDates()
     }
     
     func updateDayDates() {
-        print(startingDatePicker.date)
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE, MMMM d, yyyy"
         
@@ -490,9 +487,8 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donePrepDatePicker))
         //let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPicker))
         toolbar.setItems([spaceButton,doneButton], animated: false)
-        
+    
         startingDate.inputAccessoryView = toolbar
-        print(startingDatePicker.date)
     
         //startingDatePicker.date = Date()
         let formatter = DateFormatter()

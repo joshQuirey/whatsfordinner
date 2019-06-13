@@ -63,7 +63,7 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
         
         // Configure Fetch Request
-        fetchRequest.predicate = NSPredicate(format: "ANY tags.name == %@ AND estimatedNextDate != nil", currentPlannedDay!.category!)
+        fetchRequest.predicate = NSPredicate(format: "(ANY tags.name == %@) AND estimatedNextDate != nil", currentPlannedDay!.category!)
         
         //fetchRequest.predicate = predicate
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.mealName), ascending: true)]
@@ -73,13 +73,9 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
             do {
                 // Execute Fetch Request
                 let meals = try fetchRequest.execute()
-                //                print("Tickets Count Total: \(tickets.count)")
                 
                 // Update Tickets
                 self.allMeals = meals
-                
-                //Reload Table View
-                //tableView.reloadData()
             } catch {
                 let fetchError = error as NSError
                 print("Unable to Execute Fetch Request")
@@ -93,7 +89,7 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
         
         // Configure Fetch Request
-        fetchRequest.predicate = NSPredicate(format: "ANY tags.name != %@ AND estimatedNextDate != nil", currentPlannedDay!.category!)
+        fetchRequest.predicate = NSPredicate(format: "(ANY tags.name != %@) AND estimatedNextDate != nil", currentPlannedDay!.category!)
         
         //fetchRequest.predicate = predicate
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.mealName), ascending: true)]
@@ -103,13 +99,9 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
             do {
                 // Execute Fetch Request
                 let meals = try fetchRequest.execute()
-                //                print("Tickets Count Total: \(tickets.count)")
                 
                 // Update Tickets
                 self.allMeals?.append(contentsOf: meals)
-                
-                //Reload Table View
-                //tableView.reloadData()
             } catch {
                 let fetchError = error as NSError
                 print("Unable to Execute Fetch Request")
@@ -117,6 +109,8 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
     }
+    
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return nextMealsforCategory!.count

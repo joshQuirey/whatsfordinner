@@ -59,20 +59,10 @@ class PlanViewController: UIViewController {
         super.viewDidLoad()
         let tabBar = tabBarController as! BaseTabBarController
         managedObjectContext = tabBar.coreDataManager.managedObjectContext
-        //fetchPlans()
         
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         updateView()
         setupNotificationHandling()
-        //let meal = Meal(context: coreDataManager.managedObjectContext)
-        //meal.category
-        
-        //do {
-        //    try coreDataManager.managedObjectContext.save()
-        //} catch {
-        //    print("Unable to Save Managed Object Context")
-        //    print("\(error), \(error.localizedDescription)")
-        //}
         
         let logo = UIImageView()
         logo.image = UIImage(named: "sporkfed_whitelogo")
@@ -80,14 +70,6 @@ class PlanViewController: UIViewController {
     
         self.navigationItem.titleView = logo
     }
-    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        do {
-//            try self.managedObjectContext!.save()
-//        } catch {
-//            fatalError("Failure to save context: \(error)")
-//        }
-//    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -173,14 +155,11 @@ class PlanViewController: UIViewController {
             print("Context Inserts Exist Plan")
             for insert in inserts {
                 if let plannedDay = insert as? PlannedDay {
-                    //print(plannedDay)
                     plannedDays?.append(plannedDay)
                     planDidChange = true
                 }
                 
                 if let plannedMeal = insert as? Meal {
-                    //print(plannedMeal)
-                    //print(plannedMeal.isDeleted)
                     if (plannedMeal.mealName == nil) {
                         self.managedObjectContext!.delete(plannedMeal)
                     }
@@ -321,8 +300,6 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         formatter.dateFormat = "EEE"
         cell.planDay.text = formatter.string(from: date!)
     
-        print(_plannedDay.meal)
-    
         if (_plannedDay.meal != nil) {
             if (_plannedDay.meal!.mealImage != nil) {
                 cell.mealImage?.image = UIImage(data: _plannedDay.meal!.mealImage!)
@@ -341,8 +318,8 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.mealCategories?.text?.append("\(tag.name!) ")
             }
             
-            if (_plannedDay.meal!.prepTime! != nil && _plannedDay.meal!.prepTime! != "") {
-                cell.prep?.text? = "Plan: \(_plannedDay.meal!.prepTime!)"
+            if (_plannedDay.meal!.prepTime != "") {
+                cell.prep?.text? = "Prep: \(_plannedDay.meal!.prepTime!)"
             } else {
                 cell.prep?.text? = " "
             }
@@ -355,17 +332,17 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             cell.mealImage.isHidden = true
             cell.mealName?.text = _plannedDay.category
+            cell.mealCategories?.text = ""
+            cell.prep?.text = ""
+            cell.cook?.text = ""
         }
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let cancelAction = UIContextualAction(style: .destructive, title:  "Cancel", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            print("OK, marked as cancel")
-            
             // Fetch Day
             guard let _plannedDay = self.plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path") }
-            //print(_plannedDay)
-            //print(_plannedDay.meal?.mealName)
+            
             // Delete Day
             if (_plannedDay.meal != nil) {
                 guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
@@ -373,21 +350,16 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
                 _meal.nextDate = nil
                 _meal.previousDate = nil
             }
+            
             //Need to roll back the planned date for each of the meals coming up after the meal deleted
             self.managedObjectContext!.delete(_plannedDay)
             
             //Update the dates for remaining planned days to be a day earlier
-            print(indexPath.section)
             var i = indexPath.section + 1
-            print(i)
-            print(self.plannedDays!.count)
+        
             while (i < self.plannedDays!.count) {
                 self.plannedDays?[i].date = Calendar.current.date(byAdding: .day, value: -1, to: (self.plannedDays?[i].date)!)
-                //            print("Planned Date \(plannedDays?[i].date)")
-                
-                //            print("Planned End Date \(plannedDays?[i].planEndDate)")
                 self.plannedDays?[i].planEndDate = Calendar.current.date(byAdding: .day, value: -1, to: (self.plannedDays?[i].planEndDate)!)
-                //            print("Planned End Date \(plannedDays?[i].planEndDate)")
                 
                 if (self.plannedDays?[i].meal != nil) {
                     guard let _nextMeal = self.plannedDays?[i].meal else { fatalError("Unexpected Index Path") }
@@ -409,11 +381,9 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        print(indexPath.section)
   
 //COMPLETE
         let completeAction = UIContextualAction(style: .destructive, title:  "Complete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            print("OK, marked as Completed")
             
             // Fetch Day
             guard let _plannedDay = self.plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
@@ -430,27 +400,23 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             
             success(true)
         })
+        
         completeAction.image = UIImage(named: "complete")
-        //completeAction.
         completeAction.backgroundColor = UIColor(red: 150/255, green: 217/255, blue: 217/255, alpha: 1.0)
     
 //REPLACE
         let replaceAction = UIContextualAction(style: .normal, title:  "Replace", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            print("OK, marked as Replace")
-            //Implement
             self.currentIndex = indexPath.section
             self.performSegue(withIdentifier: "ReplacePlannedMeal", sender: tableView)
             
             success(true)
         })
+        
         replaceAction.title = "\u{2190}\u{2192}\n Replace" //24E7
-        //replaceAction.image = UIImage(named: "replace")
         replaceAction.backgroundColor = UIColor(red: 137/255, green: 186/255, blue: 217/255, alpha: 1.0)
 
 //SHUFFLE
         let shuffleAction = UIContextualAction(style: .normal, title:  "Shuffle", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            print("OK, marked as Shuffle")
-            //Implement
             // Fetch Day
             guard let _plannedDay = self.plannedDays?[indexPath.section] else { fatalError("Unexpected Index Path")}
  
@@ -463,29 +429,34 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
                 next = self.getNextMeal(_date: _plannedDay.date!, _nextMeal: &next)
             }
             
-            //Fetch Current Meal
-            if (_plannedDay.meal != nil) {
-                guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
+            //If No Meal still not found, keep the current planned meal in place
+            if (next.mealName == nil) {
                 
-                if (_meal.mealName != next.mealName) {
-                    //delete previous meal
-                    _meal.estimatedNextDate = _meal.previousDate
-                    _meal.nextDate = nil
-                    _meal.previousDate = nil
-                    _meal.removeFromPlannedDays(_plannedDay)
+            } else {
+                //Fetch Current Meal
+                if (_plannedDay.meal != nil) {
+                    guard let _meal = _plannedDay.meal else { fatalError("Unexpected Index Path")}
+                    
+                    if (_meal.mealName != next.mealName) {
+                        //delete previous meal
+                        _meal.estimatedNextDate = _meal.previousDate
+                        _meal.nextDate = nil
+                        _meal.previousDate = nil
+                        _meal.removeFromPlannedDays(_plannedDay)
+                    }
                 }
+                
+                //add next meal
+                next.previousDate = next.estimatedNextDate
+                next.estimatedNextDate = nil
+                next.nextDate = _plannedDay.date
+                next.addToPlannedDays(_plannedDay)
             }
-
-            //add next meal
-            next.previousDate = next.estimatedNextDate
-            next.estimatedNextDate = nil
-            next.nextDate = _plannedDay.date
-            next.addToPlannedDays(_plannedDay)
+            
             success(true)
         })
         
         shuffleAction.title = "\u{2682}\u{2683}\nShuffle"
-        //shuffleAction.image = UIImage(named: "shuffle")
         shuffleAction.backgroundColor = UIColor(red: 137/255, green: 186/255, blue: 217/255, alpha: 1.0)
 
         return UISwipeActionsConfiguration(actions: [completeAction,replaceAction,shuffleAction])
@@ -496,7 +467,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
         
         //Fetch Meals using Category
-        fetchRequest.predicate = NSPredicate(format: "ANY tags.name == %@ AND estimatedNextDate != nil", _category)
+        fetchRequest.predicate = NSPredicate(format: "(ANY tags.name == %@) AND estimatedNextDate != nil", _category)
         
         //Sort by estimated next date
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending:true)]

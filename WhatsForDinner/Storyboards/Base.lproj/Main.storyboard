@@ -693,11 +693,11 @@
                                                                                 <constraint firstAttribute="width" constant="70" id="RMR-G0-7jd"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="vQU-Vy-btx">
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="vQU-Vy-btx">
                                                                             <rect key="frame" x="75" y="0.0" width="235" height="70"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PxN-up-zYw" userLabel="Name">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="235" height="31.666666666666668"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="235" height="30.666666666666668"/>
                                                                                     <color key="backgroundColor" red="0.95675367119999999" green="0.96840625999999996" blue="0.96030706170000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <attributedString key="attributedText">
                                                                                         <fragment content="Name">
@@ -713,7 +713,7 @@
                                                                                     <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </label>
                                                                                 <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="URw-BE-aya">
-                                                                                    <rect key="frame" x="0.0" y="33.666666666666664" width="235" height="17"/>
+                                                                                    <rect key="frame" x="0.0" y="33.666666666666664" width="235" height="16.333333333333336"/>
                                                                                     <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <attributedString key="attributedText">
@@ -727,11 +727,11 @@
                                                                                     </attributedString>
                                                                                     <textInputTraits key="textInputTraits"/>
                                                                                 </textField>
-                                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Pe4-xy-OC9">
-                                                                                    <rect key="frame" x="0.0" y="52.666666666666664" width="68" height="17.333333333333336"/>
+                                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Pe4-xy-OC9">
+                                                                                    <rect key="frame" x="0.0" y="53" width="235" height="17"/>
                                                                                     <subviews>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Grh-ON-yhh">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="28.333333333333332" height="17.333333333333332"/>
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="115" height="17"/>
                                                                                             <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                             <attributedString key="attributedText">
                                                                                                 <fragment content="Prep">
@@ -744,7 +744,7 @@
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hXw-dv-HFE">
-                                                                                            <rect key="frame" x="36.333333333333343" y="0.0" width="31.666666666666671" height="17.333333333333332"/>
+                                                                                            <rect key="frame" x="120" y="0.0" width="115" height="17"/>
                                                                                             <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                             <attributedString key="attributedText">
                                                                                                 <fragment content="Cook">
@@ -764,8 +764,10 @@
                                                                             <constraints>
                                                                                 <constraint firstItem="URw-BE-aya" firstAttribute="leading" secondItem="vQU-Vy-btx" secondAttribute="leading" id="0EE-uC-DXb"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="URw-BE-aya" secondAttribute="trailing" id="ZAA-i7-0O6"/>
+                                                                                <constraint firstItem="Pe4-xy-OC9" firstAttribute="leading" secondItem="vQU-Vy-btx" secondAttribute="leading" id="bDq-5p-Uun"/>
                                                                                 <constraint firstItem="PxN-up-zYw" firstAttribute="leading" secondItem="vQU-Vy-btx" secondAttribute="leading" id="xkj-KE-ryi"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="PxN-up-zYw" secondAttribute="trailing" id="ya4-MI-2zT"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="Pe4-xy-OC9" secondAttribute="trailing" id="zEY-Pa-LWu"/>
                                                                             </constraints>
                                                                         </stackView>
                                                                     </subviews>
@@ -1566,55 +1568,6 @@
             </objects>
             <point key="canvasLocation" x="-351" y="836"/>
         </scene>
-        <!--Recipe Description View Controller-->
-        <scene sceneID="3Pl-f0-Nz6">
-            <objects>
-                <viewController storyboardIdentifier="RecipeDescriptionViewController" id="0ax-89-PHx" customClass="RecipeDescriptionViewController" customModule="WhatsForDinner" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="vJc-jW-gy9">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E6c-Sy-XDf">
-                                <rect key="frame" x="0.0" y="44" width="375" height="685"/>
-                                <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qQR-mM-pQO">
-                                        <rect key="frame" x="0.0" y="8" width="375" height="669"/>
-                                        <color key="backgroundColor" red="0.77647058820000003" green="0.32549019610000002" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <color key="tintColor" red="0.29411764709999999" green="0.66666666669999997" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="textColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
-                                    </textView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="qQR-mM-pQO" firstAttribute="top" secondItem="E6c-Sy-XDf" secondAttribute="top" constant="8" id="6rX-sO-ktM"/>
-                                    <constraint firstAttribute="trailing" secondItem="qQR-mM-pQO" secondAttribute="trailing" id="8HO-qd-6bN"/>
-                                    <constraint firstAttribute="bottom" secondItem="qQR-mM-pQO" secondAttribute="bottom" constant="8" id="ao2-rZ-TeF"/>
-                                    <constraint firstItem="qQR-mM-pQO" firstAttribute="leading" secondItem="E6c-Sy-XDf" secondAttribute="leading" id="hZy-EM-ADf"/>
-                                    <constraint firstItem="qQR-mM-pQO" firstAttribute="centerY" secondItem="E6c-Sy-XDf" secondAttribute="centerY" id="qu0-5X-mqT"/>
-                                    <constraint firstItem="qQR-mM-pQO" firstAttribute="centerX" secondItem="E6c-Sy-XDf" secondAttribute="centerX" id="sud-rd-JuR"/>
-                                </constraints>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="E6c-Sy-XDf" firstAttribute="bottom" secondItem="ZHo-TP-0Dr" secondAttribute="bottom" id="1KZ-NN-Vni"/>
-                            <constraint firstItem="E6c-Sy-XDf" firstAttribute="trailing" secondItem="ZHo-TP-0Dr" secondAttribute="trailing" id="6HW-c9-6wF"/>
-                            <constraint firstItem="E6c-Sy-XDf" firstAttribute="top" secondItem="ZHo-TP-0Dr" secondAttribute="top" id="7dM-76-yF3"/>
-                            <constraint firstItem="E6c-Sy-XDf" firstAttribute="leading" secondItem="ZHo-TP-0Dr" secondAttribute="leading" id="b8Z-6K-QuE"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="ZHo-TP-0Dr"/>
-                    </view>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
-                    <connections>
-                        <outlet property="recipeDescription" destination="qQR-mM-pQO" id="m3n-Fv-BA0"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PlK-Yf-hx4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2430" y="2695"/>
-        </scene>
         <!--Recipe Ingredient View Controller-->
         <scene sceneID="vDi-eQ-I74">
             <objects>
@@ -1818,6 +1771,6 @@
         <image name="settings" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qnc-uL-VBf"/>
+        <segue reference="cIL-TX-hOf"/>
     </inferredMetricsTieBreakers>
 </document>
