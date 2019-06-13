@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StoreKit
 
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -32,8 +33,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 return 1
             case 1:
                 return 2
-            case 2:
-                return 2
             default:
                 return 1
         }
@@ -48,26 +47,37 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         
         switch(indexPath.section) {
         case 0:
-            cell.textLabel!.text = "Placeholder"
+            cell.textLabel!.text = "Tips and Tricks"
             break
         case 1:
-            if (indexPath.row == 1) {
-                cell.textLabel!.text = "Tips and Tricks"
+            if (indexPath.row == 0) {
+                cell.textLabel!.text = "Send Feedback"
             } else {
-                cell.textLabel!.text = "About Spork Fed"
+                cell.textLabel!.text = "Please Rate Spork Fed"
             }
-            break
-        case 2:
-            if (indexPath.row == 1) {
-                cell.textLabel!.text = "Contact Us"
-            } else {
-                cell.textLabel!.text = "Rate Us"
-            }
-            break
         default:
             break
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch(indexPath.section) {
+        case 0:
+            if (indexPath.row == 0) {
+            } else {
+            }
+            break
+        case 1:
+            if (indexPath.row == 0) {
+                
+            } else {
+                SKStoreReviewController.requestReview()
+            }
+            break
+        default:
+            break
+        }
     }
 }

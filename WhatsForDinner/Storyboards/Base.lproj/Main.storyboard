@@ -1091,14 +1091,17 @@
         <scene sceneID="ISi-PG-A9O">
             <objects>
                 <viewController id="eLS-Ot-O2Z" customClass="SettingsViewController" customModule="WhatsForDinner" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="tlv-wc-ah5">
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="tlv-wc-ah5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="589"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j4y-Z7-K55">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="589"/>
+                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j4y-Z7-K55">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.59215686270000001" green="0.83529411760000005" blue="0.89411764709999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="5Mx-Yr-xZZ"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingsCell" textLabel="2e4-s3-UPp" style="IBUITableViewCellStyleDefault" id="BTg-KM-Bhy">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -1123,13 +1126,24 @@
                                     <outlet property="delegate" destination="eLS-Ot-O2Z" id="p09-Ix-FEj"/>
                                 </connections>
                             </tableView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sporkfed_whitelogo" translatesAutoresizingMaskIntoConstraints="NO" id="oDJ-pV-xNP">
+                                <rect key="frame" x="0.0" y="275" width="375" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="GKM-C6-2eF"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.58823529409999997" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.58823529409999997" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="oDJ-pV-xNP" firstAttribute="leading" secondItem="dYS-bV-Uob" secondAttribute="leading" id="DrW-O9-J0b"/>
                             <constraint firstItem="dYS-bV-Uob" firstAttribute="trailing" secondItem="j4y-Z7-K55" secondAttribute="trailing" id="FxL-ki-ZXt"/>
                             <constraint firstItem="j4y-Z7-K55" firstAttribute="leading" secondItem="dYS-bV-Uob" secondAttribute="leading" id="OI3-zi-qr8"/>
-                            <constraint firstAttribute="bottom" secondItem="j4y-Z7-K55" secondAttribute="bottom" id="UK6-JV-uoL"/>
-                            <constraint firstItem="j4y-Z7-K55" firstAttribute="top" secondItem="dYS-bV-Uob" secondAttribute="top" id="b9F-CH-bnh"/>
+                            <constraint firstItem="oDJ-pV-xNP" firstAttribute="trailing" secondItem="dYS-bV-Uob" secondAttribute="trailing" id="Stb-QA-H8V"/>
+                            <constraint firstItem="dYS-bV-Uob" firstAttribute="trailing" secondItem="oDJ-pV-xNP" secondAttribute="trailing" id="WRx-FQ-3ag"/>
+                            <constraint firstItem="oDJ-pV-xNP" firstAttribute="leading" secondItem="dYS-bV-Uob" secondAttribute="leading" id="YCP-Q9-hiE"/>
+                            <constraint firstItem="oDJ-pV-xNP" firstAttribute="top" secondItem="j4y-Z7-K55" secondAttribute="bottom" constant="25" id="ZXr-ZA-Kw9"/>
+                            <constraint firstItem="j4y-Z7-K55" firstAttribute="top" secondItem="dYS-bV-Uob" secondAttribute="top" id="x2K-NN-rE4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dYS-bV-Uob"/>
                     </view>
@@ -1769,6 +1783,7 @@
         <image name="menu" width="32" height="32"/>
         <image name="order" width="32" height="32"/>
         <image name="settings" width="32" height="32"/>
+        <image name="sporkfed_whitelogo" width="1276" height="440"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="cIL-TX-hOf"/>
