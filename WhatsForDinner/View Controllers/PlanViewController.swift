@@ -270,7 +270,7 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             configure(cell, at: indexPath)
         }
         
-        if (cell.mealName.text == "Restaurant 👨‍🍳" || cell.mealName.text == "Leftovers 🍴") {
+        if (cell.mealName.text == "👨‍🍳 Restaurant" || cell.mealName.text == "🍴 Leftovers") {
             cell.selectionStyle = UITableViewCellSelectionStyle.none
             cell.isUserInteractionEnabled = false
         } else {

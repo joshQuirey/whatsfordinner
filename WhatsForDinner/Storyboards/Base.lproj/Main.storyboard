@@ -430,6 +430,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="heV-je-CGH" secondAttribute="trailing" id="QMn-VW-yUv"/>
+                                                    <constraint firstItem="heV-je-CGH" firstAttribute="leading" secondItem="06e-GZ-GwI" secondAttribute="leading" id="w7C-VD-dtH"/>
+                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1660,15 +1664,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SgD-SK-gop">
-                                <rect key="frame" x="0.0" y="44" width="375" height="300"/>
+                                <rect key="frame" x="0.0" y="44" width="355" height="300"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8HP-L5-Zzg">
-                                        <rect key="frame" x="0.0" y="0.0" width="367" height="300"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="300"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="300" id="PEP-f6-qH7"/>
-                                            <constraint firstAttribute="width" constant="367" id="Yn2-97-8eg"/>
+                                            <constraint firstAttribute="height" constant="300" id="Y8j-Wt-uqO"/>
                                         </constraints>
                                         <color key="textColor" red="0.12549019610000001" green="0.08235294118" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -1682,20 +1685,21 @@
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="8HP-L5-Zzg" firstAttribute="top" secondItem="SgD-SK-gop" secondAttribute="top" id="Udc-82-BAZ"/>
-                                    <constraint firstItem="8HP-L5-Zzg" firstAttribute="leading" secondItem="SgD-SK-gop" secondAttribute="leading" id="WkA-8h-RV3"/>
-                                    <constraint firstAttribute="bottom" secondItem="8HP-L5-Zzg" secondAttribute="bottom" id="mou-S3-OmG"/>
-                                    <constraint firstAttribute="trailing" secondItem="8HP-L5-Zzg" secondAttribute="trailing" constant="8" id="tTe-7h-1H5"/>
+                                    <constraint firstAttribute="trailing" secondItem="8HP-L5-Zzg" secondAttribute="trailing" id="8GR-G2-lzf"/>
+                                    <constraint firstItem="8HP-L5-Zzg" firstAttribute="top" secondItem="SgD-SK-gop" secondAttribute="top" id="EPQ-7R-gMI"/>
+                                    <constraint firstAttribute="bottom" secondItem="8HP-L5-Zzg" secondAttribute="bottom" id="Q2k-4W-x2P"/>
+                                    <constraint firstItem="8HP-L5-Zzg" firstAttribute="leading" secondItem="SgD-SK-gop" secondAttribute="leading" id="R0P-dd-9dF"/>
+                                    <constraint firstAttribute="height" constant="300" id="cKE-9p-yIv"/>
+                                    <constraint firstItem="8HP-L5-Zzg" firstAttribute="centerX" secondItem="SgD-SK-gop" secondAttribute="centerX" id="eCI-Vg-tcd"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="0.95675367119999999" green="0.96840625999999996" blue="0.96030706170000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="kno-z3-RJz" firstAttribute="bottom" secondItem="SgD-SK-gop" secondAttribute="bottom" constant="385" id="5pg-wm-TdM"/>
-                            <constraint firstItem="SgD-SK-gop" firstAttribute="top" secondItem="kno-z3-RJz" secondAttribute="top" id="Aup-ub-6GH"/>
-                            <constraint firstAttribute="trailing" secondItem="SgD-SK-gop" secondAttribute="trailing" id="FrB-lu-HwJ"/>
-                            <constraint firstItem="SgD-SK-gop" firstAttribute="leading" secondItem="2Nv-ec-ioN" secondAttribute="leading" id="hOP-J9-1fs"/>
+                            <constraint firstItem="SgD-SK-gop" firstAttribute="top" secondItem="kno-z3-RJz" secondAttribute="top" id="dUh-mj-dG1"/>
+                            <constraint firstItem="kno-z3-RJz" firstAttribute="trailing" secondItem="SgD-SK-gop" secondAttribute="trailing" constant="20" id="eu3-J3-rSY"/>
+                            <constraint firstItem="SgD-SK-gop" firstAttribute="leading" secondItem="kno-z3-RJz" secondAttribute="leading" id="uNT-ka-hmk"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kno-z3-RJz"/>
                     </view>
