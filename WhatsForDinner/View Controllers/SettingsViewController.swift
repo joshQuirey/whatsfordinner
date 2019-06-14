@@ -8,8 +8,10 @@
 
 import UIKit
 import StoreKit
+import MessageUI
+import SafariServices
 
-class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -32,7 +34,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             case 0:
                 return 1
             case 1:
-                return 2
+                return 3
             default:
                 return 1
         }
@@ -42,18 +44,31 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         return 40
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch(section) {
+        case 0:
+            return "Help"
+        case 1:
+            return "Feedback"
+        default:
+            return ""
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath)
         
         switch(indexPath.section) {
         case 0:
-            cell.textLabel!.text = "Tips and Tricks"
+            cell.textLabel!.text = "🌐 Visit Our Website"
             break
         case 1:
             if (indexPath.row == 0) {
-                cell.textLabel!.text = "Send Feedback"
+                cell.textLabel!.text = "🐦 Tweet @SporkFedApp"
+            } else if (indexPath.row == 1) {
+                cell.textLabel!.text = "✉️ Send Email"
             } else {
-                cell.textLabel!.text = "Please Rate Spork Fed"
+                cell.textLabel!.text = "👍 Rate Us on the App Store"
             }
         default:
             break
@@ -66,12 +81,15 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         switch(indexPath.section) {
         case 0:
             if (indexPath.row == 0) {
+                showSafariVC(for: "https://sporkfed.app")
             } else {
             }
             break
         case 1:
             if (indexPath.row == 0) {
-                
+                showSafariVC(for: "https://twitter.com/sporkfedapp")
+            } else if (indexPath.row == 1) {
+                sendFeedbackEmail()
             } else {
                 SKStoreReviewController.requestReview()
             }
@@ -79,5 +97,42 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         default:
             break
         }
+    }
+    
+    //////////////////////////////////
+    //Email
+    //////////////////////////////////
+    func sendFeedbackEmail() {
+        let mailComposeViewController = configureMail()
+        if MFMailComposeViewController.canSendMail() {
+            self.present(mailComposeViewController, animated: true, completion: nil)
+        }
+    }
+    
+    func configureMail() -> MFMailComposeViewController {
+        let mailComposer = MFMailComposeViewController()
+        mailComposer.mailComposeDelegate = self
+        
+        mailComposer.setToRecipients(["sporkfed.app@gmail.com"])
+        mailComposer.setSubject("Spork Fed User Feedback")
+        
+        return mailComposer
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    ////////////////////////////////
+    //Safari Links
+    ////////////////////////////////
+    func showSafariVC(for url: String) {
+        guard let url = URL(string: url) else {
+            //Show invalid URL error
+            return
+        }
+        
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true)
     }
 }

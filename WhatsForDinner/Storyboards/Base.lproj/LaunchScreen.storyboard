@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_1" orientation="portrait">
+    <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -18,19 +18,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="nMi-F9-4ej">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nMi-F9-4ej">
                                 <rect key="frame" x="20" y="219" width="374" height="266"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sporkfedsymbolwhite" translatesAutoresizingMaskIntoConstraints="NO" id="NgK-hK-H2j">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="179"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="180"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="180" id="u94-SC-c9r"/>
+                                        </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sporkfed_whitelogo" translatesAutoresizingMaskIntoConstraints="NO" id="0zg-tG-Ead">
-                                        <rect key="frame" x="0.0" y="179" width="374" height="87"/>
+                                        <rect key="frame" x="0.0" y="180" width="374" height="86"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="86" id="tAq-25-GaB"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KAp-mz-dDx">
-                                <rect key="frame" x="173.5" y="804" width="67.5" height="18"/>
+                                <rect key="frame" x="173.33333333333334" y="804" width="67.333333333333343" height="18"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Loading...">
                                         <attributes>
@@ -48,7 +54,6 @@
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="KAp-mz-dDx" secondAttribute="bottom" constant="40" id="BFQ-FS-Pzg"/>
                             <constraint firstItem="KAp-mz-dDx" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Dwm-Fd-j32"/>
-                            <constraint firstItem="nMi-F9-4ej" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="175" id="JPN-nT-SC8"/>
                             <constraint firstItem="nMi-F9-4ej" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-96" id="YCN-kn-AGT"/>
                             <constraint firstItem="nMi-F9-4ej" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="bP5-hd-wXJ"/>
                             <constraint firstAttribute="trailing" secondItem="nMi-F9-4ej" secondAttribute="trailing" constant="20" id="tCN-MR-Esd"/>
