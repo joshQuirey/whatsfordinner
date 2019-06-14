@@ -15,14 +15,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    private let coreDataManager = CoreDataManager(modelName:"MealModel")
+    public let coreDataManager = CoreDataManager(modelName:"MealModel")
+    
+    enum QuickAction: String {
+        case ViewMenu = "viewmenu"
+        case ViewMeals = "viewmeals"
+        case AddMeal = "addmeal"
+        
+        init?(fullIdentifier: String) {
+            guard let shortcutIdentifier = fullIdentifier.components(separatedBy: ".").last else { return nil }
+            
+            self.init(rawValue: shortcutIdentifier)
+        }
+    }
+    
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        completionHandler(handleQuickAction(shortcutItem: shortcutItem))
+    }
+    
+    private func handleQuickAction(shortcutItem: UIApplicationShortcutItem) -> Bool {
+        let shortcutType = shortcutItem.type
+        
+        guard let shortcutIdentifier = QuickAction(fullIdentifier: shortcutType) else { return false }
+        guard let tabBarController = window?.rootViewController as? UITabBarController else { return false }
+        
+        switch shortcutIdentifier {
+        case .ViewMenu:
+             tabBarController.selectedIndex = 0
+        case .ViewMeals:
+            tabBarController.selectedIndex = 1
+        case .AddMeal:
+            if let navController = tabBarController.viewControllers?[1] {
+                let mealsViewController = navController.childViewControllers[0]
+                mealsViewController.performSegue(withIdentifier: "AddMeal", sender: mealsViewController)
+            } else {
+                return false
+            }
+        }
+        return true
+    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        createQuickActions()
+        
         return true
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
 
@@ -42,51 +82,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-    // MARK: - Core Data stack
     
-   // lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-         */
-     //   let container = NSPersistentContainer(name: "MealModel")
-       // container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-         //   if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-            //    fatalError("Unresolved error \(error), \(error.userInfo)")
-          //  }
-        //})
-       // return container
-    //}()
-    
-    // MARK: - Core Data Saving support
-    
-   // func saveContext () {
-     //   let context = persistentContainer.viewContext
-       // if context.hasChanges {
-         //   do {
-           //     try context.save()
-          //  } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            //    let nserror = error as NSError
-              //  fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-           // }
-   //     }
-    //}
-    
+    func createQuickActions() {
+        if let bundleIdentifier = Bundle.main.bundleIdentifier {
+           
+            let shortcut1 = UIApplicationShortcutItem(type: "\(bundleIdentifier).viewmenu", localizedTitle: "View Menu", localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "menu"), userInfo: nil)
+            
+            let shortcut2 = UIApplicationShortcutItem(type: "\(bundleIdentifier).viewmeals", localizedTitle: "View Meals", localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "meals"), userInfo: nil)
+           
+            let shortcut3 = UIApplicationShortcutItem(type: "\(bundleIdentifier).addmeal", localizedTitle: "Add Meal", localizedSubtitle: nil, icon: UIApplicationShortcutIcon(type: .add), userInfo: nil)
+            
+            UIApplication.shared.shortcutItems = [shortcut1, shortcut2, shortcut3]
+        }
+    }
 }
-

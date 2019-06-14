@@ -49,7 +49,6 @@ class PlanTableViewCell: UITableViewCell {
     @IBOutlet weak var mealImage: UIImageView!
     @IBOutlet weak var prep: UILabel!
     @IBOutlet weak var cook: UILabel!
-    @IBOutlet weak var serve: UILabel!
     @IBOutlet weak var mealCategories: UITextField!
     
 //    @IBOutlet weak var mainCellView: UIView!
@@ -75,7 +74,6 @@ class ReplaceTableViewCell: UITableViewCell {
     @IBOutlet weak var prep: UILabel!
     @IBOutlet weak var cook: UILabel!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -83,7 +81,6 @@ class ReplaceTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
         // Configure the view for the selected state
     }
 }

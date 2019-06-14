@@ -78,11 +78,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         categories.text = "Categories"
         categories.textColor = .lightGray
         categories.textContainer.lineBreakMode = .byWordWrapping
-        
-//        categories.translatesAutoresizingMaskIntoConstraints = false
-//        [
-//            categories.heightAnchor.constraint(equalToConstant: 100)
-//            ].forEach{ $0.isActive = true }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,6 +86,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         }
         
         if (meal == nil) {
+            if (managedObjectContext == nil) {
+                managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).coreDataManager.managedObjectContext
+            }
+            
             meal = Meal(context: managedObjectContext!)
             meal?.mealName = ""
         }
@@ -198,11 +197,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
             meal.mealImage = imageData
         }
         
-        //category?
-        
         meal.mealDesc = mealDescription.text
-        
-        print("populate meal")
         var _frequency = 0
         
         switch frequency.text {
@@ -225,7 +220,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         meal.cookTime = cookTime.text
         meal.serves = serves.text
         meal.directions = recipeDirectionsViewController.recipeDirections.text
-        //ingredientss
         
         if (meal.nextDate == nil) {
             meal.estimatedNextDate =  Calendar.current.date(byAdding: .day, value: Int(meal.frequency), to: Date())
@@ -396,7 +390,6 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     func calculateTime() -> String {
         //Gets total number of minutes
-        print(self.pickTime.countDownDuration)
         let minutesTotal = self.pickTime.countDownDuration / 60
         //Get Hours
         let hours = Int(minutesTotal / 60)

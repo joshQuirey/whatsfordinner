@@ -14,7 +14,6 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var bottomStackViewConstraint: NSLayoutConstraint!
     
     var managedObjectContext: NSManagedObjectContext?
-    //var day7Plan: PlannedDay?
     var weekPlan = [PlannedDay?]()
     
     @IBOutlet weak var parentView: UIView!
@@ -61,7 +60,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     var numberDaysToPlan = 7
     
-    let categoryData = [String](arrayLiteral: "Chef's Choice 🎲", "Asian Cuisine 🥡", "Breakfast for Dinner 🥓", "Barbecue 🐷", "Beef 🐄", "Casserole 🥘", "Comfort Food 🛌", "Chicken 🐓", "Hispanic  🌮", "Pasta 🍝", "Pizza 🍕", "Pork 🐖", "On The Grill 🥩", "Other", "Salad 🥗", "Sandwich 🥪", "Seafood 🍤", "Slow Cooker ⏲", "Soups Up 🍜", "Vegetarian 🥕", "Restaurant 👨‍🍳", "Leftovers 🍴")
+    let categoryData = [String](arrayLiteral: "🎲 Chef's Choice", "🥡 Asian Cuisine", " 🥓 Breakfast for Dinner", "🐷 Barbecue", "🐄 Beef", "🥘 Casserole", "🛌 Comfort Food", "🐓 Chicken", "🌾 Grains", "🌮 Hispanic", "🍴 Leftovers", "🍜 Noodles", "🍝 Pasta", "🍕 Pizza", "🐖 Pork", "🥩 On The Grill", "🍯 Other","👨‍🍳 Restaurant", "🥗 Salad", "🥪 Sandwich", "🍤 Seafood", "⏲ Slow Cooker", "🥣 Soups Up", "🥕 Vegetarian")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -169,7 +168,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
             day1Plan.planEndDate = dateDay7
             day1Plan.category = category1.text
 
-            if (day1Plan.category != "Restaurant 👨‍🍳" && day1Plan.category != "Leftovers 🍴") {
+            if (day1Plan.category != "👨‍🍳 Restaurant" && day1Plan.category != "🍴 Leftovers") {
                 //Get Meal by Category
                 day1Plan.meal = self.getNextMealforCategory(_plannedCategory: day1Plan.category!, _plannedDate: day1Plan.date!, _plannedMeal: &plannedMeal)
                 //Get Next Meal
@@ -194,7 +193,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
             day2Plan.planEndDate = dateDay7
             day2Plan.category = category2.text
             
-            if (day2Plan.category != "Restaurant 👨‍🍳" && day2Plan.category != "Leftovers 🍴") {
+            if (day2Plan.category != "👨‍🍳 Restaurant" && day2Plan.category != "🍴 Leftovers") {
                 //Get Meal by Category
                 day2Plan.meal = self.getNextMealforCategory(_plannedCategory: day2Plan.category!, _plannedDate: day2Plan.date!, _plannedMeal: &plannedMeal2)
                 //Get Next Meal
@@ -219,7 +218,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
             day3Plan.planEndDate = dateDay7
             day3Plan.category = category3.text
             
-            if (day3Plan.category != "Restaurant 👨‍🍳" && day3Plan.category != "Leftovers 🍴") {
+            if (day3Plan.category != "👨‍🍳 Restaurant" && day3Plan.category != "🍴 Leftovers") {
                 //Get Meal by Category
                 day3Plan.meal = self.getNextMealforCategory(_plannedCategory: day3Plan.category!, _plannedDate: day3Plan.date!, _plannedMeal: &plannedMeal3)
                 //Get Next Meal
@@ -244,7 +243,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
             day4Plan.planEndDate = dateDay7
             day4Plan.category = category4.text
             
-            if (day4Plan.category != "Restaurant 👨‍🍳" && day4Plan.category != "Leftovers 🍴") {
+            if (day4Plan.category != "👨‍🍳 Restaurant" && day4Plan.category != "🍴 Leftovers") {
                 //Get Meal by Category
                 day4Plan.meal = self.getNextMealforCategory(_plannedCategory: day4Plan.category!, _plannedDate: day4Plan.date!, _plannedMeal: &plannedMeal4)
                 //Get Next Meal
@@ -269,7 +268,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
             day5Plan.planEndDate = dateDay7
             day5Plan.category = category5.text
             
-            if (day5Plan.category != "Restaurant 👨‍🍳" && day5Plan.category != "Leftovers 🍴") {
+            if (day5Plan.category != "👨‍🍳 Restaurant" && day5Plan.category != "🍴 Leftovers") {
                 //Get Meal by Category
                 day5Plan.meal = self.getNextMealforCategory(_plannedCategory: day5Plan.category!, _plannedDate: day5Plan.date!, _plannedMeal: &plannedMeal5)
                 //Get Next Meal
@@ -294,7 +293,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
             day6Plan.planEndDate = dateDay7
             day6Plan.category = category6.text
             
-            if (day6Plan.category != "Restaurant 👨‍🍳" && day6Plan.category != "Leftovers 🍴") {
+            if (day6Plan.category != "👨‍🍳 Restaurant" && day6Plan.category != "🍴 Leftovers") {
                 //Get Meal by Category
                 day6Plan.meal = self.getNextMealforCategory(_plannedCategory: day6Plan.category!, _plannedDate: day6Plan.date!, _plannedMeal: &plannedMeal6)
                 //Get Next Meal
@@ -319,7 +318,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
             day7Plan.planEndDate = dateDay7
             day7Plan.category = category7.text
             
-            if (day7Plan.category != "Restaurant 👨‍🍳" && day7Plan.category != "Leftovers 🍴") {
+            if (day7Plan.category != "👨‍🍳 Restaurant" && day7Plan.category != "🍴 Leftovers") {
                 //Get Meal by Category
                 day7Plan.meal = self.getNextMealforCategory(_plannedCategory: day7Plan.category!, _plannedDate: day7Plan.date!, _plannedMeal: &plannedMeal7)
                 //Get Next Meal
@@ -349,9 +348,9 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     func getNextMealforCategory(_plannedCategory: String, _plannedDate: Date, _plannedMeal: inout Meal) -> Meal? {
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
-        
+
         //Fetch Meals using Category
-        fetchRequest.predicate = NSPredicate(format: "ANY tags.name == %@ AND estimatedNextDate != nil", _plannedCategory)
+        fetchRequest.predicate = NSPredicate(format: "(ANY tags.name == %@) AND estimatedNextDate != nil", _plannedCategory)
         
         //Sort by estimated next date
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending:true)]
@@ -379,7 +378,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
         
         //Fetch Meals using Category
-        fetchRequest.predicate = NSPredicate(format: "ANY estimatedNextDate != nil")
+        fetchRequest.predicate = NSPredicate(format: "estimatedNextDate != nil")
         
         //Sort by estimated next date
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending:true)]
@@ -436,13 +435,11 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     //Text Field Functions
     ////////////////////////////
     func textFieldDidEndEditing(_ textField: UITextField) {
-        print(textField)
         //update each of the day labels
         updateDayDates()
     }
     
     func updateDayDates() {
-        print(startingDatePicker.date)
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE, MMMM d, yyyy"
         
@@ -490,9 +487,8 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donePrepDatePicker))
         //let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPicker))
         toolbar.setItems([spaceButton,doneButton], animated: false)
-        
+    
         startingDate.inputAccessoryView = toolbar
-        print(startingDatePicker.date)
     
         //startingDatePicker.date = Date()
         let formatter = DateFormatter()

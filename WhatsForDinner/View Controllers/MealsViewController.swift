@@ -146,7 +146,6 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
         
         if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> {
             print("Context Updates Exist Meals")
-            
             for update in updates {
                 if update is Meal {
                     mealsDidChange = true
@@ -329,8 +328,6 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            print("OK, marked as delete")
-            
             DispatchQueue.main.async {
                 self.showDeleteWarning(for: indexPath)
             }
@@ -361,9 +358,7 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
             self.tableView.reloadData()
         }))
     
-        self.present(alert, animated: true, completion: {
-            print("completion block")
-        })
+        self.present(alert, animated: true, completion: {})
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {

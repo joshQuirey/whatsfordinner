@@ -20,7 +20,6 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
 
     private var ingredients: [Ingredient]? {
         didSet {
-            //updateView()
         }
     }
     
@@ -30,7 +29,7 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         ingredientTableView.tableFooterView = UIView(frame: CGRect.zero)
-        // Do any additional setup after loading the view.
+        
         ingredientTableView.delegate = self
         ingredientTableView.dataSource = self
     }
@@ -45,14 +44,10 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("ingredients - textfield did begin editing")
-        
         parent!.view.frame.origin.y = -300
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        print("ingredients - textfield did end editing")
-        
         parent!.view.frame.origin.y = 0
     }
 
@@ -84,19 +79,6 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
         return true
     }
     
-    /////////////////////////////
-    //Actions
-    /////////////////////////////
-//    @IBAction func addIngredient(_ sender: Any) {
-//        if (_ingredient.text != nil && _ingredient.text != "") {
-//            addNewIngredient()
-//            ingredientTableView.isHidden = false
-//            ingredients = meal?.ingredients?.allObjects as? [Ingredient]
-//            ingredientTableView.reloadData()
-//            _ingredient.text = nil
-//        }
-//    }
-    
     func addNewIngredient() {
         guard let managedObjectContext = meal?.managedObjectContext else { return }
         
@@ -116,28 +98,16 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //Dequeue Reusable Cell
         let cell = ingredientTableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath)
-        //activities?.sort(by: { $0.stepNumber < $1.stepNumber })
+        
         let selectedIngredient = ingredients![indexPath.row]
         cell.textLabel?.text = selectedIngredient.item
 
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        guard editingStyle == .delete else { return }
-//        let deletedIngredient = ingredients![indexPath.row]
-//        meal?.removeFromIngredients(deletedIngredient)
-//        ingredients?.remove(at: indexPath.row)
-//        ingredientTableView.reloadData()
-//        updateView()
-//    }
-    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            print("OK, marked as delete")
-            
             let deletedIngredient = self.ingredients![indexPath.row]
             self.meal?.removeFromIngredients(deletedIngredient)
             self.ingredients?.remove(at: indexPath.row)
@@ -145,21 +115,10 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
             self.updateView()
             success(true)
         })
+        
         deleteAction.image = UIImage(named: "delete")
-    
         deleteAction.backgroundColor = UIColor(red: 122/255, green: 00/255, blue: 38/255, alpha: 1.0)
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
