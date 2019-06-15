@@ -257,6 +257,8 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel , handler:{ (UIAlertAction)in
         }))
         
+        alert.view.tintColor = UIColor(red: 77/255, green: 72/255, blue: 147/255, alpha: 1.0)
+        
         self.present(alert, animated: true, completion: nil)
     }
 }
@@ -358,6 +360,7 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
             self.tableView.reloadData()
         }))
     
+        alert.view.tintColor = UIColor(red: 77/255, green: 72/255, blue: 147/255, alpha: 1.0)
         self.present(alert, animated: true, completion: {})
     }
     

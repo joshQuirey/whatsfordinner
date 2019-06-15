@@ -281,6 +281,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.view.tintColor = UIColor(red: 77/255, green: 72/255, blue: 147/255, alpha: 1.0)
         vc.present(actionSheet, animated: true, completion: nil)
     }
     
@@ -330,6 +331,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(title: "Choose", style: .plain, target: self, action: #selector(doneTextPicker))
         toolbar.setItems([cancelButton,spaceButton,doneButton], animated: false)
+        toolbar.tintColor = UIColor(red: 77/255, green: 72/255, blue: 147/255, alpha: 1.0)
         
         textField.inputAccessoryView = toolbar
     }
@@ -352,6 +354,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(title: "Choose", style: .plain, target: self, action: #selector(donePrepPicker))
         toolbar.setItems([cancelButton,spaceButton,doneButton], animated: false)
+        toolbar.tintColor = UIColor(red: 77/255, green: 72/255, blue: 147/255, alpha: 1.0)
         
         prepTime.inputAccessoryView = toolbar
     }
@@ -375,6 +378,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(title: "Choose", style: .plain, target: self, action: #selector(doneCookPicker))
         toolbar.setItems([cancelButton,spaceButton,doneButton], animated: false)
+        toolbar.tintColor = UIColor(red: 77/255, green: 72/255, blue: 147/255, alpha: 1.0)
         
         cookTime.inputAccessoryView = toolbar
     }

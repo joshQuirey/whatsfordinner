@@ -493,7 +493,7 @@
         <scene sceneID="tXC-eW-SCQ">
             <objects>
                 <viewController id="hwq-sG-Eis" customClass="CategoriesViewController" customModule="WhatsForDinner" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="9tY-pV-IBS">
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="9tY-pV-IBS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -1131,18 +1131,18 @@
                                 </connections>
                             </tableView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sporkfed_whitelogo" translatesAutoresizingMaskIntoConstraints="NO" id="oDJ-pV-xNP">
-                                <rect key="frame" x="0.0" y="549" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="548.5" width="414" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="GKM-C6-2eF"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQn-sg-pDN">
-                                <rect key="frame" x="121.5" y="592" width="171.5" height="17.5"/>
+                                <rect key="frame" x="120.5" y="591.5" width="173" height="18"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Automagic Meal Planning">
                                         <attributes>
                                             <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="15" name="SFProText-Italic"/>
+                                            <font key="NSFont" metaFont="system" size="15"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -1173,7 +1173,7 @@
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sporkfedsymbolwhite" translatesAutoresizingMaskIntoConstraints="NO" id="Mby-Pb-eaW">
-                                <rect key="frame" x="144.5" y="434" width="125" height="125"/>
+                                <rect key="frame" x="144.5" y="433.5" width="125" height="125"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="125" id="4xa-Qk-0dg"/>
                                     <constraint firstAttribute="width" secondItem="Mby-Pb-eaW" secondAttribute="height" multiplier="1:1" id="L2d-TI-4tN"/>
@@ -1844,6 +1844,6 @@
         <image name="sporkfedsymbolwhite" width="764" height="902"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cIL-TX-hOf"/>
+        <segue reference="Y4X-TR-EdA"/>
     </inferredMetricsTieBreakers>
 </document>

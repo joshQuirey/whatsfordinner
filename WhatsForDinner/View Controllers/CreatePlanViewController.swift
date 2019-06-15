@@ -484,10 +484,11 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donePrepDatePicker))
-        //let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPicker))
+        let doneButton = UIBarButtonItem(title: "Choose", style: .plain, target: self, action: #selector(donePrepDatePicker))
+        
         toolbar.setItems([spaceButton,doneButton], animated: false)
-    
+        toolbar.tintColor = UIColor(red: 77/255, green: 72/255, blue: 147/255, alpha: 1.0)
+        
         startingDate.inputAccessoryView = toolbar
     
         //startingDatePicker.date = Date()
@@ -555,9 +556,10 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTextPicker))
-        //let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelTextPicker))
+        let doneButton = UIBarButtonItem(title: "Choose", style: .plain, target: self, action: #selector(doneTextPicker))
+        
         toolbar.setItems([spaceButton,doneButton], animated: false)
+        toolbar.tintColor = UIColor(red: 77/255, green: 72/255, blue: 147/255, alpha: 1.0)
         
         textField.inputAccessoryView = toolbar
         textField.text = categoryData[0]
