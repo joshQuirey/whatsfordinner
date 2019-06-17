@@ -8,29 +8,33 @@
 
 import UIKit
 
-class RecipeDirectionsViewController: UIViewController {
+class RecipeDirectionsViewController: UIViewController, UITextViewDelegate {
 
+    var meal: Meal?
+    var activeTextView = UITextView()
+    var directionsActive = false
+    @IBOutlet weak var directionsTextView: UITextView!
+    
     @IBOutlet weak var recipeDirections: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        
+    }
+
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        print("\(parent!.view.frame.origin.y) directions")
+        parent!.view.frame.origin.y = -250
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func textViewDidEndEditing(_ textView: UITextView) {
+        print("\(parent!.view.frame.origin.y) directions")
+        parent!.view.frame.origin.y = 0
     }
-    */
-
 }

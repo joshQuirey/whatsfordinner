@@ -8,13 +8,20 @@
 
 import UIKit
 
-class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     /////////////////////////////
     //Properties
     /////////////////////////////
     @IBOutlet weak var ingredientTableView: UITableView!
-    @IBOutlet weak var ingredient: UITextField!
-    var ingredients: [String] = ["test1","test2","test3"]
+    @IBOutlet weak var _ingredient: UITextField!
+    
+    var meal: Meal?
+    var ingredient: Ingredient?
+
+    private var ingredients: [Ingredient]? {
+        didSet {
+        }
+    }
     
     /////////////////////////////
     //View Life Cycle
@@ -22,7 +29,7 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         ingredientTableView.tableFooterView = UIView(frame: CGRect.zero)
-        // Do any additional setup after loading the view.
+        
         ingredientTableView.delegate = self
         ingredientTableView.dataSource = self
     }
@@ -32,52 +39,89 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        updateView()
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("\(parent!.view.frame.origin.y) ingredient")
+        parent!.view.frame.origin.y = -250
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("\(parent!.view.frame.origin.y) ingredient")
+        parent!.view.frame.origin.y = 0
+    }
+
+    
+    func updateView() {
+        if meal?.ingredients == nil {
+            ingredientTableView.isHidden = true
+        } else if meal!.ingredients!.count > 0 {
+            ingredientTableView.isHidden = false
+            ingredients = meal?.ingredients?.allObjects as? [Ingredient]
+            ingredientTableView.reloadData()
+        } else {
+            ingredientTableView.isHidden = true
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         ingredientTableView.reloadData()
     }
     
-    /////////////////////////////
-    //Actions
-    /////////////////////////////
-    @IBAction func addIngredient(_ sender: Any) {
-        addNewIngredient()
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if (textField.text != nil && textField.text != "") {
+            addNewIngredient()
+            ingredientTableView.isHidden = false
+            ingredients = meal?.ingredients?.allObjects as? [Ingredient]
+            ingredientTableView.reloadData()
+            textField.text = nil
+        }
+
+        return true
     }
     
     func addNewIngredient() {
-        ingredients.append(ingredient.text!)
-        //let lastRow = ingredients.count == 0 ? ingredients.1 : ingredients.count-1
-        let indexPath = IndexPath(row: 0, section: 0)
-        ingredientTableView.beginUpdates()
-        ingredientTableView.insertRows(at: [indexPath], with: .automatic)
-        ingredientTableView.endUpdates()
+        guard let managedObjectContext = meal?.managedObjectContext else { return }
         
-        ingredient.text = ""
-        view.endEditing(true)
+        ingredient = Ingredient(context: managedObjectContext)
+        ingredient!.item = _ingredient.text
+        meal?.addToIngredients(ingredient!)
     }
     
     /////////////////////////////
     //Table Functions
     /////////////////////////////
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ingredients.count
+        if ingredients != nil {
+            return ingredients!.count;
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currentIngredient = ingredients[indexPath.item]
-        let currentCell = tableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath)
+        let cell = ingredientTableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath)
         
-        currentCell.textLabel?.text = currentIngredient
-        return currentCell
+        let selectedIngredient = ingredients![indexPath.row]
+        cell.textLabel?.text = selectedIngredient.item
+
+        return cell
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            let deletedIngredient = self.ingredients![indexPath.row]
+            self.meal?.removeFromIngredients(deletedIngredient)
+            self.ingredients?.remove(at: indexPath.row)
+            self.ingredientTableView.reloadData()
+            self.updateView()
+            success(true)
+        })
+        
+        deleteAction.image = UIImage(named: "delete")
+        deleteAction.backgroundColor = UIColor(red: 122/255, green: 00/255, blue: 38/255, alpha: 1.0)
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
-    */
-
 }
