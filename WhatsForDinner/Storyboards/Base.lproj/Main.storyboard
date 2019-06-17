@@ -857,7 +857,7 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Menu" id="y6O-4l-wd0">
                         <barButtonItem key="leftBarButtonItem" enabled="NO" title="Item" id="Cgu-ho-TAp"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Njr-3d-Hv3">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="magicwand" landscapeImage="magicwand" largeContentSizeImage="magicwand" id="Njr-3d-Hv3">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <segue destination="Ljq-Fm-kEf" kind="showDetail" identifier="CreatePlan" id="TTl-ru-SlJ"/>
@@ -1836,6 +1836,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="magicwand" width="16" height="16"/>
         <image name="meals" width="32" height="32"/>
         <image name="menu" width="32" height="32"/>
         <image name="order" width="32" height="32"/>
@@ -1844,6 +1845,6 @@
         <image name="sporkfedsymbolwhite" width="764" height="902"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Y4X-TR-EdA"/>
+        <segue reference="cIL-TX-hOf"/>
     </inferredMetricsTieBreakers>
 </document>
