@@ -44,13 +44,16 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        parent!.view.frame.origin.y = -300
+        print("\(parent!.view.frame.origin.y) ingredient")
+        parent!.view.frame.origin.y = -250
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        print("\(parent!.view.frame.origin.y) ingredient")
         parent!.view.frame.origin.y = 0
     }
 
+    
     func updateView() {
         if meal?.ingredients == nil {
             ingredientTableView.isHidden = true

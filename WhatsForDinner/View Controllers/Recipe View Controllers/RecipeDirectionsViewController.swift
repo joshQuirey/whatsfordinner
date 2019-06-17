@@ -28,10 +28,13 @@ class RecipeDirectionsViewController: UIViewController, UITextViewDelegate {
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {
-        parent!.view.frame.origin.y = -300
+        print("\(parent!.view.frame.origin.y) directions")
+        parent!.view.frame.origin.y = -250
+        
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
+        print("\(parent!.view.frame.origin.y) directions")
         parent!.view.frame.origin.y = 0
     }
 }
