@@ -660,25 +660,12 @@
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </stackView>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q4h-o7-HgY">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="80"/>
-                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    <state key="normal" title="Button"/>
-                                                                    <connections>
-                                                                        <action selector="expandButton:" destination="8qA-uY-t8x" eventType="touchUpInside" id="FLh-AV-Fyg"/>
-                                                                    </connections>
-                                                                </button>
                                                             </subviews>
                                                             <color key="backgroundColor" red="0.58724212649999996" green="0.84964609150000003" blue="0.8512305617" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstItem="q4h-o7-HgY" firstAttribute="leading" secondItem="vJl-TL-ffv" secondAttribute="leading" id="K4S-Ny-9a8"/>
                                                                 <constraint firstItem="bT6-Zs-l6F" firstAttribute="leading" secondItem="vJl-TL-ffv" secondAttribute="leading" id="PY6-HH-dFP"/>
-                                                                <constraint firstAttribute="bottom" secondItem="q4h-o7-HgY" secondAttribute="bottom" id="QNs-bf-b9U"/>
                                                                 <constraint firstAttribute="width" constant="40" id="SR1-yw-B2A"/>
-                                                                <constraint firstItem="q4h-o7-HgY" firstAttribute="top" secondItem="vJl-TL-ffv" secondAttribute="top" id="XPk-eW-34j"/>
-                                                                <constraint firstAttribute="trailing" secondItem="q4h-o7-HgY" secondAttribute="trailing" id="dLk-8d-OJc"/>
                                                                 <constraint firstItem="bT6-Zs-l6F" firstAttribute="top" secondItem="vJl-TL-ffv" secondAttribute="top" constant="10" id="fjt-vD-MVG"/>
                                                                 <constraint firstAttribute="trailing" secondItem="bT6-Zs-l6F" secondAttribute="trailing" id="hoT-V8-RlV"/>
                                                                 <constraint firstAttribute="bottom" secondItem="bT6-Zs-l6F" secondAttribute="bottom" constant="10" id="rG7-5P-waq"/>
@@ -829,7 +816,7 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="5" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VNH-by-DnR">
-                                <rect key="frame" x="40" y="271" width="334" height="200"/>
+                                <rect key="frame" x="40" y="236.5" width="334" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="Y8R-Zq-J5W"/>
                                 </constraints>
@@ -853,7 +840,7 @@
                             <constraint firstItem="VNH-by-DnR" firstAttribute="centerX" secondItem="nzt-gb-HeH" secondAttribute="centerX" id="80P-Kn-HPL"/>
                             <constraint firstItem="t1B-tt-7xy" firstAttribute="trailing" secondItem="kOs-uJ-OSa" secondAttribute="trailing" constant="-10" id="JKG-Ih-VvM"/>
                             <constraint firstItem="t1B-tt-7xy" firstAttribute="leading" secondItem="kOs-uJ-OSa" secondAttribute="leading" constant="10" id="Jur-s9-fmU"/>
-                            <constraint firstItem="VNH-by-DnR" firstAttribute="centerY" secondItem="nzt-gb-HeH" secondAttribute="centerY" constant="34.5" id="cqU-ae-imL"/>
+                            <constraint firstItem="VNH-by-DnR" firstAttribute="centerY" secondItem="nzt-gb-HeH" secondAttribute="centerY" id="cqU-ae-imL"/>
                             <constraint firstItem="t1B-tt-7xy" firstAttribute="bottom" secondItem="kOs-uJ-OSa" secondAttribute="bottom" id="dJa-lc-6vv"/>
                             <constraint firstItem="VNH-by-DnR" firstAttribute="leading" secondItem="kOs-uJ-OSa" secondAttribute="leading" constant="40" id="qKU-Gg-mAa"/>
                         </constraints>
@@ -861,8 +848,8 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Menu" id="y6O-4l-wd0">
-                        <barButtonItem key="leftBarButtonItem" enabled="NO" title="Item" id="Cgu-ho-TAp"/>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="magicwand" landscapeImage="magicwand" largeContentSizeImage="magicwand" id="Njr-3d-Hv3">
+                        <barButtonItem key="leftBarButtonItem" title="Item" style="plain" id="sv0-XP-9Mf"/>
+                        <barButtonItem key="rightBarButtonItem" image="magicwand" style="plain" id="Njr-3d-Hv3">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <segue destination="Ljq-Fm-kEf" kind="showDetail" identifier="CreatePlan" id="TTl-ru-SlJ"/>
@@ -1157,7 +1144,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3ow-lh-QAG">
                                 <rect key="frame" x="0.0" y="619.5" width="414" height="43.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ERI-Xg-jWz">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.0.1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ERI-Xg-jWz">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="14.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
