@@ -68,6 +68,11 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
         tableView.tableFooterView = UIView()
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         
+        if (UIAccessibility.isBoldTextEnabled) {
+            self.navigationItem.rightBarButtonItem?.image = nil
+            self.navigationItem.rightBarButtonItem?.title = "Add"
+        }
+        
         tableView.keyboardDismissMode = .onDrag
     }
     

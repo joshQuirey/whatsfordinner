@@ -60,15 +60,21 @@ class PlanViewController: UIViewController {
         let tabBar = tabBarController as! BaseTabBarController
         managedObjectContext = tabBar.coreDataManager.managedObjectContext
         
-        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
-        updateView()
-        setupNotificationHandling()
-        
         let logo = UIImageView()
         logo.image = UIImage(named: "sporkfed_whitelogo")
         logo.contentMode = .scaleAspectFit
-    
         self.navigationItem.titleView = logo
+        
+        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        
+        updateView()
+        setupNotificationHandling()
+        
+        if (UIAccessibility.isBoldTextEnabled) {
+            self.navigationItem.rightBarButtonItem?.image = nil
+            self.navigationItem.rightBarButtonItem?.title = "Plan"
+            emptyTableLabel.text = "Once you have your Meals Saved, Select Plan to Get Started!"
+        }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
