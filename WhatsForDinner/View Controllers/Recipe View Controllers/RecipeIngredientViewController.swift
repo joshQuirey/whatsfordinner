@@ -23,6 +23,14 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
         }
     }
     
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func done(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     /////////////////////////////
     //View Life Cycle
     /////////////////////////////
@@ -42,18 +50,7 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
     override func viewWillAppear(_ animated: Bool) {
         updateView()
     }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("\(parent!.view.frame.origin.y) ingredient")
-        parent!.view.frame.origin.y = -250
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        print("\(parent!.view.frame.origin.y) ingredient")
-        parent!.view.frame.origin.y = 0
-    }
 
-    
     func updateView() {
         if meal?.ingredients == nil {
             ingredientTableView.isHidden = true

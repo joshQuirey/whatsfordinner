@@ -21,20 +21,24 @@ class RecipeDirectionsViewController: UIViewController, UITextViewDelegate {
     }
 
 
+    @IBAction func done(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
         
     }
 
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        print("\(parent!.view.frame.origin.y) directions")
-        parent!.view.frame.origin.y = -250
-        
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        print("\(parent!.view.frame.origin.y) directions")
-        parent!.view.frame.origin.y = 0
-    }
+//    func textViewDidBeginEditing(_ textView: UITextView) {
+//        print("\(parent!.view.frame.origin.y) directions")
+//        parent!.view.frame.origin.y = -250
+//
+//    }
+//
+//    func textViewDidEndEditing(_ textView: UITextView) {
+//        print("\(parent!.view.frame.origin.y) directions")
+//        parent!.view.frame.origin.y = 0
+//    }
 }
