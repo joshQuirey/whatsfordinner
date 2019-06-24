@@ -1771,12 +1771,12 @@
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="8HP-L5-Zzg" firstAttribute="centerY" secondItem="SgD-SK-gop" secondAttribute="centerY" id="6Ql-Yf-F83"/>
-                                    <constraint firstItem="8HP-L5-Zzg" firstAttribute="centerX" secondItem="SgD-SK-gop" secondAttribute="centerX" id="PSU-aa-vsD"/>
                                     <constraint firstAttribute="trailing" secondItem="8HP-L5-Zzg" secondAttribute="trailing" id="Uh7-mc-45L"/>
+                                    <constraint firstItem="8HP-L5-Zzg" firstAttribute="centerY" secondItem="SgD-SK-gop" secondAttribute="centerY" id="Vg5-is-cXE"/>
                                     <constraint firstItem="8HP-L5-Zzg" firstAttribute="top" secondItem="SgD-SK-gop" secondAttribute="top" id="aLW-dc-fq4"/>
                                     <constraint firstItem="8HP-L5-Zzg" firstAttribute="leading" secondItem="SgD-SK-gop" secondAttribute="leading" id="caX-lG-jMU"/>
                                     <constraint firstAttribute="bottom" secondItem="8HP-L5-Zzg" secondAttribute="bottom" id="cpQ-aB-bKn"/>
+                                    <constraint firstItem="8HP-L5-Zzg" firstAttribute="centerX" secondItem="SgD-SK-gop" secondAttribute="centerX" id="fnJ-aO-D3d"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -1798,6 +1798,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="bottomConstraint" destination="lIf-Uo-nVe" id="aN8-Ux-QNk"/>
                         <outlet property="directionsTextView" destination="8HP-L5-Zzg" id="7rG-pe-8Bw"/>
                         <outlet property="recipeDirections" destination="8HP-L5-Zzg" id="JPt-hc-2pI"/>
                     </connections>
