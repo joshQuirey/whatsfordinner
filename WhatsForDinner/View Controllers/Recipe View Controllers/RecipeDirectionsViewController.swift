@@ -14,6 +14,7 @@ class RecipeDirectionsViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var recipeDirections: UITextView!
+    @IBOutlet weak var navBar: UINavigationBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,8 @@ class RecipeDirectionsViewController: UIViewController, UITextViewDelegate {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
+        
+        navBar.shadowImage = UIImage()
     }
 
     @IBAction func done(_ sender: Any) {
@@ -37,6 +40,11 @@ class RecipeDirectionsViewController: UIViewController, UITextViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         recipeDirections.text = meal?.directions
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
+
     
     private func setupNotificationHandling() {
         let notificationCenter = NotificationCenter.default

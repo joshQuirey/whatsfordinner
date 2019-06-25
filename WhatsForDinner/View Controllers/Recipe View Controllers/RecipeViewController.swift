@@ -17,7 +17,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     /////////////////////////////
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var categories: UITextView!
-    @IBOutlet weak var mealDescription: UITextView!
+    @IBOutlet weak var mealDescription: UITextField!
     @IBOutlet weak var frequency: UITextField!
     @IBOutlet weak var serves: UITextField!
     @IBOutlet weak var prepTime: UITextField!
@@ -25,8 +25,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var imageButton: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var parentView: UIView!
-//    @IBOutlet weak var segmentedControl: UISegmentedControl!
-//    @IBOutlet weak var segmentedParentView: UIView!
+
     
     /////////////////////////////
     //Properties

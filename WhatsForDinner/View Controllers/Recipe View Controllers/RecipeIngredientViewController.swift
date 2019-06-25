@@ -15,6 +15,9 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
     @IBOutlet weak var ingredientTableView: UITableView!
     @IBOutlet weak var _ingredient: UITextField!
     
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var navBar: UINavigationBar!
+    
     var meal: Meal?
     var ingredient: Ingredient?
 
@@ -45,6 +48,8 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
         
         setupNotificationHandling()
         ingredientTableView.keyboardDismissMode = .onDrag
+        
+        navBar.shadowImage = UIImage()
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,6 +61,11 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
         updateView()
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
+
+    
     func updateView() {
         if meal?.ingredients == nil {
             ingredientTableView.isHidden = true
