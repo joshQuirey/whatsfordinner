@@ -154,7 +154,7 @@
                                     <fragment content="Add Meals to Get Started!">
                                         <attributes>
                                             <color key="NSColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="20" name="SFProText-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="20"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -401,8 +401,15 @@
                                                             </button>
                                                         </subviews>
                                                     </stackView>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kq5-1x-TWg">
+                                                        <rect key="frame" x="0.0" y="260.5" width="394" height="433.5"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <attributedString key="attributedText"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                                    </textView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="brP-d3-l5M">
-                                                        <rect key="frame" x="0.0" y="260.5" width="394" height="35"/>
+                                                        <rect key="frame" x="0.0" y="702" width="394" height="35"/>
                                                         <color key="backgroundColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="upl-lP-7aL"/>
@@ -413,7 +420,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QSb-jD-Z6e">
-                                                        <rect key="frame" x="0.0" y="303.5" width="394" height="35"/>
+                                                        <rect key="frame" x="0.0" y="745" width="394" height="35"/>
                                                         <color key="backgroundColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="Yuu-aJ-EZw"/>
@@ -423,13 +430,6 @@
                                                             <segue destination="dVP-CH-owp" kind="show" identifier="ShowIngredients" id="C53-z3-7js"/>
                                                         </connections>
                                                     </button>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="roundedRect" placeholder="Quick Description" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="9tc-I9-7Qf">
-                                                        <rect key="frame" x="0.0" y="346.5" width="394" height="433.5"/>
-                                                        <color key="tintColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="tintColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -474,7 +474,7 @@
                         <outlet property="cookTime" destination="xlW-UM-qng" id="BeW-QY-yE0"/>
                         <outlet property="frequency" destination="fd6-kH-NNS" id="CDd-Pf-2Nh"/>
                         <outlet property="imageButton" destination="f13-aY-71V" id="UlB-NK-dZX"/>
-                        <outlet property="mealDescription" destination="9tc-I9-7Qf" id="6gX-8m-1Su"/>
+                        <outlet property="mealDescription" destination="Kq5-1x-TWg" id="NrM-Xc-OyW"/>
                         <outlet property="name" destination="dNt-Nm-cjT" id="Uju-6d-o4J"/>
                         <outlet property="parentView" destination="7YL-gZ-gT2" id="Sa3-I3-CjG"/>
                         <outlet property="prepTime" destination="BVY-4i-ExH" id="KO9-2x-I0Q"/>
@@ -821,7 +821,7 @@
                                     <fragment content="Once you have your Meals Saved, Select the Magic Wand to Create a Plan!">
                                         <attributes>
                                             <color key="NSColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="20" name="SFProText-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="20"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -1713,6 +1713,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="_ingredient" destination="M2L-Xi-BAh" id="x2i-kI-1RY"/>
+                        <outlet property="bottomConstraint" destination="5Ll-OE-vas" id="qtr-I8-BjS"/>
                         <outlet property="ingredientTableView" destination="yOv-FG-zLe" id="bRF-UD-Oxl"/>
                     </connections>
                 </viewController>
@@ -1799,7 +1800,6 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="bottomConstraint" destination="lIf-Uo-nVe" id="aN8-Ux-QNk"/>
-                        <outlet property="directionsTextView" destination="8HP-L5-Zzg" id="7rG-pe-8Bw"/>
                         <outlet property="recipeDirections" destination="8HP-L5-Zzg" id="JPt-hc-2pI"/>
                     </connections>
                 </viewController>

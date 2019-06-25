@@ -11,27 +11,31 @@ import UIKit
 class RecipeDirectionsViewController: UIViewController, UITextViewDelegate {
 
     var meal: Meal?
-    var activeTextView = UITextView()
-    var directionsActive = false
-    @IBOutlet weak var directionsTextView: UITextView!
-    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var recipeDirections: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNotificationHandling()
+        
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
     }
 
-
     @IBAction func done(_ sender: Any) {
+        meal?.directions = recipeDirections.text
         self.dismiss(animated: true, completion: nil)
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        recipeDirections.text = meal?.directions
     }
     
     private func setupNotificationHandling() {
@@ -60,15 +64,13 @@ class RecipeDirectionsViewController: UIViewController, UITextViewDelegate {
         let keyboardRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let curve = (userInfo[UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).uint32Value
         
-        //let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         let convertedFrame = view.convert(keyboardRect, from: nil)
-        print(convertedFrame.origin.y)
         let heightOffset = view.bounds.size.height - convertedFrame.origin.y
         let options = UIViewAnimationOptions(rawValue: UInt(curve!) << 16 | UIViewAnimationOptions.beginFromCurrentState.rawValue)
         let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey]! as AnyObject).doubleValue
         
         var pureHeightOffset:CGFloat = -heightOffset
-        print(pureHeightOffset)
+        
         if isShowing {
             pureHeightOffset = pureHeightOffset + bottomConstraint.constant //+ view.safeAreaInsets.bottom
         } else {

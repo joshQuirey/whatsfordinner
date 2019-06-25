@@ -18,6 +18,8 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
     var meal: Meal?
     var ingredient: Ingredient?
 
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    
     private var ingredients: [Ingredient]? {
         didSet {
         }
@@ -40,6 +42,9 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
         
         ingredientTableView.delegate = self
         ingredientTableView.dataSource = self
+        
+        setupNotificationHandling()
+        ingredientTableView.keyboardDismissMode = .onDrag
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,6 +70,53 @@ class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UIT
     
     override func viewDidAppear(_ animated: Bool) {
         ingredientTableView.reloadData()
+    }
+    
+    private func setupNotificationHandling() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self,
+                                       selector: #selector(keyboardWillShow(_:)),
+                                       name: .UIKeyboardWillShow,
+                                       object: nil)
+        
+        notificationCenter.addObserver(self,
+                                       selector: #selector(keyboardWillHide(_:)),
+                                       name: .UIKeyboardWillHide,
+                                       object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        updateBottomConstraint(notification, isShowing: true)
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        updateBottomConstraint(notification, isShowing: false)
+    }
+    
+    func updateBottomConstraint(_ notification: Notification, isShowing: Bool) {
+        let userInfo = notification.userInfo!
+        let keyboardRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let curve = (userInfo[UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).uint32Value
+        
+        let convertedFrame = view.convert(keyboardRect, from: nil)
+        let heightOffset = view.bounds.size.height - convertedFrame.origin.y
+        let options = UIViewAnimationOptions(rawValue: UInt(curve!) << 16 | UIViewAnimationOptions.beginFromCurrentState.rawValue)
+        let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey]! as AnyObject).doubleValue
+        
+        var pureHeightOffset:CGFloat = heightOffset
+        
+        if isShowing {
+            pureHeightOffset = pureHeightOffset + bottomConstraint.constant //+ view.safeAreaInsets.bottom
+        } else {
+            pureHeightOffset = 0
+        }
+        
+        bottomConstraint.constant = pureHeightOffset
+        print(pureHeightOffset)
+        
+        UIView.animate(withDuration: duration!, delay: 0, options: options, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: { bool in })
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
