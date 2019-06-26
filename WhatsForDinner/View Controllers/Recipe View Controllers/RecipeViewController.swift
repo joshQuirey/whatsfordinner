@@ -168,7 +168,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
                 categories.textColor = .black
                 for _tag in (meal!.tags?.allObjects)! {
                     let tag = _tag as! Tag
-                    categories.text?.append(tag.name!)
+                    categories.text?.append("\(tag.name!) ")
                 }
             } else {
                 categories.text = "Categories"

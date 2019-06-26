@@ -60,7 +60,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     var numberDaysToPlan = 7
     
-    let categoryData = [String](arrayLiteral: "🎲 Chef's Choice", "🥡 Asian Cuisine", " 🥓 Breakfast for Dinner", "🐷 Barbecue", "🐄 Beef", "🥘 Casserole", "🛌 Comfort Food", "🐓 Chicken", "🌾 Grains", "🌮 Hispanic", "🍴 Leftovers", "🍜 Noodles", "🍝 Pasta", "🍕 Pizza", "🐖 Pork", "🥩 On The Grill", "🍯 Other","👨‍🍳 Restaurant", "🥗 Salad", "🥪 Sandwich", "🍤 Seafood", "⏲ Slow Cooker", "🥣 Soups Up", "🥕 Vegetarian")
+    let categoryData = [String](arrayLiteral: "🎲 Chef's Choice", "🥡 Asian Cuisine", " 🥓 Breakfast for Dinner", "🐷 Barbecue", "🐄 Beef", "🥘 Casserole", "🛌 Comfort Food", "🐓 Chicken", "🌾 Grains", "🌮 Hispanic", "🍴 Leftovers", "🍜 Noodles", "🍝 Pasta", "🍕 Pizza", "🐖 Pork", "🌡 Pressure Cooker", "🥩 On The Grill", "🍯 Other", "🐇 Quick", "👨‍🍳 Restaurant", "🥗 Salad", "🥪 Sandwich", "🍤 Seafood", "⏲ Slow Cooker", "🥣 Soups Up", "🥕 Vegetarian")
 
     override func viewDidLoad() {
         super.viewDidLoad()
