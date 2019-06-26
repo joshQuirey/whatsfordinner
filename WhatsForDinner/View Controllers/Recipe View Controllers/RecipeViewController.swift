@@ -25,8 +25,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var imageButton: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var parentView: UIView!
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var segmentedParentView: UIView!
+
     
     /////////////////////////////
     //Properties
@@ -55,6 +54,8 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     ////////////////////////////
     private enum Segue {
         static let SelectCategories = "SelectCategories"
+        static let ShowIngredients = "ShowIngredients"
+        static let ShowDirections = "ShowDirections"
     }
     
     /////////////////////////////s
@@ -94,7 +95,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
             meal?.mealName = ""
         }
 
-        setupView()
+        //setupView()
         viewMeal()
     }
     
@@ -111,10 +112,10 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         self.view.endEditing(true)
     }
 
-    func setupView() {
-        setupSegmentedControl()
-        updateView()
-    }
+//    func setupView() {
+//        setupSegmentedControl()
+//        updateView()
+//    }
     
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let identifier = segue.identifier else { return }
@@ -133,6 +134,20 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
             if (meal!.tags != nil) {
                 destination.selectedTags = (meal?.tags)!
             }
+        case Segue.ShowDirections:
+            guard let destination = segue.destination as? RecipeDirectionsViewController else {
+                return
+            }
+            
+            destination.meal = meal
+            
+        case Segue.ShowIngredients:
+            guard let destination = segue.destination as? RecipeIngredientViewController else {
+                return
+            }
+    
+            destination.meal = meal
+            
         default:
             break
         }
@@ -153,7 +168,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
                 categories.textColor = .black
                 for _tag in (meal!.tags?.allObjects)! {
                     let tag = _tag as! Tag
-                    categories.text?.append(tag.name!)
+                    categories.text?.append("\(tag.name!) ")
                 }
             } else {
                 categories.text = "Categories"
@@ -181,7 +196,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         prepTime.text = meal!.prepTime
         cookTime.text = meal!.cookTime
         serves.text = meal!.serves
-        recipeDirectionsViewController.recipeDirections.text = meal!.directions
+        //recipeDirectionsViewController.recipeDirections.text = meal!.directions
     }
     
     func populateMeal(_ meal: Meal) {
@@ -219,7 +234,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         meal.prepTime = prepTime.text
         meal.cookTime = cookTime.text
         meal.serves = serves.text
-        meal.directions = recipeDirectionsViewController.recipeDirections.text
+        //meal.directions = recipeDirectionsViewController.recipeDirections.text
         
         if (meal.nextDate == nil) {
             meal.estimatedNextDate =  Calendar.current.date(byAdding: .day, value: Int(meal.frequency), to: Date())
@@ -411,94 +426,94 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     /////////////////////////////
     //Segmented Control Functions
     /////////////////////////////
-    func setupSegmentedControl() {
-        // Configure Segmented Control
-        segmentedControl.removeAllSegments()
-        segmentedControl.insertSegment(withTitle: "Directions", at: 0, animated: false)
-        segmentedControl.insertSegment(withTitle: "Ingredients", at: 1, animated: false)
-//        segmentedControl.insertSegment(withTitle: "Directions", at: 2, animated: false)
-        segmentedControl.addTarget(self, action: #selector(selectionDidChange(_:)), for: .valueChanged)
-        
-        // Select First Segment
-        segmentedControl.selectedSegmentIndex = 0
+//    func setupSegmentedControl() {
+//        // Configure Segmented Control
+//        segmentedControl.removeAllSegments()
+//        segmentedControl.insertSegment(withTitle: "Directions", at: 0, animated: false)
+//        segmentedControl.insertSegment(withTitle: "Ingredients", at: 1, animated: false)
+////        segmentedControl.insertSegment(withTitle: "Directions", at: 2, animated: false)
+//        segmentedControl.addTarget(self, action: #selector(selectionDidChange(_:)), for: .valueChanged)
+//
+//        // Select First Segment
+//        segmentedControl.selectedSegmentIndex = 0
+//
+//    }
     
-    }
+//    @objc func selectionDidChange(_ sender: UISegmentedControl) {
+//        updateView()
+//    }
     
-    @objc func selectionDidChange(_ sender: UISegmentedControl) {
-        updateView()
-    }
-    
-    private lazy var recipeIngredientViewController: RecipeIngredientViewController = {
-        // Load Storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        
-        // Instantiate View Controller
-        var viewController = storyboard.instantiateViewController(withIdentifier: "RecipeIngredientViewController") as! RecipeIngredientViewController
-        
-        viewController.meal = meal
-        
-        // Add View Controller as Child View Controller
-        self.add(asChildViewController: viewController)
-        
-        return viewController
-    }()
+//    private lazy var recipeIngredientViewController: RecipeIngredientViewController = {
+//        // Load Storyboard
+//        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+//
+//        // Instantiate View Controller
+//        var viewController = storyboard.instantiateViewController(withIdentifier: "RecipeIngredientViewController") as! RecipeIngredientViewController
+//
+//        viewController.meal = meal
+//
+//        // Add View Controller as Child View Controller
+//        self.add(asChildViewController: viewController)
+//
+//        return viewController
+//    }()
 
-    private lazy var recipeDirectionsViewController: RecipeDirectionsViewController = {
-        // Load Storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        
-        // Instantiate View Controller
-        var viewController = storyboard.instantiateViewController(withIdentifier: "RecipeDirectionsViewController") as! RecipeDirectionsViewController
-        viewController.meal = meal
-        // Add View Controller as Child View Controller
-        self.add(asChildViewController: viewController)
-        
-        return viewController
-    }()
+//    private lazy var recipeDirectionsViewController: RecipeDirectionsViewController = {
+//        // Load Storyboard
+//        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+//
+//        // Instantiate View Controller
+//        var viewController = storyboard.instantiateViewController(withIdentifier: "RecipeDirectionsViewController") as! RecipeDirectionsViewController
+//        viewController.meal = meal
+//        // Add View Controller as Child View Controller
+//        self.add(asChildViewController: viewController)
+//
+//        return viewController
+//    }()
     
-    private func updateView() {
-        if segmentedControl.selectedSegmentIndex == 0 {
-            add(asChildViewController: recipeDirectionsViewController)
-            remove(asChildViewController: recipeIngredientViewController)
-            //remove(asChildViewController: recipeDirectionsViewController)
-        }
-        else { //if segmentedControl.selectedSegmentIndex == 1 {
-            remove(asChildViewController: recipeDirectionsViewController)
-            add(asChildViewController: recipeIngredientViewController)
-            //remove(asChildViewController: recipeDirectionsViewController)
-        }
-//        else {
-//            remove(asChildViewController: recipeDescriptionViewController)
-//            remove(asChildViewController: recipeIngredientViewController)
+//    private func updateView() {
+//        if segmentedControl.selectedSegmentIndex == 0 {
 //            add(asChildViewController: recipeDirectionsViewController)
+//            remove(asChildViewController: recipeIngredientViewController)
+//            //remove(asChildViewController: recipeDirectionsViewController)
 //        }
-    }
+//        else { //if segmentedControl.selectedSegmentIndex == 1 {
+//            remove(asChildViewController: recipeDirectionsViewController)
+//            add(asChildViewController: recipeIngredientViewController)
+//            //remove(asChildViewController: recipeDirectionsViewController)
+//        }
+////        else {
+////            remove(asChildViewController: recipeDescriptionViewController)
+////            remove(asChildViewController: recipeIngredientViewController)
+////            add(asChildViewController: recipeDirectionsViewController)
+////        }
+//    }
     
-    private func add(asChildViewController viewController: UIViewController) {
-        // Add Child View Controller
-        addChildViewController(viewController)
-        
-        // Add Child View as Subview
-        self.segmentedParentView.addSubview(viewController.view)
-        
-        // Configure Child View
-        viewController.view.frame = view.bounds
-        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        // Notify Child View Controller
-        viewController.didMove(toParentViewController: self)
-    }
+//    private func add(asChildViewController viewController: UIViewController) {
+//        // Add Child View Controller
+//        addChildViewController(viewController)
+//
+//        // Add Child View as Subview
+//        self.segmentedParentView.addSubview(viewController.view)
+//
+//        // Configure Child View
+//        viewController.view.frame = view.bounds
+//        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//
+//        // Notify Child View Controller
+//        viewController.didMove(toParentViewController: self)
+//    }
     
-    private func remove(asChildViewController viewController: UIViewController) {
-        // Notify Child View Controller
-        viewController.willMove(toParentViewController: nil)
-        
-        // Remove Child View From Superview
-        viewController.view.removeFromSuperview()
-        
-        // Notify Child View Controller
-        viewController.removeFromParentViewController()
-    }
+//    private func remove(asChildViewController viewController: UIViewController) {
+//        // Notify Child View Controller
+//        viewController.willMove(toParentViewController: nil)
+//
+//        // Remove Child View From Superview
+//        viewController.view.removeFromSuperview()
+//
+//        // Notify Child View Controller
+//        viewController.removeFromParentViewController()
+//    }
     
     //    private lazy var recipeDescriptionViewController: RecipeDescriptionViewController = {
     //        // Load Storyboard
