@@ -17,15 +17,9 @@ class CategoriesViewController: UIViewController  {
     var tag: Tag?
     var selectedTags = NSSet()
     
-    let categoryData = [String](arrayLiteral: "🥡 Asian Cuisine", " 🥓 Breakfast for Dinner", "🐷 Barbecue", "🐄 Beef", "🥘 Casserole", "🛌 Comfort Food", "🐓 Chicken", "🌾 Grains", "🌮 Hispanic", "🍜 Noodles", "🍝 Pasta", "🍕 Pizza", "🐖 Pork", "🥩 On The Grill", "🍯 Other", "🥗 Salad", "🥪 Sandwich", "🍤 Seafood", "⏲ Slow Cooker", "🥣 Soups Up", "🥕 Vegetarian")
+    let categoryData = [String](arrayLiteral: "🥡 Asian Cuisine", " 🥓 Breakfast for Dinner", "🐷 Barbecue", "🐄 Beef", "🥘 Casserole", "🛌 Comfort Food", "🐓 Chicken", "🌾 Grains", "🌮 Hispanic", "🍜 Noodles", "🍝 Pasta", "🍕 Pizza", "🐖 Pork", "🌡 Pressure Cooker", "🥩 On The Grill", "🍯 Other", "🐇 Quick", "🥗 Salad", "🥪 Sandwich", "🍤 Seafood", "⏲ Slow Cooker", "🥣 Soups Up", "🥕 Vegetarian")
 
-    
-//        let categoryData = [String](arrayLiteral: "Asian Cuisine 🥡", "Breakfast for Dinner 🥓", "Barbecue 🐷", "Beef 🐄", "Casserole 🥘", "Comfort Food 🛌", "Chicken 🐓", "Hispanic  🌮", "Pasta 🍝", "Pizza 🍕", "Pork 🐖", "On The Grill 🥩", "Other", "Salad 🥗", "Sandwich 🥪", "Seafood 🍤", "Slow Cooker ⏲", "Soups Up 🍜", "Vegetarian 🥕")
-    @IBAction func Cancel(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func Save(_ sender: Any) {
+    @IBAction func Done(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     

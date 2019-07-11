@@ -60,8 +60,6 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
         setupNotificationHandling()
 
         searchBar.delegate = self
-        //self.navigationItem.titleView = searchBar
-        //self.navigationItem.hidesSearchBarWhenScrolling = true
         searchBar.layer.borderWidth = 2
         searchBar.layer.borderColor = UIColor(red: 150/255, green: 217/255, blue: 217/255, alpha: 1.0).cgColor
         
