@@ -111,6 +111,7 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
                 return
             }
             
+            AppStoreReviewManager.requestReviewIfAppropriate()
             destination.managedObjectContext = self.managedObjectContext
 
         case Segue.ViewMeal:

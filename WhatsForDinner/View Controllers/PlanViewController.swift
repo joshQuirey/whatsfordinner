@@ -15,7 +15,6 @@ struct MyVariables {
 }
 
 
-
 class PlanViewController: UIViewController {
     
     /////////////////////////////
