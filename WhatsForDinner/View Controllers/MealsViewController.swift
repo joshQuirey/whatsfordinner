@@ -225,6 +225,30 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
         }
     }
     
+    private func fetchMealsFavorites() {
+        let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
+        
+        // Configure Fetch Request
+        fetchRequest.predicate = NSPredicate(format: "favorite == 1")
+        
+        //Sort Alphabetically
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Meal.estimatedNextDate), ascending: true)]
+        
+        self.managedObjectContext!.performAndWait {
+            do {
+                let meals = try fetchRequest.execute()
+                self.meals = meals
+                self.allMeals = self.meals
+                
+                tableView.reloadData()
+            } catch {
+                let fetchError = error as NSError
+                print("Unable to Execute Fetch Request")
+                print("\(fetchError), \(fetchError.localizedDescription)")
+            }
+        }
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard !searchText.isEmpty else {
             meals = allMeals
@@ -242,20 +266,34 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
     @IBAction func filterButton(_ sender: Any) {
         //guard let _meal = self.meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
         
-        let alert = UIAlertController(title: nil, message:"Sort Options", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Sort/Filter Options", message:nil, preferredStyle: .actionSheet)
         
-        
-        alert.addAction(UIAlertAction(title: "Up Next", style: .default , handler:{ (UIAlertAction)in
+        let nextImage = UIImage(named: "sortbynext")
+        let nextAction = UIAlertAction(title: "Up Next", style: .default , handler:{ (UIAlertAction)in
             DispatchQueue.main.async {
                 self.fetchMealsUpNext()
             }
-        }))
+        })
+        nextAction.setValue(nextImage, forKey: "image")
+        alert.addAction(nextAction)
         
-        alert.addAction(UIAlertAction(title: "Meal Name", style: .default , handler:{ (UIAlertAction)in
+        let abcImage = UIImage(named: "sortbyabc")
+        let abcAction = UIAlertAction(title: "Alphabetical", style: .default , handler:{ (UIAlertAction)in
             DispatchQueue.main.async {
                 self.fetchMeals()
             }
-        }))
+        })
+        abcAction.setValue(abcImage, forKey: "image")
+        alert.addAction(abcAction)
+        
+        let favImage = UIImage(named: "favorite")
+        let favAction = UIAlertAction(title: "Favorites", style: .default , handler:{ (UIAlertAction)in
+            DispatchQueue.main.async {
+                self.fetchMealsFavorites()
+            }
+        })
+        favAction.setValue(favImage, forKey: "image")
+        alert.addAction(favAction)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel , handler:{ (UIAlertAction)in
         }))

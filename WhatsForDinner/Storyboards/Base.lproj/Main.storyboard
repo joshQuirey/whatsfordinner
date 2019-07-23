@@ -271,9 +271,8 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="50" id="ojV-nB-cmv"/>
                                                                 </constraints>
-                                                                <color key="tintColor" red="0.47843137250000001" green="0.0" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="tintColor" red="0.30196078430000001" green="0.28235294119999998" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <state key="normal" image="favorite"/>
-                                                                <state key="selected" image="favoritefilled"/>
                                                                 <connections>
                                                                     <action selector="favorite:" destination="ZHR-gx-uw6" eventType="touchUpInside" id="vC3-6z-MPJ"/>
                                                                 </connections>
@@ -1927,8 +1926,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="favorite" width="16" height="16"/>
-        <image name="favoritefilled" width="16" height="16"/>
+        <image name="favorite" width="24" height="24"/>
         <image name="magicwand" width="24" height="24"/>
         <image name="meals" width="25" height="25"/>
         <image name="menu" width="25" height="25"/>
