@@ -9,7 +9,7 @@
 import StoreKit
 
 enum AppStoreReviewManager {
-    static let minimumReviewWorthyActionCount = 1
+    static let minimumReviewWorthyActionCount = 4
     
     static func requestReviewIfAppropriate() {
         //check to see if they have been asked to review this app in it's current version
@@ -37,22 +37,9 @@ enum AppStoreReviewManager {
         
         let twoSecondsFromNow = DispatchTime.now() + 2.0
         DispatchQueue.main.asyncAfter(deadline: twoSecondsFromNow) {
-            //[navigationController] in
-            //if navigationController?.topViewController is ProcessCompletedViewController {
-                SKStoreReviewController.requestReview()
-                defaults.set(0, forKey: .reviewWorthyActionCount)
-                defaults.set(currentVersion, forKey: .lastReviewRequestAppVersion)
-            
-            //}
+            SKStoreReviewController.requestReview()
+            defaults.set(0, forKey: .reviewWorthyActionCount)
+            defaults.set(currentVersion, forKey: .lastReviewRequestAppVersion)
         }
-        //SKStoreReviewController.requestReview()
-        
-        
-        //Review Worthy Actions
-        //ask user if they have entered > 10 meals
-        //ask user if they have created a plan and completed a meal
-        
-        
-        
     }
 }

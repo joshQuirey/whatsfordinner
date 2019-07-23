@@ -60,7 +60,7 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     var numberDaysToPlan = 7
     
-    let categoryData = [String](arrayLiteral: "🎲 Chef's Choice", "🥡 Asian Cuisine", " 🥓 Breakfast for Dinner", "🐷 Barbecue", "🐄 Beef", "🥘 Casserole", "🛌 Comfort Food", "🐓 Chicken", "🌾 Grains", "🌮 Hispanic", "🍴 Leftovers", "🍜 Noodles", "🍝 Pasta", "🍕 Pizza", "🐖 Pork", "🌡 Pressure Cooker", "🥩 On The Grill", "🍯 Other", "🐇 Quick", "👨‍🍳 Restaurant", "🥗 Salad", "🥪 Sandwich", "🍤 Seafood", "⏲ Slow Cooker", "🥣 Soups Up", "🥕 Vegetarian")
+    let categoryData = [String](arrayLiteral: "🎲 Chef's Choice", "👨‍🍳 Restaurant", "🍴 Leftovers", "🥡 Asian Cuisine", " 🥓 Breakfast for Dinner", "🐷 Barbecue", "🐄 Beef", "🥘 Casserole", "🛌 Comfort Food", "🐓 Chicken", "🌾 Grains", "🌮 Hispanic", "🍜 Noodles", "🍝 Pasta", "🍕 Pizza", "🐖 Pork", "🌡 Pressure Cooker", "🥩 On The Grill", "🍯 Other", "🐇 Quick", "🥗 Salad", "🥪 Sandwich", "🍤 Seafood", "⏲ Slow Cooker", "🥣 Soups Up", "🥕 Vegetarian")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -334,14 +334,8 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
             }
         }
         
-        //Cleanup
-//        self.managedObjectContext?.delete(plannedMeal)
-//        self.managedObjectContext?.delete(plannedMeal2)
-//        self.managedObjectContext?.delete(plannedMeal3)
-//        self.managedObjectContext?.delete(plannedMeal4)
-//        self.managedObjectContext?.delete(plannedMeal5)
-//        self.managedObjectContext?.delete(plannedMeal6)
-//        self.managedObjectContext?.delete(plannedMeal7)
+        //Attempt Request for Review
+        AppStoreReviewManager.requestReviewIfAppropriate()
         
         self.dismiss(animated: true, completion: nil)
     }

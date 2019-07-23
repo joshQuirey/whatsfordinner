@@ -25,7 +25,22 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var imageButton: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var parentView: UIView!
-
+    @IBOutlet weak var favButton: UIButton!
+    
+    @IBAction func favorite(_ sender: UIButton) {
+        print(meal!.favorite)
+        
+        if (meal!.favorite) {
+            let fav = UIImage(named: "favorite")?.withRenderingMode(.alwaysTemplate)
+            sender.setImage(fav, for: .normal)
+        } else {
+            let fav = UIImage(named: "favoritefilled")?.withRenderingMode(.alwaysTemplate)
+            sender.setImage(fav, for: .normal)
+        }
+        
+        sender.tintColor = UIColor(red: 77/255, green: 72/255, blue: 147/255, alpha: 1.0)
+        meal!.favorite = !(meal!.favorite)
+    }
     
     /////////////////////////////
     //Properties
@@ -156,6 +171,16 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     func viewMeal() {
         name.text = meal!.mealName
         
+        //set image for favorite
+        if (meal!.favorite) {
+            let fav = UIImage(named: "favoritefilled")?.withRenderingMode(.alwaysTemplate)
+            favButton.setImage(fav, for: .normal)
+        } else {
+            let fav = UIImage(named: "favorite")?.withRenderingMode(.alwaysTemplate)
+            favButton.setImage(fav, for: .normal)
+        }
+        favButton.tintColor = UIColor(red: 77/255, green: 72/255, blue: 147/255, alpha: 1.0)
+        
         //photo
         if (meal!.mealImage != nil && !imageChanged) {
             imageButton.setBackgroundImage(UIImage(data: meal!.mealImage!), for: .normal)
@@ -202,6 +227,8 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     func populateMeal(_ meal: Meal) {
         meal.mealName = name.text
     
+        //set favorite
+        
         //photo
         if (imageButton.currentBackgroundImage != nil) {
             guard let imageData = UIImageJPEGRepresentation(imageButton.backgroundImage(for: .normal)!, 1) else {

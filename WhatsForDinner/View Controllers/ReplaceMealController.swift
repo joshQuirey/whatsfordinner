@@ -47,9 +47,6 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
         self.navigationItem.hidesSearchBarWhenScrolling = true
         
         tableView.keyboardDismissMode = .onDrag
-        
-        
-
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {

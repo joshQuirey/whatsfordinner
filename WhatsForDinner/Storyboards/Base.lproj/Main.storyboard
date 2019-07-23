@@ -266,8 +266,20 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZXi-kZ-TbA">
                                                         <rect key="frame" x="0.0" y="43" width="394" height="35"/>
                                                         <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nGo-cF-uVy">
+                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="35"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="50" id="ojV-nB-cmv"/>
+                                                                </constraints>
+                                                                <color key="tintColor" red="0.47843137250000001" green="0.0" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <state key="normal" image="favorite"/>
+                                                                <state key="selected" image="favoritefilled"/>
+                                                                <connections>
+                                                                    <action selector="favorite:" destination="ZHR-gx-uw6" eventType="touchUpInside" id="vC3-6z-MPJ"/>
+                                                                </connections>
+                                                            </button>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lcp-4t-CQG">
-                                                                <rect key="frame" x="0.0" y="0.0" width="354" height="35"/>
+                                                                <rect key="frame" x="60" y="0.0" width="294" height="35"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="Q8P-Oh-gsw"/>
@@ -502,6 +514,7 @@
                     <connections>
                         <outlet property="categories" destination="Lcp-4t-CQG" id="hZv-Ng-sgj"/>
                         <outlet property="cookTime" destination="xlW-UM-qng" id="BeW-QY-yE0"/>
+                        <outlet property="favButton" destination="nGo-cF-uVy" id="l5X-Iy-EnB"/>
                         <outlet property="frequency" destination="fd6-kH-NNS" id="CDd-Pf-2Nh"/>
                         <outlet property="imageButton" destination="f13-aY-71V" id="UlB-NK-dZX"/>
                         <outlet property="mealDescription" destination="Sqh-uW-gKr" id="gnD-f7-ff5"/>
@@ -1914,6 +1927,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="favorite" width="16" height="16"/>
+        <image name="favoritefilled" width="16" height="16"/>
         <image name="magicwand" width="24" height="24"/>
         <image name="meals" width="25" height="25"/>
         <image name="menu" width="25" height="25"/>
