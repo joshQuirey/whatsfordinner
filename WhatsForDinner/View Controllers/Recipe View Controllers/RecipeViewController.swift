@@ -28,9 +28,9 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var favButton: UIButton!
     
     @IBAction func favorite(_ sender: UIButton) {
-        print(meal!.favorite)
+        print(isFavorite)
         
-        if (meal!.favorite) {
+        if (isFavorite) {
             let fav = UIImage(named: "favorite")?.withRenderingMode(.alwaysTemplate)
             sender.setImage(fav, for: .normal)
         } else {
@@ -39,7 +39,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         }
         
         sender.tintColor = UIColor(red: 77/255, green: 72/255, blue: 147/255, alpha: 1.0)
-        meal!.favorite = !(meal!.favorite)
+        isFavorite = !isFavorite
     }
     
     /////////////////////////////
@@ -63,6 +63,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     var managedObjectContext: NSManagedObjectContext?
     var meal: Meal?
     var imageChanged: Bool = false
+    var isFavorite: Bool = false
     
     /////////////////////////////
     //Segues
@@ -171,8 +172,9 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
     func viewMeal() {
         name.text = meal!.mealName
         
+        isFavorite = meal!.favorite
         //set image for favorite
-        if (meal!.favorite) {
+        if (isFavorite) {
             let fav = UIImage(named: "favoritefilled")?.withRenderingMode(.alwaysTemplate)
             favButton.setImage(fav, for: .normal)
         } else {
@@ -228,6 +230,7 @@ class RecipeViewController: UIViewController, UIImagePickerControllerDelegate, U
         meal.mealName = name.text
     
         //set favorite
+        meal.favorite = isFavorite
         
         //photo
         if (imageButton.currentBackgroundImage != nil) {

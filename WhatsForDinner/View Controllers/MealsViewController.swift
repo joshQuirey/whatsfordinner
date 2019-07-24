@@ -74,6 +74,11 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
         tableView.keyboardDismissMode = .onDrag
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        searchBar.text = ""
+        fetchMeals()
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
@@ -268,15 +273,6 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
         
         let alert = UIAlertController(title: "Sort/Filter Options", message:nil, preferredStyle: .actionSheet)
         
-        let nextImage = UIImage(named: "sortbynext")
-        let nextAction = UIAlertAction(title: "Up Next", style: .default , handler:{ (UIAlertAction)in
-            DispatchQueue.main.async {
-                self.fetchMealsUpNext()
-            }
-        })
-        nextAction.setValue(nextImage, forKey: "image")
-        alert.addAction(nextAction)
-        
         let abcImage = UIImage(named: "sortbyabc")
         let abcAction = UIAlertAction(title: "Alphabetical", style: .default , handler:{ (UIAlertAction)in
             DispatchQueue.main.async {
@@ -285,6 +281,15 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
         })
         abcAction.setValue(abcImage, forKey: "image")
         alert.addAction(abcAction)
+        
+        let nextImage = UIImage(named: "sortbynext")
+        let nextAction = UIAlertAction(title: "Up Next", style: .default , handler:{ (UIAlertAction)in
+            DispatchQueue.main.async {
+                self.fetchMealsUpNext()
+            }
+        })
+        nextAction.setValue(nextImage, forKey: "image")
+        alert.addAction(nextAction)
         
         let favImage = UIImage(named: "favorite")
         let favAction = UIAlertAction(title: "Favorites", style: .default , handler:{ (UIAlertAction)in
