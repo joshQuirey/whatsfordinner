@@ -10,11 +10,10 @@ import UIKit
 import CoreData
 
 class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
-    
+    /////////////////////////////
+    //Outlets
+    /////////////////////////////
     @IBOutlet weak var bottomStackViewConstraint: NSLayoutConstraint!
-    
-    var managedObjectContext: NSManagedObjectContext?
-    var weekPlan = [PlannedDay?]()
     
     @IBOutlet weak var parentView: UIView!
     @IBOutlet weak var childView1: UIView!
@@ -50,6 +49,11 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var labelDay7: UILabel!
     @IBOutlet weak var category7: UITextField!
     
+    /////////////////////////////
+    //Properties
+    /////////////////////////////
+    var managedObjectContext: NSManagedObjectContext?
+    var weekPlan = [PlannedDay?]()
     let picker1 = UIPickerView()
     let picker2 = UIPickerView()
     let picker3 = UIPickerView()
@@ -60,8 +64,11 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     var numberDaysToPlan = 7
     
-    let categoryData = [String](arrayLiteral: "🎲 Chef's Choice", "🥡 Asian Cuisine", " 🥓 Breakfast for Dinner", "🐷 Barbecue", "🐄 Beef", "🥘 Casserole", "🛌 Comfort Food", "🐓 Chicken", "🌾 Grains", "🌮 Hispanic", "🍴 Leftovers", "🍜 Noodles", "🍝 Pasta", "🍕 Pizza", "🐖 Pork", "🌡 Pressure Cooker", "🥩 On The Grill", "🍯 Other", "🐇 Quick", "👨‍🍳 Restaurant", "🥗 Salad", "🥪 Sandwich", "🍤 Seafood", "⏲ Slow Cooker", "🥣 Soups Up", "🥕 Vegetarian")
+    let categoryData = [String](arrayLiteral: "🎲 Chef's Choice", "👨‍🍳 Restaurant", "🍴 Leftovers", "🥡 Asian Cuisine", " 🥓 Breakfast for Dinner", "🐷 Barbecue", "🐄 Beef", "🥘 Casserole", "🛌 Comfort Food", "🐓 Chicken", "🌾 Grains", "🌮 Hispanic", "🍜 Noodles", "🍝 Pasta", "🍕 Pizza", "🐖 Pork", "🌡 Pressure Cooker", "🥩 On The Grill", "🍯 Other", "🐇 Quick", "🥗 Salad", "🥪 Sandwich", "🍤 Seafood", "⏲ Slow Cooker", "🥣 Soups Up", "🥕 Vegetarian")
 
+    /////////////////////////////
+    //View Life Cycle
+    /////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -158,7 +165,6 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     @IBAction func create(_ sender: Any) {
-
         //Day1
         if (!childView1.isHidden) {
             var plannedMeal = Meal(context: self.managedObjectContext!)
@@ -334,15 +340,8 @@ class CreatePlanViewController: UIViewController, UIPickerViewDelegate, UIPicker
             }
         }
         
-        //Cleanup
-//        self.managedObjectContext?.delete(plannedMeal)
-//        self.managedObjectContext?.delete(plannedMeal2)
-//        self.managedObjectContext?.delete(plannedMeal3)
-//        self.managedObjectContext?.delete(plannedMeal4)
-//        self.managedObjectContext?.delete(plannedMeal5)
-//        self.managedObjectContext?.delete(plannedMeal6)
-//        self.managedObjectContext?.delete(plannedMeal7)
-        
+        //Attempt Request for Review
+        AppStoreReviewManager.requestReviewIfAppropriate()
         self.dismiss(animated: true, completion: nil)
     }
     

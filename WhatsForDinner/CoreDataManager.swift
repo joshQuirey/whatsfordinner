@@ -2,7 +2,7 @@
 //  CoreDataManager.swift
 //  WhatsForDinner
 //
-//  Created by Luke Jillson on 8/9/18.
+//  Created by Josh Quirey on 8/9/18.
 //  Copyright © 2018 jquirey. All rights reserved.
 //
 

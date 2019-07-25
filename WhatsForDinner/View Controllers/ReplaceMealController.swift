@@ -10,15 +10,9 @@ import UIKit
 import CoreData
 
 class ReplaceMealController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate {
-    
-    //@IBOutlet weak var mealName: UILabel!
-    var managedObjectContext: NSManagedObjectContext?
-    private var nextMealsforCategory: [Meal]?
-    private var nextMeals: [Meal]?
-    private var allMeals: [Meal]?
-    
-    var currentPlannedDay: PlannedDay?
-    
+    /////////////////////////////
+    //Outlets
+    /////////////////////////////
     @IBAction func cancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -27,10 +21,23 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
+    /////////////////////////////
+    //Properties
+    /////////////////////////////
+    var managedObjectContext: NSManagedObjectContext?
+    private var nextMealsforCategory: [Meal]?
+    private var nextMeals: [Meal]?
+    private var allMeals: [Meal]?
+    
+    var currentPlannedDay: PlannedDay?
+    
     enum MealSections: Int {
         case NextCategory = 0, Next
     }
     
+    /////////////////////////////
+    //View Life Cycle
+    /////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,16 +54,12 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
         self.navigationItem.hidesSearchBarWhenScrolling = true
         
         tableView.keyboardDismissMode = .onDrag
-        
-        
-
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
 
-    
     // MARK: - Table view data source
     private func fetchNextMealsforCategory() {
         // Create Fetch Request
@@ -110,8 +113,9 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    
-    
+    /////////////////////////////
+    //Table Functions
+    /////////////////////////////
     func numberOfSections(in tableView: UITableView) -> Int {
         return nextMealsforCategory!.count
     }
@@ -129,40 +133,37 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "replaceCell", for: indexPath) as! ReplaceTableViewCell
         
+        guard let _meal = nextMealsforCategory?[indexPath.section] else { fatalError("Unexpected Index Path")}
         
-//        if indexPath.section == MealSections.NextCategory.rawValue {
-            guard let _meal = nextMealsforCategory?[indexPath.section] else { fatalError("Unexpected Index Path")}
-            
-            if (_meal.mealImage != nil) {
-                cell.mealImage?.image = UIImage(data: _meal.mealImage!)
-                cell.mealImage.layer.cornerRadius = 8
-                cell.mealImage.clipsToBounds = true
-                cell.mealImage.isHidden = false
-            } else {
-                cell.mealImage.isHidden = true
-            }
-        
-            cell.mealName.text = _meal.mealName
-        
-            cell.mealCategories?.text = ""
-            for _tag in (_meal.tags?.allObjects)! {
-                let tag = _tag as! Tag
-                cell.mealCategories?.text?.append("\(tag.name!) ")
-            }
-        
-            if (_meal.prepTime! != nil && _meal.prepTime! != "") {
-                cell.prep?.text? = "Plan: \(_meal.prepTime!)"
-            } else {
-                cell.prep?.text? = " "
-            }
-        
-            if (_meal.cookTime != nil && _meal.cookTime! != "") {
-                cell.cook?.text? = "Cook: \(_meal.cookTime!)"
-            } else {
-                cell.cook?.text? = " "
-            }
-        
-
+        if (_meal.mealImage != nil) {
+            cell.mealImage?.image = UIImage(data: _meal.mealImage!)
+            cell.mealImage.layer.cornerRadius = 8
+            cell.mealImage.clipsToBounds = true
+            cell.mealImage.isHidden = false
+        } else {
+            cell.mealImage.isHidden = true
+        }
+    
+        cell.mealName.text = _meal.mealName
+    
+        cell.mealCategories?.text = ""
+        for _tag in (_meal.tags?.allObjects)! {
+            let tag = _tag as! Tag
+            cell.mealCategories?.text?.append("\(tag.name!) ")
+        }
+    
+        if (_meal.prepTime! != nil && _meal.prepTime! != "") {
+            cell.prep?.text? = "Plan: \(_meal.prepTime!)"
+        } else {
+            cell.prep?.text? = " "
+        }
+    
+        if (_meal.cookTime != nil && _meal.cookTime! != "") {
+            cell.cook?.text? = "Cook: \(_meal.cookTime!)"
+        } else {
+            cell.cook?.text? = " "
+        }
+    
         cell.layer.cornerRadius = 8
         cell.clipsToBounds = true
 

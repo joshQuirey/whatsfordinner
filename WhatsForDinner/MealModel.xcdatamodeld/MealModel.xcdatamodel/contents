@@ -8,10 +8,11 @@
         <attribute name="cookTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="directions" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="estimatedNextDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="favorite" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="frequency" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="mealDesc" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="mealImage" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="mealName" attributeType="String" syncable="YES"/>
+        <attribute name="mealImage" optional="YES" attributeType="Binary" spotlightIndexingEnabled="YES" syncable="YES"/>
+        <attribute name="mealName" attributeType="String" spotlightIndexingEnabled="YES" syncable="YES"/>
         <attribute name="nextDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="prepTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="previousDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -34,7 +35,7 @@
     </entity>
     <elements>
         <element name="Ingredient" positionX="169" positionY="117" width="128" height="75"/>
-        <element name="Meal" positionX="-63" positionY="-18" width="128" height="255"/>
+        <element name="Meal" positionX="-63" positionY="-18" width="128" height="270"/>
         <element name="PlannedDay" positionX="36" positionY="135" width="128" height="135"/>
         <element name="Tag" positionX="-90" positionY="305" width="128" height="73"/>
     </elements>

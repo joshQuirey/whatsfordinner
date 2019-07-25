@@ -10,19 +10,19 @@ import UIKit
 
 class RecipeIngredientViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     /////////////////////////////
-    //Properties
+    //Outlets
     /////////////////////////////
     @IBOutlet weak var ingredientTableView: UITableView!
     @IBOutlet weak var _ingredient: UITextField!
-    
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var navBar: UINavigationBar!
-    
-    var meal: Meal?
-    var ingredient: Ingredient?
-
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
+    /////////////////////////////
+    //Properties
+    /////////////////////////////
+    var meal: Meal?
+    var ingredient: Ingredient?
     private var ingredients: [Ingredient]? {
         didSet {
         }

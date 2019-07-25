@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  WhatsForDinner
 //
-//  Created by Luke Jillson on 8/6/18.
+//  Created by Josh Quirey on 8/6/18.
 //  Copyright © 2018 jquirey. All rights reserved.
 //
 
