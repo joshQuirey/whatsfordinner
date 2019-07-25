@@ -16,15 +16,17 @@ struct MyVariables {
 
 
 class PlanViewController: UIViewController {
+    /////////////////////////////
+    //Outlets
+    /////////////////////////////
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var emptyTableLabel: UILabel!
     
     /////////////////////////////
     //Properties
     /////////////////////////////
     var managedObjectContext: NSManagedObjectContext?
     private var currentIndex: Int?
-    
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var emptyTableLabel: UILabel!
     
     var plannedDays: [PlannedDay]? {
         didSet {
@@ -144,7 +146,6 @@ class PlanViewController: UIViewController {
         }
     }
     
-    
     /////////////////////////////
     //Core Data Functions
     /////////////////////////////
@@ -244,7 +245,9 @@ class PlanViewController: UIViewController {
 }
 
 extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
-    
+    /////////////////////////////
+    //Table Functions
+    /////////////////////////////
     func numberOfSections(in tableView: UITableView) -> Int {
         return (plannedDays?.count)!
     }

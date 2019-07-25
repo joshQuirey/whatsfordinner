@@ -11,8 +11,8 @@
         <attribute name="favorite" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="frequency" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="mealDesc" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="mealImage" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="mealName" attributeType="String" syncable="YES"/>
+        <attribute name="mealImage" optional="YES" attributeType="Binary" spotlightIndexingEnabled="YES" syncable="YES"/>
+        <attribute name="mealName" attributeType="String" spotlightIndexingEnabled="YES" syncable="YES"/>
         <attribute name="nextDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="prepTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="previousDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>

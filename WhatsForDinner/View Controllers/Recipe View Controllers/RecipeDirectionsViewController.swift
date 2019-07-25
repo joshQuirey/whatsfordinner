@@ -9,13 +9,21 @@
 import UIKit
 
 class RecipeDirectionsViewController: UIViewController, UITextViewDelegate {
-
-    var meal: Meal?
-    
+    /////////////////////////////
+    //Outlets
+    /////////////////////////////
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var recipeDirections: UITextView!
     @IBOutlet weak var navBar: UINavigationBar!
     
+    /////////////////////////////
+    //Properties
+    /////////////////////////////
+    var meal: Meal?
+    
+    /////////////////////////////
+    //View Life Cycle
+    /////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNotificationHandling()

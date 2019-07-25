@@ -269,7 +269,6 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
     }
     
     @IBAction func filterButton(_ sender: Any) {
-        //guard let _meal = self.meals?[indexPath.row] else { fatalError("Unexpected Index Path")}
         
         let alert = UIAlertController(title: "Sort/Filter Options", message:nil, preferredStyle: .actionSheet)
         
@@ -309,11 +308,10 @@ class MealsViewController: UIViewController, UISearchDisplayDelegate, UISearchBa
     }
 }
 
-/////////////////////////////
-//Table Functions
-/////////////////////////////
 extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
-    
+    /////////////////////////////
+    //Table Functions
+    /////////////////////////////
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -366,7 +364,7 @@ extension MealsViewController: UITableViewDataSource, UITableViewDelegate {
         if (_meal.mealImage != nil) {
             let image: UIImage = UIImage(data: _meal.mealImage!)!
             cell.mealImage?.image = image
-            cell.mealImage.layer.cornerRadius = 8 // cell.mealImage.frame.height/2
+            cell.mealImage.layer.cornerRadius = 8
             cell.mealImage.clipsToBounds = true
             cell.mealImage.isHidden = false
         } else {

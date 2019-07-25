@@ -126,11 +126,11 @@
 				A7D07DEA2266835F0017B047 /* MealTableViewCell.swift */,
 				747E3557211CE7380065799E /* CoreDataManager.swift */,
 				747BF01D2118B6D1006EACA0 /* AppDelegate.swift */,
+				A730AE4122E62D9000728E7C /* AppStoreReviewManager.swift */,
+				A730AE4322E6330300728E7C /* UserDefaults+Key.swift */,
 				747BF0262118B6D4006EACA0 /* Assets.xcassets */,
 				747BF02B2118B6D4006EACA0 /* Info.plist */,
 				747E3533211CDD1B0065799E /* MealModel.xcdatamodeld */,
-				A730AE4122E62D9000728E7C /* AppStoreReviewManager.swift */,
-				A730AE4322E6330300728E7C /* UserDefaults+Key.swift */,
 			);
 			path = WhatsForDinner;
 			sourceTree = "<group>";

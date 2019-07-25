@@ -12,9 +12,14 @@ import MessageUI
 import SafariServices
 
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
-
+    /////////////////////////////
+    //Outlets
+    /////////////////////////////
     @IBOutlet weak var tableView: UITableView!
     
+    /////////////////////////////
+    //View Life Cycle
+    /////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
@@ -24,12 +29,14 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
-
+    
+    /////////////////////////////
+    //Table Functions
+    /////////////////////////////
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         switch(section) {
             case 0:
                 return 1
