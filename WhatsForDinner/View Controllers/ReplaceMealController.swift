@@ -113,6 +113,20 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty else {
+            nextMealsforCategory = allMeals
+            tableView.reloadData()
+            return
+        }
+        
+        nextMealsforCategory = allMeals!.filter({ Meal -> Bool in
+            return (Meal.mealName?.lowercased().contains(searchText.lowercased()))!
+        })
+        
+        tableView.reloadData()
+    }
+    
     /////////////////////////////
     //Table Functions
     /////////////////////////////
@@ -188,19 +202,5 @@ class ReplaceMealController: UIViewController, UITableViewDataSource, UITableVie
         _replaceMeal.addToPlannedDays(currentPlannedDay!)
         
         self.dismiss(animated: true, completion: nil)
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard !searchText.isEmpty else {
-            nextMealsforCategory = allMeals
-            tableView.reloadData()
-            return
-        }
-        
-        nextMealsforCategory = allMeals!.filter({ Meal -> Bool in
-            return (Meal.mealName?.lowercased().contains(searchText.lowercased()))!
-        })
-        
-        tableView.reloadData()
     }
 }
