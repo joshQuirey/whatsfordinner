@@ -15,17 +15,18 @@ struct MyVariables {
 }
 
 
-
 class PlanViewController: UIViewController {
+    /////////////////////////////
+    //Outlets
+    /////////////////////////////
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var emptyTableLabel: UILabel!
     
     /////////////////////////////
     //Properties
     /////////////////////////////
     var managedObjectContext: NSManagedObjectContext?
     private var currentIndex: Int?
-    
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var emptyTableLabel: UILabel!
     
     var plannedDays: [PlannedDay]? {
         didSet {
@@ -111,9 +112,7 @@ class PlanViewController: UIViewController {
             guard let destination = segue.destination as? CreatePlanViewController else {
                 return
             }
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "EEEE, MMMM d, yyyy"
-            
+
             destination.managedObjectContext = self.managedObjectContext
             
             //Determine Plan Starting Date
@@ -140,14 +139,12 @@ class PlanViewController: UIViewController {
             }
             
             destination.managedObjectContext = self.managedObjectContext
-            //let _indexpath = tableView.inde
             destination.currentPlannedDay = plannedDays![(self.currentIndex!)]
-//            destination.meal = _meal
+            
         default:
             break
         }
     }
-    
     
     /////////////////////////////
     //Core Data Functions
@@ -206,7 +203,6 @@ class PlanViewController: UIViewController {
             tableView.reloadData()
             
             //Update View
-            //updateView()
             planDidChange = false
         }
     }
@@ -235,10 +231,6 @@ class PlanViewController: UIViewController {
                 // Execute Fetch Request
                 plannedDays = try fetchRequest.execute()
                 
-                // Update Tickets
-                //self.plannedDays = plannedDays
-                //Plan.plannedDays = plannedDays
-                
                 //Reload Table View
                 if (plannedDays!.count > 0) {
                     tableView.reloadData()
@@ -253,7 +245,9 @@ class PlanViewController: UIViewController {
 }
 
 extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
-    
+    /////////////////////////////
+    //Table Functions
+    /////////////////////////////
     func numberOfSections(in tableView: UITableView) -> Int {
         return (plannedDays?.count)!
     }
@@ -376,6 +370,8 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
                 i += 1
             }
             
+            //Attempt Request for Review
+            AppStoreReviewManager.requestReviewIfAppropriate()
             success(true)
         })
         
@@ -404,6 +400,8 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             _plannedDay.isCompleted = true
             self.managedObjectContext!.delete(_plannedDay)
             
+            //Attempt Request for Review
+            AppStoreReviewManager.requestReviewIfAppropriate()
             success(true)
         })
         
@@ -415,6 +413,8 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
             self.currentIndex = indexPath.section
             self.performSegue(withIdentifier: "ReplacePlannedMeal", sender: tableView)
             
+            //Attempt Request for Review
+            AppStoreReviewManager.requestReviewIfAppropriate()
             success(true)
         })
         
@@ -459,6 +459,8 @@ extension PlanViewController: UITableViewDataSource, UITableViewDelegate {
                 next.addToPlannedDays(_plannedDay)
             }
             
+            //Attempt Request for Review
+            AppStoreReviewManager.requestReviewIfAppropriate()
             success(true)
         })
         

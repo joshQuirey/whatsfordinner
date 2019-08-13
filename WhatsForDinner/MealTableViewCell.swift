@@ -10,7 +10,9 @@ import UIKit
 import CoreData
 
 class MealTableViewCell: UITableViewCell {
-
+    /////////////////////////////
+    //Outlets
+    /////////////////////////////
     @IBOutlet weak var mealName: UILabel!
     @IBOutlet weak var mealFrequency: UILabel!
     @IBOutlet weak var mealCategories: UITextField!
@@ -41,7 +43,9 @@ class MealTableViewCell: UITableViewCell {
 }
 
 class PlanTableViewCell: UITableViewCell {
-    
+    /////////////////////////////
+    //Outlets
+    /////////////////////////////
     @IBOutlet weak var planDate: UILabel!
     @IBOutlet weak var planMonth: UILabel!
     @IBOutlet weak var planDay: UILabel!
@@ -51,8 +55,6 @@ class PlanTableViewCell: UITableViewCell {
     @IBOutlet weak var cook: UILabel!
     @IBOutlet weak var mealCategories: UITextField!
     
-//    @IBOutlet weak var mainCellView: UIView!
-
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -65,9 +67,10 @@ class PlanTableViewCell: UITableViewCell {
     }
 }
 
-
 class ReplaceTableViewCell: UITableViewCell {
-    
+    /////////////////////////////
+    //Outlets
+    /////////////////////////////
     @IBOutlet weak var mealImage: UIImageView!
     @IBOutlet weak var mealName: UILabel!
     @IBOutlet weak var mealCategories: UITextField!

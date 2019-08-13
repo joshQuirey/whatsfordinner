@@ -10,9 +10,14 @@ import UIKit
 import CoreData
 
 class CategoriesViewController: UIViewController  {
-    
+    /////////////////////////////
+    //Outlets
+    /////////////////////////////
     @IBOutlet weak var tableView: UITableView!
     
+    /////////////////////////////
+    //Properties
+    /////////////////////////////
     var meal: Meal?
     var tag: Tag?
     var selectedTags = NSSet()
@@ -23,6 +28,9 @@ class CategoriesViewController: UIViewController  {
         self.dismiss(animated: true, completion: nil)
     }
     
+    /////////////////////////////
+    //View Life Cycle
+    /////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -40,7 +48,9 @@ class CategoriesViewController: UIViewController  {
 }
 
 extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
-    
+    /////////////////////////////
+    //Table Functions
+    /////////////////////////////
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

@@ -12,9 +12,14 @@ import MessageUI
 import SafariServices
 
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
-
+    /////////////////////////////
+    //Outlets
+    /////////////////////////////
     @IBOutlet weak var tableView: UITableView!
     
+    /////////////////////////////
+    //View Life Cycle
+    /////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
@@ -24,17 +29,21 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
-
+    
+    /////////////////////////////
+    //Table Functions
+    /////////////////////////////
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         switch(section) {
             case 0:
                 return 1
             case 1:
-                return 3
+                return 2
+            case 2:
+                return 2
             default:
                 return 1
         }
@@ -49,6 +58,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         case 0:
             return "Help"
         case 1:
+            return "Social"
+        case 2:
             return "Feedback"
         default:
             return ""
@@ -65,7 +76,11 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         case 1:
             if (indexPath.row == 0) {
                 cell.textLabel!.text = "🐦 Tweet @SporkFedApp"
-            } else if (indexPath.row == 1) {
+            } else {
+                cell.textLabel!.text = "📷 Follow on Instagram"
+            }
+        case 2:
+            if (indexPath.row == 0) {
                 cell.textLabel!.text = "✉️ Send Email"
             } else {
                 cell.textLabel!.text = "👍 Rate Us on the App Store"
@@ -80,15 +95,17 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch(indexPath.section) {
         case 0:
-            if (indexPath.row == 0) {
-                showSafariVC(for: "https://sporkfed.app")
-            } else {
-            }
+            showSafariVC(for: "https://sporkfed.app")
             break
         case 1:
             if (indexPath.row == 0) {
                 showSafariVC(for: "https://twitter.com/sporkfedapp")
-            } else if (indexPath.row == 1) {
+            } else {
+               showSafariVC(for: "https://instagram.com/getsporkfed")
+            }
+            break
+        case 2:
+            if (indexPath.row == 0) {
                 sendFeedbackEmail()
             } else {
                 SKStoreReviewController.requestReview()
