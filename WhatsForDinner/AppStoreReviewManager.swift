@@ -9,7 +9,7 @@
 import StoreKit
 
 enum AppStoreReviewManager {
-    static let minimumReviewWorthyActionCount = 4
+    static let minimumReviewWorthyActionCount = 5
     
     static func requestReviewIfAppropriate() {
         //check to see if they have been asked to review this app in it's current version
